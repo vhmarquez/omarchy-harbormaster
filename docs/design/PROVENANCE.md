@@ -1,6 +1,8 @@
 # Frozen design bundle provenance
 
-The user supplied the outputs bundle for `design-an-omarchy-native-desktop-agent`, dated 2026-09-05. Local source was the `outputs` directory of that named design artifact; repository provenance intentionally does not embed the operator's home path. **Option 02 / Project manager was selected.** This is not approval of every behavior in the supplied code or of newly authored supplemental screens.
+The user supplied the outputs bundle for `design-an-omarchy-native-desktop-agent`, dated 2026-09-05. Local source was the `outputs` directory of that named design artifact; repository provenance intentionally does not embed the operator's home path. **Option 02 / Project manager was selected.** At the original handoff, that selection alone did not approve newly authored supplemental screens or every behavior in the supplied code.
+
+**Subsequent owner decision, 2026-09-05:** [M0 owner decisions](../M0-OWNER-DECISIONS.md) records explicit approval of option 02 plus the supplemental design and UX semantics. This supersedes the earlier outstanding-approval status, not the historical evidence or original bytes. Approval does not assert that the owner ran tests, that frozen ambiguous interactions are production policy, or that native QML/keyboard/scaling/accessibility tests passed.
 
 ## Preservation
 
@@ -14,7 +16,7 @@ The user supplied the outputs bundle for `design-an-omarchy-native-desktop-agent
 
 `original/assets/OFL.txt` preserves the complete SIL Open Font License 1.1 and the copyright notice: Copyright 2020 The JetBrains Mono Project Authors. `JetBrainsMono-Regular.ttf` is unmodified. The font remains under OFL; a repository-wide source license must not be presented as replacing its license.
 
-The supplied design bundle contains no separate license grant for its HTML/SVG/PNG/design notes. Preserve it as user-supplied design material; do not invent an upstream license or attribute it to a third-party product. Project licensing is governed by the separate M0 product/license decision. These notes do not make an independent rights determination.
+The supplied design bundle contains no separate license grant for its HTML/SVG/PNG/design notes. Preserve it as user-supplied design material; do not invent an upstream license or attribute it to a third-party product. The owner selected MIT for the project in [M0 owner decisions](../M0-OWNER-DECISIONS.md); see the repository [LICENSE](../../LICENSE). That selection does not replace the font's OFL or invent an upstream grant. These notes do not make an independent rights determination.
 
 Original design notes label all session data fictitious. New study data are also fictitious and use explicit `/fixture/…` paths; no actual prompts, terminal content, session database, user credentials or screenshots of live sessions are included. Supplemental HTML uses in-memory state only, no remote assets, no telemetry and no live integration.
 
@@ -24,4 +26,4 @@ Original design notes label all session data fictitious. New study data are also
 2. Shared-checkout warning says “worktree for isolation.” Supplemental copy says **separate checkout for parallel edits, not a security sandbox**.
 3. Original Open terminal wording admits “focus or open”; the new contract reserves it for focusing a verified live terminal and keeps Attach/Resume separate.
 4. Original view fixture buckets are exclusive and include unknown activity under Running. The new contract treats views as intersecting projections, includes unreviewed work in Needs you, and separates live/working/unknown counts.
-5. Review disposition, settings, full recovery and personal supplemental approval are absent from the originals. Added studies address the design gap; actual user review remains explicitly unclaimed.
+5. Review disposition, settings, full recovery and supplemental approval were absent from the originals at the initial handoff. Added studies addressed the design gap; the later [owner decision](../M0-OWNER-DECISIONS.md) approves that supplemental design. Originals remain unchanged and are not test or approval records.

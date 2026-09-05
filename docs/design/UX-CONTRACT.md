@@ -1,6 +1,6 @@
 # Harbormaster UX contract — M0 / issue #3
 
-Status: **option 02 Project manager selected by the user; supplemental decisions prepared under delegated M0 authority, not personally reviewed by the user.** This is a design handoff, not an application implementation or evidence that issue #3's user-review gate has passed. Read with roadmap #1 and product/security decision #2. Technical feasibility remains gated by #4–#6.
+Status: **owner-approved option 02 Project manager and supplemental design/semantics, 2026-09-05.** [M0 owner decisions](../M0-OWNER-DECISIONS.md) records the explicit approval of issue #3, including review/settings/recovery and this UX contract. It is not evidence that the owner executed a test or that an application exists. Read with roadmap #1 and product/security decision #2. Runtime #4 and protocol/domain #6 have completed their scoped M0 gates; #5's Codex Limited visibility is owner-accepted, not native callback qualification. Native UI and full keyboard/scaling/accessibility verification remain future M3/M6 gates.
 
 ## 1. Authority and scope
 
@@ -9,6 +9,7 @@ Status: **option 02 Project manager selected by the user; supplemental decisions
 - This contract supersedes ambiguous **copy and interaction semantics**, not the selected composition. Supplemental additions live in `supplemental.html`. All examples are explicitly fictional; `/fixture/…` paths are not real project paths.
 - Production is native Qt Quick/QML in Quickshell backed by the local Rust manager. No browser, web dashboard, transcript viewer, embedded terminal, credential broker or automatic approval layer. Mock buttons never execute commands, call agents, navigate to real artifacts or write browser storage.
 - Do not infer tested adapter capabilities from any illustration. A fixture's enabled button means “this hypothetical adapter/session supplied the required evidence.” Installed-version capability results must come from #5, not this HTML.
+- The [owner decision](../M0-OWNER-DECISIONS.md) accepts Codex **Limited visibility** for issue #5; the owner's `#4` clause refers to this Codex decision, not the already-closed runtime issue #4. Keep unsupported signals/actions disabled per the [capability matrix](../harness-capabilities.md). No native Codex callback proof or credentialed-test authorization follows from acceptance. This contract does not authorize M1 implementation or deployment.
 
 ## 2. Selected composition and responsive layout
 
@@ -66,7 +67,7 @@ Supplemental baseline fixture has six sessions: S1 Hermes/Beacon working; S2 Cla
 
 No universal Approve, vague Stop, automatic commit/push/merge or automatic worktree removal. Approvals stay in each harness's native terminal. Disabled actions have a persistent nearby explanation and accessible description, including keyboard command results. A stale action request must fail safely and leave the selection intact.
 
-Closing the UI does not end managed sessions. Continuity across daemon restart depends on #4's independently owned runtime proof. Logout policy must be explicit, never silently enable lingering. Suspend/power-off does not keep computation running. Reboot recovers metadata and resume choices, not old processes.
+Closing the UI does not end managed sessions. [ADR 0002 / issue #4](../adr/0002-runtime.md) establishes independently owned runtime continuity for the disposable tmux/user-service/standalone-foot/Hyprland matrix, not production persistence or arbitrary-terminal support. Durable registry/reconciliation and actual Rust/QML restart behavior remain implementation tests. Logout policy must be explicit, never silently enable lingering. Suspend/power-off does not keep computation running. Reboot recovers metadata and resume choices, not old processes.
 
 ## 5. Primary journeys
 
@@ -101,17 +102,19 @@ Open project/artifact/terminal leaves Review unchanged. Mark reviewed deliberate
 
 ## 6. Settings contract
 
-Settings uses five persistent navigation groups. Native forms use Apply/Cancel for edits, inline validation and visible unsaved state. Navigating away offers Keep editing / Discard; no silent persistence. Hook/cleanup/export operations have their own explicit confirmation. The study intentionally only simulates a small subset of these operations; proposed defaults below are M0 decisions, not user-reviewed preferences.
+Settings uses five persistent navigation groups. Native forms use Apply/Cancel for edits, inline validation and visible unsaved state. Navigating away offers Keep editing / Discard; no silent persistence. Hook/cleanup/export operations have their own explicit confirmation. The study intentionally only simulates a small subset of these operations; defaults below are part of the [owner-approved M0 design](../M0-OWNER-DECISIONS.md), not applied user configuration or implemented backend policy.
 
 | Group | Fields, defaults and states |
 |---|---|
 | Harnesses | Executable/version, supported capability health, installed but unsupported, executable missing, observer missing, observer healthy. Explicit preview/consent for observational-hook installation/removal scoped to selected harness/profile; preserve unrelated hooks, profiles and permissions. No auto-install or automatic adoption. Reprobe is read-only and shows busy/failure. |
 | Projects & launching | Trusted roots (display path), supported executable, default workspace = new worktree, supported terminal choice, project removal leaves files/runtimes intact. Shared-checkout warning cannot be globally bypassed. Trust additions require the actual path and explicit consent. |
 | Notifications | Enabled by default with generic text only; allow Mute and timed Snooze. Respect desktop DND. Quiet delivery never clears durable attention/review. Show retry/expiry/overflow and uncertain delivery; offer retry only when safe. No exactly-once human-visible delivery claim. |
-| Privacy | No prompts/responses/terminal/environment/credentials captured. Hide text now masks task labels, project/path/branch, URLs and metadata in popup/manager/accessibility names/notifications, but does not delete storage. Proposed completed metadata retention = 30 days (7/30/90 choice), with active and unresolved items protected and cleanup preview. Presentation, collection, retention and deletion are separate sections. |
+| Privacy | No prompts/responses/terminal/environment/credentials captured. Hide text now masks task labels, project/path/branch, URLs and metadata in popup/manager/accessibility names/notifications, but does not delete storage. Approved design default for completed metadata retention = 30 days (illustrated 7/30/90 choice), with active and unresolved items protected and cleanup preview; effective backend limits need the reconciliation below. Presentation, collection, retention and deletion are separate sections. |
 | Advanced / Diagnostics | Read-only connection/schema/capability health. Sanitized diagnostics preview, explicit local export and path selection; no automatic upload, environment dump, transcripts, full paths or task labels by default. Export error preserves preview and permits retry. Retention/cleanup describes DB/WAL/backups: deletion is not guaranteed secure erasure. No raw command field, root privilege or hidden dangerous switches. |
 
 Retention expiry must not silently destroy active/unreviewed obligations. Cleanup lists what is eligible and protected, requires explicit confirmation, and concerns manager metadata only. It does not delete harness history, files, worktrees, logs or backups belonging to other tools. Worktree cleanup is a different operation. Masking does not secure in-memory data from scripts, disk, screenshots made before masking or same-UID processes.
+
+**Cross-contract boundary:** [ADR 0001](../adr/0001-product-and-architecture.md) and the [threat model](../THREAT-MODEL.md) support metadata minimization, independent review/delivery and no secure-erasure guarantee. [Protocol v0](../PROTOCOL.md) separates history, replay-protection tombstones, attention and pending notifications; [performance limits](../PERFORMANCE.md) cap retained facts at 20,000 or 30 days, whichever first, and give spool/outbox their own limits. The 30-day design default aligns at the policy level, but the illustrated 90-day choice is **not** a promise to exceed that backend cap. Mapping each retention choice to record classes/effective limits remains unresolved before implementation; do not silently raise a ceiling or present an ineffective choice as supported. Tombstone retirement/reconciliation, unread/outbox protection, cleanup preview and DB/WAL/backup behavior still need backend implementation and tests. Owner approval does not establish those safeguards as working.
 
 ## 7. Recovery, empty and failure states
 
@@ -156,4 +159,4 @@ The supplied study used Tokyo Night / Catppuccin Latte values. Supplemental HTML
 
 ## 10. Verification and review gate
 
-`VERIFICATION.md` distinguishes executed source/hash/model checks from browser/native/accessibility checks still owed. `REVIEW-CHECKLIST.md` maps states to artifacts and remaining approvals. Option 02 selection is confirmed by the delegated task context. New supplemental screens, exact defaults, keyboard/focus behavior and native rendering have **not** thereby received personal user approval. Do not close the user-reviewed acceptance boxes solely from file creation or a passing Node test.
+`VERIFICATION.md` distinguishes executed source/hash/model checks and partial parent browser evidence from the [explicit owner approval](../M0-OWNER-DECISIONS.md). `REVIEW-CHECKLIST.md` records the approved design/semantics separately from unperformed technical checks. Approval covers the supplemental baseline and its stated defaults/keyboard/focus/privacy policy; it does not establish that any of those behaviors worked in native rendering or that the owner exercised them. Complete browser/keyboard/scaling/accessibility and native Qt/Quickshell acceptance remain future M3/M6 gates. Pre-approval notes in preserved assets/evidence remain historical, not outstanding owner approval requests.

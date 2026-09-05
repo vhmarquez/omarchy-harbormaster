@@ -1,6 +1,6 @@
 # Design handoff review checklist — issue #3
 
-**Approval boundary:** user selected option 02 Project manager. Routine reversible M0 decisions were delegated. There is no evidence here that the user personally reviewed the added review/settings/recovery screens, exact defaults, focus model or complete visual matrix. Do not manufacture a sign-off, checkbox, date or approval comment. This checklist is for the parent/reviewer to finish, not a claim that issue #3 is closed.
+**Approval boundary (2026-09-05):** [M0 owner decisions](../M0-OWNER-DECISIONS.md) records explicit approval of option 02 Project manager and supplemental review/settings/recovery design and UX semantics, including the stated defaults and focus/privacy policy. This resolves the owner design-approval gate, not the technical test matrix. No claim is made that the owner executed browser/native tests. Issue publication/state is parent-owned; this checklist does not itself change GitHub.
 
 ## Artifact map
 
@@ -40,16 +40,19 @@ Open `supplemental.html` in a normal browser. It has no network/service/shell in
 
 ## Parent browser evidence received
 
-Read-only review of [`../M0-PARENT-VERIFICATION.md`](../M0-PARENT-VERIFICATION.md) confirms independent parent checks: 23 source/copy hashes; eight Node tests; rendered 1280×1000 dark review and 1024×768 light settings; Open project leaves review unchanged; Mark reviewed pins the item without changing reported/not-verified classification; rendered fixture label masking; no horizontal overflow in the tested light settings; terminal failure/retry retains `fixture-request-01`; no captured JavaScript errors during those interactions. This is **partial browser coverage, not personal supplemental user approval**. Full keyboard/scaling/accessibility matrix remains open. Final contrast-only token refinements are source-verified; no fresh parent screenshot of those final values is claimed.
+Read-only review of [`../M0-PARENT-VERIFICATION.md`](../M0-PARENT-VERIFICATION.md) confirms independent parent checks: 23 source/copy hashes; the historical eight-test Node run (expanded to 15 after the masking regression fix); rendered 1280×1000 dark review and 1024×768 light settings; Open project leaves review unchanged; Mark reviewed pins the item without changing reported/not-verified classification; rendered fixture label masking; no horizontal overflow in the tested light settings; terminal failure/retry retains `fixture-request-01`; no captured JavaScript errors during those interactions. Parent also recorded RED/GREEN checks for unapplied privacy/notification/workspace drafts surviving masking. This is **partial browser coverage, separate from the later explicit owner approval**. Full keyboard/scaling/accessibility matrix remains open. Final contrast-only token refinements are source-verified; no fresh parent screenshot of those final values is claimed.
 
-## Remaining approvals and technical gates
+## Recorded approvals and remaining technical gates
 
-- [ ] User personally reviews supplemental review/settings/recovery and exact semantics; record actual response verbatim/sourced, not an inferred sign-off.
-- [ ] User/native design review of dark/light, compact, focus/accessibility, empty/error/privacy before production UI implementation.
+- [x] Owner approves option 02 plus supplemental review/settings/recovery and UX semantics. Actual response and scope: [M0 owner decisions](../M0-OWNER-DECISIONS.md), 2026-09-05. This records approval, not personal test execution.
 - [x] Parent's limited browser layout/interactions recorded in `../M0-PARENT-VERIFICATION.md`; original static boards were not relabeled as captures. Full matrix remains unchecked below.
-- [ ] Remaining browser/keyboard/scaling/accessibility matrix in the exercise above completed and evidenced.
-- [ ] Native Qt/Quickshell theme/font/runtime, accessibility tree, actual keyboard routing/panel switching and display-scaling matrix exercised when production UI exists.
-- [ ] #4 validates persistence/focus/attach/recovery, #5 validates real harness/version capabilities, #6 agrees protocol/domain/evidence semantics. Disabled capability gates must reflect those findings.
-- [ ] Retention policy/default and metadata cleanup safeguards reconciled with #2 and backend retention design; no claim of secure erasure.
+- [x] M0 runtime evidence reconciled with design: [ADR 0002 / #4](../adr/0002-runtime.md) provides constrained disposable persistence/focus/attach/recovery proof, not production DB persistence, arbitrary-terminal support or saved-conversation resume.
+- [x] Harness scope reconciled with the [capability matrix](../harness-capabilities.md) and [owner decision](../M0-OWNER-DECISIONS.md): accept Codex **Limited visibility** for #5. The owner's `#4` clause maps to #5; runtime #4 was already closed. Native Codex callbacks remain unproven; no credentialed-test authorization or uniform harness parity is implied.
+- [x] M0 design-policy alignment checked against [ADR 0001 / #2](../adr/0001-product-and-architecture.md), [protocol/domain #6](../PROTOCOL.md) and the [threat model](../THREAT-MODEL.md): verified ownership, separate focus/attach/resume, outcome/review/delivery independence, metadata minimization and no secure erasure. This is document-level alignment, not complete wire mappings or backend enforcement.
+- [x] Owner-approved retention design records a 30-day default, active/unresolved protection, explicit cleanup preview/confirmation and masking distinct from deletion; see [UX contract §6](UX-CONTRACT.md#6-settings-contract). No settings were applied.
+- [ ] Remaining browser/keyboard/scaling/accessibility matrix in the exercise above completed and evidenced in future M3/M6 UI work, including rendered dark/light/compact, empty/error/privacy and exact focus behavior.
+- [ ] Native Qt/Quickshell theme/font/runtime, accessibility tree, actual keyboard routing/panel switching and display-scaling matrix exercised when production UI exists (M3/M6); owner approval is not a pass.
+- [ ] Production capability/action gates, durable review/Undo, identity/recovery and UI-to-wire mappings implemented and tested against #4–#6 contracts. Closed M0 feasibility/draft gates do not prove implementation.
+- [ ] Backend retention mapping and enforcement completed: the illustrated 7/30/90 choices must be reconciled with [PERFORMANCE.md](../PERFORMANCE.md)'s 20,000-fact/30-day ceiling and separate spool/outbox/tombstone limits. The 90-day option is not yet a supported effective retention promise. Test protected attention/review, atomic generation retirement, cleanup preview and DB/WAL/backups; no secure-erasure claim.
 
-Do not check boxes because a document exists or Node syntax/model tests pass. Preserve original checkboxes in the GitHub issue until actual acceptance evidence exists. No GitHub edit is performed by this handoff.
+Check only the scope supported by the cited approval or evidence. Earlier outstanding-approval statements in preserved HTML/evidence are historical; they do not override the owner decision. No GitHub edit, M1 implementation or deployment is performed or authorized by this handoff.

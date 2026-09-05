@@ -1,0 +1,57 @@
+{
+  "date": "2026-09-05",
+  "scope": "Documentation/license/owner-decision reconciliation; no executable changes. Pure/helper regressions and integrity checks rerun; real desktop and installed harness probes were NOT rerun. Their prior 41-test baseline remains in final-tests.json.",
+  "test_count": 38,
+  "all_commands_passed": true,
+  "results": [
+    {
+      "name": "contracts",
+      "command": "python3 -B -m unittest discover -s tests -v",
+      "exit_code": 0,
+      "tests": 10,
+      "output": "test_checker_reports_file_errors_as_json (test_m0_contracts.FixtureContractTests.test_checker_reports_file_errors_as_json) ... ok\ntest_checker_reports_json_parse_errors_as_json (test_m0_contracts.FixtureContractTests.test_checker_reports_json_parse_errors_as_json) ... ok\ntest_each_of_the_fourteen_specified_scenarios_is_required (test_m0_contracts.FixtureContractTests.test_each_of_the_fourteen_specified_scenarios_is_required) ... ok\ntest_fixture_records_are_explicit_unique_and_nonempty (test_m0_contracts.FixtureContractTests.test_fixture_records_are_explicit_unique_and_nonempty) ... ok\ntest_fixture_root_requires_an_object (test_m0_contracts.FixtureContractTests.test_fixture_root_requires_an_object) ... ok\ntest_required_failure_scenarios_cannot_be_missing (test_m0_contracts.FixtureContractTests.test_required_failure_scenarios_cannot_be_missing) ... ok\ntest_scenario_ids_require_nonempty_strings_before_set_checks (test_m0_contracts.FixtureContractTests.test_scenario_ids_require_nonempty_strings_before_set_checks) ... ok\ntest_scenario_records_require_objects (test_m0_contracts.FixtureContractTests.test_scenario_records_require_objects) ... ok\ntest_scenarios_requires_a_list (test_m0_contracts.FixtureContractTests.test_scenarios_requires_a_list) ... ok\ntest_schema_version_requires_exact_integer_one (test_m0_contracts.FixtureContractTests.test_schema_version_requires_exact_integer_one) ... ok\n\n----------------------------------------------------------------------\nRan 10 tests in 0.039s\n\nOK"
+    },
+    {
+      "name": "runtime-identity",
+      "command": "python3 -B -m unittest discover -s spikes/runtime -p test_identity.py -v",
+      "exit_code": 0,
+      "tests": 2,
+      "output": "test_exact_identity_accepts_only_matching_window (test_identity.IdentityTests.test_exact_identity_accepts_only_matching_window) ... ok\ntest_stale_or_ambiguous_identity_is_rejected (test_identity.IdentityTests.test_stale_or_ambiguous_identity_is_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 0.001s\n\nOK"
+    },
+    {
+      "name": "runtime-cleanup",
+      "command": "python3 -B -m unittest discover -s spikes/runtime -p test_cleanup.py -v",
+      "exit_code": 0,
+      "tests": 6,
+      "output": "test_clean_finalizer_still_validates_and_fingerprints_cleanup_tests (test_cleanup.CleanupTests.test_clean_finalizer_still_validates_and_fingerprints_cleanup_tests) ... ok\ntest_early_probe_failure_stays_failed_without_owned_resources (test_cleanup.CleanupTests.test_early_probe_failure_stays_failed_without_owned_resources) ... ok\ntest_false_readbacks_do_not_short_circuit_later_owned_targets (test_cleanup.CleanupTests.test_false_readbacks_do_not_short_circuit_later_owned_targets) ... ok\ntest_first_stop_timeout_does_not_skip_remaining_cleanup_or_export (test_cleanup.CleanupTests.test_first_stop_timeout_does_not_skip_remaining_cleanup_or_export) ... ok\ntest_multiple_cleanup_errors_are_reported_without_skipping_later_attempts (test_cleanup.CleanupTests.test_multiple_cleanup_errors_are_reported_without_skipping_later_attempts) ... ok\ntest_output_failure_returns_failed_structured_sanitized_summary (test_cleanup.CleanupTests.test_output_failure_returns_failed_structured_sanitized_summary) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.046s\n\nOK"
+    },
+    {
+      "name": "harness-helpers",
+      "command": "python3 -B -m unittest discover -s spikes/harnesses -p test_probe.py -v",
+      "exit_code": 0,
+      "tests": 5,
+      "output": "test_command_hook_emits_only_allowlisted_metadata_without_stdout (test_probe.EventProjection.test_command_hook_emits_only_allowlisted_metadata_without_stdout) ... ok\ntest_invalid_oversized_and_unwritable_payloads_fail_open_silently (test_probe.EventProjection.test_invalid_oversized_and_unwritable_payloads_fail_open_silently) ... ok\ntest_sandbox_denies_network_and_inherited_credentials (test_probe.Helpers.test_sandbox_denies_network_and_inherited_credentials) ... ok\ntest_overlay_refuses_symlink_and_concurrent_edits (test_probe.Install.test_overlay_refuses_symlink_and_concurrent_edits) ... ok\ntest_reversible_overlay_preserves_unrelated_hooks_and_exact_original_bytes (test_probe.Install.test_reversible_overlay_preserves_unrelated_hooks_and_exact_original_bytes) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.140s\n\nOK"
+    },
+    {
+      "name": "design",
+      "command": "node --test docs/design/tests/study.test.cjs",
+      "exit_code": 0,
+      "tests": 15,
+      "output": "\u2714 UI masking via #mask preserves unapplied privacy draft 7 (5.398626ms)\n\u2714 UI masking via #privacy-mask preserves unapplied privacy draft 7 (2.048689ms)\n\u2714 UI masking via #mask preserves unapplied privacy draft 90 (1.765454ms)\n\u2714 UI masking via #privacy-mask preserves unapplied privacy draft 90 (1.573675ms)\n\u2714 UI masking via #mask preserves unapplied notifications draft muted (1.720854ms)\n\u2714 UI masking via #mask preserves unapplied notifications draft snoozed (5.039301ms)\n\u2714 UI masking via #mask preserves unapplied projects draft checkout (1.536396ms)\n\u2714 maskable project labels retain stable explicit option values (0.156911ms)\n\u2714 portable UI exposes required review/settings/recovery controls without network or storage APIs (0.499754ms)\n\u2714 fixture projection counts overlap intentionally and project scope never changes global totals (0.614054ms)\n\u2714 settings are explicit and reversible: hooks need consent and privacy never enables content collection (0.461229ms)\n\u2714 capability gates distinguish focus, attach, resume and owned termination (0.457156ms)\n\u2714 launch retry reuses its request and preserves created context; uncertain or duplicate submit cannot spawn (0.430722ms)\n\u2714 masking hides fixture metadata but does not change retention or erase review state (0.443214ms)\n\u2714 opening work or delivering a notification never reviews a turn; explicit review is undoable and does not verify tests (0.49218ms)\n\u2139 tests 15\n\u2139 suites 0\n\u2139 pass 15\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 61.07235"
+    },
+    {
+      "name": "bundle",
+      "command": "python3 -B docs/design/tests/verify_bundle.py",
+      "exit_code": 0,
+      "tests": 0,
+      "output": "{\n  \"original_files\": 23,\n  \"original_bytes\": 4312835,\n  \"hashes\": \"all match\",\n  \"font_license\": \"OFL retained\",\n  \"study_inline_scripts\": 2,\n  \"study_recovery_states\": 18,\n  \"duplicate_static_ids\": 0,\n  \"local_links\": \"all resolve\",\n  \"contrast_minima\": {\n    \"dark\": {\n      \"text\": 8.318,\n      \"muted\": 6.361,\n      \"accent\": 5.333,\n      \"warn\": 6.715,\n      \"bad\": 5.075,\n      \"line\": 4.011\n    },\n    \"light\": {\n      \"text\": 5.173,\n      \"muted\": 4.966,\n      \"accent\": 5.002,\n      \"warn\": 4.815,\n      \"bad\": 5.156,\n      \"line\": 3.617\n    }\n  },\n  \"browser_layout_verified\": false\n}"
+    },
+    {
+      "name": "fixtures",
+      "command": "python3 -B scripts/verify-m0.py",
+      "exit_code": 0,
+      "tests": 0,
+      "output": "{\"passed\": true, \"errors\": []}"
+    }
+  ]
+}

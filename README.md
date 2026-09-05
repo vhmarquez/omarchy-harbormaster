@@ -2,13 +2,14 @@
 
 An Omarchy-native, local-first agent manager for concurrent Hermes, Claude Code and Codex work.
 
-**Stage: M0 feasibility and design. This repository does not yet contain an installable manager.** The selected composition is option 02, Project manager: project navigation, session list and inspector, plus an attention-first bar popup. A finished agent turn is not proof the work is correct.
+**Stage: M0 feasibility and design complete under the owner-approved Limited visibility scope for Codex. M1 is unstarted; this repository does not yet contain an installable manager.** The approved composition is option 02, Project manager: project navigation, session list and inspector, plus an attention-first bar popup, with the supplemental review/settings/recovery study approved. A finished agent turn is not proof the work is correct.
 
 ## Project tracking
 
 - [Roadmap and product contract](https://github.com/vhmarquez/omarchy-harbormaster/issues/1)
 - [Milestones](https://github.com/vhmarquez/omarchy-harbormaster/milestones)
 - [Current M0 status and acceptance evidence](docs/M0-STATUS.md)
+- [Owner decisions: MIT, design approval and Codex Limited visibility](docs/M0-OWNER-DECISIONS.md)
 
 ## M0 artifacts
 
@@ -43,4 +44,4 @@ No application service, real-profile observer, deployment, credential transfer o
 
 ## Licensing
 
-A project license has not been granted yet; owner confirmation is pending. MIT is recommended, not selected. Third-party assets retain their supplied notices: the bundled design font's [OFL](docs/design/original/assets/OFL.txt) is preserved. A future project license does not supersede dependency/asset obligations.
+Harbormaster-authored source and documentation are licensed under [MIT](LICENSE), explicitly selected by the owner on 2026-09-05. Archived user-supplied design material retains its [provenance and licensing caveats](docs/design/PROVENANCE.md); the bundled JetBrains Mono font remains under its unchanged [OFL](docs/design/original/assets/OFL.txt). MIT does not supersede third-party asset/dependency rights or future Qt/Quickshell distribution obligations.

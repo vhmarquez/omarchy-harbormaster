@@ -2,6 +2,8 @@
 
 This is a disposable feasibility probe, **not a production adapter, installer, daemon, or release compatibility suite**. It does not start a model turn. Decisions and the per-version matrix are in [docs/harness-capabilities.md](../../docs/harness-capabilities.md).
 
+**Owner scope acceptance (2026-09-05):** [Limited visibility for Codex is accepted for M0](../../docs/M0-OWNER-DECISIONS.md). No trusted native Codex callback ran; qualification is deferred, not relabeled as passed. No additional credentialed test or deployment is authorized.
+
 ## Reproduce
 
 Run from the repository root on the reference Linux machine:

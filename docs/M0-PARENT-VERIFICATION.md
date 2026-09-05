@@ -1,5 +1,7 @@
 # Parent verification — M0 working evidence
 
+Owner approval was subsequently received on 2026-09-05: [MIT, supplemental design approval and accepted Codex Limited visibility](M0-OWNER-DECISIONS.md). The technical evidence below predates that decision and is retained unchanged in scope. Approval resolves the M0 owner gates; it does not turn limited tests into native callback, accessibility or production verification.
+
 ## Contract/fixture checker
 
 `python3 -B -m unittest discover -s tests -v` was run after each checker change. First RED: missing checker assertion failed. First GREEN: required scenario coverage check passed. Second RED: mislabeled/duplicate/incomplete fixture data was incorrectly accepted. Second GREEN: both tests passed after adding explicit provenance, uniqueness and completeness validation.
@@ -32,7 +34,7 @@ Harness evidence:
 - Claude Code 2.1.260: actual offline `--init-only` emitted Setup, SessionStart and SessionEnd; configuration restored byte-exactly. No prompt/model request.
 - Codex 0.153.2: actual read-only app-server hook discovery and native CLI startup exercised. **Native startup stopped at authentication; command hooks remain untrusted and no native callback was observed.** No credentials, fake provider responses, trust hashes or approval bypass were used. The test passes for honest inventory/gap detection, not Codex integration completion.
 
-The Codex native callback portion of issue #5 remains blocked and must not be closed because the inventory test is green.
+The Codex native callback portion remains technically blocked. Issue #5 is accepted only under the owner's explicit Limited visibility scope revision, not because the inventory test is green. Trusted callback qualification remains future work.
 
 ## Supplemental browser checks
 

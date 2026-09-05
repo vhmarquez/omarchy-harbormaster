@@ -1,6 +1,6 @@
 # Harness capabilities — M0 issue #5
 
-**Decision: conditional GO for a deliberately limited observational design; NO-GO for uniform harness control or claiming three fully verified native-hook integrations.** No M1 implementation or deployment is authorized by this spike.
+**Decision: owner-accepted GO for the deliberately limited M0 observational design, with Codex Limited visibility; NO-GO for uniform harness control or claiming three fully verified native-hook integrations.** The [2026-09-05 owner decision](M0-OWNER-DECISIONS.md) resolves the scope gate, not the technical callback gap. No M1 implementation or deployment is authorized by this spike.
 
 The tested surface differs by harness. Claude has genuine startup/end callbacks. Hermes' actual installed plugin loader is proven with explicitly synthetic callback inputs. Codex's installed native hook discovery is proven, but its native CLI stops at authentication before a supported `/hooks` trust review can be performed in the credential-free environment. Keep that gap visible; don't convert a successful schema query into a live callback claim.
 
@@ -93,7 +93,7 @@ App Server is a different integration mode. Its installed schema exposes `thread
 | Managed control / approve / inject / terminate discovered sessions | **NO-GO.** No such adapter is implemented or validated. Event producers must not gain a control channel. |
 | M1 or deployment | **Not authorized by this artifact.** |
 
-Issue #5's minimum tests and matrix have reviewable results. The stronger statement “trusted native hooks executed on all three harnesses” remains **unmet**. Resolve M0 only by accepting this narrowed scope or by completing the blocked test; do not silently check that stronger gate as passed.
+Issue #5's minimum tests and matrix have reviewable results. The owner explicitly accepted **Limited visibility** on 2026-09-05, revising M0's scope rather than claiming the blocked test passed. The stronger statement “trusted native hooks executed on all three harnesses” remains **unmet**. Native Codex qualification is deferred to [M5 #24](https://github.com/vhmarquez/omarchy-harbormaster/issues/24), with degraded-mode mapping in [#25](https://github.com/vhmarquez/omarchy-harbormaster/issues/25). A credentialed test requires separate scoped authorization; no login, credential transfer or trust bypass is authorized by this acceptance.
 
 ## Reference notes and caveats
 

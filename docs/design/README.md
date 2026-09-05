@@ -1,12 +1,12 @@
 # Harbormaster design handoff — M0 / issue #3
 
-**Selected:** option 02 Project manager. **Delivered:** frozen original bundle, explicit UX contract, and a nonproduction offline supplemental study for the missing review/settings/recovery states. **Not claimed:** personal user approval of supplemental screens, browser/native UI acceptance, real harness capabilities or production implementation.
+**Owner-approved design baseline (2026-09-05):** option 02 Project manager plus the supplemental review/settings/recovery design and UX semantics. The explicit response and scope are recorded in [M0 owner decisions](../M0-OWNER-DECISIONS.md). **Delivered:** frozen original bundle, explicit UX contract, and a nonproduction offline supplemental study. **Not claimed:** that the owner executed tests, complete browser/native UI acceptance, real harness capability parity or production implementation.
 
 ## Start here
 
 - Open **[supplemental.html](supplemental.html)** in a regular browser. Everything is fictitious, local and in memory. No agents, shell commands, external requests or persistent browser state. Reload or Reset fixtures resets it.
 - Read **[UX-CONTRACT.md](UX-CONTRACT.md)** for view/state/action semantics, native theme mapping, launch/review/settings/recovery, keyboard/focus/accessibility and compact layout.
-- Use **[REVIEW-CHECKLIST.md](REVIEW-CHECKLIST.md)** for acceptance coverage and parent/user review. Browser interactions/screenshots and personal supplemental approval are separate checks.
+- Use **[REVIEW-CHECKLIST.md](REVIEW-CHECKLIST.md)** for the recorded design approval, acceptance coverage and remaining technical gates. Approval is separate from browser/native test evidence; full keyboard/scaling/accessibility checks remain future M3/M6 gates.
 - Read **[VERIFICATION.md](VERIFICATION.md)** for exact executed checks and limitations.
 
 ## Frozen source
@@ -25,6 +25,10 @@
 - Dark/light and compact controls; separate label/count tracks fix compact navigation crowding. Worktree copy says separate checkout, **not a security sandbox**.
 
 The HTML is a portable mockup, not the production stack. Production must be native Qt Quick/QML in Quickshell, using the user's current Omarchy theme/font rather than these illustrative CSS values.
+
+The owner also accepted **Limited visibility for Codex**, explicitly mapped to issue #5 in the [decision record](../M0-OWNER-DECISIONS.md); runtime issue #4 was already closed. This is a scope decision, not evidence of native Codex callbacks or authorization for credentialed tests. The illustrations do not override the [installed-version capability matrix](../harness-capabilities.md). No M1 work or deployment is authorized by this design approval.
+
+Original assets, supplemental HTML, tests and existing evidence remain unchanged by this approval reconciliation. Any pre-approval wording in those preserved artifacts describes the historical handoff, not the current owner decision.
 
 ## Reproduce local checks
 
