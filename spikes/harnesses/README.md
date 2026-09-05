@@ -4,7 +4,18 @@ This is a disposable feasibility probe, **not a production adapter, installer, d
 
 **Owner scope acceptance (2026-09-05):** [Limited visibility for Codex is accepted for M0](../../docs/M0-OWNER-DECISIONS.md). No trusted native Codex callback ran; qualification is deferred, not relabeled as passed. No additional credentialed test or deployment is authorized.
 
-## Reproduce
+## M1 offline verification split
+
+M1 keeps the real sandbox test mandatory, now in `test_sandbox.py` rather than
+mixed into the four portable `test_probe.py` helper tests. From the repository
+root, `env -i PATH=/usr/bin python3 -B scripts/verify.py --scope native` runs it
+inside the existing outer disposable sandbox with no real profiles or credentials.
+It additionally compares inner/outer network-namespace identity: a failed
+connection alone can be explained by the outer sandbox. Neither missing binary
+nor unusable namespace is a skip. See [the exact-revision two-lane merge
+qualification](../../docs/M1-VERIFICATION.md).
+
+## Historical M0 reproduce (not the M1 offline command)
 
 Run from the repository root on the reference Linux machine:
 
@@ -14,7 +25,7 @@ python3 spikes/harnesses/test_live.py -v
 python3 spikes/harnesses/run.py --out spikes/harnesses/evidence/installed.json
 ```
 
-Or run both test files together:
+Historical broader discovery (includes installed-harness probes; not authorized by the M1 offline command):
 
 ```sh
 python3 -m unittest discover -s spikes/harnesses -v

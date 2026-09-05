@@ -11,14 +11,43 @@ Run all required checks offline, with no implicit downloads:
     python3 scripts/verify.py
 
 Default backend: existing `/usr/bin/bwrap` on Linux x86_64. The local qualified
-Qt version is 6.11.2, Python 3.14.7. Existing host packages are not modified.
+Qt version is 6.11.2, Python 3.14.7. The separate native lane uses the observed
+installed bubblewrap 0.11.2, not the historical 0.12.0-1 Docker diagnostic
+package. [Native platform observations](../evidence/m1-7/split-native-platform.json)
+record the real version, executable hash and kernel; this is not a transitive
+platform audit. Existing host packages are not modified.
 A missing tool or mismatched pin fails required preflight, rather than silently
 skipping checks or installing globally. See [TOOLCHAIN.md](TOOLCHAIN.md) and
 [DEPENDENCIES.md](DEPENDENCIES.md) for exact pins, origins and obligations.
 
-Hosted CI builds the pinned Arch image, then invokes the SAME check inventory:
+The owner approved a mandatory split on 2026-09-05. Hosted CI builds the pinned
+Arch image and runs the portable inventory (including native Qt tests):
 
-    python3 scripts/verify.py --backend docker --image sha256:<built-image-id>
+    python3 scripts/verify.py --backend docker --scope portable --image sha256:<built-image-id>
+
+The native Linux lane uses the existing outer bubblewrap isolation:
+
+    env -i PATH=/usr/bin python3 -B scripts/verify.py --scope native
+
+`all` remains the local default: the unique union of 21 portable checks and the
+separate `m0-harness-sandbox` check, 22 required checks in total. The native scope
+has three required entries: isolation probe, tool integrity, and real sandbox
+integration. The two preflights are shared, not different test implementations.
+Docker rejects `all`/`native` rather than silently skipping or weakening anything.
+The four non-sandbox M0 harness helpers remain portable; the original sandbox
+method is relocated intact and accompanied by an inner/outer network-namespace
+identity assertion. Removing only the inner network isolation must fail that
+assertion even when the outer sandbox would also deny an outbound connection.
+
+Before merge, pair the downloaded Docker report directory and a trusted native
+report directory for the exact full PR-head commit:
+
+    env -i PATH=/usr/bin python3 -B scripts/verify.py --qualify <portable-report-dir> <native-report-dir> --revision <full-PR-head>
+
+Both qualified results, passing current-head hosted checks, independent review
+and separate owner approval are mandatory. This split authorization is not merge
+approval. The native lane is currently a separately executed operational gate,
+not a new GitHub-hosted job or a branch-protection setting.
 
 Only a built immutable image ID is accepted. Local Docker access is denied on
 the development host, so hosted CI—not an invented local Docker result—is the
@@ -64,6 +93,29 @@ synthetic native/CLI fixtures are labeled as such; no model/provider calls or
 invented application results. The explicit Rust CLI integration target is checked separately from the library
 suite; an absent or empty target cannot be satisfied by unit-test passes.
 
+Schema-2 reports include `scope`, both `qualifications`, and
+`qualification_complete`. Only successful paired Docker/native review sets
+completion true; even the local `all` convenience run lacks hosted Docker
+evidence and remains incomplete. A successful portable run reports native `NOT_RUN`
+and incomplete qualification; this is **not** an optional native skip. The
+three historical optional live/future checks retain their separate names.
+
+Paired review rejects missing/old-schema/wrong-scope results, omitted or skipped
+required checks, duplicate names/keys, wrong commands, nonzero/timeout/overflow
+results, invalid suite logs and source-manifest differences. It binds actual
+allowlisted source bytes to the requested committed Git blobs; no dirty or
+untracked selected source can be labeled as that revision. CI's synthetic merge
+checkout is acceptable only when its selected source bytes equal that head.
+A base/source difference requires reconciliation and fresh qualification, not a
+waiver or a relabeled hash. The source snapshot boundary—not excluded evidence,
+Git metadata or private tool caches—is what is byte-bound to the commit.
+
+JSON inputs are limited to 2 MiB, logs to 4 MiB, and final-component symlinks or
+nonregular input files fail. These are consistency checks on **trusted execution
+evidence**, not cryptographic attestation: fabricated reports cannot prove a
+process ran. Read the real GitHub run/head and trusted native execution before
+acceptance. A passing paired report neither grants approval nor performs a merge.
+
 ## Maintainability
 
 The required report checks analysis coverage, not a hard size pass/fail.
@@ -75,6 +127,62 @@ separately. Clippy warnings are errors; a justified size exception must be
 narrowly annotated and explained, never globally suppressed to hide a hotspot.
 The PR records hotspot dispositions plus independent architectural review.
 
+### Split maintainability disposition
+
+The paired evidence module has 175 nonblank lines and its largest function has
+23. It owns one concern: consistency of scoped evidence with reviewed source.
+The CLI retains execution/serialization boundaries rather than adding a second
+verification framework. No production size exception is needed.
+
+The 429-nonblank-line `test_qualification.py` is an explicit **test** size review
+trigger. It keeps the end-to-end paired-evidence contract and its mutation matrix
+together: scope/mandatory status, each actual planned check, commands, logs,
+source identity and malformed filesystem/JSON inputs. The shared real disposable
+Git and clearly labeled synthetic-record setup lives in one cohesive fixture
+helper. Keeping these paired cases together makes each accepted/rejected input
+visible next to the same contract; no production rule is copied into a test-only
+implementation. Independent review must assess this rationale, not treat a
+threshold as permission to omit cases or split files just to lower the count.
+
+### Independent result-gate review corrections
+
+The first independent result-gate review found three defects before publication:
+a generic positive-count native log could omit the namespace method, permissive
+metrics JSON accepted invalid coverage, and an explicit empty revision could be
+silently ignored. The native/CI boundary review passed separately; it did not
+substitute for fixing these result-gate defects.
+
+The native validator now requires both exact verbose method results, their exact
+executed count and one unambiguous final success summary, while preserving the
+real inline namespace diagnostic. A shared strict JSON decoder applies the same
+duplicate-key, finite-number, nesting and Unicode policy to envelopes and metrics;
+coverage counts must be actual positive integers. An explicit empty `--revision`
+without pairing fails before output creation or execution. Focused runner and
+actual paired-CLI regressions use disposable committed source and clearly labeled
+synthetic receipts, not fabricated execution proof.
+
+[Correction evidence](../evidence/m1-7/split-review-corrections.json) retains the
+observed RED/GREEN results, including the stale validator-kind test caught by the
+full suite and its explicit update. The refreshed execution bundle below must
+match the final source; earlier passing local runs do not waive re-verification.
+
+## Approved split execution record
+
+[The prepublication local record](../evidence/m1-7/split-verification.json)
+contains actual required/optional results, source hashes and measured durations.
+The [dedicated native report](../evidence/m1-7/split-native/report.json) preserves
+its bounded logs and complete source manifest alongside it. These are real local
+runs, not a Docker result or an execution-attestation service. The native record
+can be paired with the downloaded current-head Docker directory using the command
+above once its selected source bytes are bound to the committed head.
+
+[RED/GREEN and mutation evidence](../evidence/m1-7/split-red-green.json)
+distinguishes real native namespace runs from synthetic malformed/absent/skipped
+suite and report fixtures. The original sandbox method remains intact; the
+inner-only network mutation passes that old method but fails the added namespace
+assertion. The complete current-head hosted run, paired review and independent
+review verdict are linked from PR #49; no old local pass substitutes for them.
+
 ## Evidence status
 
 Component evidence and observed RED/GREEN/fault-injection runs are being
@@ -83,7 +191,7 @@ failure, followed by a passing sentinel; this qualifies the tool gate, not
 product-UI TDD. Early isolation self-probe exposed bubblewrap's generated PWD;
 it is now explicitly fixed to `/work` in the common allowlist.
 
-## Local execution evidence (after review corrections)
+## Historical local execution evidence (before the approved split)
 
 The common entry point passed all **21 required checks** in the captured local
 bubblewrap run. [Machine-readable summary](../evidence/m1-7/local-verification.json)
@@ -184,10 +292,19 @@ record actual public package bytes and local execution. The M0 helper integratio
 is unchanged and remains required; Docker confinement and the check inventory
 are unchanged. No native test is replaced by a static assertion or a skip.
 
-Installing a binary does not qualify nested namespaces. The exact corrected
-head must execute hosted verification; if it fails on namespace permissions,
-stop for an explicit verification-contract decision rather than relaxing
-seccomp/capabilities or hiding a required check. PR #49 records current status.
+Installing the binary did not qualify nested namespaces. Actual
+[run 33994133494](https://github.com/vhmarquez/omarchy-harbormaster/actions/runs/33994133494)
+at `f28ea9cd97497b80ea4ffffcac1e84a6b4515f78` reached 20 required PASS, one FAIL
+and three optional SKIPs; the exact error was `bwrap: No permissions to create a
+new namespace`. That observation supersedes the earlier missing-binary diagnosis.
+It does not identify a particular kernel/seccomp/AppArmor setting as the sole cause.
+
+The owner then explicitly approved the mandatory split documented above. Docker
+confinement and the strict probe are unchanged. The diagnostic-only bubblewrap
+package is no longer installed in the portable image; real `/usr/bin/bwrap` is
+still required on the native host. This is not removal or mocking of the native
+integration. Current-head results/review are linked from PR #49; historical
+pre-split local results are not evidence that the new paired gate has run.
 
 The baseline GitHub branch-protection endpoint reports main is not protected.
 No protection/settings were changed; explicit owner approval and current-head

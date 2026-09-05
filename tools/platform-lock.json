@@ -23,13 +23,6 @@
     }
   },
   "packages": {
-    "bubblewrap": {
-      "version": "0.12.0-1",
-      "install": "snapshot",
-      "url": "https://archive.archlinux.org/repos/2026/09/05/extra/os/x86_64/bubblewrap-0.12.0-1-x86_64.pkg.tar.zst",
-      "sha256": "f01c85b27bfd1034858ded8848bc03089e6d9069030add87aaf2f2596749cb36",
-      "licenses": ["LGPL-2.1-or-later"]
-    },
     "archlinux-keyring": {
       "version": "20260902-1",
       "install": "snapshot",

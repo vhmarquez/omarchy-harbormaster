@@ -16,11 +16,12 @@ class PlanTests(unittest.TestCase):
         self.assertEqual(len(names), len(set(names)))
         for required in ("tool-pins", "rust-format", "rust-clippy", "rust-unit",
                          "rust-integration", "qml-lint", "qml-format", "qml-native",
-                         "advisory-license", "maintainability", "python-verification"):
+                         "advisory-license", "maintainability", "python-verification",
+                         "m0-harness-sandbox"):
             self.assertIn(required, names)
         for name, argv, kind in result:
             self.assertTrue(argv, name)
-            self.assertIn(kind, ("exit", "python", "rust", "qml", "node", "metrics"))
+            self.assertIn(kind, ("exit", "python", "native", "rust", "qml", "node", "metrics"))
 
 
 if __name__ == "__main__":

@@ -42,6 +42,7 @@ class CIContractTests(unittest.TestCase):
         self.assertEqual(set(workflow["jobs"]), {"verify"})
         job = workflow["jobs"]["verify"]
         self.assertEqual(job["runs-on"], "ubuntu-24.04")
+        self.assertEqual(job["name"], "verify (portable)")
         self.assertEqual(job["timeout-minutes"], 30)
         self.assertEqual(job["permissions"], {"contents": "read"})
         self.assertFalse(set(job) & {"container", "services", "environment", "continue-on-error", "if"})
@@ -63,7 +64,7 @@ class CIContractTests(unittest.TestCase):
         self.assertIn("--iidfile", run)
         self.assertIn("^sha256:[0-9a-f]{64}$", run)
         self.assertIn("python3 scripts/prepare-tools.py", run)
-        self.assertIn('python3 scripts/verify.py --backend docker --image "$image"', run)
+        self.assertIn('python3 scripts/verify.py --backend docker --scope portable --image "$image"', run)
         self.assertEqual(run.count("scripts/verify.py"), 1)
         self.assertIsNone(re.search(r"cargo (test|check|clippy|deny)|qmllint|qmltestrunner", run))
         for forbidden in ("sudo", "--privileged", "seccomp=unconfined", "--network=host",
@@ -133,15 +134,13 @@ class CIContractTests(unittest.TestCase):
                           "--mount=", "ADD ", "curl |", "sudo", "ENTRYPOINT [\"/bin/bash\"]"):
             self.assertNotIn(forbidden, docker)
 
-    def test_image_declares_the_required_m0_bubblewrap_dependency(self):
+    def test_portable_image_does_not_add_a_nested_sandbox_dependency(self):
         lock = load_json(ROOT / "tools/platform-lock.json")
         docker = (ROOT / "tools/ci.Dockerfile").read_text()
-        self.assertIn("bubblewrap", lock["packages"])
-        self.assertEqual(lock["packages"]["bubblewrap"]["version"], "0.12.0-1")
         install = next(line for line in docker.splitlines() if "&& pacman -Suu " in line)
-        self.assertIn("bubblewrap", install.split())
-        self.assertIn('test "$(pacman -Q bubblewrap)" = \'bubblewrap 0.12.0-1\'', docker)
-        self.assertIn("test -x /usr/bin/bwrap", docker)
+        self.assertNotIn("bubblewrap", lock["packages"])
+        self.assertNotIn("bubblewrap", install.split())
+
         lines = docker.splitlines()
         for index, line in enumerate(lines):
             if line.lstrip().startswith("&&"):
@@ -162,7 +161,6 @@ class CIContractTests(unittest.TestCase):
         expected = {
             "archlinux-keyring": ["GPL-3.0-or-later"],
             "gcc": ["GPL-3.0-or-later WITH GCC-exception-3.1", "GFDL-1.3-or-later"],
-            "bubblewrap": ["LGPL-2.1-or-later"],
             "git": ["GPL-2.0-only"], "python": ["PSF-2.0"],
             "nodejs": ["MIT"], "qt6-base": qt, "qt6-declarative": qt,
         }

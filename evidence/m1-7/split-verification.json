@@ -1,0 +1,511 @@
+{
+  "report": {
+    "schema": 2,
+    "started_at": "2026-09-05T23:58:46.523163+00:00",
+    "backend": "bwrap",
+    "scope": "all",
+    "checks": [
+      {
+        "name": "isolation-probe",
+        "required": true,
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "scripts/verification/probe.py",
+          "/tmp/harbormaster-verify-qrauvdbm/outside-canary"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "timed_out": false,
+        "output_limited": false,
+        "elapsed_seconds": 0.032,
+        "log": "isolation-probe.txt"
+      },
+      {
+        "name": "tool-pins",
+        "required": true,
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "scripts/verification/preflight.py"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "timed_out": false,
+        "output_limited": false,
+        "elapsed_seconds": 0.616,
+        "log": "tool-pins.txt"
+      },
+      {
+        "name": "native-tool-pins",
+        "required": true,
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "scripts/verification/native.py",
+          "versions"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "timed_out": false,
+        "output_limited": false,
+        "elapsed_seconds": 0.04,
+        "log": "native-tool-pins.txt"
+      },
+      {
+        "name": "rust-format",
+        "required": true,
+        "command": [
+          "/tools/rust/bin/cargo",
+          "fmt",
+          "--all",
+          "--",
+          "--check"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "timed_out": false,
+        "output_limited": false,
+        "elapsed_seconds": 0.02,
+        "log": "rust-format.txt"
+      },
+      {
+        "name": "rust-clippy",
+        "required": true,
+        "command": [
+          "/tools/rust/bin/cargo",
+          "clippy",
+          "--locked",
+          "--offline",
+          "--workspace",
+          "--all-targets",
+          "--all-features",
+          "--",
+          "-D",
+          "warnings"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "timed_out": false,
+        "output_limited": false,
+        "elapsed_seconds": 0.127,
+        "log": "rust-clippy.txt"
+      },
+      {
+        "name": "rust-unit",
+        "required": true,
+        "command": [
+          "/tools/rust/bin/cargo",
+          "test",
+          "--locked",
+          "--offline",
+          "--workspace",
+          "--lib",
+          "--all-features"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "timed_out": false,
+        "output_limited": false,
+        "elapsed_seconds": 0.125,
+        "log": "rust-unit.txt"
+      },
+      {
+        "name": "rust-integration",
+        "required": true,
+        "command": [
+          "/tools/rust/bin/cargo",
+          "test",
+          "--locked",
+          "--offline",
+          "--workspace",
+          "--test",
+          "cli",
+          "--all-features"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "timed_out": false,
+        "output_limited": false,
+        "elapsed_seconds": 0.21,
+        "log": "rust-integration.txt"
+      },
+      {
+        "name": "qml-lint",
+        "required": true,
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "scripts/verification/native.py",
+          "lint"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "timed_out": false,
+        "output_limited": false,
+        "elapsed_seconds": 0.084,
+        "log": "qml-lint.txt"
+      },
+      {
+        "name": "qml-format",
+        "required": true,
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "scripts/verification/native.py",
+          "format"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "timed_out": false,
+        "output_limited": false,
+        "elapsed_seconds": 0.03,
+        "log": "qml-format.txt"
+      },
+      {
+        "name": "qml-native",
+        "required": true,
+        "command": [
+          "/usr/lib/qt6/bin/qmltestrunner",
+          "-input",
+          "qml/tests",
+          "-maxwarnings",
+          "0"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "timed_out": false,
+        "output_limited": false,
+        "elapsed_seconds": 0.173,
+        "log": "qml-native.txt"
+      },
+      {
+        "name": "python-verification",
+        "required": true,
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests/verification",
+          "-v"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "timed_out": false,
+        "output_limited": false,
+        "elapsed_seconds": 8.314,
+        "log": "python-verification.txt"
+      },
+      {
+        "name": "python-tooling",
+        "required": true,
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests/tooling",
+          "-v"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "timed_out": false,
+        "output_limited": false,
+        "elapsed_seconds": 0.155,
+        "log": "python-tooling.txt"
+      },
+      {
+        "name": "m0-contract-tests",
+        "required": true,
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests",
+          "-v"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "timed_out": false,
+        "output_limited": false,
+        "elapsed_seconds": 0.086,
+        "log": "m0-contract-tests.txt"
+      },
+      {
+        "name": "m0-fixture-contract",
+        "required": true,
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "scripts/verify-m0.py"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "timed_out": false,
+        "output_limited": false,
+        "elapsed_seconds": 0.019,
+        "log": "m0-fixture-contract.txt"
+      },
+      {
+        "name": "m0-runtime-identity",
+        "required": true,
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "spikes/runtime",
+          "-p",
+          "test_identity.py",
+          "-v"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "timed_out": false,
+        "output_limited": false,
+        "elapsed_seconds": 0.038,
+        "log": "m0-runtime-identity.txt"
+      },
+      {
+        "name": "m0-runtime-cleanup",
+        "required": true,
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "spikes/runtime",
+          "-p",
+          "test_cleanup.py",
+          "-v"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "timed_out": false,
+        "output_limited": false,
+        "elapsed_seconds": 0.11,
+        "log": "m0-runtime-cleanup.txt"
+      },
+      {
+        "name": "m0-harness-helpers",
+        "required": true,
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "spikes/harnesses",
+          "-p",
+          "test_probe.py",
+          "-v"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "timed_out": false,
+        "output_limited": false,
+        "elapsed_seconds": 0.188,
+        "log": "m0-harness-helpers.txt"
+      },
+      {
+        "name": "m0-design-model",
+        "required": true,
+        "command": [
+          "node",
+          "--test",
+          "--test-reporter=tap",
+          "docs/design/tests/study.test.cjs"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "timed_out": false,
+        "output_limited": false,
+        "elapsed_seconds": 0.091,
+        "log": "m0-design-model.txt"
+      },
+      {
+        "name": "frozen-design-integrity",
+        "required": true,
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "docs/design/tests/verify_bundle.py"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "timed_out": false,
+        "output_limited": false,
+        "elapsed_seconds": 0.029,
+        "log": "frozen-design-integrity.txt"
+      },
+      {
+        "name": "advisory-license",
+        "required": true,
+        "command": [
+          "/tools/bin/cargo-deny",
+          "--config",
+          "tools/deny.toml",
+          "--frozen",
+          "--workspace",
+          "check",
+          "--deny",
+          "warnings",
+          "all"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "timed_out": false,
+        "output_limited": false,
+        "elapsed_seconds": 0.139,
+        "log": "advisory-license.txt"
+      },
+      {
+        "name": "maintainability",
+        "required": true,
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "scripts/verification/maintainability.py",
+          "."
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "timed_out": false,
+        "output_limited": false,
+        "elapsed_seconds": 0.105,
+        "log": "maintainability.txt"
+      },
+      {
+        "name": "m0-harness-sandbox",
+        "required": true,
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "spikes/harnesses/test_sandbox.py",
+          "Helpers.test_sandbox_denies_network_and_inherited_credentials",
+          "NetworkNamespace.test_sandbox_uses_distinct_network_namespace",
+          "-v"
+        ],
+        "status": "PASS",
+        "exit_code": 0,
+        "timed_out": false,
+        "output_limited": false,
+        "elapsed_seconds": 0.079,
+        "log": "m0-harness-sandbox.txt"
+      },
+      {
+        "name": "m0-live-runtime",
+        "required": false,
+        "status": "SKIP",
+        "reason": "Separate opt-in desktop/service probe; no deployment authorized"
+      },
+      {
+        "name": "m0-live-harness",
+        "required": false,
+        "status": "SKIP",
+        "reason": "Installed real harness probes are outside offline #7 verification"
+      },
+      {
+        "name": "native-shell-integration",
+        "required": false,
+        "status": "SKIP",
+        "reason": "Production Omarchy/QML UI is not implemented in #7"
+      }
+    ],
+    "passed": true,
+    "qualification_complete": false,
+    "qualifications": {
+      "portable": "PASS",
+      "native": "PASS"
+    }
+  },
+  "native_report": "split-native/report.json",
+  "source_manifest": "split-native/source-sha256.json",
+  "source_count": 140,
+  "scope_counts": {
+    "all": {
+      "required": {
+        "PASS": 22
+      },
+      "optional": {
+        "SKIP": 3
+      }
+    },
+    "native": {
+      "required": {
+        "PASS": 3
+      },
+      "optional": {
+        "SKIP": 3
+      }
+    }
+  },
+  "classification": "Actual prepublication local executions; not hosted Docker or paired completion",
+  "all_log_sha256": {
+    "isolation-probe": "60d69569dcc3e699d7351fa806365ee1ec2633648c257bc44151a7e38660c7fa",
+    "tool-pins": "e654a8835db1d5d5f62a3a1e0699bc7b863e841bb84ed478d2a0fbb7580a4a96",
+    "native-tool-pins": "c074cefde51e0ce422df8b1ed18d8781b7e0d4cef30e00231382d29a601712bb",
+    "rust-format": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "rust-clippy": "f8390430fbc582b1f997dca78f1714684446365ef01eabb5ce67c6be0697aec7",
+    "rust-unit": "20a510e9fc79dcdc4b1d49298cc32ed1be3cb23f64e0c92b4c7b800d5ea9088c",
+    "rust-integration": "ccc93f12aeed17753490b7a939e08f3895925fd0e316ef868448bc8dfccf907e",
+    "qml-lint": "7f75caf8e639de908de7ecf9b4271117d48b3362588f2ba66a06db70ce838e87",
+    "qml-format": "b8d983953d0b020319a8651f7f9f79ad9465f2bd01dd5dcf393b3248e421f0d6",
+    "qml-native": "a5e06e4b4c1d9c7fb8951bd86d6979d6f8a20c4c4876cad5aa7cb68baf2bd2ed",
+    "python-verification": "5a23e222bacfcc3b2b39c6ce9b8d8849186cd3899e18f58e7c5f536ce0f8f188",
+    "python-tooling": "0543d16dfcfd0c8dc2087941d81088c1c4c4fa48bada6a72634337e7f29e773e",
+    "m0-contract-tests": "af3a7ad950e9059d42f053312c379ef37b7e1fe6f45cce864cab1767d76e5b9d",
+    "m0-fixture-contract": "8bd2e937f15b750ff2e18abc445df9e143156651f4415267b0c018c4b07a051b",
+    "m0-runtime-identity": "f015a639e400407b384abe68b7c2c33581cc6ecb65cbc0ebf052c7f1fd5e92d4",
+    "m0-runtime-cleanup": "f0c4d9198883d95e12b550f6fabdd82afa2da4a4f3071755765ab7d0bf7134cb",
+    "m0-harness-helpers": "b2a7c7d3de76f604eba06862b9111ed3174525bcfe3daa0dcee16bd5452a4a60",
+    "m0-design-model": "ad9c6915e26bb13b8305338aa14d254be59ba8e72ba35283c6300d8f8d09556a",
+    "frozen-design-integrity": "3dcea217f0bfd66c0eb083aac469765788353a06ce24395af27e7d2aa5841a5c",
+    "advisory-license": "f1a0fca39d4280363937aabd77783990ea6480bd9ca257816de3b68fc8efa845",
+    "maintainability": "b4ba1e52b6888cd83c42b6568a0dc1dc262a232c06f6ba9b05b781b0f9fbe2b0",
+    "m0-harness-sandbox": "0923ccb77f52f28a3f0aa3cc3bd18569d85909bc1af8fc7f3dd6b6a21ace44b3"
+  },
+  "executions": [
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verify.py",
+        "--scope",
+        "all"
+      ],
+      "environment": {
+        "PATH": "/usr/bin"
+      },
+      "exit_code": 0,
+      "output": "PASS isolation-probe\nPASS tool-pins\nPASS native-tool-pins\nPASS rust-format\nPASS rust-clippy\nPASS rust-unit\nPASS rust-integration\nPASS qml-lint\nPASS qml-format\nPASS qml-native\nPASS python-verification\nPASS python-tooling\nPASS m0-contract-tests\nPASS m0-fixture-contract\nPASS m0-runtime-identity\nPASS m0-runtime-cleanup\nPASS m0-harness-helpers\nPASS m0-design-model\nPASS frozen-design-integrity\nPASS advisory-license\nPASS maintainability\nPASS m0-harness-sandbox\nPASS all verification; qualifications={'portable': 'PASS', 'native': 'PASS'}; complete=False; report: /home/vhm/Work/omarchy-harbormaster/.verify/run-1nw_f33o/report.json\n"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verify.py",
+        "--scope",
+        "native"
+      ],
+      "environment": {
+        "PATH": "/usr/bin"
+      },
+      "exit_code": 0,
+      "output": "PASS isolation-probe\nPASS tool-pins\nPASS m0-harness-sandbox\nPASS native verification; qualifications={'portable': 'NOT_RUN', 'native': 'PASS'}; complete=False; report: /home/vhm/Work/omarchy-harbormaster/.verify/run-4kkx6mhd/report.json\n"
+    }
+  ]
+}

@@ -12,7 +12,10 @@ is produced by #7. Preserve [the owner decision](M0-OWNER-DECISIONS.md) and
 [frozen design provenance](design/PROVENANCE.md).
 
 The single required entry point is `python3 scripts/verify.py` (local bwrap), or
-`python3 scripts/verify.py --backend docker --image sha256:<local-image-ID>` in CI.
+`python3 scripts/verify.py --backend docker --scope portable --image sha256:<local-image-ID>` in CI.
+The owner-approved split additionally requires `--scope native` on isolated native
+Linux and paired exact-revision evidence; Docker PASS alone is incomplete. See
+[M1-VERIFICATION.md](M1-VERIFICATION.md).
 Its required checks must fail when unavailable, unexecuted, failed or skipped;
 optional live Omarchy probes must not masquerade as generic Qt coverage.
 The workflow must not replicate the Rust/QML checks or suppress its exit code.
@@ -103,13 +106,20 @@ No Qt commercial license or blanket redistribution exception is assumed.
 | `python` **3.14.7-1** | PSF-2.0 in pinned core metadata.[1] | Development verifier/interpreter; bundled libraries have their own notices. |
 | `nodejs` **26.8.1-2** | MIT in the exact package `.PKGINFO`.[20] | Runs archived design tests; this top-level package label is not an audit of all bundled Node components. |
 | `gcc` **16.2.1+r23+gd564253eb6c8-1** | GPL-3.0-or-later WITH GCC-exception-3.1; GFDL-1.3-or-later in pinned core metadata.[1] | Linker/compiler support for standalone Rust. Runtime exception scope is not a blanket waiver for distributing compiler code. |
-| `bubblewrap` **0.12.0-1** | LGPL-2.1-or-later in the SHA-checked pinned extra database; exact package bytes match that record.[2] | Required by the unchanged M0 helper integration test. Package presence is not proof that nested namespaces work under Docker. No setuid permission, capability, seccomp or host-policy relaxation is authorized. |
+| `bubblewrap` **0.12.0-1** | LGPL-2.1-or-later in the SHA-checked pinned extra database; exact package bytes match that record.[2] | Historical diagnostic package qualification; no longer installed in the portable CI image after the approved split. Existing native `/usr/bin/bwrap` remains mandatory for real sandbox integration. No setuid permission, capability, seccomp or host-policy relaxation is authorized. |
 | `git` **2.55.0-1** | GPL-2.0-only in pinned extra metadata.[2] | Reads prepared advisory data; not a Harbormaster runtime dependency. |
 | `archlinux-keyring` **20260902-1** | GPL-3.0-or-later in pinned core metadata.[1] | Public package-signature trust data; no personal signing keys are supplied. |
 | Quickshell **0.3.1-1** / upstream **v0.3.1** | Exact archive `.PKGINFO`: **LGPL-3.0-only**; upstream tag LICENSE is GNU Lesser GPL version 3, not GPL-only.[12][4] | Existing local platform context only: not installed in this CI image, imported by the generic fixture, copied or distributed by #7. Any future plugin/bundle needs a scoped combined-work/distribution review. |
 | Omarchy source at `f4378f0de5b44d331ee943746a97872b718a6c18` | Reviewed source LICENSE contains the MIT grant and David Heinemeier Hansson copyright.[18] | Platform context, not a claim that the whole Arch/Omarchy installation is MIT or that #7 distributes it. No deployment or shell reload. |
 | Frozen `JetBrainsMono-Regular.ttf` | Preserved `design/original/assets/OFL.txt`: **OFL-1.1**, Copyright 2020 The JetBrains Mono Project Authors. | Unmodified archived font. Retain copyright and OFL text; do not relicense as MIT, sell it alone, or discard reserved-name/modified-font conditions. Tests lock the original font and license hashes. |
 | User-supplied HTML/SVG/PNG/design notes | [Provenance](design/PROVENANCE.md) records **no separate license grant**. | Preserve original bytes and user provenance. Owner selection of MIT does not invent an upstream grant; obtain rights clarification before a use requiring one. |
+
+The approved native split executes the existing installed bubblewrap **0.11.2**;
+its real executable hash and kernel are recorded in
+[the platform observation](../evidence/m1-7/split-native-platform.json). The
+**0.12.0-1** row is historical downloaded-package qualification, not a claim that
+the host was upgraded or matches the diagnostic Docker package. No global package
+installation or transitive host-license audit is implied.
 
 A later distribution review must identify the actual files and module/linking
 mode, preserve copyright/license/third-party notices, determine corresponding
@@ -149,7 +159,8 @@ GitHub's short-lived read token outside the sandbox; this is not credential-free
 orchestration. A PR able to rewrite its workflow or outer Python launcher is
 outside this sandbox's threat boundary. Review/branch protection remains
 necessary; do not execute rewritten untrusted orchestration in a trusted context.
-No protection was changed here. The required job is named `verify`.
+No protection was changed here. The portable job is named `verify (portable)`;
+its success does not satisfy the separate mandatory native qualification.
 
 The verifier must write only sanitized reports and bounded test logs under
 `.verify/`, never source snapshots, tool caches, credentials or escaping
@@ -160,12 +171,12 @@ the report directory itself is hidden; it does not broaden the path to `.tools`
 or source caches. `if-no-files-found: warn` leaves a bootstrap failure's original
 failed status intact when no report exists. No ignored verification failures or
 broad artifact upload are enabled. Artifact service credentials stay outside
-the test container. Hosted artifact creation has not been executed here.
+the test container. Actual historical hosted failures and current-head artifact
+results are tracked in [M1-VERIFICATION.md](M1-VERIFICATION.md) and PR #49.
 **Configuration tests and public downloads are not a hosted CI PASS.** The local
 Docker daemon is permission-denied; this work does not change permissions,
-use sudo or reconfigure the daemon. The actual image build and full hosted
-verification remain unexecuted until the parent runs the integrated PR. They
-must pass on the real PR head before acceptance or owner-approved merge.
+use sudo or reconfigure the daemon. Both mandatory lanes must pass on the real
+PR head before acceptance and separately owner-approved merge.
 
 ## Sources
 

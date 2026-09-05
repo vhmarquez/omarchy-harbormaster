@@ -6,17 +6,20 @@ pre-implementation responsibility record is [DEVELOPMENT.md](DEVELOPMENT.md).
 
 | Issue | Current scope | Gate |
 |---|---|---|
-| #7 | Cargo/QML foundation, isolated verification and pinned CI/tool policies implemented; independent reviews and local required checks pass | Current-head hosted CI and explicit owner approval before merge |
+| #7 | Cargo/QML foundation and owner-approved mandatory portable/native verification split | Exact-head Docker + native evidence, independent review, then explicit owner approval before merge |
 | #8 | Not started | Approved/merged #7 |
 | #9 | Not started | Approved/merged #8 |
 | #10 | Not started | Approved/merged dependencies |
 
-The initial PR #49 hosted runs failed isolation preflight, so they did not
-qualify the container backend. The scoped correction adds a private read-only
-runtime mount without removing probe checks; local verification passes and
-redundant feature-push runs are removed. See [correction evidence](M1-VERIFICATION.md#hosted-isolation-correction).
-Current-head hosted checks and an independent correction review remain mandatory
-before requesting approval; the exact PR revision is the authoritative gate.
+The initial hosted preflight and missing-binary failures were corrected without
+relaxing confinement. Run 33994133494 then demonstrated actual inner namespace
+permission denial. The owner approved keeping Docker locked down and making
+native bubblewrap integration separately mandatory. See the [verification
+contract and historical evidence](M1-VERIFICATION.md). A portable GitHub PASS is
+not complete qualification. The paired evidence checker must accept trusted
+Docker/native records against the exact current head, and independent review
+and explicit revision approval remain mandatory. No branch protection, automatic
+merge or live desktop/harness policy is changed.
 The owner explicitly permits free standard GitHub CI, not paid runners/services.
 
 The issue-linked integration branch is `feat/m1-7-developer-foundation`.

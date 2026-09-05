@@ -1,17 +1,28 @@
 """Required check definitions and fail-closed result interpretation."""
-import json
 import re
 
+from .strict_json import loads
 
-def plan(outside_canary="/outside-canary"):
-    """One command inventory, shared by local and hosted isolation backends."""
+
+NATIVE_METHODS = (
+    "Helpers.test_sandbox_denies_network_and_inherited_credentials",
+    "NetworkNamespace.test_sandbox_uses_distinct_network_namespace",
+)
+
+
+def plan(outside_canary="/outside-canary", scope="all"):
+    """Required check inventories selected by explicit execution scope."""
+    if scope not in ("all", "portable", "native"):
+        raise ValueError(f"unknown verification scope: {scope!r}")
     python = ["/usr/bin/python3", "-B"]
     unit = python + ["-m", "unittest", "discover"]
     cargo = ["/tools/rust/bin/cargo"]
     native = python + ["scripts/verification/native.py"]
-    return [
+    preflights = [
         ("isolation-probe", python + ["scripts/verification/probe.py", outside_canary], "exit"),
         ("tool-pins", python + ["scripts/verification/preflight.py"], "exit"),
+    ]
+    portable = preflights + [
         ("native-tool-pins", native + ["versions"], "exit"),
         ("rust-format", cargo + ["fmt", "--all", "--", "--check"], "exit"),
         ("rust-clippy", cargo + ["clippy", "--locked", "--offline", "--workspace", "--all-targets", "--all-features", "--", "-D", "warnings"], "exit"),
@@ -32,6 +43,14 @@ def plan(outside_canary="/outside-canary"):
         ("advisory-license", ["/tools/bin/cargo-deny", "--config", "tools/deny.toml", "--frozen", "--workspace", "check", "--deny", "warnings", "all"], "exit"),
         ("maintainability", python + ["scripts/verification/maintainability.py", "."], "metrics"),
     ]
+    native_sandbox = (
+        "m0-harness-sandbox",
+        python + ["spikes/harnesses/test_sandbox.py", *NATIVE_METHODS, "-v"],
+        "native",
+    )
+    if scope == "native":
+        return preflights + [native_sandbox]
+    return portable if scope == "portable" else portable + [native_sandbox]
 
 
 def passed(results):
@@ -39,7 +58,22 @@ def passed(results):
     return bool(required) and all(item["status"] == "PASS" for item in required)
 
 
+def _native_passed(output):
+    """Match the selected verbose results and one final, skip-free summary."""
+    results = []
+    for target in NATIVE_METHODS:
+        method = target.rsplit(".", 1)[1]
+        heading = re.escape(f"{method} (__main__.{target}) ... ")
+        # The real namespace diagnostic is flushed inline after the heading;
+        # unittest writes its successful result on the following line.
+        results.append(heading + r"(?:network namespace identity: \{[^\r\n]*\}\n)?ok\n")
+    summary = rf"\n-+\nRan {len(NATIVE_METHODS)} tests in [0-9]+\.[0-9]+s\n\nOK\n?"
+    return re.fullmatch("".join(results) + summary, output) is not None
+
+
 def validate(kind, output):
+    if kind == "native":
+        return _native_passed(output)
     if kind == "python":
         count = re.search(r"Ran (\d+) tests?", output)
         return bool(count and int(count[1]) > 0 and "\nOK" in output
@@ -60,8 +94,9 @@ def validate(kind, output):
                 and all(fields.get(key) == "0" for key in ("fail", "cancelled", "skipped")))
     if kind == "metrics":
         try:
-            coverage = json.loads(output)["coverage"]
-            return coverage["complete"] is True and coverage["files_analyzed"] > 0
+            coverage = loads(output)["coverage"]
+            count = coverage["files_analyzed"]
+            return coverage["complete"] is True and type(count) is int and count > 0
         except (ValueError, KeyError, TypeError):
             return False
     return kind == "exit"
