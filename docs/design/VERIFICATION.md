@@ -90,6 +90,6 @@ The design subagent reran the documented offline checks after the Markdown recon
 | `sha256sum --check original-sha256.txt` / `docs/design/` | Exit 0; all 23 entries `OK` |
 | `git diff --check -- docs/design/` / repository root | Exit 0; design diff whitespace check passed |
 
-Raw rerun output and scope caveats are retained in the parent-local `harbormaster-m0-evidence/design-owner-approval-result.json`, outside the repository. Existing evidence was not overwritten. The source verifier still correctly reports `browser_layout_verified: false`; no new browser/native/accessibility, real harness or backend-retention test was performed.
+The parent independently reran the Node and bundle checks as part of its 38-test non-live reconciliation; raw output is published in [owner-acceptance-checks.json](../../evidence/parent/owner-acceptance-checks.json). The separate child rerun, including its additional `sha256sum` command, remains in the parent-local `harbormaster-m0-evidence/design-owner-approval-result.json`. Existing evidence was not overwritten. The source verifier still correctly reports `browser_layout_verified: false`; no new browser/native/accessibility, real harness or backend-retention test was performed.
 
 For approval-only updates, record the exact owner decision separately, label prior outstanding-approval wording as historical, and split approved policy from executable acceptance. Reconcile against the actual runtime/capability/protocol/retention sources without changing frozen artifacts or turning scope acceptance into technical proof.

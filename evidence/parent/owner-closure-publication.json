@@ -1,0 +1,129 @@
+{
+  "date": "2026-09-05",
+  "acceptance_commit": "3b9c1a3cd20b999adcbc55be844f14b855fef658",
+  "owner_decision_record": "docs/M0-OWNER-DECISIONS.md",
+  "repository": "https://github.com/vhmarquez/omarchy-harbormaster",
+  "issue_readbacks": [
+    {
+      "number": 2,
+      "state": "closed",
+      "state_reason": "completed",
+      "body_readback_matches": true,
+      "url": "https://github.com/vhmarquez/omarchy-harbormaster/issues/2"
+    },
+    {
+      "number": 3,
+      "state": "closed",
+      "state_reason": "completed",
+      "body_readback_matches": true,
+      "url": "https://github.com/vhmarquez/omarchy-harbormaster/issues/3"
+    },
+    {
+      "number": 4,
+      "state": "closed",
+      "state_reason": "completed",
+      "body_unchanged": true,
+      "url": "https://github.com/vhmarquez/omarchy-harbormaster/issues/4"
+    },
+    {
+      "number": 5,
+      "state": "closed",
+      "state_reason": "completed",
+      "body_readback_matches": true,
+      "url": "https://github.com/vhmarquez/omarchy-harbormaster/issues/5"
+    },
+    {
+      "number": 6,
+      "state": "closed",
+      "state_reason": "completed",
+      "body_unchanged": true,
+      "url": "https://github.com/vhmarquez/omarchy-harbormaster/issues/6"
+    }
+  ],
+  "roadmap": {
+    "number": 1,
+    "state": "open",
+    "body_matches_payload": true
+  },
+  "milestone": {
+    "number": 1,
+    "state": "closed",
+    "description_matches_payload": true,
+    "url": "https://github.com/vhmarquez/omarchy-harbormaster/milestone/1",
+    "rest_open_issues": 5,
+    "rest_closed_issues": 0
+  },
+  "graphql": {
+    "repository": {
+      "milestone": {
+        "number": 1,
+        "title": "M0 \u2014 Product, UX and feasibility decisions",
+        "state": "CLOSED",
+        "open": {
+          "totalCount": 0,
+          "pageInfo": {
+            "hasNextPage": false
+          },
+          "nodes": []
+        },
+        "closed": {
+          "totalCount": 5,
+          "pageInfo": {
+            "hasNextPage": false
+          },
+          "nodes": [
+            {
+              "number": 2,
+              "state": "CLOSED",
+              "url": "https://github.com/vhmarquez/omarchy-harbormaster/issues/2"
+            },
+            {
+              "number": 3,
+              "state": "CLOSED",
+              "url": "https://github.com/vhmarquez/omarchy-harbormaster/issues/3"
+            },
+            {
+              "number": 4,
+              "state": "CLOSED",
+              "url": "https://github.com/vhmarquez/omarchy-harbormaster/issues/4"
+            },
+            {
+              "number": 5,
+              "state": "CLOSED",
+              "url": "https://github.com/vhmarquez/omarchy-harbormaster/issues/5"
+            },
+            {
+              "number": 6,
+              "state": "CLOSED",
+              "url": "https://github.com/vhmarquez/omarchy-harbormaster/issues/6"
+            }
+          ]
+        }
+      },
+      "i7": {
+        "number": 7,
+        "state": "OPEN"
+      },
+      "i8": {
+        "number": 8,
+        "state": "OPEN"
+      },
+      "i9": {
+        "number": 9,
+        "state": "OPEN"
+      },
+      "i10": {
+        "number": 10,
+        "state": "OPEN"
+      }
+    }
+  },
+  "count_source": "Exact issue REST states plus enumerated GraphQL milestone issues",
+  "rest_aggregate_matches_graphql": false,
+  "license_bytes_read_back": true,
+  "license_sha256": "e59971a6e441edc4db741e5e6b90bfb57c14c48e8a06f747ddad5b73899da833",
+  "later_milestones_unchanged": true,
+  "m1_started": false,
+  "deployment_started": false,
+  "scope": "Codex Limited visibility accepted. Trusted native callbacks unqualified. No credentialed test or production/native accessibility certification."
+}
