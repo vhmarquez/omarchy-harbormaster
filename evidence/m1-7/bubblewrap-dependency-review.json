@@ -1,0 +1,89 @@
+{
+  "scope": "Independent frozen-diff review with additional parent-only public-signature/native-binary checks; none is hosted Docker qualification",
+  "independent_review": {
+    "passed": true,
+    "approval_scope": "Independent pre-commit review of the frozen six-file dependency-only diagnostic correction; not hosted qualification or merge approval.",
+    "base_head": "c4ea63252ff0ffb5a0cf0520209d131a2b4d6096",
+    "security_concerns": [],
+    "logic_errors": [],
+    "maintainability_findings": [],
+    "summary": "No blocking defect found. Bubblewrap is added to the existing pinned snapshot installation with exact-version and executable-presence gates. The license record, public package contents, documentation and regression test agree. The change preserves mandatory integration execution and existing confinement rather than bypassing the missing dependency.",
+    "verification": {
+      "canonical": {
+        "command": "env -i PATH=/usr/bin python3 -B scripts/verify.py",
+        "executions": 1,
+        "exit_code": 0,
+        "backend": "bwrap",
+        "required_pass": 21,
+        "required_fail": 0,
+        "optional_skip": 3,
+        "python_verification_tests_passed": 55,
+        "m0_helper_tests_passed": 5,
+        "report": "<checkout>/.verify/run-5jket2ra/report.json",
+        "report_sha256": "26ed0a8555af2f8ede324cc25c99c382cdd739e0c86bd1f8a97b84e29a289986"
+      },
+      "ci_policy": {
+        "command": "env -i PATH=/usr/bin python3 -B -m unittest discover -s tests/verification -p test_ci_contract.py -v",
+        "exit_code": 0,
+        "tests_passed": 7
+      },
+      "docker_recipe": "Both reconstructed RUN bodies passed bash -n, and all leading && continuations were inspected. Snapshot database hashes, mandatory package signatures, nonroot USER and runtime isolation remain unchanged. No Docker build or runtime was attempted.",
+      "package_integrity": "Independently fetched 42693 public HTTPS bytes without credentials. SHA-256 f01c85b27bfd1034858ded8848bc03089e6d9069030add87aaf2f2596749cb36 matches the lock and recorded database entry. Archive .PKGINFO confirms bubblewrap 0.12.0-1, x86_64 and LGPL-2.1-or-later. usr/bin/bwrap is a regular executable with mode 0755, no setuid/setgid bits; no package install script is present. No package was installed or executed.",
+      "evidence": "Parsed the evidence JSON programmatically: all 130 recorded source hashes match current files. Recorded RED failures and local GREEN results are consistent with the correction, but historical executions were not rerun or treated as independent reviewer execution.",
+      "static_scope": "Exactly six staged paths; worktree bytes equal index bytes before and after verification. HEAD is unchanged, no tracked unstaged diff exists, and git diff --cached --check passed. Added-line scan and manual review found no new credentials, unsafe execution or security-policy relaxation. No production source, workflow, runtime policy, required-check inventory or M0 test changed. The focused test and documentation introduce no material maintainability concern."
+    },
+    "limitations": [
+      "Local PASS is not hosted success. The corrected head has not executed hosted Docker nested namespaces in this review; package presence cannot establish namespace permission.",
+      "Run unchanged hosted CI before approval. Any namespace denial must stop progress for an explicit owner verification-contract decision, never weakened seccomp, capabilities, isolation, required checks or substituted static passes.",
+      "Docker permission was reported unavailable; no escalation was attempted. Repository databases and package signatures were not independently refetched or cryptographically reverified; public package bytes and embedded metadata were independently checked against the recorded pin.",
+      "Historical GitHub run claims were not independently fetched. The first reviewer-only RUN reconstruction incorrectly retained newlines after removing continuations; correcting that reconstruction yielded two syntax passes without source changes."
+    ],
+    "preservation": "No source, index, credentials, harness or live configuration was modified. Canonical verification generated its normal ignored .verify report/logs; the only separately authored file is this review JSON.",
+    "file_sha256": {
+      "tools/ci.Dockerfile": "ed8dadc7068e985ed345482d790367199769445d44427dcc57b794a7b8bddbd8",
+      "tools/platform-lock.json": "5e536e04c473ee655bee4ada6ad6736c6d4b743c1ff50e116f5e0009fd9400a9",
+      "docs/DEPENDENCIES.md": "0c8618533b7ae44a2899ed0a3fcb5e4ef726340493bc7aa506d1d45071a0dd04",
+      "docs/M1-VERIFICATION.md": "f616444e50cf73bdae13c7648f94e8c9ce504d9e6c4543ac6f9a351a1deb417a",
+      "tests/verification/test_ci_contract.py": "9effd2b36e991c378f15ebfd6f0a1f2ad1c3264cab26562a2ec0169a5242d9a2",
+      "evidence/m1-7/bubblewrap-dependency.json": "b3faabb9d9a291b6209451fe7673abbe44ec24d7bb7ace03d51b6f318a6f799a"
+    }
+  },
+  "parent_package_signature_check": {
+    "url": "https://archive.archlinux.org/repos/2026/09/05/extra/os/x86_64/bubblewrap-0.12.0-1-x86_64.pkg.tar.zst",
+    "sha256": "f01c85b27bfd1034858ded8848bc03089e6d9069030add87aaf2f2596749cb36",
+    "package_info": "# Generated by makepkg 7.1.0\n# using fakeroot version 1.37.2\npkgname = bubblewrap\npkgbase = bubblewrap\nxdata = pkgtype=pkg\npkgver = 0.12.0-1\npkgdesc = Unprivileged sandboxing tool\nurl = https://github.com/containers/bubblewrap\nbuilddate = 1787744232\npackager = Jan Alexander Steffens (heftig) <heftig@archlinux.org>\nsize = 99717\narch = x86_64\nlicense = LGPL-2.1-or-later\nreplaces = bubblewrap-suid<=0.11.2-1\ndepend = glibc\ndepend = libcap\ndepend = libgcc\nmakedepend = bash-completion\nmakedepend = docbook-xsl\nmakedepend = git\nmakedepend = libxslt\nmakedepend = meson\n",
+    "binary_mode": "0o755",
+    "setuid_or_setgid": false,
+    "signature_matches_db": true,
+    "gpgv_exit_code": 0,
+    "gpgv_stderr": "gpgv: Signature made Wed Aug 26 07:38:58 2026 EDT\ngpgv:                using EDDSA key 83BC8889351B5DEBBB68416EB8AC08600F108CDF\ngpgv: Good signature from \"Jan Alexander Steffens (heftig) <jan.steffens@gmail.com>\"\ngpgv:                 aka \"Jan Alexander Steffens (heftig) <heftig@archlinux.org>\"\n",
+    "scope": "Public package signature verification with disposable GnuPG home and installed public Arch keyring, no host package install or Docker execution"
+  },
+  "parent_pinned_native_binary_check": {
+    "scope": "Native Linux standalone signed/pinned bwrap binary through unchanged M0 sandbox helper; NOT Docker execution",
+    "package_sha256": "f01c85b27bfd1034858ded8848bc03089e6d9069030add87aaf2f2596749cb36",
+    "binary_sha256": "7c44fa8e7326e62e81ab3f70ff682bfc0eb3b447b39cf9fbb779a31948364762",
+    "exit_code": 0,
+    "result": {
+      "env": {
+        "HOME": "/probe/home",
+        "PATH": "/usr/bin:/bin",
+        "TERM": "dumb",
+        "LANG": "C.UTF-8",
+        "HERMES_HOME": "/probe/home/.hermes",
+        "CLAUDE_CONFIG_DIR": "/probe/home/.claude",
+        "CODEX_HOME": "/probe/home/.codex",
+        "XDG_CONFIG_HOME": "/probe/home/.config",
+        "XDG_CACHE_HOME": "/probe/home/.cache",
+        "XDG_DATA_HOME": "/probe/home/.local/share",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "DISABLE_AUTOUPDATER": "1",
+        "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+        "PWD": "/probe"
+      },
+      "network": 101,
+      "real_home_visible": false
+    },
+    "stderr": ""
+  }
+}

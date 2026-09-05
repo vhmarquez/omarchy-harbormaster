@@ -65,7 +65,9 @@ agrees with that repository record.[2][11]
 | Python | Executed interpreter **3.14.7** | Distro **3.14.7-1**, interpreter **3.14.7** |
 | Node | Ambient **26.7.0** is not the new baseline; explicit private preparation must provide **26.8.1** without replacing the host | Distro **26.8.1-2**, required runtime **26.8.1** |
 
-This is an observed-host/expected-CI matrix, not an executed CI comparison.
+This historical input matrix predates hosted execution; actual run results are
+tracked in PR #49 and [M1 verification](M1-VERIFICATION.md). It is not itself
+an executed CI comparison.
 Keep package-release differences visible; do not claim bit-identical platforms.
 
 `platform-lock.json` records the URLs and hashes. Hashes from this public HTTPS
@@ -101,6 +103,7 @@ No Qt commercial license or blanket redistribution exception is assumed.
 | `python` **3.14.7-1** | PSF-2.0 in pinned core metadata.[1] | Development verifier/interpreter; bundled libraries have their own notices. |
 | `nodejs` **26.8.1-2** | MIT in the exact package `.PKGINFO`.[20] | Runs archived design tests; this top-level package label is not an audit of all bundled Node components. |
 | `gcc` **16.2.1+r23+gd564253eb6c8-1** | GPL-3.0-or-later WITH GCC-exception-3.1; GFDL-1.3-or-later in pinned core metadata.[1] | Linker/compiler support for standalone Rust. Runtime exception scope is not a blanket waiver for distributing compiler code. |
+| `bubblewrap` **0.12.0-1** | LGPL-2.1-or-later in the SHA-checked pinned extra database; exact package bytes match that record.[2] | Required by the unchanged M0 helper integration test. Package presence is not proof that nested namespaces work under Docker. No setuid permission, capability, seccomp or host-policy relaxation is authorized. |
 | `git` **2.55.0-1** | GPL-2.0-only in pinned extra metadata.[2] | Reads prepared advisory data; not a Harbormaster runtime dependency. |
 | `archlinux-keyring` **20260902-1** | GPL-3.0-or-later in pinned core metadata.[1] | Public package-signature trust data; no personal signing keys are supplied. |
 | Quickshell **0.3.1-1** / upstream **v0.3.1** | Exact archive `.PKGINFO`: **LGPL-3.0-only**; upstream tag LICENSE is GNU Lesser GPL version 3, not GPL-only.[12][4] | Existing local platform context only: not installed in this CI image, imported by the generic fixture, copied or distributed by #7. Any future plugin/bundle needs a scoped combined-work/distribution review. |

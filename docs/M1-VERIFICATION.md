@@ -170,6 +170,25 @@ read PR #49's exact current-head checks and linked run artifacts before approval
 This correction still requires independent review before publication and owner
 approval before merge; the PR's review record identifies the reviewed revision.
 
+## Missing hosted bubblewrap dependency
+
+After the runtime-mount correction, [run 33992905962](https://github.com/vhmarquez/omarchy-harbormaster/actions/runs/33992905962)
+executed every required check: 20 passed and `m0-harness-helpers` failed because
+`/usr/bin/bwrap` was absent. The same three optional checks remained explicit
+SKIPs. This was a missing-executable error, not an observed namespace denial.
+
+The dependency-only correction adds `bubblewrap 0.12.0-1` from the same signed,
+SHA-checked archive snapshot, with package/license/version and executable-presence
+gates. [Qualification and RED/GREEN evidence](../evidence/m1-7/bubblewrap-dependency.json)
+record actual public package bytes and local execution. The M0 helper integration
+is unchanged and remains required; Docker confinement and the check inventory
+are unchanged. No native test is replaced by a static assertion or a skip.
+
+Installing a binary does not qualify nested namespaces. The exact corrected
+head must execute hosted verification; if it fails on namespace permissions,
+stop for an explicit verification-contract decision rather than relaxing
+seccomp/capabilities or hiding a required check. PR #49 records current status.
+
 The baseline GitHub branch-protection endpoint reports main is not protected.
 No protection/settings were changed; explicit owner approval and current-head
 CI remain mandatory operational gates. Code/maintainability review has passed;

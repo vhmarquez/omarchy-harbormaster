@@ -133,6 +133,20 @@ class CIContractTests(unittest.TestCase):
                           "--mount=", "ADD ", "curl |", "sudo", "ENTRYPOINT [\"/bin/bash\"]"):
             self.assertNotIn(forbidden, docker)
 
+    def test_image_declares_the_required_m0_bubblewrap_dependency(self):
+        lock = load_json(ROOT / "tools/platform-lock.json")
+        docker = (ROOT / "tools/ci.Dockerfile").read_text()
+        self.assertIn("bubblewrap", lock["packages"])
+        self.assertEqual(lock["packages"]["bubblewrap"]["version"], "0.12.0-1")
+        install = next(line for line in docker.splitlines() if "&& pacman -Suu " in line)
+        self.assertIn("bubblewrap", install.split())
+        self.assertIn('test "$(pacman -Q bubblewrap)" = \'bubblewrap 0.12.0-1\'', docker)
+        self.assertIn("test -x /usr/bin/bwrap", docker)
+        lines = docker.splitlines()
+        for index, line in enumerate(lines):
+            if line.lstrip().startswith("&&"):
+                self.assertTrue(lines[index - 1].endswith("\\"), line)
+
     def test_bootstrap_requires_explicit_online_consent_and_private_root(self):
         workflow = load_json(ROOT / ".github/workflows/verify.yml")
         run = workflow["jobs"]["verify"]["steps"][1]["run"]
@@ -148,6 +162,7 @@ class CIContractTests(unittest.TestCase):
         expected = {
             "archlinux-keyring": ["GPL-3.0-or-later"],
             "gcc": ["GPL-3.0-or-later WITH GCC-exception-3.1", "GFDL-1.3-or-later"],
+            "bubblewrap": ["LGPL-2.1-or-later"],
             "git": ["GPL-2.0-only"], "python": ["PSF-2.0"],
             "nodejs": ["MIT"], "qt6-base": qt, "qt6-declarative": qt,
         }

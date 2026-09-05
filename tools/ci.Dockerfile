@@ -27,7 +27,7 @@ RUN printf '%s\n' \
       'f1893be2c432e2e0cbec967bde8930efdfbd96ed243078c6e2474c983569d782  /var/lib/pacman/sync/core.db' \
       'd0d5e9b898dea4e646e4f12a351e2a31b49c6fca5f1c682383a5e7f1dfc9f23d  /var/lib/pacman/sync/extra.db' \
       | sha256sum --check --strict \
-    && pacman -Suu --noconfirm --needed archlinux-keyring gcc git python qt6-declarative nodejs \
+    && pacman -Suu --noconfirm --needed archlinux-keyring bubblewrap gcc git python qt6-declarative nodejs \
     && pacman -Scc --noconfirm
 
 # Keep the snapshot selection: local Qt's package release may differ, while
@@ -36,6 +36,8 @@ RUN test "$(pacman -Q qt6-base)" = 'qt6-base 6.11.2-3' \
     && test "$(pacman -Q qt6-declarative)" = 'qt6-declarative 6.11.2-1' \
     && test "$(pacman -Q python)" = 'python 3.14.7-1' \
     && test "$(pacman -Q nodejs)" = 'nodejs 26.8.1-2' \
+    && test "$(pacman -Q bubblewrap)" = 'bubblewrap 0.12.0-1' \
+    && test -x /usr/bin/bwrap \
     && python3 -c 'import json, subprocess; p=json.load(open("/opt/harbormaster-platform-lock.json")); expected=[n+" "+r["version"] for n,r in p["packages"].items()]; actual=[subprocess.check_output(["pacman","-Q",n],text=True).strip() for n in p["packages"]]; assert actual == expected, (actual, expected)' \
     && test "$(python3 --version)" = 'Python 3.14.7' \
     && test "$(node --version)" = 'v26.8.1' \
