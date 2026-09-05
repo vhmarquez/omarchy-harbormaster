@@ -6,9 +6,9 @@ M0 is **not complete** while owner-only gates or required integration evidence r
 |---|---|---|
 | [#2](https://github.com/vhmarquez/omarchy-harbormaster/issues/2) | Product/namespaces, architecture ADR and threat model | Drafted; license owner confirmation outstanding |
 | [#3](https://github.com/vhmarquez/omarchy-harbormaster/issues/3) | Frozen option 02 bundle, UX contract and supplemental review/settings/recovery study | Original option 02 approved; supplemental personal review still outstanding |
-| [#4](https://github.com/vhmarquez/omarchy-harbormaster/issues/4) | Independent terminal/user-service runtime spike | Parent rerun passed; constrained GO for tested standalone foot/Hyprland stack; ready for evidence-backed closure |
+| [#4](https://github.com/vhmarquez/omarchy-harbormaster/issues/4) | Independent terminal/user-service runtime spike | Completed and issue closed; parent rerun passed, constrained GO for tested standalone foot/Hyprland stack |
 | [#5](https://github.com/vhmarquez/omarchy-harbormaster/issues/5) | Installed-version observational hook spike and capability matrix | Partial: Codex auth gate prevented trusted native callback execution; remains open |
-| [#6](https://github.com/vhmarquez/omarchy-harbormaster/issues/6) | Reference workloads, typed protocol/domain and critical failure scenarios | Required drafts/specifications supplied and checker rerun; ready for closure, not a measured performance claim |
+| [#6](https://github.com/vhmarquez/omarchy-harbormaster/issues/6) | Reference workloads, typed protocol/domain and critical failure scenarios | Completed and issue closed; required drafts/specifications supplied and checker rerun, not a measured performance claim |
 
 ## Decisions requiring the owner
 
@@ -31,6 +31,10 @@ Parent's final six commands passed: **41 tests** (10 contract checker, 10 runtim
 Initial `mise which` discovery unexpectedly pruned old cached Claude 2.1.259 and Codex 0.153.0 installations. The deletion was observed in tool output and parent confirmed those paths absent. Current tested versions remain Claude 2.1.260 and Codex 0.153.2. Reproducible probes use installed binaries directly and never invoke mise. No silent reinstall or global configuration change was attempted. The Hermes Watcher Git tree was separately verified clean.
 
 New-authored files pass diff whitespace checks. The byte-preserved original font `OFL.txt` has one inherited trailing-space warning; its license bytes are intentionally unchanged.
+
+## Published checkpoint
+
+The verified code/design artifact commit is `d2b0e78dce0affb09726e9778698a389836b52f8`. GitHub issue bodies, states and evidence comments were read back; #4/#6 are closed and #2/#3/#5 remain open. Exact REST issue states and GraphQL counts agree on three open/two closed. At this checkpoint the REST milestone aggregate still reported five open/zero closed even after cache-busted retry; that inconsistency is retained in `evidence/parent/remote-publication.json`, not represented as a successful counter check. No milestone reassignment or issue reopen/close cycling was used to force it.
 
 ## Resumption procedure
 

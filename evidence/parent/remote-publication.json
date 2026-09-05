@@ -1,0 +1,52 @@
+{
+  "commit": "d2b0e78dce0affb09726e9778698a389836b52f8",
+  "m0_state": "open",
+  "issues": [
+    {
+      "number": 2,
+      "state": "open",
+      "url": "https://github.com/vhmarquez/omarchy-harbormaster/issues/2"
+    },
+    {
+      "number": 3,
+      "state": "open",
+      "url": "https://github.com/vhmarquez/omarchy-harbormaster/issues/3"
+    },
+    {
+      "number": 4,
+      "state": "closed",
+      "url": "https://github.com/vhmarquez/omarchy-harbormaster/issues/4"
+    },
+    {
+      "number": 5,
+      "state": "open",
+      "url": "https://github.com/vhmarquez/omarchy-harbormaster/issues/5"
+    },
+    {
+      "number": 6,
+      "state": "closed",
+      "url": "https://github.com/vhmarquez/omarchy-harbormaster/issues/6"
+    }
+  ],
+  "closed_issues": [
+    4,
+    6
+  ],
+  "open_issues": [
+    2,
+    3,
+    5
+  ],
+  "total_m0_issues": 5,
+  "exact_issue_bodies_states_verified": true,
+  "graphql_counts_verified": true,
+  "rest_milestone_counters_match": false,
+  "rest_counter_observation": {
+    "open_issues": 5,
+    "closed_issues": 0
+  },
+  "counter_caveat": "REST milestone aggregate remained stale after cache-busted read. Exact REST issue states and GraphQL nodes/counts agree on 3 open and 2 closed. No issue reassignment/reopening was used to force counter recalculation.",
+  "roadmap_body_verified": true,
+  "roadmap_comment_url": "https://github.com/vhmarquez/omarchy-harbormaster/issues/1#issuecomment-5553222268",
+  "milestone_url": "https://github.com/vhmarquez/omarchy-harbormaster/milestone/1"
+}
