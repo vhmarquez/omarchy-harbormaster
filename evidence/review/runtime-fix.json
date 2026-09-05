@@ -1,0 +1,110 @@
+{
+  "changed_files": [
+    "spikes/runtime/probe.py",
+    "spikes/runtime/test_cleanup.py",
+    "spikes/runtime/README.md"
+  ],
+  "tests_run": [
+    {
+      "command": "python3 -B -m unittest discover -s spikes/runtime -p test_cleanup.py -v",
+      "workdir": "$REPO",
+      "output": "test_clean_finalizer_still_validates_and_fingerprints_cleanup_tests (test_cleanup.CleanupTests.test_clean_finalizer_still_validates_and_fingerprints_cleanup_tests) ... ok\ntest_early_probe_failure_stays_failed_without_owned_resources (test_cleanup.CleanupTests.test_early_probe_failure_stays_failed_without_owned_resources) ... ok\ntest_false_readbacks_do_not_short_circuit_later_owned_targets (test_cleanup.CleanupTests.test_false_readbacks_do_not_short_circuit_later_owned_targets) ... ok\ntest_first_stop_timeout_does_not_skip_remaining_cleanup_or_export (test_cleanup.CleanupTests.test_first_stop_timeout_does_not_skip_remaining_cleanup_or_export) ... ok\ntest_multiple_cleanup_errors_are_reported_without_skipping_later_attempts (test_cleanup.CleanupTests.test_multiple_cleanup_errors_are_reported_without_skipping_later_attempts) ... ok\ntest_output_failure_returns_failed_structured_sanitized_summary (test_cleanup.CleanupTests.test_output_failure_returns_failed_structured_sanitized_summary) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.046s\n\nOK",
+      "exit_code": 0,
+      "error": null
+    },
+    {
+      "command": "python3 -B -m unittest discover -s spikes/runtime -p test_identity.py -v",
+      "workdir": "$REPO",
+      "output": "test_exact_identity_accepts_only_matching_window (test_identity.IdentityTests.test_exact_identity_accepts_only_matching_window) ... ok\ntest_stale_or_ambiguous_identity_is_rejected (test_identity.IdentityTests.test_stale_or_ambiguous_identity_is_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 0.001s\n\nOK",
+      "exit_code": 0,
+      "error": null
+    },
+    {
+      "command": "python3 -B -c 'import ast, hashlib, json; from pathlib import Path; paths = [Path(\"spikes/runtime/probe.py\"), Path(\"spikes/runtime/test_cleanup.py\"), Path(\"spikes/runtime/README.md\")]; results = [];\nfor path in paths:\n source = path.read_text(); assert not any(line.rstrip() != line for line in source.splitlines()), str(path);\n if path.suffix == \".py\": compile(ast.parse(source, filename=str(path)), str(path), \"exec\");\n results.append({\"path\": str(path), \"sha256\": hashlib.sha256(path.read_bytes()).hexdigest(), \"lines\": len(source.splitlines())});\nprint(json.dumps({\"syntax_and_whitespace\": \"passed\", \"files\": results}, indent=2))' ",
+      "workdir": "$REPO",
+      "output": "{\n  \"syntax_and_whitespace\": \"passed\",\n  \"files\": [\n    {\n      \"path\": \"spikes/runtime/probe.py\",\n      \"sha256\": \"e2acc5976962336fc14a83279926cacbad963229eca667643cd142289cf38c23\",\n      \"lines\": 485\n    },\n    {\n      \"path\": \"spikes/runtime/test_cleanup.py\",\n      \"sha256\": \"5475ad31d7830a601950be8c8797d7a7eb49c517e1114e7ef01b7f86a6e63f14\",\n      \"lines\": 207\n    },\n    {\n      \"path\": \"spikes/runtime/README.md\",\n      \"sha256\": \"0def8dd51cbcf599a5865dd70bc66a13e76c2e84d0e7a694fdaf64f7392a880a\",\n      \"lines\": 146\n    }\n  ]\n}",
+      "exit_code": 0,
+      "error": null
+    }
+  ],
+  "result": {
+    "status": "fixed; pure verification passed; live integration remains with parent",
+    "passing_pure_tests": 8,
+    "root_cause": "run(check=False) disables return-code checks but still propagates subprocess.TimeoutExpired; an unguarded finalizer operation aborted later owned cleanup and evidence export.",
+    "changes": [
+      "Catch each owned cleanup/readback exception separately and retain structured cleanup_errors with stage, target, type and message.",
+      "Attempt every retained terminal, exact unit stop/reset/readback, process readback, window readback/focus restoration, daemon log read, scratch removal/readback, default-metadata readback and source fingerprint independently.",
+      "Use eager unit/process readback evaluation, so false results or exceptions do not skip later owned targets.",
+      "Keep original probe error and INVALIDATED/nonzero on any cleanup exception, even if final readbacks pass.",
+      "Always attempt sanitized evidence export after earlier cleanup exceptions; export failures produce INVALIDATED/nonzero and structured sanitized stdout errors.",
+      "Preserve existing expected nonzero stop/reset behavior for collected units: final readbacks remain authoritative; thrown cleanup exceptions never become success.",
+      "Include test_cleanup.py in evidence source fingerprints and document fault-test command and cleanup limits."
+    ],
+    "tdd_cycles": [
+      {
+        "command": "python3 -B -m unittest discover -s spikes/runtime -p test_cleanup.py -v",
+        "red": {
+          "exit_code": 1,
+          "tests": 1,
+          "failures": 1,
+          "reason": "TimeoutExpired escaped at first unit stop"
+        },
+        "green": {
+          "exit_code": 0,
+          "tests": 1
+        }
+      },
+      {
+        "command": "python3 -B -m unittest discover -s spikes/runtime -p test_cleanup.py -v",
+        "red": {
+          "exit_code": 1,
+          "tests": 2,
+          "failures": 1,
+          "reason": "OSError escaped at first retained child cleanup"
+        },
+        "green": {
+          "exit_code": 0,
+          "tests": 2
+        }
+      },
+      {
+        "command": "python3 -B -m unittest discover -s spikes/runtime -p test_cleanup.py -v",
+        "red": {
+          "exit_code": 1,
+          "tests": 3,
+          "failures": 1,
+          "reason": "Real IsADirectoryError escaped from evidence write"
+        },
+        "green": {
+          "exit_code": 0,
+          "tests": 3
+        }
+      },
+      {
+        "command": "python3 -B -m unittest discover -s spikes/runtime -p test_cleanup.py -v",
+        "red": {
+          "exit_code": 1,
+          "tests": 6,
+          "failures": 1,
+          "reason": "test_cleanup.py absent from source fingerprints"
+        },
+        "green": {
+          "exit_code": 0,
+          "tests": 6
+        }
+      }
+    ],
+    "coverage": [
+      "First stop timeout continues all exact unit actions and readbacks, all retained process checks, scratch removal and output; result remains failed.",
+      "Combined child/window/reset/unit/process/log/removal/metadata/source-read failures retain all errors and original failure while later operations/export still run.",
+      "Real evidence-write failure returns structured sanitized failure summary instead of escaping.",
+      "Clean finalizer including already-collected-unit return codes still validates.",
+      "False first unit/process readbacks do not short-circuit later targets.",
+      "Early failed probe with no owned resources remains failed.",
+      "Existing exact/stale/ambiguous identity safety tests remain passing."
+    ],
+    "scope": "Only the three listed repository files edited. Tests used AST-selected actual finalizer plus injected external boundaries and real disposable scratch/output I/O under $HOME/Work. No Git/staging/commit/GitHub, live desktop/service/default tmux/config actions performed.",
+    "remaining": "Parent must rerun real lifecycle and explicitly opted-in desktop integration and refresh their evidence/fingerprints; not performed by this scoped subagent.",
+    "issues_encountered": "No remaining blocker. Expected injected failures and red tests are documented above; cleanup attempts cannot guarantee removal when an underlying operation fails or the process is hard-killed."
+  }
+}

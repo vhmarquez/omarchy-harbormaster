@@ -1,0 +1,847 @@
+{
+  "binaries": {
+    "claude": {
+      "path": "$HOME/.local/share/mise/installs/claude/2.1.260/claude",
+      "sha256": "7a2fdc74b6836ea3d183f665b869f0ee3baebc9713cbebffe5838da4ea7bd82e"
+    },
+    "codex": {
+      "path": "$HOME/.local/share/mise/installs/codex/0.153.2/bin/codex",
+      "sha256": "f8786262ebc0fa1337448a2977332beadec66c8d0cda0ce973c7849766d7943c"
+    }
+  },
+  "harnesses": {
+    "claude": {
+      "blocker": null,
+      "commands": [
+        {
+          "argv": [
+            "/opt/claude",
+            "--init-only",
+            "--setting-sources",
+            "user",
+            "--strict-mcp-config"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "stdout": "",
+          "timed_out": false
+        }
+      ],
+      "config_original_sha256": "3ea89b629fb9ab286022978b82945536cb31a696ab8e723ec7aa4c6ecd9f9661",
+      "config_restored_sha256": "3ea89b629fb9ab286022978b82945536cb31a696ab8e723ec7aa4c6ecd9f9661",
+      "events": [
+        {
+          "event": "Setup",
+          "harness": "claude",
+          "session_id": "5a8f96dc-3f68-4adb-92a4-ad6c179991fa"
+        },
+        {
+          "event": "SessionStart",
+          "harness": "claude",
+          "session_id": "5a8f96dc-3f68-4adb-92a4-ad6c179991fa",
+          "source": "startup"
+        },
+        {
+          "event": "SessionEnd",
+          "harness": "claude",
+          "session_id": "5a8f96dc-3f68-4adb-92a4-ad6c179991fa"
+        }
+      ],
+      "help_capabilities": {
+        "--continue": true,
+        "--include-hook-events": true,
+        "--resume": true,
+        "attach <id>": true,
+        "stop|kill <id>": true
+      },
+      "kind": "live-cli-init-only",
+      "restored": true,
+      "version": "2.1.260 (Claude Code)",
+      "version_command": {
+        "argv": [
+          "/opt/claude",
+          "--version"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout": "2.1.260 (Claude Code)\n",
+        "timed_out": false
+      }
+    },
+    "codex": {
+      "blocker": "Native startup stops at authentication before /hooks can be reached with the default provider. Native command hooks are reported untrusted and require exact-definition review. No credentials, fake provider/API responses, /hooks acceptance, trust writes, managed-source impersonation or trust bypass were used. No native callback invocation is claimed.",
+      "config_original_sha256": "d7ec251952c94c5d3082a5566b1c79eef1e2e98380e88223ededc1f7c0f963d0",
+      "config_restored_sha256": "d7ec251952c94c5d3082a5566b1c79eef1e2e98380e88223ededc1f7c0f963d0",
+      "events": [],
+      "generation_requests_sent": 0,
+      "hook_metadata": [
+        {
+          "additionalContextLimit": null,
+          "async": false,
+          "command": "/usr/bin/python3 /opt/spike/observe.py codex /probe/codex-events.jsonl",
+          "currentHash": "sha256:fc1a6a69f876260ca1a7ed19a058ae1cf6b51ee3b810737d5e68b09345079c12",
+          "displayOrder": 0,
+          "enabled": true,
+          "eventName": "permissionRequest",
+          "handlerType": "command",
+          "isManaged": false,
+          "key": "/probe/home/.codex/hooks.json:permission_request:0:0",
+          "matcher": null,
+          "pluginId": null,
+          "source": "user",
+          "sourcePath": "/probe/home/.codex/hooks.json",
+          "statusMessage": null,
+          "timeoutSec": 2,
+          "trustStatus": "untrusted"
+        },
+        {
+          "additionalContextLimit": null,
+          "async": false,
+          "command": "/usr/bin/python3 /opt/spike/observe.py codex /probe/codex-events.jsonl",
+          "currentHash": "sha256:49f2e9f72e596e9412f8d44721080f6e10c3641a9b3e2e7ddb476bb7ad0b10ac",
+          "displayOrder": 1,
+          "enabled": true,
+          "eventName": "sessionStart",
+          "handlerType": "command",
+          "isManaged": false,
+          "key": "/probe/home/.codex/hooks.json:session_start:0:0",
+          "matcher": null,
+          "pluginId": null,
+          "source": "user",
+          "sourcePath": "/probe/home/.codex/hooks.json",
+          "statusMessage": null,
+          "timeoutSec": 2,
+          "trustStatus": "untrusted"
+        },
+        {
+          "additionalContextLimit": null,
+          "async": false,
+          "command": "/usr/bin/python3 /opt/spike/observe.py codex /probe/codex-events.jsonl",
+          "currentHash": "sha256:2ff6082d7beaf6c5f9e070ac816836c393f4f59d910402160a78c2762b1de4c1",
+          "displayOrder": 2,
+          "enabled": true,
+          "eventName": "sessionEnd",
+          "handlerType": "command",
+          "isManaged": false,
+          "key": "/probe/home/.codex/hooks.json:session_end:0:0",
+          "matcher": null,
+          "pluginId": null,
+          "source": "user",
+          "sourcePath": "/probe/home/.codex/hooks.json",
+          "statusMessage": null,
+          "timeoutSec": 2,
+          "trustStatus": "untrusted"
+        },
+        {
+          "additionalContextLimit": null,
+          "async": false,
+          "command": "/usr/bin/python3 /opt/spike/observe.py codex /probe/codex-events.jsonl",
+          "currentHash": "sha256:889906a6887deab798dca3b58b63cc4ce06b2ad7cf84dc1a21050fbfeb55503e",
+          "displayOrder": 3,
+          "enabled": true,
+          "eventName": "userPromptSubmit",
+          "handlerType": "command",
+          "isManaged": false,
+          "key": "/probe/home/.codex/hooks.json:user_prompt_submit:0:0",
+          "matcher": null,
+          "pluginId": null,
+          "source": "user",
+          "sourcePath": "/probe/home/.codex/hooks.json",
+          "statusMessage": null,
+          "timeoutSec": 2,
+          "trustStatus": "untrusted"
+        },
+        {
+          "additionalContextLimit": null,
+          "async": false,
+          "command": "/usr/bin/python3 /opt/spike/observe.py codex /probe/codex-events.jsonl",
+          "currentHash": "sha256:6080dc4245416420c93fd978249ef4d249c0d22006f8c41922409146cfb93428",
+          "displayOrder": 4,
+          "enabled": true,
+          "eventName": "subagentStart",
+          "handlerType": "command",
+          "isManaged": false,
+          "key": "/probe/home/.codex/hooks.json:subagent_start:0:0",
+          "matcher": null,
+          "pluginId": null,
+          "source": "user",
+          "sourcePath": "/probe/home/.codex/hooks.json",
+          "statusMessage": null,
+          "timeoutSec": 2,
+          "trustStatus": "untrusted"
+        },
+        {
+          "additionalContextLimit": null,
+          "async": false,
+          "command": "/usr/bin/python3 /opt/spike/observe.py codex /probe/codex-events.jsonl",
+          "currentHash": "sha256:c52e3f1ab35c6d22fb729fd6511ed290f205c5108bcc90e345735c710f2c626c",
+          "displayOrder": 5,
+          "enabled": true,
+          "eventName": "subagentStop",
+          "handlerType": "command",
+          "isManaged": false,
+          "key": "/probe/home/.codex/hooks.json:subagent_stop:0:0",
+          "matcher": null,
+          "pluginId": null,
+          "source": "user",
+          "sourcePath": "/probe/home/.codex/hooks.json",
+          "statusMessage": null,
+          "timeoutSec": 2,
+          "trustStatus": "untrusted"
+        },
+        {
+          "additionalContextLimit": null,
+          "async": false,
+          "command": "/usr/bin/true",
+          "currentHash": "sha256:e2250e1310df8c544c98765af45ec9400886a9f3cf53958a4b1edc99d0dc2d5b",
+          "displayOrder": 6,
+          "enabled": true,
+          "eventName": "stop",
+          "handlerType": "command",
+          "isManaged": false,
+          "key": "/probe/home/.codex/hooks.json:stop:0:0",
+          "matcher": null,
+          "pluginId": null,
+          "source": "user",
+          "sourcePath": "/probe/home/.codex/hooks.json",
+          "statusMessage": null,
+          "timeoutSec": 600,
+          "trustStatus": "untrusted"
+        },
+        {
+          "additionalContextLimit": null,
+          "async": false,
+          "command": "/usr/bin/python3 /opt/spike/observe.py codex /probe/codex-events.jsonl",
+          "currentHash": "sha256:e6508b23ede3fc40f3e7023ee3b2946d6195dedb51ff7683bc4a21628abfaf08",
+          "displayOrder": 7,
+          "enabled": true,
+          "eventName": "stop",
+          "handlerType": "command",
+          "isManaged": false,
+          "key": "/probe/home/.codex/hooks.json:stop:1:0",
+          "matcher": null,
+          "pluginId": null,
+          "source": "user",
+          "sourcePath": "/probe/home/.codex/hooks.json",
+          "statusMessage": null,
+          "timeoutSec": 2,
+          "trustStatus": "untrusted"
+        },
+        {
+          "additionalContextLimit": null,
+          "async": false,
+          "command": "/usr/bin/python3 /opt/spike/observe.py codex /probe/codex-events.jsonl",
+          "currentHash": "sha256:9681cafb47bc8189a62f6e5d9749f39536b80198bb393b84319a32716229c5f6",
+          "displayOrder": 8,
+          "enabled": true,
+          "eventName": "interrupt",
+          "handlerType": "command",
+          "isManaged": false,
+          "key": "/probe/home/.codex/hooks.json:interrupt:0:0",
+          "matcher": null,
+          "pluginId": null,
+          "source": "user",
+          "sourcePath": "/probe/home/.codex/hooks.json",
+          "statusMessage": null,
+          "timeoutSec": 2,
+          "trustStatus": "untrusted"
+        }
+      ],
+      "hooks_listed": 9,
+      "hooks_original_sha256": "c8b36d5ff5f62b8a36a3e3a5d01518bad1eac923f2a7f4ffe94ce7b73ab283e0",
+      "hooks_restored_sha256": "c8b36d5ff5f62b8a36a3e3a5d01518bad1eac923f2a7f4ffe94ce7b73ab283e0",
+      "kind": "live-native-hook-discovery-via-app-server",
+      "native_startup": {
+        "argv": [
+          "/opt/codex",
+          "--no-alt-screen"
+        ],
+        "cleanup_signals": [
+          "SIGTERM"
+        ],
+        "exit_code": -15,
+        "kind": "live-native-cli-startup",
+        "matched_gates": [
+          "auth_required"
+        ],
+        "screen_bytes_seen": 4952,
+        "screen_exported": false,
+        "semantic_input_bytes": 0,
+        "terminal_protocol_bytes": 6
+      },
+      "restored": true,
+      "rpc": {
+        "exit_code": -9,
+        "kind": "live-app-server-read-only",
+        "replies": [
+          {
+            "id": 1,
+            "result": {
+              "codexHome": "/probe/home/.codex",
+              "platformFamily": "unix",
+              "platformOs": "linux",
+              "userAgent": "harbormaster_m0_probe/0.153.2 (Linux Unknown; x86_64) dumb (harbormaster_m0_probe; 0.0.0)"
+            }
+          },
+          {
+            "id": 2,
+            "result": {
+              "data": [
+                {
+                  "cwd": "/probe",
+                  "errors": [],
+                  "hooks": [
+                    {
+                      "additionalContextLimit": null,
+                      "async": false,
+                      "command": "/usr/bin/python3 /opt/spike/observe.py codex /probe/codex-events.jsonl",
+                      "currentHash": "sha256:fc1a6a69f876260ca1a7ed19a058ae1cf6b51ee3b810737d5e68b09345079c12",
+                      "displayOrder": 0,
+                      "enabled": true,
+                      "eventName": "permissionRequest",
+                      "handlerType": "command",
+                      "isManaged": false,
+                      "key": "/probe/home/.codex/hooks.json:permission_request:0:0",
+                      "matcher": null,
+                      "pluginId": null,
+                      "source": "user",
+                      "sourcePath": "/probe/home/.codex/hooks.json",
+                      "statusMessage": null,
+                      "timeoutSec": 2,
+                      "trustStatus": "untrusted"
+                    },
+                    {
+                      "additionalContextLimit": null,
+                      "async": false,
+                      "command": "/usr/bin/python3 /opt/spike/observe.py codex /probe/codex-events.jsonl",
+                      "currentHash": "sha256:49f2e9f72e596e9412f8d44721080f6e10c3641a9b3e2e7ddb476bb7ad0b10ac",
+                      "displayOrder": 1,
+                      "enabled": true,
+                      "eventName": "sessionStart",
+                      "handlerType": "command",
+                      "isManaged": false,
+                      "key": "/probe/home/.codex/hooks.json:session_start:0:0",
+                      "matcher": null,
+                      "pluginId": null,
+                      "source": "user",
+                      "sourcePath": "/probe/home/.codex/hooks.json",
+                      "statusMessage": null,
+                      "timeoutSec": 2,
+                      "trustStatus": "untrusted"
+                    },
+                    {
+                      "additionalContextLimit": null,
+                      "async": false,
+                      "command": "/usr/bin/python3 /opt/spike/observe.py codex /probe/codex-events.jsonl",
+                      "currentHash": "sha256:2ff6082d7beaf6c5f9e070ac816836c393f4f59d910402160a78c2762b1de4c1",
+                      "displayOrder": 2,
+                      "enabled": true,
+                      "eventName": "sessionEnd",
+                      "handlerType": "command",
+                      "isManaged": false,
+                      "key": "/probe/home/.codex/hooks.json:session_end:0:0",
+                      "matcher": null,
+                      "pluginId": null,
+                      "source": "user",
+                      "sourcePath": "/probe/home/.codex/hooks.json",
+                      "statusMessage": null,
+                      "timeoutSec": 2,
+                      "trustStatus": "untrusted"
+                    },
+                    {
+                      "additionalContextLimit": null,
+                      "async": false,
+                      "command": "/usr/bin/python3 /opt/spike/observe.py codex /probe/codex-events.jsonl",
+                      "currentHash": "sha256:889906a6887deab798dca3b58b63cc4ce06b2ad7cf84dc1a21050fbfeb55503e",
+                      "displayOrder": 3,
+                      "enabled": true,
+                      "eventName": "userPromptSubmit",
+                      "handlerType": "command",
+                      "isManaged": false,
+                      "key": "/probe/home/.codex/hooks.json:user_prompt_submit:0:0",
+                      "matcher": null,
+                      "pluginId": null,
+                      "source": "user",
+                      "sourcePath": "/probe/home/.codex/hooks.json",
+                      "statusMessage": null,
+                      "timeoutSec": 2,
+                      "trustStatus": "untrusted"
+                    },
+                    {
+                      "additionalContextLimit": null,
+                      "async": false,
+                      "command": "/usr/bin/python3 /opt/spike/observe.py codex /probe/codex-events.jsonl",
+                      "currentHash": "sha256:6080dc4245416420c93fd978249ef4d249c0d22006f8c41922409146cfb93428",
+                      "displayOrder": 4,
+                      "enabled": true,
+                      "eventName": "subagentStart",
+                      "handlerType": "command",
+                      "isManaged": false,
+                      "key": "/probe/home/.codex/hooks.json:subagent_start:0:0",
+                      "matcher": null,
+                      "pluginId": null,
+                      "source": "user",
+                      "sourcePath": "/probe/home/.codex/hooks.json",
+                      "statusMessage": null,
+                      "timeoutSec": 2,
+                      "trustStatus": "untrusted"
+                    },
+                    {
+                      "additionalContextLimit": null,
+                      "async": false,
+                      "command": "/usr/bin/python3 /opt/spike/observe.py codex /probe/codex-events.jsonl",
+                      "currentHash": "sha256:c52e3f1ab35c6d22fb729fd6511ed290f205c5108bcc90e345735c710f2c626c",
+                      "displayOrder": 5,
+                      "enabled": true,
+                      "eventName": "subagentStop",
+                      "handlerType": "command",
+                      "isManaged": false,
+                      "key": "/probe/home/.codex/hooks.json:subagent_stop:0:0",
+                      "matcher": null,
+                      "pluginId": null,
+                      "source": "user",
+                      "sourcePath": "/probe/home/.codex/hooks.json",
+                      "statusMessage": null,
+                      "timeoutSec": 2,
+                      "trustStatus": "untrusted"
+                    },
+                    {
+                      "additionalContextLimit": null,
+                      "async": false,
+                      "command": "/usr/bin/true",
+                      "currentHash": "sha256:e2250e1310df8c544c98765af45ec9400886a9f3cf53958a4b1edc99d0dc2d5b",
+                      "displayOrder": 6,
+                      "enabled": true,
+                      "eventName": "stop",
+                      "handlerType": "command",
+                      "isManaged": false,
+                      "key": "/probe/home/.codex/hooks.json:stop:0:0",
+                      "matcher": null,
+                      "pluginId": null,
+                      "source": "user",
+                      "sourcePath": "/probe/home/.codex/hooks.json",
+                      "statusMessage": null,
+                      "timeoutSec": 600,
+                      "trustStatus": "untrusted"
+                    },
+                    {
+                      "additionalContextLimit": null,
+                      "async": false,
+                      "command": "/usr/bin/python3 /opt/spike/observe.py codex /probe/codex-events.jsonl",
+                      "currentHash": "sha256:e6508b23ede3fc40f3e7023ee3b2946d6195dedb51ff7683bc4a21628abfaf08",
+                      "displayOrder": 7,
+                      "enabled": true,
+                      "eventName": "stop",
+                      "handlerType": "command",
+                      "isManaged": false,
+                      "key": "/probe/home/.codex/hooks.json:stop:1:0",
+                      "matcher": null,
+                      "pluginId": null,
+                      "source": "user",
+                      "sourcePath": "/probe/home/.codex/hooks.json",
+                      "statusMessage": null,
+                      "timeoutSec": 2,
+                      "trustStatus": "untrusted"
+                    },
+                    {
+                      "additionalContextLimit": null,
+                      "async": false,
+                      "command": "/usr/bin/python3 /opt/spike/observe.py codex /probe/codex-events.jsonl",
+                      "currentHash": "sha256:9681cafb47bc8189a62f6e5d9749f39536b80198bb393b84319a32716229c5f6",
+                      "displayOrder": 8,
+                      "enabled": true,
+                      "eventName": "interrupt",
+                      "handlerType": "command",
+                      "isManaged": false,
+                      "key": "/probe/home/.codex/hooks.json:interrupt:0:0",
+                      "matcher": null,
+                      "pluginId": null,
+                      "source": "user",
+                      "sourcePath": "/probe/home/.codex/hooks.json",
+                      "statusMessage": null,
+                      "timeoutSec": 2,
+                      "trustStatus": "untrusted"
+                    }
+                  ],
+                  "warnings": []
+                }
+              ]
+            }
+          }
+        ],
+        "requests": [
+          {
+            "id": 1,
+            "method": "initialize",
+            "params": {
+              "capabilities": {
+                "experimentalApi": true
+              },
+              "clientInfo": {
+                "name": "harbormaster_m0_probe",
+                "version": "0.0.0"
+              }
+            }
+          },
+          {
+            "id": 2,
+            "method": "hooks/list",
+            "params": {
+              "cwds": [
+                "/probe"
+              ]
+            }
+          }
+        ]
+      },
+      "schema_client_methods": [
+        "account/login/cancel",
+        "account/login/start",
+        "account/logout",
+        "account/rateLimitResetCredit/consume",
+        "account/rateLimits/read",
+        "account/read",
+        "account/sendAddCreditsNudgeEmail",
+        "account/usage/read",
+        "account/workspaceMessages/read",
+        "app/installed",
+        "app/list",
+        "app/read",
+        "command/exec",
+        "command/exec/resize",
+        "command/exec/terminate",
+        "command/exec/write",
+        "config/batchWrite",
+        "config/mcpServer/reload",
+        "config/read",
+        "config/value/write",
+        "configRequirements/read",
+        "experimentalFeature/enablement/set",
+        "experimentalFeature/list",
+        "externalAgentConfig/detect",
+        "externalAgentConfig/import",
+        "externalAgentConfig/import/readHistories",
+        "externalAgentConfig/import/recordHistory",
+        "feedback/upload",
+        "fs/copy",
+        "fs/createDirectory",
+        "fs/getMetadata",
+        "fs/readDirectory",
+        "fs/readFile",
+        "fs/remove",
+        "fs/unwatch",
+        "fs/watch",
+        "fs/writeFile",
+        "fuzzyFileSearch",
+        "hooks/list",
+        "initialize",
+        "marketplace/add",
+        "marketplace/remove",
+        "marketplace/upgrade",
+        "mcpServer/oauth/login",
+        "mcpServer/resource/read",
+        "mcpServer/tool/call",
+        "mcpServerStatus/list",
+        "model/list",
+        "modelProvider/capabilities/read",
+        "permissionProfile/list",
+        "plugin/install",
+        "plugin/installed",
+        "plugin/list",
+        "plugin/read",
+        "plugin/reconcile",
+        "plugin/share/checkout",
+        "plugin/share/delete",
+        "plugin/share/list",
+        "plugin/share/save",
+        "plugin/share/updateTargets",
+        "plugin/skill/read",
+        "plugin/uninstall",
+        "review/start",
+        "skills/config/write",
+        "skills/extraRoots/set",
+        "skills/list",
+        "thread/approveGuardianDeniedAction",
+        "thread/archive",
+        "thread/compact/start",
+        "thread/delete",
+        "thread/fork",
+        "thread/goal/clear",
+        "thread/goal/get",
+        "thread/goal/set",
+        "thread/inject_items",
+        "thread/items/list",
+        "thread/list",
+        "thread/loaded/list",
+        "thread/metadata/update",
+        "thread/name/set",
+        "thread/read",
+        "thread/resume",
+        "thread/revert",
+        "thread/rollback",
+        "thread/section/move",
+        "thread/shellCommand",
+        "thread/start",
+        "thread/turns/list",
+        "thread/unarchive",
+        "thread/unsubscribe",
+        "threadSection/create",
+        "threadSection/delete",
+        "threadSection/list",
+        "threadSection/update",
+        "turn/interrupt",
+        "turn/start",
+        "turn/steer",
+        "windowsSandbox/readiness",
+        "windowsSandbox/setupStart"
+      ],
+      "schema_command": {
+        "argv": [
+          "/opt/codex",
+          "app-server",
+          "generate-json-schema",
+          "--out",
+          "/probe/schema"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout": "",
+        "timed_out": false
+      },
+      "schema_hook_events": [
+        "preToolUse",
+        "permissionRequest",
+        "postToolUse",
+        "preCompact",
+        "postCompact",
+        "sessionStart",
+        "sessionEnd",
+        "userPromptSubmit",
+        "subagentStart",
+        "subagentStop",
+        "stop",
+        "interrupt"
+      ],
+      "schema_server_methods": [
+        "account/chatgptAuthTokens/refresh",
+        "applyPatchApproval",
+        "attestation/generate",
+        "execCommandApproval",
+        "item/commandExecution/requestApproval",
+        "item/fileChange/requestApproval",
+        "item/permissions/requestApproval",
+        "item/tool/call",
+        "item/tool/requestUserInput",
+        "mcpServer/elicitation/request"
+      ],
+      "schema_sha256": "891dd10ef7f78e59631fce05fff2becddb8004b3c0338dbbbd6b4f17ef1fa64f",
+      "trust_writes_sent": 0,
+      "untrusted_hooks_need_review": true,
+      "version": "codex-cli 0.153.2",
+      "version_command": {
+        "argv": [
+          "/opt/codex",
+          "--version"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout": "codex-cli 0.153.2\n",
+        "timed_out": false
+      }
+    },
+    "hermes": {
+      "commands": [
+        {
+          "argv": [
+            "/opt/hermes/venv/bin/python",
+            "/opt/spike/hermes_driver.py"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "stdout": "{\"kind\": \"installed-loader-synthetic-dispatch\", \"hook_results\": {\"on_session_end\": [], \"on_session_finalize\": [], \"on_session_reset\": [], \"on_session_start\": [], \"post_approval_response\": [], \"pre_approval_request\": [], \"subagent_start\": [], \"subagent_stop\": []}, \"plugins\": [{\"name\": \"harbormaster-m0-observer\", \"key\": \"harbormaster-m0-observer\", \"kind\": \"standalone\", \"version\": \"0.0.0\", \"description\": \"Reviewed disposable M0 observer\", \"source\": \"user\", \"enabled\": false, \"tools\": 0, \"hooks\": 0, \"middleware\": 0, \"commands\": 0, \"error\": \"not enabled in config (run `hermes plugins enable harbormaster-m0-observer` to activate)\"}, {\"name\": \"harbormaster-m0-sentinel\", \"key\": \"harbormaster-m0-sentinel\", \"kind\": \"standalone\", \"version\": \"0.0.0\", \"description\": \"Reviewed disposable M0 observer\", \"source\": \"user\", \"enabled\": true, \"tools\": 0, \"hooks\": 8, \"middleware\": 0, \"commands\": 0, \"error\": null}]}\n",
+          "timed_out": false
+        },
+        {
+          "argv": [
+            "/opt/hermes/venv/bin/python",
+            "/opt/hermes/hermes",
+            "plugins",
+            "enable",
+            "harbormaster-m0-observer"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "stdout": "\u2713 Plugin harbormaster-m0-observer enabled. Takes effect on next session.\nAllow this plugin to replace built-in tools (e.g. shell_exec, write_file)?\n  This is a privileged capability: an override can intercept everything the \nagent routes through that tool.\n  Grant it?  harbormaster-m0-observer may not override built-in tools. Re-run `hermes plugins\nenable harbormaster-m0-observer --allow-tool-override` to grant this later.\n",
+          "timed_out": false
+        },
+        {
+          "argv": [
+            "/opt/hermes/venv/bin/python",
+            "/opt/spike/hermes_driver.py"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "stdout": "{\"kind\": \"installed-loader-synthetic-dispatch\", \"hook_results\": {\"on_session_end\": [], \"on_session_finalize\": [], \"on_session_reset\": [], \"on_session_start\": [], \"post_approval_response\": [], \"pre_approval_request\": [], \"subagent_start\": [], \"subagent_stop\": []}, \"plugins\": [{\"name\": \"harbormaster-m0-observer\", \"key\": \"harbormaster-m0-observer\", \"kind\": \"standalone\", \"version\": \"0.0.0\", \"description\": \"Reviewed disposable M0 observer\", \"source\": \"user\", \"enabled\": true, \"tools\": 0, \"hooks\": 8, \"middleware\": 0, \"commands\": 0, \"error\": null}, {\"name\": \"harbormaster-m0-sentinel\", \"key\": \"harbormaster-m0-sentinel\", \"kind\": \"standalone\", \"version\": \"0.0.0\", \"description\": \"Reviewed disposable M0 observer\", \"source\": \"user\", \"enabled\": true, \"tools\": 0, \"hooks\": 8, \"middleware\": 0, \"commands\": 0, \"error\": null}]}\n",
+          "timed_out": false
+        },
+        {
+          "argv": [
+            "/opt/hermes/venv/bin/python",
+            "/opt/hermes/hermes",
+            "plugins",
+            "disable",
+            "harbormaster-m0-observer"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "stdout": "\u2298 Plugin harbormaster-m0-observer disabled. Takes effect on next session.\n",
+          "timed_out": false
+        },
+        {
+          "argv": [
+            "/opt/hermes/venv/bin/python",
+            "/opt/spike/hermes_driver.py"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "stdout": "{\"kind\": \"installed-loader-synthetic-dispatch\", \"hook_results\": {\"on_session_end\": [], \"on_session_finalize\": [], \"on_session_reset\": [], \"on_session_start\": [], \"post_approval_response\": [], \"pre_approval_request\": [], \"subagent_start\": [], \"subagent_stop\": []}, \"plugins\": [{\"name\": \"harbormaster-m0-observer\", \"key\": \"harbormaster-m0-observer\", \"kind\": \"standalone\", \"version\": \"0.0.0\", \"description\": \"Reviewed disposable M0 observer\", \"source\": \"user\", \"enabled\": false, \"tools\": 0, \"hooks\": 0, \"middleware\": 0, \"commands\": 0, \"error\": \"disabled via config\"}, {\"name\": \"harbormaster-m0-sentinel\", \"key\": \"harbormaster-m0-sentinel\", \"kind\": \"standalone\", \"version\": \"0.0.0\", \"description\": \"Reviewed disposable M0 observer\", \"source\": \"user\", \"enabled\": true, \"tools\": 0, \"hooks\": 8, \"middleware\": 0, \"commands\": 0, \"error\": null}]}\n",
+          "timed_out": false
+        },
+        {
+          "argv": [
+            "/opt/hermes/venv/bin/python",
+            "-c",
+            "import yaml; c=yaml.safe_load(open(\"/probe/home/.hermes/config.yaml\")); assert c[\"display\"][\"compact\"] is True; assert \"harbormaster-m0-sentinel\" in c[\"plugins\"][\"enabled\"]; print(\"unrelated config preserved\")"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "stdout": "unrelated config preserved\n",
+          "timed_out": false
+        }
+      ],
+      "config_original_sha256": "3e45aa5567b0c28e32813c891b0fbecf2e89d0ac9144641bc4337346a434adb8",
+      "config_restored_sha256": "3e45aa5567b0c28e32813c891b0fbecf2e89d0ac9144641bc4337346a434adb8",
+      "disabled_plugin_did_not_run": true,
+      "events": [
+        {
+          "child_session_id": "fixture-child",
+          "child_subagent_id": "fixture-child-agent",
+          "event": "on_session_end",
+          "harness": "hermes",
+          "parent_session_id": "fixture-parent",
+          "parent_turn_id": "fixture-parent-turn",
+          "session_id": "fixture-session",
+          "surface": "cli",
+          "turn_id": "fixture-turn"
+        },
+        {
+          "child_session_id": "fixture-child",
+          "child_subagent_id": "fixture-child-agent",
+          "event": "on_session_finalize",
+          "harness": "hermes",
+          "parent_session_id": "fixture-parent",
+          "parent_turn_id": "fixture-parent-turn",
+          "session_id": "fixture-session",
+          "surface": "cli",
+          "turn_id": "fixture-turn"
+        },
+        {
+          "child_session_id": "fixture-child",
+          "child_subagent_id": "fixture-child-agent",
+          "event": "on_session_reset",
+          "harness": "hermes",
+          "parent_session_id": "fixture-parent",
+          "parent_turn_id": "fixture-parent-turn",
+          "session_id": "fixture-session",
+          "surface": "cli",
+          "turn_id": "fixture-turn"
+        },
+        {
+          "child_session_id": "fixture-child",
+          "child_subagent_id": "fixture-child-agent",
+          "event": "on_session_start",
+          "harness": "hermes",
+          "parent_session_id": "fixture-parent",
+          "parent_turn_id": "fixture-parent-turn",
+          "session_id": "fixture-session",
+          "surface": "cli",
+          "turn_id": "fixture-turn"
+        },
+        {
+          "child_session_id": "fixture-child",
+          "child_subagent_id": "fixture-child-agent",
+          "event": "post_approval_response",
+          "harness": "hermes",
+          "parent_session_id": "fixture-parent",
+          "parent_turn_id": "fixture-parent-turn",
+          "session_id": "fixture-session",
+          "surface": "cli",
+          "turn_id": "fixture-turn"
+        },
+        {
+          "child_session_id": "fixture-child",
+          "child_subagent_id": "fixture-child-agent",
+          "event": "pre_approval_request",
+          "harness": "hermes",
+          "parent_session_id": "fixture-parent",
+          "parent_turn_id": "fixture-parent-turn",
+          "session_id": "fixture-session",
+          "surface": "cli",
+          "turn_id": "fixture-turn"
+        },
+        {
+          "child_session_id": "fixture-child",
+          "child_subagent_id": "fixture-child-agent",
+          "event": "subagent_start",
+          "harness": "hermes",
+          "parent_session_id": "fixture-parent",
+          "parent_turn_id": "fixture-parent-turn",
+          "session_id": "fixture-session",
+          "surface": "cli",
+          "turn_id": "fixture-turn"
+        },
+        {
+          "child_session_id": "fixture-child",
+          "child_subagent_id": "fixture-child-agent",
+          "event": "subagent_stop",
+          "harness": "hermes",
+          "parent_session_id": "fixture-parent",
+          "parent_turn_id": "fixture-parent-turn",
+          "session_id": "fixture-session",
+          "surface": "cli",
+          "turn_id": "fixture-turn"
+        }
+      ],
+      "kind": "installed-loader-synthetic-dispatch",
+      "loader_callbacks_verified": true,
+      "restored": true,
+      "version": "Hermes Agent v0.21.0 (2026.8.31) \u00b7 upstream 79445a49 \u00b7 local 63279301 (+1 carried commit)\nInstall directory: /opt/hermes\nInstall method: git\nPython: 3.11.16\nOpenAI SDK: 2.24.0",
+      "version_command": {
+        "argv": [
+          "/opt/hermes/venv/bin/python",
+          "/opt/hermes/hermes",
+          "--version"
+        ],
+        "exit_code": 0,
+        "stderr": "",
+        "stdout": "Hermes Agent v0.21.0 (2026.8.31) \u00b7 upstream 79445a49 \u00b7 local 63279301 (+1 carried commit)\nInstall directory: /opt/hermes\nInstall method: git\nPython: 3.11.16\nOpenAI SDK: 2.24.0\n",
+        "timed_out": false
+      }
+    }
+  },
+  "hermes_source": {
+    "commit": "63279301bcbdc185c1b07b98a9312eb0c862f26d",
+    "path": "$HOME/.hermes/hermes-agent",
+    "plugins_sha256": "accc79459a5936d69b1b9b0773273987dbfcf827997e3cb19147a49397851c33"
+  },
+  "issue": 5,
+  "privacy": {
+    "inherited_credentials": false,
+    "network": "bwrap --unshare-net",
+    "real_profiles_mounted": false,
+    "scope": "M0 only; no generation, no app-server thread/start, no trust writes",
+    "transcripts_exported": 0
+  },
+  "recorded_at": "2026-09-05T15:23:37.319203+00:00",
+  "schema_version": 1
+}

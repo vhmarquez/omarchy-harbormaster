@@ -1,0 +1,1300 @@
+{
+  "kind": "source-derived-not-runtime-observation",
+  "codex_tag": "rust-v0.153.2",
+  "hermes_commit": "63279301bcbdc185c1b07b98a9312eb0c862f26d",
+  "local": [
+    {
+      "installed_path": "$HOME/.hermes/hermes-agent/agent/conversation_loop.py",
+      "sha256": "dda70a8d459aa5a31418b55e43c0eeb27276e4f243a4974e9d201af777280ac1",
+      "excerpts": [
+        {
+          "line": 1180,
+          "text": "    # First turn of a new session (or recovering from a broken stored"
+        },
+        {
+          "line": 1181,
+          "text": "    # prompt) \u2014 build from scratch."
+        },
+        {
+          "line": 1182,
+          "text": "    agent._cached_system_prompt = agent._build_system_prompt(system_message)"
+        },
+        {
+          "line": 1183,
+          "text": ""
+        },
+        {
+          "line": 1184,
+          "text": "    # Plugin hook: on_session_start \u2014 fired once when a brand-new"
+        },
+        {
+          "line": 1185,
+          "text": "    # session is created (not on continuation).  Plugins can use this"
+        },
+        {
+          "line": 1186,
+          "text": "    # to initialise session-scoped state (e.g. warm a memory cache)."
+        },
+        {
+          "line": 1187,
+          "text": "    try:"
+        },
+        {
+          "line": 1188,
+          "text": "        from hermes_cli.lifecycle import invoke_hook as _invoke_hook"
+        },
+        {
+          "line": 1189,
+          "text": "        _invoke_hook("
+        },
+        {
+          "line": 1190,
+          "text": "            \"on_session_start\","
+        },
+        {
+          "line": 1191,
+          "text": "            session_id=agent.session_id,"
+        },
+        {
+          "line": 1192,
+          "text": "            model=agent.model,"
+        },
+        {
+          "line": 1193,
+          "text": "            platform=getattr(agent, \"platform\", None) or \"\","
+        },
+        {
+          "line": 1194,
+          "text": "        )"
+        },
+        {
+          "line": 1195,
+          "text": "    except Exception as exc:"
+        },
+        {
+          "line": 1196,
+          "text": "        logger.warning(\"on_session_start hook failed: %s\", exc)"
+        }
+      ]
+    },
+    {
+      "installed_path": "$HOME/.hermes/hermes-agent/agent/turn_finalizer.py",
+      "sha256": "463a0d3bd92b2f1fcb7674c0400bfd2451a2344011c35de906bbb61ca96cc7e3",
+      "excerpts": [
+        {
+          "line": 820,
+          "text": "    ):"
+        },
+        {
+          "line": 821,
+          "text": "        try:"
+        },
+        {
+          "line": 822,
+          "text": "            # _spawn_background_review clones the snapshot structurally so"
+        },
+        {
+          "line": 823,
+          "text": "            # the fork's in-place sanitizers can't reach the live transcript."
+        },
+        {
+          "line": 824,
+          "text": "            agent._spawn_background_review("
+        },
+        {
+          "line": 825,
+          "text": "                messages_snapshot=list(messages),"
+        },
+        {
+          "line": 826,
+          "text": "                review_memory=_should_review_memory,"
+        },
+        {
+          "line": 827,
+          "text": "                review_skills=_should_review_skills,"
+        },
+        {
+          "line": 828,
+          "text": "            )"
+        },
+        {
+          "line": 829,
+          "text": "        except Exception:"
+        },
+        {
+          "line": 830,
+          "text": "            pass  # Background review is best-effort"
+        },
+        {
+          "line": 831,
+          "text": ""
+        },
+        {
+          "line": 832,
+          "text": "    # Note: Memory provider on_session_end() + shutdown_all() are NOT"
+        },
+        {
+          "line": 833,
+          "text": "    # called here \u2014 run_conversation() is called once per user message in"
+        },
+        {
+          "line": 834,
+          "text": "    # multi-turn sessions. Shutting down after every turn would kill the"
+        },
+        {
+          "line": 835,
+          "text": "    # provider before the second message. Actual session-end cleanup is"
+        },
+        {
+          "line": 836,
+          "text": "    # handled by the CLI (atexit / /reset) and gateway (session expiry /"
+        },
+        {
+          "line": 837,
+          "text": "    # _reset_session)."
+        },
+        {
+          "line": 838,
+          "text": ""
+        },
+        {
+          "line": 839,
+          "text": "    # Plugin hook: on_session_end"
+        },
+        {
+          "line": 840,
+          "text": "    # Fired at the very end of every run_conversation call."
+        },
+        {
+          "line": 841,
+          "text": "    # Plugins can use this for cleanup, flushing buffers, etc."
+        },
+        {
+          "line": 842,
+          "text": "    try:"
+        },
+        {
+          "line": 843,
+          "text": "        from hermes_cli.lifecycle import invoke_hook as _invoke_hook"
+        },
+        {
+          "line": 844,
+          "text": "        _invoke_hook("
+        },
+        {
+          "line": 845,
+          "text": "            \"on_session_end\","
+        },
+        {
+          "line": 846,
+          "text": "            session_id=agent.session_id,"
+        },
+        {
+          "line": 847,
+          "text": "            task_id=effective_task_id,"
+        },
+        {
+          "line": 848,
+          "text": "            turn_id=turn_id,"
+        },
+        {
+          "line": 849,
+          "text": "            completed=completed,"
+        },
+        {
+          "line": 850,
+          "text": "            failed=failed,"
+        },
+        {
+          "line": 851,
+          "text": "            interrupted=interrupted,"
+        },
+        {
+          "line": 852,
+          "text": "            turn_exit_reason=_turn_exit_reason,"
+        },
+        {
+          "line": 853,
+          "text": "            model=agent.model,"
+        },
+        {
+          "line": 854,
+          "text": "            platform=getattr(agent, \"platform\", None) or \"\","
+        },
+        {
+          "line": 855,
+          "text": "        )"
+        },
+        {
+          "line": 856,
+          "text": "    except Exception as exc:"
+        },
+        {
+          "line": 857,
+          "text": "        logger.warning(\"on_session_end hook failed: %s\", exc)"
+        },
+        {
+          "line": 858,
+          "text": ""
+        },
+        {
+          "line": 859,
+          "text": "    agent._turn_preflight_display_snapshot = None"
+        },
+        {
+          "line": 860,
+          "text": "    agent._turn_received_provider_response = False"
+        },
+        {
+          "line": 861,
+          "text": ""
+        },
+        {
+          "line": 862,
+          "text": "    return result"
+        }
+      ]
+    },
+    {
+      "installed_path": "$HOME/.hermes/hermes-agent/tools/approval.py",
+      "sha256": "0e8080a1f459fd3264aa1133046cf574f740d3890c211634131f9335cf8caea6",
+      "excerpts": [
+        {
+          "line": 108,
+          "text": "def _fire_approval_hook(hook_name: str, **kwargs) -> None:"
+        },
+        {
+          "line": 109,
+          "text": "    \"\"\"Invoke a plugin lifecycle hook for the approval system."
+        },
+        {
+          "line": 110,
+          "text": ""
+        },
+        {
+          "line": 111,
+          "text": "    Lazy-imports the plugin manager to avoid circular imports (approval.py is"
+        },
+        {
+          "line": 112,
+          "text": "    imported very early, long before plugins are discovered). Never raises --"
+        },
+        {
+          "line": 113,
+          "text": "    plugin errors are logged and swallowed."
+        },
+        {
+          "line": 114,
+          "text": ""
+        },
+        {
+          "line": 115,
+          "text": "    Only fires for the two approval-specific hooks in VALID_HOOKS:"
+        },
+        {
+          "line": 116,
+          "text": "    pre_approval_request, post_approval_response."
+        },
+        {
+          "line": 117,
+          "text": "    \"\"\""
+        },
+        {
+          "line": 118,
+          "text": "    try:"
+        },
+        {
+          "line": 119,
+          "text": "        from hermes_cli.lifecycle import invoke_hook"
+        },
+        {
+          "line": 120,
+          "text": "    except Exception:"
+        },
+        {
+          "line": 121,
+          "text": "        # Plugin system not available in this execution context"
+        },
+        {
+          "line": 122,
+          "text": "        # (e.g. bare tool-only imports, minimal test environments)."
+        },
+        {
+          "line": 123,
+          "text": "        return"
+        },
+        {
+          "line": 124,
+          "text": "    try:"
+        },
+        {
+          "line": 125,
+          "text": "        kwargs.setdefault(\"turn_id\", _approval_turn_id.get())"
+        },
+        {
+          "line": 126,
+          "text": "        kwargs.setdefault(\"tool_call_id\", _approval_tool_call_id.get())"
+        },
+        {
+          "line": 127,
+          "text": "        # Forward the Hermes session id so observer plugins parent approval"
+        },
+        {
+          "line": 128,
+          "text": "        # marks to the real session scope instead of a synthetic \"default\""
+        },
+        {
+          "line": 129,
+          "text": "        # session (whose scope never closes \u2192 marks never export)."
+        },
+        {
+          "line": 130,
+          "text": "        _session_id = _approval_session_id.get()"
+        },
+        {
+          "line": 131,
+          "text": "        if _session_id:"
+        },
+        {
+          "line": 132,
+          "text": "            kwargs.setdefault(\"session_id\", _session_id)"
+        },
+        {
+          "line": 133,
+          "text": "        invoke_hook(hook_name, **kwargs)"
+        },
+        {
+          "line": 134,
+          "text": "    except Exception as exc:"
+        },
+        {
+          "line": 135,
+          "text": "        # invoke_hook() already swallows per-callback errors, so reaching here"
+        },
+        {
+          "line": 136,
+          "text": "        # means the dispatch layer itself failed. Log and move on -- approval"
+        },
+        {
+          "line": 137,
+          "text": "        # flow is safety-critical, plugin observability is not."
+        },
+        {
+          "line": 138,
+          "text": "        logger.debug(\"Approval hook %s dispatch failed: %s\", hook_name, exc)"
+        }
+      ]
+    },
+    {
+      "installed_path": "$HOME/.hermes/hermes-agent/tools/delegate_tool.py",
+      "sha256": "8a4e91584d93e709c5cb88bb5863dbda586ba5a84b601e67b783e090e422804e",
+      "excerpts": [
+        {
+          "line": 2242,
+          "text": "    try:"
+        },
+        {
+          "line": 2243,
+          "text": "        from hermes_cli.lifecycle import invoke_hook as _invoke_hook"
+        },
+        {
+          "line": 2244,
+          "text": "        _invoke_hook("
+        },
+        {
+          "line": 2245,
+          "text": "            \"subagent_start\","
+        },
+        {
+          "line": 2246,
+          "text": "            parent_session_id=getattr(parent_agent, \"session_id\", None),"
+        },
+        {
+          "line": 2247,
+          "text": "            parent_turn_id=getattr(parent_agent, \"_current_turn_id\", \"\") or \"\","
+        },
+        {
+          "line": 2248,
+          "text": "            parent_subagent_id=parent_subagent_id,"
+        },
+        {
+          "line": 2249,
+          "text": "            child_session_id=getattr(child, \"session_id\", None),"
+        },
+        {
+          "line": 2250,
+          "text": "            child_subagent_id=subagent_id,"
+        },
+        {
+          "line": 2251,
+          "text": "            child_role=effective_role,"
+        },
+        {
+          "line": 2252,
+          "text": "            child_goal=goal,"
+        },
+        {
+          "line": 2253,
+          "text": "        )"
+        },
+        {
+          "line": 2254,
+          "text": "    except Exception:"
+        },
+        {
+          "line": 2255,
+          "text": "        logger.debug(\"subagent_start hook invocation failed\", exc_info=True)"
+        }
+      ]
+    },
+    {
+      "installed_path": "$HOME/.hermes/hermes-agent/hermes_cli/plugins.py",
+      "sha256": "accc79459a5936d69b1b9b0773273987dbfcf827997e3cb19147a49397851c33",
+      "excerpts": [
+        {
+          "line": 633,
+          "text": "def _get_disabled_plugins() -> set:"
+        },
+        {
+          "line": 634,
+          "text": "    \"\"\"Read the disabled plugins list from config.yaml."
+        },
+        {
+          "line": 635,
+          "text": ""
+        },
+        {
+          "line": 636,
+          "text": "    Kept for backward compat and explicit deny-list semantics. A plugin"
+        },
+        {
+          "line": 637,
+          "text": "    name in this set will never load, even if it appears in"
+        },
+        {
+          "line": 638,
+          "text": "    ``plugins.enabled``."
+        },
+        {
+          "line": 639,
+          "text": "    \"\"\""
+        },
+        {
+          "line": 640,
+          "text": "    try:"
+        },
+        {
+          "line": 641,
+          "text": "        from hermes_cli.config import load_config"
+        },
+        {
+          "line": 642,
+          "text": "        config = load_config()"
+        },
+        {
+          "line": 643,
+          "text": "        disabled = cfg_get(config, \"plugins\", \"disabled\", default=[])"
+        },
+        {
+          "line": 644,
+          "text": "        return set(disabled) if isinstance(disabled, list) else set()"
+        },
+        {
+          "line": 645,
+          "text": "    except Exception:"
+        },
+        {
+          "line": 646,
+          "text": "        return set()"
+        },
+        {
+          "line": 647,
+          "text": ""
+        },
+        {
+          "line": 648,
+          "text": ""
+        },
+        {
+          "line": 649,
+          "text": "def _get_enabled_plugins() -> Optional[set]:"
+        },
+        {
+          "line": 650,
+          "text": "    \"\"\"Read the enabled-plugins allow-list from config.yaml."
+        },
+        {
+          "line": 651,
+          "text": ""
+        },
+        {
+          "line": 652,
+          "text": "    Plugins are opt-in by default \u2014 only plugins whose name appears in"
+        },
+        {
+          "line": 653,
+          "text": "    this set are loaded. Returns:"
+        },
+        {
+          "line": 654,
+          "text": ""
+        },
+        {
+          "line": 655,
+          "text": "    * ``None`` \u2014 the key is missing or malformed. Callers should treat"
+        },
+        {
+          "line": 656,
+          "text": "      this as \"nothing enabled yet\" (the opt-in default); the first"
+        },
+        {
+          "line": 657,
+          "text": "      ``migrate_config`` run populates the key with a grandfathered set"
+        },
+        {
+          "line": 658,
+          "text": "      of currently-installed user plugins so existing setups don't"
+        },
+        {
+          "line": 659,
+          "text": "      break on upgrade."
+        },
+        {
+          "line": 660,
+          "text": "    * ``set()`` \u2014 an empty list was explicitly set; nothing loads."
+        },
+        {
+          "line": 661,
+          "text": "    * ``set(...)`` \u2014 the concrete allow-list."
+        },
+        {
+          "line": 662,
+          "text": "    \"\"\""
+        },
+        {
+          "line": 663,
+          "text": "    try:"
+        },
+        {
+          "line": 664,
+          "text": "        from hermes_cli.config import load_config"
+        },
+        {
+          "line": 665,
+          "text": "        config = load_config()"
+        },
+        {
+          "line": 666,
+          "text": "        plugins_cfg = config.get(\"plugins\")"
+        },
+        {
+          "line": 667,
+          "text": "        if not isinstance(plugins_cfg, dict):"
+        },
+        {
+          "line": 668,
+          "text": "            return None"
+        },
+        {
+          "line": 669,
+          "text": "        if \"enabled\" not in plugins_cfg:"
+        },
+        {
+          "line": 670,
+          "text": "            return None"
+        },
+        {
+          "line": 671,
+          "text": "        enabled = plugins_cfg.get(\"enabled\")"
+        },
+        {
+          "line": 672,
+          "text": "        if not isinstance(enabled, list):"
+        },
+        {
+          "line": 673,
+          "text": "            return None"
+        },
+        {
+          "line": 674,
+          "text": "        return set(enabled)"
+        }
+      ]
+    },
+    {
+      "installed_path": "$HOME/.hermes/hermes-agent/website/docs/user-guide/features/hooks.md",
+      "sha256": "1b091c46f2c15c7aa941111272df7720d1a359dae211012bf1119f6ee41a8fcf",
+      "excerpts": [
+        {
+          "line": 458,
+          "text": "| `on_session_start` | Observer | First turn of a new session; return ignored. | `session_id`, `model`, `platform` | Identifiers and routing metadata only. |"
+        },
+        {
+          "line": 459,
+          "text": "| `on_session_end` | Observer | Canonically at each turn finalization; CLI/TUI exits have additional reduced legacy shapes. Return ignored. | Canonical: `session_id`, `task_id`, `turn_id`, `completed`, `failed`, `interrupted`, `turn_exit_reason`, `model`, `platform`; exit paths may add `reason`/`api_request_id` and omit fields. | IDs, model/platform, and outcome; canonical payload has no message body. |"
+        },
+        {
+          "line": 460,
+          "text": "| `on_session_finalize` | Observer | CLI/TUI/gateway teardown through `finalize_session`; gateway shutdown or expiry may finalize without a reset. Return ignored. | Surface-dependent `session_id`, `platform`, optionally `reason`, `old_session_id`, `new_session_id` | Session and routing identifiers. |"
+        },
+        {
+          "line": 461,
+          "text": "| `on_session_reset` | Observer | CLI/TUI session boundary and gateway after the replacement session exists; return ignored. | CLI: `session_id`, `platform`, `reason`; TUI: `session_id`, `platform`; gateway: those plus `reason`, `old_session_id`, `new_session_id` | Session and routing identifiers. |"
+        },
+        {
+          "line": 462,
+          "text": "| `on_skill_lifecycle` | Observer | After an authoritative skill-usage state change; return ignored. | `action`, `skill_name`, `provenance`, `task_id`, `session_id`, `use_count`, `reused`, `reuse_after_patch` | Exposes the local skill name and provenance. |"
+        },
+        {
+          "line": 463,
+          "text": "| `subagent_start` | Observer | Child constructed and about to run; return ignored. | `parent_session_id`, `parent_turn_id`, `parent_subagent_id`, `child_session_id`, `child_subagent_id`, `child_role`, `child_goal` | Child goal may contain user/project content. |"
+        },
+        {
+          "line": 464,
+          "text": "| `subagent_stop` | Observer | Child exit; return ignored. | `parent_session_id`, `parent_turn_id`, `child_session_id`, `child_role`, `child_summary`, `child_status`, `tool_call_history`, `duration_ms` | Summary and redacted tool-history metadata may reveal project structure. |"
+        },
+        {
+          "line": 465,
+          "text": "| `pre_gateway_dispatch` | Directive/control | Incoming non-internal message before auth/pairing/dispatch; first valid `skip`, `rewrite`, or `allow` controls flow. | `event`, `gateway`, `session_store` | Extremely privileged in-process objects expose inbound user/routing data and host handles. |"
+        },
+        {
+          "line": 466,
+          "text": "| `gateway_platform_event` | Observer | After the gateway's profile-scoped authorization succeeds, when a supported platform-native event is normalized at the gateway boundary (Telegram: reactions, message edits; Discord: message edits/deletes, thread created/renamed); return ignored. | `platform`, `event_type`, `payload` (event-type-specific dict \u2014 see the per-event contracts below) | Normalized plain-dict envelope only; raw SDK objects, adapter handles, and bot clients are never exposed. |"
+        },
+        {
+          "line": 467,
+          "text": "| `pre_command` | Observer | Recognized slash command about to be dispatched, before the handler runs, on CLI and gateway cold-path dispatch; return ignored in v1 (directive-shaped dicts are logged at debug). Gateway running-agent intercept commands (`/stop`, `/approve` during an active run) are deliberately excluded \u2014 control-plane escape hatches must stay outside plugin reach. | `surface` (`\"cli\"` \\| `\"gateway\"`), `command` (canonical name), `alias_used`, `args_raw`, `session_key`, `platform` | `args_raw` may contain user content or secrets typed after the command. |"
+        },
+        {
+          "line": 468,
+          "text": "| `pre_approval_request` | Observer | Before prompted or smart approval; return ignored. | `command`, `description`, `pattern_key`, `pattern_keys`, `session_key`, `surface`, `turn_id`, `tool_call_id` | Command may contain secrets; smart observer preparation force-redacts, but surfaces do not all have identical redaction. |"
+        },
+        {
+          "line": 469,
+          "text": "| `post_approval_response` | Observer | After a decision, timeout, or gateway notification failure; return ignored. | `command`, `description`, `pattern_key`, `pattern_keys`, `session_key`, `surface`, `turn_id`, `tool_call_id`, `choice`; smart path may add `decided_by` | Same command sensitivity plus decision metadata. |"
+        }
+      ]
+    }
+  ],
+  "remote": [
+    {
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.153.2/codex-rs/tui/src/onboarding/auth.rs",
+      "sha256": "ac5582fe3e8e4e0542a2ae91bed0cdafce6df8f430009ba797b0b6db1c949f52",
+      "line_count": 1559,
+      "excerpts": [
+        {
+          "line": 490,
+          "text": ""
+        },
+        {
+          "line": 491,
+          "text": "        for (idx, option) in self.displayed_sign_in_options().into_iter().enumerate() {"
+        },
+        {
+          "line": 492,
+          "text": "            match option {"
+        },
+        {
+          "line": 493,
+          "text": "                SignInOption::ChatGpt => {"
+        },
+        {
+          "line": 494,
+          "text": "                    lines.extend(create_mode_item("
+        },
+        {
+          "line": 495,
+          "text": "                        idx,"
+        },
+        {
+          "line": 496,
+          "text": "                        option,"
+        },
+        {
+          "line": 497,
+          "text": "                        \"Sign in with ChatGPT\","
+        },
+        {
+          "line": 498,
+          "text": "                        chatgpt_description,"
+        },
+        {
+          "line": 499,
+          "text": "                    ));"
+        },
+        {
+          "line": 500,
+          "text": "                }"
+        },
+        {
+          "line": 501,
+          "text": "                SignInOption::DeviceCode => {"
+        },
+        {
+          "line": 502,
+          "text": "                    lines.extend(create_mode_item("
+        },
+        {
+          "line": 503,
+          "text": "                        idx,"
+        },
+        {
+          "line": 504,
+          "text": "                        option,"
+        },
+        {
+          "line": 505,
+          "text": "                        \"Sign in with Device Code\","
+        },
+        {
+          "line": 506,
+          "text": "                        device_code_description,"
+        },
+        {
+          "line": 507,
+          "text": "                    ));"
+        },
+        {
+          "line": 508,
+          "text": "                }"
+        },
+        {
+          "line": 509,
+          "text": "                SignInOption::ApiKey => {"
+        },
+        {
+          "line": 510,
+          "text": "                    lines.extend(create_mode_item("
+        },
+        {
+          "line": 511,
+          "text": "                        idx,"
+        },
+        {
+          "line": 512,
+          "text": "                        option,"
+        },
+        {
+          "line": 513,
+          "text": "                        if self.bedrock_setup_enabled {"
+        },
+        {
+          "line": 514,
+          "text": "                            \"Use an OpenAI API key\""
+        },
+        {
+          "line": 515,
+          "text": "                        } else {"
+        },
+        {
+          "line": 516,
+          "text": "                            \"Provide your own API key\""
+        },
+        {
+          "line": 517,
+          "text": "                        },"
+        },
+        {
+          "line": 518,
+          "text": "                        \"Pay for what you use\","
+        },
+        {
+          "line": 519,
+          "text": "                    ));"
+        }
+      ]
+    },
+    {
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.153.2/codex-rs/tui/src/lib.rs",
+      "sha256": "dacd2ea2756a3af956803ae3dbc1c5d4fd2c22fbdeeab02f0bca57856285d6cf",
+      "line_count": 3519,
+      "excerpts": [
+        {
+          "line": 1924,
+          "text": "fn should_show_onboarding("
+        },
+        {
+          "line": 1925,
+          "text": "    login_status: LoginStatus,"
+        },
+        {
+          "line": 1926,
+          "text": "    config: &Config,"
+        },
+        {
+          "line": 1927,
+          "text": "    show_trust_screen: bool,"
+        },
+        {
+          "line": 1928,
+          "text": ") -> bool {"
+        },
+        {
+          "line": 1929,
+          "text": "    if show_trust_screen {"
+        },
+        {
+          "line": 1930,
+          "text": "        return true;"
+        },
+        {
+          "line": 1931,
+          "text": "    }"
+        },
+        {
+          "line": 1932,
+          "text": ""
+        },
+        {
+          "line": 1933,
+          "text": "    should_show_login_screen(login_status, config)"
+        },
+        {
+          "line": 1934,
+          "text": "}"
+        },
+        {
+          "line": 1935,
+          "text": ""
+        },
+        {
+          "line": 1936,
+          "text": "fn should_show_login_screen(login_status: LoginStatus, config: &Config) -> bool {"
+        },
+        {
+          "line": 1937,
+          "text": "    // Only show the login screen for providers that actually require OpenAI auth"
+        },
+        {
+          "line": 1938,
+          "text": "    // (OpenAI or equivalents). For OSS/other providers, skip login entirely."
+        },
+        {
+          "line": 1939,
+          "text": "    if !config.model_provider.requires_openai_auth {"
+        },
+        {
+          "line": 1940,
+          "text": "        return false;"
+        },
+        {
+          "line": 1941,
+          "text": "    }"
+        },
+        {
+          "line": 1942,
+          "text": ""
+        },
+        {
+          "line": 1943,
+          "text": "    login_status == LoginStatus::NotAuthenticated"
+        },
+        {
+          "line": 1944,
+          "text": "}"
+        }
+      ]
+    },
+    {
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.153.2/codex-rs/hooks/src/events/session_start.rs",
+      "sha256": "5bb5bff0a8b75f1e2c85c6b18f6b10d3972903676fb65f5aa64bc95190363d23",
+      "line_count": 571,
+      "excerpts": [
+        {
+          "line": 24,
+          "text": "pub enum SessionStartSource {"
+        },
+        {
+          "line": 25,
+          "text": "    Startup,"
+        },
+        {
+          "line": 26,
+          "text": "    Resume,"
+        },
+        {
+          "line": 27,
+          "text": "    Clear,"
+        },
+        {
+          "line": 28,
+          "text": "    Compact,"
+        },
+        {
+          "line": 29,
+          "text": "}"
+        },
+        {
+          "line": 30,
+          "text": ""
+        },
+        {
+          "line": 31,
+          "text": "impl SessionStartSource {"
+        },
+        {
+          "line": 32,
+          "text": "    pub fn as_str(self) -> &'static str {"
+        },
+        {
+          "line": 33,
+          "text": "        match self {"
+        },
+        {
+          "line": 34,
+          "text": "            Self::Startup => \"startup\","
+        },
+        {
+          "line": 35,
+          "text": "            Self::Resume => \"resume\","
+        },
+        {
+          "line": 36,
+          "text": "            Self::Clear => \"clear\","
+        },
+        {
+          "line": 37,
+          "text": "            Self::Compact => \"compact\","
+        },
+        {
+          "line": 38,
+          "text": "        }"
+        },
+        {
+          "line": 39,
+          "text": "    }"
+        },
+        {
+          "line": 40,
+          "text": "}"
+        },
+        {
+          "line": 41,
+          "text": ""
+        },
+        {
+          "line": 42,
+          "text": "#[derive(Debug, Clone)]"
+        },
+        {
+          "line": 43,
+          "text": "pub struct SessionStartRequest {"
+        },
+        {
+          "line": 44,
+          "text": "    pub session_id: ThreadId,"
+        },
+        {
+          "line": 45,
+          "text": "    pub cwd: AbsolutePathBuf,"
+        },
+        {
+          "line": 46,
+          "text": "    pub transcript_path: Option<PathBuf>,"
+        },
+        {
+          "line": 47,
+          "text": "    pub model: String,"
+        },
+        {
+          "line": 48,
+          "text": "    pub permission_mode: String,"
+        },
+        {
+          "line": 49,
+          "text": "    pub target: StartHookTarget,"
+        },
+        {
+          "line": 50,
+          "text": "}"
+        },
+        {
+          "line": 51,
+          "text": ""
+        },
+        {
+          "line": 52,
+          "text": "#[derive(Debug, Clone)]"
+        },
+        {
+          "line": 53,
+          "text": "pub enum StartHookTarget {"
+        },
+        {
+          "line": 54,
+          "text": "    SessionStart {"
+        },
+        {
+          "line": 55,
+          "text": "        source: SessionStartSource,"
+        },
+        {
+          "line": 56,
+          "text": "    },"
+        },
+        {
+          "line": 57,
+          "text": "    SubagentStart {"
+        },
+        {
+          "line": 58,
+          "text": "        turn_id: String,"
+        },
+        {
+          "line": 59,
+          "text": "        agent_id: String,"
+        },
+        {
+          "line": 60,
+          "text": "        agent_type: String,"
+        },
+        {
+          "line": 61,
+          "text": "    },"
+        },
+        {
+          "line": 62,
+          "text": "}"
+        },
+        {
+          "line": 63,
+          "text": ""
+        },
+        {
+          "line": 64,
+          "text": "impl StartHookTarget {"
+        },
+        {
+          "line": 65,
+          "text": "    fn event_name(&self) -> HookEventName {"
+        },
+        {
+          "line": 66,
+          "text": "        match self {"
+        },
+        {
+          "line": 67,
+          "text": "            Self::SessionStart { .. } => HookEventName::SessionStart,"
+        },
+        {
+          "line": 68,
+          "text": "            Self::SubagentStart { .. } => HookEventName::SubagentStart,"
+        },
+        {
+          "line": 69,
+          "text": "        }"
+        },
+        {
+          "line": 70,
+          "text": "    }"
+        },
+        {
+          "line": 71,
+          "text": ""
+        },
+        {
+          "line": 72,
+          "text": "    fn matcher_input(&self) -> &str {"
+        },
+        {
+          "line": 73,
+          "text": "        match self {"
+        },
+        {
+          "line": 74,
+          "text": "            Self::SessionStart { source } => source.as_str(),"
+        },
+        {
+          "line": 75,
+          "text": "            Self::SubagentStart { agent_type, .. } => agent_type.as_str(),"
+        },
+        {
+          "line": 76,
+          "text": "        }"
+        },
+        {
+          "line": 77,
+          "text": "    }"
+        },
+        {
+          "line": 78,
+          "text": "}"
+        },
+        {
+          "line": 79,
+          "text": ""
+        },
+        {
+          "line": 80,
+          "text": "#[derive(Debug)]"
+        }
+      ]
+    },
+    {
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.153.2/codex-rs/hooks/src/lib.rs",
+      "sha256": "df594069f8ed09e14bece62ec5f1404c8fa9df88c9131d513d382b895a52a5f4",
+      "line_count": 123,
+      "excerpts": [
+        {
+          "line": 23,
+          "text": "pub const HOOK_EVENT_NAMES: [&str; 12] = ["
+        },
+        {
+          "line": 29,
+          "text": "    \"SessionStart\","
+        },
+        {
+          "line": 35,
+          "text": "    \"Interrupt\","
+        },
+        {
+          "line": 43,
+          "text": "pub const HOOK_EVENT_NAMES_WITH_MATCHERS: [&str; 9] = ["
+        },
+        {
+          "line": 49,
+          "text": "    \"SessionStart\","
+        }
+      ]
+    },
+    {
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.153.2/codex-rs/hooks/src/events/common.rs",
+      "sha256": "0bf6568d921b2584a1e827d216772b55cd471d0e965ccef7449726c62508414e",
+      "line_count": 306,
+      "excerpts": [
+        {
+          "line": 15,
+          "text": "pub struct SubagentHookContext {"
+        },
+        {
+          "line": 16,
+          "text": "    pub agent_id: String,"
+        },
+        {
+          "line": 200,
+          "text": "        assert!(matches_matcher(Some(\"\"), Some(\"SessionStart\")));"
+        }
+      ]
+    },
+    {
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.153.2/codex-rs/hooks/src/events/session_start.rs",
+      "sha256": "5bb5bff0a8b75f1e2c85c6b18f6b10d3972903676fb65f5aa64bc95190363d23",
+      "line_count": 571,
+      "excerpts": [
+        {
+          "line": 24,
+          "text": "pub enum SessionStartSource {"
+        },
+        {
+          "line": 43,
+          "text": "pub struct SessionStartRequest {"
+        },
+        {
+          "line": 44,
+          "text": "    pub session_id: ThreadId,"
+        },
+        {
+          "line": 45,
+          "text": "    pub cwd: AbsolutePathBuf,"
+        },
+        {
+          "line": 46,
+          "text": "    pub transcript_path: Option<PathBuf>,"
+        },
+        {
+          "line": 53,
+          "text": "pub enum StartHookTarget {"
+        },
+        {
+          "line": 81,
+          "text": "pub struct SessionStartOutcome {"
+        },
+        {
+          "line": 408,
+          "text": "                r#\"{\"continue\":false,\"stopReason\":\"pause\",\"hookSpecificOutput\":{\"hookEventName\":\"SessionStart\",\"additionalContext\":\"do not inject\"}}\"#,"
+        },
+        {
+          "line": 447,
+          "text": "                r#\"{\"hookSpecificOutput\":{\"hookEventName\":\"SessionStart\"\"#,"
+        }
+      ]
+    },
+    {
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.153.2/codex-rs/hooks/src/events/permission_request.rs",
+      "sha256": "552883009d6a012e37f7e1c27bf1e35028ccc92a9d5fb96200df6770279b737e",
+      "line_count": 337,
+      "excerpts": [
+        {
+          "line": 36,
+          "text": "pub struct PermissionRequestRequest {"
+        },
+        {
+          "line": 37,
+          "text": "    pub session_id: ThreadId,"
+        },
+        {
+          "line": 39,
+          "text": "    pub subagent: Option<common::SubagentHookContext>,"
+        },
+        {
+          "line": 40,
+          "text": "    pub cwd: PathBuf,"
+        },
+        {
+          "line": 41,
+          "text": "    pub transcript_path: Option<PathBuf>,"
+        },
+        {
+          "line": 51,
+          "text": "pub enum PermissionRequestDecision {"
+        },
+        {
+          "line": 57,
+          "text": "pub struct PermissionRequestOutcome {"
+        }
+      ]
+    },
+    {
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.153.2/codex-rs/hooks/src/events/subagent_start.rs",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.153.2/codex-rs/hooks/src/events/interrupt.rs",
+      "sha256": "74fca7ed0df29c9b157bf5f9169e63a0389d95c2b9638d01e7b4f562783b0a45",
+      "line_count": 183,
+      "excerpts": [
+        {
+          "line": 25,
+          "text": "pub struct InterruptRequest {"
+        },
+        {
+          "line": 26,
+          "text": "    pub session_id: ThreadId,"
+        },
+        {
+          "line": 28,
+          "text": "    pub cwd: AbsolutePathBuf,"
+        },
+        {
+          "line": 29,
+          "text": "    pub transcript_path: Option<PathBuf>,"
+        },
+        {
+          "line": 36,
+          "text": "pub struct InterruptOutcome {"
+        },
+        {
+          "line": 80,
+          "text": "        hook_event_name: \"Interrupt\".to_string(),"
+        }
+      ]
+    }
+  ],
+  "documentation_urls": [
+    "https://hermes-agent.nousresearch.com/docs/user-guide/features/hooks",
+    "https://hermes-agent.nousresearch.com/docs/user-guide/features/plugins",
+    "https://code.claude.com/docs/en/hooks",
+    "https://developers.openai.com/codex/hooks",
+    "https://developers.openai.com/codex/app-server"
+  ]
+}

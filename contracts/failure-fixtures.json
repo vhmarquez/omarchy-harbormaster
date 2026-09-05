@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "evidence_kind": "synthetic-specification",
+  "status": "M0 requirements; not executed daemon regressions",
+  "scenarios": [
+    {
+      "id": "crash-leftovers",
+      "setup": "A version-specific adapter mapping receives synthetic content/credential canaries, including deliberately contaminated identifier/version strings; a fixture writer dies after creating a temporary file before atomic rename.",
+      "operation": "Run restart, privacy disable and bounded owned cleanup.",
+      "expected": "Only allowlisted metadata with verified source-field provenance/mapping is eligible for persistence; canary-bearing mappings are rejected or omitted before writes; no owned orphan survives its retention contract; unrelated files remain.",
+      "invariant": "Field-level minimization applies to temporaries and recovery; string schemas alone do not prove secrecy.",
+      "verification": "Version-specific adapter provenance/mapping review and canary tests before enabling persistence; actual cross-process kill points and spool/temp/database/WAL/log/recovery-output canary audits in a disposable filesystem."
+    },
+    {
+      "id": "diagnostic-policy",
+      "setup": "Content collection is disabled with a fixed policy revision.",
+      "operation": "Request status/diagnostics repeatedly while an observer forwards a turn.",
+      "expected": "Policy revision and collection setting unchanged; diagnostics contain no content.",
+      "invariant": "Observation never silently enables collection.",
+      "verification": "Read-only projection regression test plus state/log canary scan."
+    },
+    {
+      "id": "active-self-events",
+      "setup": "One working turn and stable process identity under an active filesystem watcher.",
+      "operation": "Run unchanged-active workload across health intervals.",
+      "expected": "No self-triggered chmod/write/watch feedback loop; elapsed labels do not write state.",
+      "invariant": "No work without a bounded external event or scheduled health check.",
+      "verification": "Instrument filesystem events, snapshots, writes, CPU ticks and wakeups."
+    },
+    {
+      "id": "late-start-after-end",
+      "setup": "A terminal fact for turn T has committed.",
+      "operation": "Deliver delayed turn.started for T with a later sequence before and after tombstone age/cap eviction, generation retirement and restart; attempt fresh-generation observation with missing or verified reconciliation.",
+      "expected": "T is never revived by a delayed start; eviction atomically retires its generation; old-generation events are rejected, not retagged; missing reconciliation stays stale/unknown; verified current work or a genuinely new turn may run.",
+      "invariant": "Terminal tombstones beat delayed starts; bounded eviction cannot reopen an old generation or bypass reconciliation.",
+      "verification": "Permutation/property tests across lifecycle order, age/cap boundaries, retirement/eviction crash points, old-spool replay and unavailable/successful current-turn reconciliation."
+    },
+    {
+      "id": "prune-outbox",
+      "setup": "Unreviewed completion has eligible pending delivery and history is at retention limit.",
+      "operation": "Prune history, restart, then deliver/ack.",
+      "expected": "Delivery intent and unread outcome remain or explicit overflow/expiry is visible; not silently lost.",
+      "invariant": "History retention is independent of outbox and human review.",
+      "verification": "Transaction/crash regression with send/ack ambiguity cases."
+    },
+    {
+      "id": "zombie-process",
+      "setup": "Recorded owned PID still exists but Linux state is zombie.",
+      "operation": "Reconcile liveness and attempt attach/end against boot/start identity.",
+      "expected": "Not shown as a functioning running agent; no blind PID-only control; resume needs prior runtime reconciliation.",
+      "invariant": "Existence is not liveness or ownership.",
+      "verification": "Real fork/unreaped-child fixture and PID identity negative cases."
+    },
+    {
+      "id": "reasoning-versus-verbosity",
+      "setup": "Adapter exposes output verbosity but no reasoning-effort signal.",
+      "operation": "Project optional reasoning metadata.",
+      "expected": "Reasoning effort remains unknown; verbosity is labeled separately.",
+      "invariant": "One metric never substitutes for another.",
+      "verification": "Sanitized version-derived adapter mapping fixtures."
+    },
+    {
+      "id": "invalid-frame",
+      "setup": "Registered producer and known state revision.",
+      "operation": "Send unknown version, oversized/deep JSON, duplicate keys or invalid identifiers.",
+      "expected": "Reject with bounded machine error and no domain mutation; capability degrades truthfully.",
+      "invariant": "Parsing and authorization precede durable state changes.",
+      "verification": "Framing/parser fuzz and strict-schema negative cases."
+    },
+    {
+      "id": "launch-retry",
+      "setup": "Launch request accepted but client loses connection before seeing result.",
+      "operation": "Retry identical request; then retry same ID with changed intent.",
+      "expected": "Existing launch is reconciled once; conflicting intent is rejected.",
+      "invariant": "Idempotency is durable and not a UI-only debounce.",
+      "verification": "Crash before spawn/after spawn/before acknowledgment with runner enumeration."
+    },
+    {
+      "id": "notification-uncertain",
+      "setup": "Desktop accepted notification but process crashes before recording acknowledgment.",
+      "operation": "Recover outbox and retry according to policy.",
+      "expected": "Outcome remains unread; duplicate display may occur and uncertainty is explicit.",
+      "invariant": "No exactly-once visible delivery promise.",
+      "verification": "Real fake-notification-service test fixture labeled as a test, not desktop evidence."
+    },
+    {
+      "id": "wrong-target",
+      "setup": "Stored process/window identifier is stale, reused or unrelated.",
+      "operation": "Request focus/interrupt/end.",
+      "expected": "Refuse unproven target, preserve unrelated windows/processes.",
+      "invariant": "Identity and ownership are rechecked at action time.",
+      "verification": "Disposable window and process identity tests; no private real-window titles."
+    },
+    {
+      "id": "slow-consumer",
+      "setup": "Two bridges subscribe, one stops reading while event stream continues.",
+      "operation": "Fill slow consumer queue past the specified limit.",
+      "expected": "Bound memory, disconnect/resnapshot the slow stream, preserve responsive stream and expose loss/gap.",
+      "invariant": "A slow UI cannot block the daemon or other clients.",
+      "verification": "Socket backpressure integration fixture with measured queue sizes."
+    },
+    {
+      "id": "hook-install-rollback",
+      "setup": "A disposable profile has pre-existing unrelated hooks/settings.",
+      "operation": "Install observer, interrupt installation, recover and uninstall.",
+      "expected": "Unrelated config preserved; owned payload restored/removed; no approval bypass.",
+      "invariant": "Trust and configuration ownership survive partial writes.",
+      "verification": "Installed loader/CLI probes in disposable homes, no credentials."
+    },
+    {
+      "id": "review-is-not-open",
+      "setup": "Completed outcome is unreviewed.",
+      "operation": "Open project/terminal, then explicitly mark reviewed.",
+      "expected": "Opening does not clear review; explicit action only reviews that outcome revision.",
+      "invariant": "Human acceptance is distinct from native action and delivery.",
+      "verification": "UI state test with newer-outcome race and stale revision."
+    }
+  ]
+}

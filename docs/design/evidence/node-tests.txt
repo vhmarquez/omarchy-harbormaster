@@ -1,0 +1,16 @@
+✔ maskable project labels retain stable explicit option values (0.532475ms)
+✔ portable UI exposes required review/settings/recovery controls without network or storage APIs (4.30586ms)
+✔ fixture projection counts overlap intentionally and project scope never changes global totals (1.067958ms)
+✔ settings are explicit and reversible: hooks need consent and privacy never enables content collection (0.538075ms)
+✔ capability gates distinguish focus, attach, resume and owned termination (0.922659ms)
+✔ launch retry reuses its request and preserves created context; uncertain or duplicate submit cannot spawn (0.438963ms)
+✔ masking hides fixture metadata but does not change retention or erase review state (0.429991ms)
+✔ opening work or delivering a notification never reviews a turn; explicit review is undoable and does not verify tests (0.480416ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 41.972372

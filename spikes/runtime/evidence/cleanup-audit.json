@@ -1,0 +1,11 @@
+{
+  "executed_utc": "2026-09-05T15:21:01.014444+00:00",
+  "method": "Read exact recorded service/scope names, recorded probe app-ids, known service/terminal PIDs; no cleanup signalling or private titles",
+  "exact_unit_count": 20,
+  "non_unloaded_units": {},
+  "owned_window_count": 0,
+  "probe_scratch_directory_count": 0,
+  "known_service_terminal_pids_still_present": 0,
+  "canonical_evidence_source_hashes_match": true,
+  "passed": true
+}

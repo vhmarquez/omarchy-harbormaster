@@ -1,0 +1,152 @@
+{
+  "note": "Selected fields from real pre-fix captures; omitted repetitive command polling. Not current acceptance results.",
+  "captures": [
+    {
+      "phase": "lifecycle",
+      "started_utc": "2026-09-05T14:58:20.851847+00:00",
+      "verdict": "INVALIDATED",
+      "checks": {
+        "separate_cgroups": false,
+        "private_socket": true,
+        "ui_restart_survival": true,
+        "daemon_restart_survival": true,
+        "daemon_sigkill_survival": true,
+        "daemon_recovery_no_duplicate": true,
+        "runtime_stop_ends_worker": true,
+        "default_tmux_unchanged": true
+      },
+      "cleanup": {
+        "units_unloaded": true,
+        "owned_processes_gone": true,
+        "private_directory_removed": true,
+        "default_tmux_unchanged": true
+      },
+      "process_cgroups": {
+        "server": "0::/user.slice/user-1000.slice/user@1000.service/app.slice/harbormaster-m0-runtime-1b46d23fce67.service",
+        "worker": "0::/user.slice/user-1000.slice/user@1000.service/app.slice/tmux-spawn-a00cf87a-fd92-48e7-80fe-adc5fa73ea8c.scope",
+        "daemon": "0::/user.slice/user-1000.slice/user@1000.service/app.slice/harbormaster-m0-daemon-1b46d23fce67.service",
+        "ui": "0::/user.slice/user-1000.slice/user@1000.service/app.slice/harbormaster-m0-ui-1b46d23fce67.service"
+      },
+      "resource_namespace": {
+        "runtime": "harbormaster-m0-runtime-1b46d23fce67.service",
+        "daemon": "harbormaster-m0-daemon-1b46d23fce67.service",
+        "ui": "harbormaster-m0-ui-1b46d23fce67.service"
+      },
+      "source_capture": "lifecycle-diagnostic.json",
+      "observed_command_count": 38,
+      "failed_focus_commands": []
+    },
+    {
+      "phase": "desktop",
+      "started_utc": "2026-09-05T15:05:07.489987+00:00",
+      "verdict": "INVALIDATED",
+      "checks": {
+        "worker_lifecycle_owned_by_runtime": true,
+        "separate_cgroups": true,
+        "private_socket": true,
+        "default_tmux_unchanged": true
+      },
+      "cleanup": {
+        "owned_windows_gone": true,
+        "original_focus_restored": false,
+        "units_unloaded": true,
+        "owned_processes_gone": true,
+        "private_directory_removed": true,
+        "default_tmux_unchanged": true
+      },
+      "process_cgroups": {
+        "server": "0::/user.slice/user-1000.slice/user@1000.service/app.slice/harbormaster-m0-runtime-9c3755cce064.service",
+        "worker": "0::/user.slice/user-1000.slice/user@1000.service/app.slice/tmux-spawn-cdff0fd9-0899-4bd9-be82-78e3b8e4978c.scope",
+        "daemon": "0::/user.slice/user-1000.slice/user@1000.service/app.slice/harbormaster-m0-daemon-9c3755cce064.service",
+        "ui": "0::/user.slice/user-1000.slice/user@1000.service/app.slice/harbormaster-m0-ui-9c3755cce064.service"
+      },
+      "worker_unit": {
+        "BindsTo": "",
+        "PartOf": "harbormaster-m0-runtime-9c3755cce064.service",
+        "LoadState": "loaded",
+        "ActiveState": "active",
+        "ControlGroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/tmux-spawn-cdff0fd9-0899-4bd9-be82-78e3b8e4978c.scope",
+        "KillMode": "control-group"
+      },
+      "error": {
+        "stage": "exact terminal attach and focus",
+        "type": "TimeoutError",
+        "message": "bounded condition wait expired"
+      },
+      "cleanup_error": "RuntimeError",
+      "resource_namespace": {
+        "runtime": "harbormaster-m0-runtime-9c3755cce064.service",
+        "daemon": "harbormaster-m0-daemon-9c3755cce064.service",
+        "ui": "harbormaster-m0-ui-9c3755cce064.service"
+      },
+      "source_capture": "desktop-diagnostic.json",
+      "observed_command_count": 230,
+      "failed_focus_commands": [
+        {
+          "argv": [
+            "hyprctl",
+            "dispatch",
+            "focuswindow",
+            "address:$ORIGINAL_WINDOW"
+          ],
+          "returncode": 7
+        }
+      ]
+    },
+    {
+      "phase": "desktop",
+      "started_utc": "2026-09-05T15:07:50.012046+00:00",
+      "verdict": "INVALIDATED",
+      "checks": {
+        "worker_lifecycle_owned_by_runtime": true,
+        "separate_cgroups": true,
+        "private_socket": true,
+        "default_tmux_unchanged": true
+      },
+      "cleanup": {
+        "owned_windows_gone": true,
+        "original_focus_restored": true,
+        "units_unloaded": true,
+        "owned_processes_gone": true,
+        "private_directory_removed": true,
+        "default_tmux_unchanged": true
+      },
+      "process_cgroups": {
+        "server": "0::/user.slice/user-1000.slice/user@1000.service/app.slice/harbormaster-m0-runtime-ae3cd72e91f4.service",
+        "worker": "0::/user.slice/user-1000.slice/user@1000.service/app.slice/tmux-spawn-5f2faf0f-7e85-4daf-b328-eecf190f0c87.scope",
+        "daemon": "0::/user.slice/user-1000.slice/user@1000.service/app.slice/harbormaster-m0-daemon-ae3cd72e91f4.service",
+        "ui": "0::/user.slice/user-1000.slice/user@1000.service/app.slice/harbormaster-m0-ui-ae3cd72e91f4.service"
+      },
+      "worker_unit": {
+        "BindsTo": "",
+        "PartOf": "harbormaster-m0-runtime-ae3cd72e91f4.service",
+        "LoadState": "loaded",
+        "ActiveState": "active",
+        "ControlGroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/tmux-spawn-5f2faf0f-7e85-4daf-b328-eecf190f0c87.scope",
+        "KillMode": "control-group"
+      },
+      "attach_diagnostic": {
+        "terminal_pid": 198882,
+        "session_id": "",
+        "rows": [
+          "198885\t$0\t/dev/pts/2"
+        ],
+        "client_ppid": 198882,
+        "client_fd0": "/dev/pts/2"
+      },
+      "error": {
+        "stage": "exact terminal attach and focus",
+        "type": "TimeoutError",
+        "message": "bounded condition wait expired"
+      },
+      "resource_namespace": {
+        "runtime": "harbormaster-m0-runtime-ae3cd72e91f4.service",
+        "daemon": "harbormaster-m0-daemon-ae3cd72e91f4.service",
+        "ui": "harbormaster-m0-ui-ae3cd72e91f4.service"
+      },
+      "source_capture": "desktop-attach-diagnostic.json",
+      "observed_command_count": 232,
+      "failed_focus_commands": []
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "kind": "manually-recorded-development-observations-not-fabricated-test-output",
+  "tdd_slices": [
+    {"behavior": "private network/home and credential-free child environment", "red": "sandbox helper not implemented", "green": "sandbox test passed against actual bwrap network attempt"},
+    {"behavior": "metadata-only command observer", "red": "observer not implemented", "green": "actual stdin command invocation emitted expected projected JSON and empty stdout/stderr"},
+    {"behavior": "malformed/oversized/symlink sink fail-open", "red": "invalid JSON exited 1 with traceback", "green": "all malformed, oversize, unknown-event and symlink cases returned 0 silently"},
+    {"behavior": "reversible fixture hook overlay", "red": "reversible installer not implemented", "green": "unrelated hooks/permissions retained; exact original bytes restored"},
+    {"behavior": "installed harness integration", "red": "run.py did not exist", "green": "live integration test passed after real loader/CLI/App Server execution"},
+    {"behavior": "overlay conflict safety", "red": "ValueError not raised for symlink", "green": "symlink refused and concurrent content preserved"},
+    {"behavior": "native Codex no-input startup", "red": "native CLI startup probe missing", "green": "private PTY reached authentication gate without semantic input"},
+    {"behavior": "installed App Server control inventory", "red": "control inventory missing", "green": "generated client/server method lists contain resume, interrupt and input request methods"},
+    {"behavior": "published evidence path sanitization", "red": "host home path appeared in evidence", "green": "test passed after rendering home paths as literal $HOME"}
+  ],
+  "discovery_issues": [
+    {"command": "mise which claude; mise which codex", "effect": "mise unexpectedly pruned older Claude 2.1.259 and Codex 0.153.0 installations and caches", "response": "disclosed; no global reinstall attempted; all subsequent and reproducible probes use direct installed paths"},
+    {"problem": "preliminary read-only /dev bind caused Claude Bun abort on --version", "evidence": "private /proc alone still aborted; private --dev /dev returned 2.1.260 and exit 0", "response": "final sandbox uses private devices and private PID/proc namespaces"},
+    {"problem": "Hermes venv Python path absent in preliminary namespace", "response": "mount uv runtime at unversioned symlink path referenced by the installed venv"},
+    {"problem": "Hermes version subcommand is invalid", "response": "use supported --version"},
+    {"problem": "guessed Codex needsReview field absent", "response": "inspect actual hooks/list response; assert trustStatus == untrusted and isManaged == false"},
+    {"problem": "native Codex authentication precedes /hooks", "response": "stopped native trust path; checked pinned source; no credential reuse, fake provider or trust bypass"}
+  ],
+  "scope": "M0 isolated observation only. No commits, pushes, GitHub writes, package installs, or real harness profile/config/auth changes. The mise housekeeping side effect is the disclosed exception to intended repository-only discovery effects."
+}

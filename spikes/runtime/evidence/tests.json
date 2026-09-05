@@ -1,0 +1,18 @@
+{
+  "command": [
+    "python3",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "spikes/runtime",
+    "-p",
+    "test_*.py",
+    "-v"
+  ],
+  "returncode": 0,
+  "stdout": "",
+  "stderr": "test_exact_identity_accepts_only_matching_window (test_identity.IdentityTests.test_exact_identity_accepts_only_matching_window) ... ok\ntest_stale_or_ambiguous_identity_is_rejected (test_identity.IdentityTests.test_stale_or_ambiguous_identity_is_rejected) ... ok\ntest_desktop_probe_focuses_exact_disposable_terminal (test_runtime.RuntimeProbeTests.test_desktop_probe_focuses_exact_disposable_terminal) ... ok\ntest_lifecycle_probe_preserves_owned_worker (test_runtime.RuntimeProbeTests.test_lifecycle_probe_preserves_owned_worker) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 2.184s\n\nOK\n",
+  "executed_utc": "2026-09-05T15:12:45.484141+00:00"
+}

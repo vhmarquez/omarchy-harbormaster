@@ -1,0 +1,1395 @@
+{
+  "schema": 1,
+  "phase": "desktop",
+  "started_utc": "2026-09-05T15:23:13.955341+00:00",
+  "fixture": "Python daemon + sleep UI stand-ins; real tmux/systemd; no live harness",
+  "checks": {
+    "worker_lifecycle_owned_by_runtime": true,
+    "separate_cgroups": true,
+    "private_socket": true,
+    "exact_attach": true,
+    "exact_focus": true,
+    "wrong_identity_rejected": true,
+    "wrong_tmux_session_rejected": true,
+    "missing_session_rejected": true,
+    "ui_restart_survival": true,
+    "daemon_restart_survival": true,
+    "daemon_sigkill_survival": true,
+    "daemon_recovery_no_duplicate": true,
+    "attached_across_restarts": true,
+    "terminal_close_survival": true,
+    "stale_window_rejected": true,
+    "exact_reattach": true,
+    "runtime_stop_ends_worker": true,
+    "default_tmux_unchanged": true
+  },
+  "cleanup": {
+    "owned_windows_gone": true,
+    "original_focus_restored": true,
+    "units_unloaded": true,
+    "owned_processes_gone": true,
+    "private_directory_removed": true,
+    "default_tmux_unchanged": true
+  },
+  "completed": true,
+  "verdict": "VALIDATED",
+  "versions": {
+    "tmux": "tmux 3.7c",
+    "systemd": "systemd 261 (261.2-1-arch)",
+    "foot": "foot version: 1.27.0 (Jul 21 2026, branch 'makepkg') +pgo +ime +graphemes +toplevel-tag +blur -assertions",
+    "omarchy": "4.0.2-1",
+    "alacritty": "not installed",
+    "kitty": "not installed",
+    "ghostty": "not installed",
+    "python": "3.14.7",
+    "kernel": "7.1.9-arch1-2",
+    "hyprland": {
+      "version": "0.56.2",
+      "commit": "efb50993780079460b0cbed1363e2166a2de1d9f"
+    }
+  },
+  "logout_policy": {
+    "observed_linger": "yes",
+    "modified": false,
+    "logout_suspend_reboot_tested": false
+  },
+  "resource_namespace": {
+    "runtime": "harbormaster-m0-runtime-3275a328a35a.service",
+    "daemon": "harbormaster-m0-daemon-3275a328a35a.service",
+    "ui": "harbormaster-m0-ui-3275a328a35a.service"
+  },
+  "units": {
+    "runtime": {
+      "BindsTo": "",
+      "PartOf": "",
+      "LoadState": "loaded",
+      "ActiveState": "active",
+      "MainPID": "206882",
+      "ControlGroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/harbormaster-m0-runtime-3275a328a35a.service",
+      "KillMode": "control-group"
+    },
+    "daemon": {
+      "BindsTo": "",
+      "PartOf": "",
+      "LoadState": "loaded",
+      "ActiveState": "active",
+      "MainPID": "206880",
+      "ControlGroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/harbormaster-m0-daemon-3275a328a35a.service",
+      "KillMode": "control-group"
+    },
+    "ui": {
+      "BindsTo": "",
+      "PartOf": "",
+      "LoadState": "loaded",
+      "ActiveState": "active",
+      "MainPID": "206890",
+      "ControlGroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/harbormaster-m0-ui-3275a328a35a.service",
+      "KillMode": "control-group"
+    }
+  },
+  "process_cgroups": {
+    "server": "0::/user.slice/user-1000.slice/user@1000.service/app.slice/harbormaster-m0-runtime-3275a328a35a.service",
+    "worker": "0::/user.slice/user-1000.slice/user@1000.service/app.slice/tmux-spawn-6e3c2f64-7c89-4c6c-857d-72a0e437fdac.scope",
+    "daemon": "0::/user.slice/user-1000.slice/user@1000.service/app.slice/harbormaster-m0-daemon-3275a328a35a.service",
+    "ui": "0::/user.slice/user-1000.slice/user@1000.service/app.slice/harbormaster-m0-ui-3275a328a35a.service"
+  },
+  "worker_unit": {
+    "BindsTo": "",
+    "PartOf": "harbormaster-m0-runtime-3275a328a35a.service",
+    "LoadState": "loaded",
+    "ActiveState": "active",
+    "ControlGroup": "/user.slice/user-1000.slice/user@1000.service/app.slice/tmux-spawn-6e3c2f64-7c89-4c6c-857d-72a0e437fdac.scope",
+    "KillMode": "control-group"
+  },
+  "negative_cases": {
+    "address": true,
+    "pid": true,
+    "app_id": true,
+    "start_ticks": true,
+    "boot_id": true,
+    "compositor": true
+  },
+  "attachments_during_restarts": {
+    "ui restart": true,
+    "daemon restart": true,
+    "daemon SIGKILL and explicit recovery": true,
+    "daemon recovery": true
+  },
+  "observations": [
+    {
+      "stage": "ui restart",
+      "heartbeat_before": 3,
+      "heartbeat_after": 4,
+      "same_server_identity": true,
+      "same_worker_identity": true
+    },
+    {
+      "stage": "daemon restart",
+      "heartbeat_before": 4,
+      "heartbeat_after": 5,
+      "same_server_identity": true,
+      "same_worker_identity": true
+    },
+    {
+      "stage": "daemon SIGKILL and explicit recovery",
+      "heartbeat_before": 6,
+      "heartbeat_after": 7,
+      "same_server_identity": true,
+      "same_worker_identity": true
+    },
+    {
+      "stage": "daemon recovery",
+      "heartbeat_before": 7,
+      "heartbeat_after": 8,
+      "same_server_identity": true,
+      "same_worker_identity": true
+    },
+    {
+      "stage": "terminal closed",
+      "heartbeat_before": 8,
+      "heartbeat_after": 9,
+      "same_server_identity": true,
+      "same_worker_identity": true
+    },
+    {
+      "stage": "terminal reattached",
+      "heartbeat_before": 9,
+      "heartbeat_after": 10,
+      "same_server_identity": true,
+      "same_worker_identity": true
+    }
+  ],
+  "daemon_command_batches": [
+    [
+      {
+        "argv": [
+          "systemd-run",
+          "--user",
+          "--no-ask-password",
+          "--quiet",
+          "--collect",
+          "--unit=harbormaster-m0-runtime-3275a328a35a.service",
+          "--service-type=exec",
+          "--expand-environment=no",
+          "--property=KillMode=control-group",
+          "--property=Restart=no",
+          "--property=TimeoutStopSec=3",
+          "--property=RuntimeMaxSec=180",
+          "--property=UMask=0077",
+          "--property=StandardOutput=null",
+          "--property=StandardError=null",
+          "--working-directory=$PROBE_DIR",
+          "--",
+          "/usr/bin/tmux",
+          "-D",
+          "-f",
+          "/dev/null",
+          "-S",
+          "$PROBE_DIR/tmux.sock"
+        ],
+        "returncode": 0
+      },
+      {
+        "argv": [
+          "tmux",
+          "-S",
+          "$PROBE_DIR/tmux.sock",
+          "new-session",
+          "-d",
+          "-s",
+          "managed",
+          "-c",
+          "$PROBE_DIR",
+          "/usr/bin/python3",
+          "-B",
+          "$SPIKE_DIR/probe.py",
+          "fixture-worker",
+          "$PROBE_DIR"
+        ],
+        "returncode": 0
+      },
+      {
+        "argv": [
+          "systemctl",
+          "--user",
+          "show",
+          "harbormaster-m0-runtime-3275a328a35a.service",
+          "--no-pager",
+          "-p",
+          "MainPID",
+          "-p",
+          "ControlGroup",
+          "-p",
+          "ActiveState",
+          "-p",
+          "KillMode",
+          "-p",
+          "PartOf",
+          "-p",
+          "BindsTo",
+          "-p",
+          "LoadState"
+        ],
+        "returncode": 0
+      }
+    ],
+    [
+      {
+        "argv": [
+          "tmux",
+          "-S",
+          "$PROBE_DIR/tmux.sock",
+          "has-session",
+          "-t",
+          "=managed"
+        ],
+        "returncode": 0
+      }
+    ],
+    [
+      {
+        "argv": [
+          "tmux",
+          "-S",
+          "$PROBE_DIR/tmux.sock",
+          "has-session",
+          "-t",
+          "=managed"
+        ],
+        "returncode": 0
+      }
+    ]
+  ],
+  "commands": [
+    {
+      "argv": [
+        "hyprctl",
+        "-j",
+        "activewindow"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "is-system-running"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "tmux",
+        "-V"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--version"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "foot",
+        "--version"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "omarchy",
+        "version"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "-j",
+        "version"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "loginctl",
+        "show-user",
+        "1000",
+        "-p",
+        "Linger",
+        "--value"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "show",
+        "harbormaster-m0-runtime-3275a328a35a.service",
+        "--no-pager",
+        "-p",
+        "MainPID",
+        "-p",
+        "ControlGroup",
+        "-p",
+        "ActiveState",
+        "-p",
+        "KillMode",
+        "-p",
+        "PartOf",
+        "-p",
+        "BindsTo",
+        "-p",
+        "LoadState"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "show",
+        "harbormaster-m0-daemon-3275a328a35a.service",
+        "--no-pager",
+        "-p",
+        "MainPID",
+        "-p",
+        "ControlGroup",
+        "-p",
+        "ActiveState",
+        "-p",
+        "KillMode",
+        "-p",
+        "PartOf",
+        "-p",
+        "BindsTo",
+        "-p",
+        "LoadState"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "show",
+        "harbormaster-m0-ui-3275a328a35a.service",
+        "--no-pager",
+        "-p",
+        "MainPID",
+        "-p",
+        "ControlGroup",
+        "-p",
+        "ActiveState",
+        "-p",
+        "KillMode",
+        "-p",
+        "PartOf",
+        "-p",
+        "BindsTo",
+        "-p",
+        "LoadState"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemd-run",
+        "--user",
+        "--no-ask-password",
+        "--quiet",
+        "--collect",
+        "--unit=harbormaster-m0-daemon-3275a328a35a.service",
+        "--service-type=exec",
+        "--expand-environment=no",
+        "--property=KillMode=control-group",
+        "--property=Restart=no",
+        "--property=TimeoutStopSec=3",
+        "--property=RuntimeMaxSec=180",
+        "--property=UMask=0077",
+        "--property=StandardOutput=null",
+        "--property=StandardError=null",
+        "--working-directory=$PROBE_DIR",
+        "--",
+        "/usr/bin/python3",
+        "-B",
+        "$SPIKE_DIR/probe.py",
+        "fixture-daemon",
+        "$PROBE_DIR"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "show",
+        "harbormaster-m0-daemon-3275a328a35a.service",
+        "--no-pager",
+        "-p",
+        "MainPID",
+        "-p",
+        "ControlGroup",
+        "-p",
+        "ActiveState",
+        "-p",
+        "KillMode",
+        "-p",
+        "PartOf",
+        "-p",
+        "BindsTo",
+        "-p",
+        "LoadState"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemd-run",
+        "--user",
+        "--no-ask-password",
+        "--quiet",
+        "--collect",
+        "--unit=harbormaster-m0-ui-3275a328a35a.service",
+        "--service-type=exec",
+        "--expand-environment=no",
+        "--property=KillMode=control-group",
+        "--property=Restart=no",
+        "--property=TimeoutStopSec=3",
+        "--property=RuntimeMaxSec=180",
+        "--property=UMask=0077",
+        "--property=StandardOutput=null",
+        "--property=StandardError=null",
+        "--working-directory=$PROBE_DIR",
+        "--",
+        "/usr/bin/sleep",
+        "infinity"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "show",
+        "harbormaster-m0-ui-3275a328a35a.service",
+        "--no-pager",
+        "-p",
+        "MainPID",
+        "-p",
+        "ControlGroup",
+        "-p",
+        "ActiveState",
+        "-p",
+        "KillMode",
+        "-p",
+        "PartOf",
+        "-p",
+        "BindsTo",
+        "-p",
+        "LoadState"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "show",
+        "harbormaster-m0-runtime-3275a328a35a.service",
+        "--no-pager",
+        "-p",
+        "MainPID",
+        "-p",
+        "ControlGroup",
+        "-p",
+        "ActiveState",
+        "-p",
+        "KillMode",
+        "-p",
+        "PartOf",
+        "-p",
+        "BindsTo",
+        "-p",
+        "LoadState"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "show",
+        "harbormaster-m0-daemon-3275a328a35a.service",
+        "--no-pager",
+        "-p",
+        "MainPID",
+        "-p",
+        "ControlGroup",
+        "-p",
+        "ActiveState",
+        "-p",
+        "KillMode",
+        "-p",
+        "PartOf",
+        "-p",
+        "BindsTo",
+        "-p",
+        "LoadState"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "show",
+        "harbormaster-m0-ui-3275a328a35a.service",
+        "--no-pager",
+        "-p",
+        "MainPID",
+        "-p",
+        "ControlGroup",
+        "-p",
+        "ActiveState",
+        "-p",
+        "KillMode",
+        "-p",
+        "PartOf",
+        "-p",
+        "BindsTo",
+        "-p",
+        "LoadState"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "show",
+        "tmux-spawn-6e3c2f64-7c89-4c6c-857d-72a0e437fdac.scope",
+        "--no-pager",
+        "-p",
+        "MainPID",
+        "-p",
+        "ControlGroup",
+        "-p",
+        "ActiveState",
+        "-p",
+        "KillMode",
+        "-p",
+        "PartOf",
+        "-p",
+        "BindsTo",
+        "-p",
+        "LoadState"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "tmux",
+        "-S",
+        "$PROBE_DIR/tmux.sock",
+        "display-message",
+        "-p",
+        "-t",
+        "=managed:",
+        "#{session_id}"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "tmux",
+        "-S",
+        "$PROBE_DIR/tmux.sock",
+        "has-session",
+        "-t",
+        "=managed"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "foot",
+        "--config=/dev/null",
+        "--log-level=none",
+        "--log-no-syslog",
+        "--app-id=org.harbormaster.probe.3275a328a35a.first",
+        "--title=Harbormaster disposable M0 probe",
+        "tmux",
+        "-S",
+        "$PROBE_DIR/tmux.sock",
+        "attach-session",
+        "-t",
+        "=managed"
+      ],
+      "spawned_pid": 206898
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "-j",
+        "clients"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "-j",
+        "clients"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "tmux",
+        "-S",
+        "$PROBE_DIR/tmux.sock",
+        "list-clients",
+        "-F",
+        "#{client_pid}\t#{session_id}\t#{client_tty}"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "tmux",
+        "-S",
+        "$PROBE_DIR/tmux.sock",
+        "list-clients",
+        "-F",
+        "#{client_pid}\t#{session_id}\t#{client_tty}"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "-j",
+        "clients"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "dispatch",
+        "hl.dsp.focus({window=\"address:$ORIGINAL_WINDOW\"})"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "-j",
+        "activewindow"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "-j",
+        "clients"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "dispatch",
+        "hl.dsp.focus({window=\"address:0x56318bf7bd10\"})"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "-j",
+        "activewindow"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "-j",
+        "activewindow"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "-j",
+        "clients"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "-j",
+        "clients"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "-j",
+        "clients"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "-j",
+        "clients"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "-j",
+        "clients"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "-j",
+        "clients"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "-j",
+        "activewindow"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "tmux",
+        "-S",
+        "$PROBE_DIR/tmux.sock",
+        "list-clients",
+        "-F",
+        "#{client_pid}\t#{session_id}\t#{client_tty}"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "tmux",
+        "-S",
+        "$PROBE_DIR/tmux.sock",
+        "has-session",
+        "-t",
+        "=missing"
+      ],
+      "returncode": 1
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "restart",
+        "harbormaster-m0-ui-3275a328a35a.service"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "show",
+        "harbormaster-m0-ui-3275a328a35a.service",
+        "--no-pager",
+        "-p",
+        "MainPID",
+        "-p",
+        "ControlGroup",
+        "-p",
+        "ActiveState",
+        "-p",
+        "KillMode",
+        "-p",
+        "PartOf",
+        "-p",
+        "BindsTo",
+        "-p",
+        "LoadState"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "tmux",
+        "-S",
+        "$PROBE_DIR/tmux.sock",
+        "list-clients",
+        "-F",
+        "#{client_pid}\t#{session_id}\t#{client_tty}"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "restart",
+        "harbormaster-m0-daemon-3275a328a35a.service"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "show",
+        "harbormaster-m0-daemon-3275a328a35a.service",
+        "--no-pager",
+        "-p",
+        "MainPID",
+        "-p",
+        "ControlGroup",
+        "-p",
+        "ActiveState",
+        "-p",
+        "KillMode",
+        "-p",
+        "PartOf",
+        "-p",
+        "BindsTo",
+        "-p",
+        "LoadState"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "tmux",
+        "-S",
+        "$PROBE_DIR/tmux.sock",
+        "list-clients",
+        "-F",
+        "#{client_pid}\t#{session_id}\t#{client_tty}"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "show",
+        "harbormaster-m0-daemon-3275a328a35a.service",
+        "--no-pager",
+        "-p",
+        "MainPID",
+        "-p",
+        "ControlGroup",
+        "-p",
+        "ActiveState",
+        "-p",
+        "KillMode",
+        "-p",
+        "PartOf",
+        "-p",
+        "BindsTo",
+        "-p",
+        "LoadState"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "kill",
+        "--signal=SIGKILL",
+        "--kill-whom=main",
+        "harbormaster-m0-daemon-3275a328a35a.service"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "show",
+        "harbormaster-m0-daemon-3275a328a35a.service",
+        "--no-pager",
+        "-p",
+        "MainPID",
+        "-p",
+        "ControlGroup",
+        "-p",
+        "ActiveState",
+        "-p",
+        "KillMode",
+        "-p",
+        "PartOf",
+        "-p",
+        "BindsTo",
+        "-p",
+        "LoadState"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "tmux",
+        "-S",
+        "$PROBE_DIR/tmux.sock",
+        "list-clients",
+        "-F",
+        "#{client_pid}\t#{session_id}\t#{client_tty}"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "show",
+        "harbormaster-m0-daemon-3275a328a35a.service",
+        "--no-pager",
+        "-p",
+        "MainPID",
+        "-p",
+        "ControlGroup",
+        "-p",
+        "ActiveState",
+        "-p",
+        "KillMode",
+        "-p",
+        "PartOf",
+        "-p",
+        "BindsTo",
+        "-p",
+        "LoadState"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemd-run",
+        "--user",
+        "--no-ask-password",
+        "--quiet",
+        "--collect",
+        "--unit=harbormaster-m0-daemon-3275a328a35a.service",
+        "--service-type=exec",
+        "--expand-environment=no",
+        "--property=KillMode=control-group",
+        "--property=Restart=no",
+        "--property=TimeoutStopSec=3",
+        "--property=RuntimeMaxSec=180",
+        "--property=UMask=0077",
+        "--property=StandardOutput=null",
+        "--property=StandardError=null",
+        "--working-directory=$PROBE_DIR",
+        "--",
+        "/usr/bin/python3",
+        "-B",
+        "$SPIKE_DIR/probe.py",
+        "fixture-daemon",
+        "$PROBE_DIR"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "show",
+        "harbormaster-m0-daemon-3275a328a35a.service",
+        "--no-pager",
+        "-p",
+        "MainPID",
+        "-p",
+        "ControlGroup",
+        "-p",
+        "ActiveState",
+        "-p",
+        "KillMode",
+        "-p",
+        "PartOf",
+        "-p",
+        "BindsTo",
+        "-p",
+        "LoadState"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "tmux",
+        "-S",
+        "$PROBE_DIR/tmux.sock",
+        "list-sessions",
+        "-F",
+        "#{session_id}"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "tmux",
+        "-S",
+        "$PROBE_DIR/tmux.sock",
+        "list-clients",
+        "-F",
+        "#{client_pid}\t#{session_id}\t#{client_tty}"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "-j",
+        "clients"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "tmux",
+        "-S",
+        "$PROBE_DIR/tmux.sock",
+        "list-clients",
+        "-F",
+        "#{client_pid}"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "-j",
+        "clients"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "tmux",
+        "-S",
+        "$PROBE_DIR/tmux.sock",
+        "has-session",
+        "-t",
+        "=managed"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "foot",
+        "--config=/dev/null",
+        "--log-level=none",
+        "--log-no-syslog",
+        "--app-id=org.harbormaster.probe.3275a328a35a.second",
+        "--title=Harbormaster disposable M0 probe",
+        "tmux",
+        "-S",
+        "$PROBE_DIR/tmux.sock",
+        "attach-session",
+        "-t",
+        "=managed"
+      ],
+      "spawned_pid": 206999
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "-j",
+        "clients"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "-j",
+        "clients"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "tmux",
+        "-S",
+        "$PROBE_DIR/tmux.sock",
+        "list-clients",
+        "-F",
+        "#{client_pid}\t#{session_id}\t#{client_tty}"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "tmux",
+        "-S",
+        "$PROBE_DIR/tmux.sock",
+        "list-clients",
+        "-F",
+        "#{client_pid}\t#{session_id}\t#{client_tty}"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "-j",
+        "clients"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "dispatch",
+        "hl.dsp.focus({window=\"address:0x56318be52f20\"})"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "-j",
+        "activewindow"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "stop",
+        "harbormaster-m0-runtime-3275a328a35a.service"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "-j",
+        "clients"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "-j",
+        "clients"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "dispatch",
+        "hl.dsp.focus({window=\"address:$ORIGINAL_WINDOW\"})"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "hyprctl",
+        "-j",
+        "activewindow"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "stop",
+        "harbormaster-m0-ui-3275a328a35a.service"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "reset-failed",
+        "harbormaster-m0-ui-3275a328a35a.service"
+      ],
+      "returncode": 1
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "stop",
+        "harbormaster-m0-daemon-3275a328a35a.service"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "reset-failed",
+        "harbormaster-m0-daemon-3275a328a35a.service"
+      ],
+      "returncode": 1
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "stop",
+        "harbormaster-m0-runtime-3275a328a35a.service"
+      ],
+      "returncode": 5
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "reset-failed",
+        "harbormaster-m0-runtime-3275a328a35a.service"
+      ],
+      "returncode": 1
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "stop",
+        "tmux-spawn-6e3c2f64-7c89-4c6c-857d-72a0e437fdac.scope"
+      ],
+      "returncode": 5
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "reset-failed",
+        "tmux-spawn-6e3c2f64-7c89-4c6c-857d-72a0e437fdac.scope"
+      ],
+      "returncode": 1
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "show",
+        "harbormaster-m0-ui-3275a328a35a.service",
+        "--no-pager",
+        "-p",
+        "MainPID",
+        "-p",
+        "ControlGroup",
+        "-p",
+        "ActiveState",
+        "-p",
+        "KillMode",
+        "-p",
+        "PartOf",
+        "-p",
+        "BindsTo",
+        "-p",
+        "LoadState"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "show",
+        "harbormaster-m0-daemon-3275a328a35a.service",
+        "--no-pager",
+        "-p",
+        "MainPID",
+        "-p",
+        "ControlGroup",
+        "-p",
+        "ActiveState",
+        "-p",
+        "KillMode",
+        "-p",
+        "PartOf",
+        "-p",
+        "BindsTo",
+        "-p",
+        "LoadState"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "show",
+        "harbormaster-m0-runtime-3275a328a35a.service",
+        "--no-pager",
+        "-p",
+        "MainPID",
+        "-p",
+        "ControlGroup",
+        "-p",
+        "ActiveState",
+        "-p",
+        "KillMode",
+        "-p",
+        "PartOf",
+        "-p",
+        "BindsTo",
+        "-p",
+        "LoadState"
+      ],
+      "returncode": 0
+    },
+    {
+      "argv": [
+        "systemctl",
+        "--user",
+        "show",
+        "tmux-spawn-6e3c2f64-7c89-4c6c-857d-72a0e437fdac.scope",
+        "--no-pager",
+        "-p",
+        "MainPID",
+        "-p",
+        "ControlGroup",
+        "-p",
+        "ActiveState",
+        "-p",
+        "KillMode",
+        "-p",
+        "PartOf",
+        "-p",
+        "BindsTo",
+        "-p",
+        "LoadState"
+      ],
+      "returncode": 0
+    }
+  ],
+  "source_sha256": {
+    "probe.py": "5c31db0fba9ab8a6308e02db11a94a3d8476de91b1aae8c6024103920fa02e02",
+    "identity.py": "07df2cab90be1f09c4b62d82c6960c818f650f688cbfcf3627f1a5d1b0ef7f0b",
+    "test_identity.py": "fe12bd804cdcc386bafac126618bf54f677a479ec9f1c31d2769de50b463847f",
+    "test_runtime.py": "546f1bb7840a6b6b75ad0a7ff594f1173410d5ba140fece8396045204de3e754"
+  }
+}

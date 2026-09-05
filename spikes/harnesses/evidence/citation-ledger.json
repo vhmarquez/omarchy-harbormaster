@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "id": 1,
+      "url": "https://hermes-agent.nousresearch.com/docs/user-guide/features/hooks",
+      "title": "",
+      "accessed": "2026-09-05"
+    },
+    {
+      "id": 2,
+      "url": "https://hermes-agent.nousresearch.com/docs/user-guide/features/plugins",
+      "title": "",
+      "accessed": "2026-09-05"
+    },
+    {
+      "id": 3,
+      "url": "https://code.claude.com/docs/en/hooks",
+      "title": "",
+      "accessed": "2026-09-05"
+    },
+    {
+      "id": 4,
+      "url": "https://developers.openai.com/codex/hooks",
+      "title": "",
+      "accessed": "2026-09-05"
+    },
+    {
+      "id": 5,
+      "url": "https://developers.openai.com/codex/app-server",
+      "title": "",
+      "accessed": "2026-09-05"
+    },
+    {
+      "id": 6,
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.153.2/codex-rs/hooks/src/lib.rs",
+      "title": "",
+      "accessed": "2026-09-05"
+    },
+    {
+      "id": 7,
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.153.2/codex-rs/tui/src/lib.rs",
+      "title": "",
+      "accessed": "2026-09-05"
+    },
+    {
+      "id": 8,
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.153.2/codex-rs/tui/src/onboarding/auth.rs",
+      "title": "",
+      "accessed": "2026-09-05"
+    },
+    {
+      "id": 9,
+      "url": "https://raw.githubusercontent.com/openai/codex/rust-v0.153.2/codex-rs/hooks/src/events/session_start.rs",
+      "title": "",
+      "accessed": "2026-09-05"
+    }
+  ]
+}

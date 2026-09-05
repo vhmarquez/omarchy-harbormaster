@@ -1,0 +1,38 @@
+{
+  "kind": "real-execution-verification",
+  "checks": {
+    "event_counts": {
+      "claude": 3,
+      "codex": 0,
+      "hermes": 8
+    },
+    "native_codex_hook_count": 9,
+    "all_fixture_configs_restored": true,
+    "no_raw_home_paths": true,
+    "no_fixture_content_leaked": true,
+    "installed_json_sha256": "b85f2ec261e6ce990b3b3211fefaedc22d5168668e32a8191e0927196565384d"
+  },
+  "test_count": 6,
+  "commands": [
+    {
+      "command": "python3 -m unittest discover -s spikes/harnesses -v",
+      "exit_code": 0,
+      "output": "test_minimal_installed_integrations (test_live.Installed.test_minimal_installed_integrations) ... ok\ntest_command_hook_emits_only_allowlisted_metadata_without_stdout (test_probe.EventProjection.test_command_hook_emits_only_allowlisted_metadata_without_stdout) ... ok\ntest_invalid_oversized_and_unwritable_payloads_fail_open_silently (test_probe.EventProjection.test_invalid_oversized_and_unwritable_payloads_fail_open_silently) ... ok\ntest_sandbox_denies_network_and_inherited_credentials (test_probe.Helpers.test_sandbox_denies_network_and_inherited_credentials) ... ok\ntest_overlay_refuses_symlink_and_concurrent_edits (test_probe.Install.test_overlay_refuses_symlink_and_concurrent_edits) ... ok\ntest_reversible_overlay_preserves_unrelated_hooks_and_exact_original_bytes (test_probe.Install.test_reversible_overlay_preserves_unrelated_hooks_and_exact_original_bytes) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 10.062s\n\nOK"
+    },
+    {
+      "command": "python3 spikes/harnesses/run.py --out spikes/harnesses/evidence/installed.json",
+      "exit_code": 0,
+      "output": "{\n  \"hermes\": {\n    \"version\": \"Hermes Agent v0.21.0 (2026.8.31) \\u00b7 upstream 79445a49 \\u00b7 local 63279301 (+1 carried commit)\\nInstall directory: /opt/hermes\\nInstall method: git\\nPython: 3.11.16\\nOpenAI SDK: 2.24.0\",\n    \"loader_callbacks_verified\": true,\n    \"restored\": true\n  },\n  \"claude\": {\n    \"version\": \"2.1.260 (Claude Code)\",\n    \"blocker\": null,\n    \"restored\": true\n  },\n  \"codex\": {\n    \"version\": \"codex-cli 0.153.2\",\n    \"hooks_listed\": 9,\n    \"untrusted_hooks_need_review\": true,\n    \"blocker\": \"Native startup stops at authentication before /hooks can be reached with the default provider. Native command hooks are reported untrusted and require exact-definition review. No credentials, fake provider/API responses, /hooks acceptance, trust writes, managed-source impersonation or trust bypass were used. No native callback invocation is claimed.\",\n    \"restored\": true\n  }\n}"
+    },
+    {
+      "command": "python3 $HOME/.hermes/skills/research/grounded-citations/scripts/sources.py --ledger spikes/harnesses/evidence/citation-ledger.json verify docs/harness-capabilities.md --strict",
+      "exit_code": 0,
+      "output": "info: stats: 80 prose sentence(s), 5 with declared provenance (6%) \u2014 5 cited, 0 marked [unverified] (a sentence may be both); 9 distinct source(s) cited, 9 in ledger (0 with evidence quotes)\ncitations OK"
+    }
+  ],
+  "limitations": [
+    "Codex native hook trust acceptance/callback execution blocked by authentication; not counted as a pass.",
+    "Hermes callbacks used synthetic lifecycle payloads through actual installed loader.",
+    "No input-needed/approval/child/resume/turn control live proof."
+  ]
+}

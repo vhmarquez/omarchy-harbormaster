@@ -1,0 +1,29 @@
+{
+  "original_files": 23,
+  "original_bytes": 4312835,
+  "hashes": "all match",
+  "font_license": "OFL retained",
+  "study_inline_scripts": 2,
+  "study_recovery_states": 18,
+  "duplicate_static_ids": 0,
+  "local_links": "all resolve",
+  "contrast_minima": {
+    "dark": {
+      "text": 8.318,
+      "muted": 6.361,
+      "accent": 5.333,
+      "warn": 6.715,
+      "bad": 5.075,
+      "line": 4.011
+    },
+    "light": {
+      "text": 5.173,
+      "muted": 4.966,
+      "accent": 5.002,
+      "warn": 4.815,
+      "bad": 5.156,
+      "line": 3.617
+    }
+  },
+  "browser_layout_verified": false
+}

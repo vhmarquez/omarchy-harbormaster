@@ -1,0 +1,30 @@
+{
+  "all_exact_units_unloaded": true,
+  "source_fingerprints_match": true,
+  "readbacks": [
+    {
+      "unit": "harbormaster-m0-runtime-7de50ed82708.service",
+      "readback": "LoadState=not-found\nActiveState=inactive"
+    },
+    {
+      "unit": "harbormaster-m0-daemon-7de50ed82708.service",
+      "readback": "LoadState=not-found\nActiveState=inactive"
+    },
+    {
+      "unit": "harbormaster-m0-ui-7de50ed82708.service",
+      "readback": "LoadState=not-found\nActiveState=inactive"
+    },
+    {
+      "unit": "harbormaster-m0-runtime-0fff5479192c.service",
+      "readback": "LoadState=not-found\nActiveState=inactive"
+    },
+    {
+      "unit": "harbormaster-m0-daemon-0fff5479192c.service",
+      "readback": "LoadState=not-found\nActiveState=inactive"
+    },
+    {
+      "unit": "harbormaster-m0-ui-0fff5479192c.service",
+      "readback": "LoadState=not-found\nActiveState=inactive"
+    }
+  ]
+}

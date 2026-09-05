@@ -1,0 +1,98 @@
+{
+  "changed_files": [
+    "docs/design/supplemental.html",
+    "docs/design/tests/study.test.cjs"
+  ],
+  "repository": "$REPO",
+  "tests_run": [
+    {
+      "phase": "baseline_before_regression",
+      "command": "node --test docs/design/tests/study.test.cjs",
+      "exit_code": 0,
+      "tests": 8,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "phase": "RED_before_html_change",
+      "command": "node --test --test-name-pattern='UI masking' docs/design/tests/study.test.cjs",
+      "exit_code": 1,
+      "tests": 7,
+      "passed": 0,
+      "failed": 7,
+      "skipped": 0,
+      "expected_failure": "AssertionError: presentation masking must preserve the pending form value",
+      "observed_failures": [
+        {"control": "mask", "group": "privacy", "actual": "30", "expected": "7"},
+        {"control": "privacy-mask", "group": "privacy", "actual": "30", "expected": "7"},
+        {"control": "mask", "group": "privacy", "actual": "30", "expected": "90"},
+        {"control": "privacy-mask", "group": "privacy", "actual": "30", "expected": "90"},
+        {"control": "mask", "group": "notifications", "actual": "enabled", "expected": "muted"},
+        {"control": "mask", "group": "notifications", "actual": "enabled", "expected": "snoozed"},
+        {"control": "mask", "group": "projects", "actual": "worktree", "expected": "checkout"}
+      ]
+    },
+    {
+      "phase": "GREEN_targeted",
+      "command": "node --test --test-name-pattern='UI masking' docs/design/tests/study.test.cjs",
+      "exit_code": 0,
+      "tests": 7,
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "phase": "GREEN_full_design_suite",
+      "command": "node --test docs/design/tests/study.test.cjs",
+      "exit_code": 0,
+      "tests": 15,
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0,
+      "coverage": [
+        "Actual unmodified inline model and UI scripts execute together in a Node VM with DOM-boundary stubs; no UI/model functions are replaced.",
+        "DOM-boundary innerHTML replacement recreates settings controls from rendered defaults, reproducing the original browser failure.",
+        "Actual Settings navigation, change listeners, global mask onclick, and delegated privacy-mask click handlers are exercised.",
+        "Retention 7 and 90 drafts survive both mask controls in both directions.",
+        "Muted and snoozed notification drafts and existing-checkout workspace drafts survive the global mask control in both directions; the privacy-local control exists only in the Privacy group.",
+        "Pending form values and settingsDirty remain intact; clean settings remain clean.",
+        "Masking neither requests discard consent nor changes committed settings, retention, content capture, sessions, or launch state.",
+        "Declined navigation discard retains the draft and dirty guard after masking.",
+        "Explicit Apply while masked commits the retained draft; subsequent Cancel restores the last applied value.",
+        "Masking still updates labels, aria-pressed, rendered task/path metadata, trusted-project path, and project option labels without changing option values.",
+        "Existing offline/no-network/no-storage API checks, syntax compilation, and model regressions continue to pass."
+      ]
+    },
+    {
+      "phase": "additional_contract_regression_check",
+      "command": "python3 -B -m unittest discover -s tests -v",
+      "exit_code": 0,
+      "tests": 10,
+      "passed": 10,
+      "failed": 0,
+      "output_summary": "Ran 10 tests in 0.038s; OK"
+    },
+    {
+      "phase": "additional_fixture_integrity_check",
+      "command": "python3 -B scripts/verify-m0.py",
+      "exit_code": 0,
+      "output": {"passed": true, "errors": []}
+    }
+  ],
+  "result": {
+    "status": "fixed_and_offline_verified",
+    "finding_source": "$LOCAL_EVIDENCE/final-stable-review.json",
+    "contract_reference": "docs/design/UX-CONTRACT.md:104",
+    "root_cause": "maskToggle called render, whose renderSettings rebuilt the form from committed values and reset settingsDirty. Presentation-only masking therefore implicitly discarded unapplied edits without consent.",
+    "fix": "Only maskToggle changed in the study HTML. It snapshots every current settings select value and settingsDirty before the existing masking/render path, then restores both afterward. All editable settings currently use selects. Existing metadata masking and explicit Apply/Cancel behavior remain unchanged; no draft is applied or stored by masking.",
+    "tdd": "Regression tests were added and all seven failed for the expected discarded-draft assertion before the HTML change. The bounded HTML patch then passed all seven regressions and the complete fifteen-test design suite without changing the regression assertions.",
+    "scope": "Only the two assigned repository files were modified. No original assets, runtime cleanup files, repository/Git state, staging, pushes, actions, configuration, network calls, dependencies, or production implementation were changed. This report is the sole additional authored evidence file.",
+    "limitations": [
+      "VM DOM-boundary tests verify inline interaction/state behavior, not browser layout, focus, accessibility-tree rendering, or production Qt behavior.",
+      "Real Chrome verification remains with the parent agent as requested.",
+      "Runtime cleanup and live harness/browser/desktop tests were not run; those are outside this task's ownership."
+    ],
+    "issues_encountered": []
+  }
+}
