@@ -11,6 +11,14 @@ pre-implementation responsibility record is [DEVELOPMENT.md](DEVELOPMENT.md).
 | #9 | Not started | Approved/merged #8 |
 | #10 | Not started | Approved/merged dependencies |
 
+The initial PR #49 hosted runs failed isolation preflight, so they did not
+qualify the container backend. The scoped correction adds a private read-only
+runtime mount without removing probe checks; local verification passes and
+redundant feature-push runs are removed. See [correction evidence](M1-VERIFICATION.md#hosted-isolation-correction).
+Current-head hosted checks and an independent correction review remain mandatory
+before requesting approval; the exact PR revision is the authoritative gate.
+The owner explicitly permits free standard GitHub CI, not paid runners/services.
+
 The issue-linked integration branch is `feat/m1-7-developer-foundation`.
 Retrieve its PR/current head with `gh pr view feat/m1-7-developer-foundation`;
 CI and owner approval must be read from that exact revision, not inferred from

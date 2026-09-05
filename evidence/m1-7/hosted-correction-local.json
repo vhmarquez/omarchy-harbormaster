@@ -1,0 +1,250 @@
+{
+  "schema": 1,
+  "started_at": "2026-09-05T21:16:11.150741+00:00",
+  "backend": "bwrap",
+  "checks": [
+    {
+      "name": "isolation-probe",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.031
+    },
+    {
+      "name": "tool-pins",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.613
+    },
+    {
+      "name": "native-tool-pins",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.038
+    },
+    {
+      "name": "rust-format",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.02
+    },
+    {
+      "name": "rust-clippy",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.131
+    },
+    {
+      "name": "rust-unit",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.112
+    },
+    {
+      "name": "rust-integration",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.203
+    },
+    {
+      "name": "qml-lint",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.086
+    },
+    {
+      "name": "qml-format",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.032
+    },
+    {
+      "name": "qml-native",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.168
+    },
+    {
+      "name": "python-verification",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 3.468
+    },
+    {
+      "name": "python-tooling",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.154
+    },
+    {
+      "name": "m0-contract-tests",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.087
+    },
+    {
+      "name": "m0-fixture-contract",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.023
+    },
+    {
+      "name": "m0-runtime-identity",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.037
+    },
+    {
+      "name": "m0-runtime-cleanup",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.116
+    },
+    {
+      "name": "m0-harness-helpers",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.207
+    },
+    {
+      "name": "m0-design-model",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.088
+    },
+    {
+      "name": "frozen-design-integrity",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.031
+    },
+    {
+      "name": "advisory-license",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.137
+    },
+    {
+      "name": "maintainability",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.075
+    },
+    {
+      "name": "m0-live-runtime",
+      "required": false,
+      "status": "SKIP",
+      "reason": "Separate opt-in desktop/service probe; no deployment authorized"
+    },
+    {
+      "name": "m0-live-harness",
+      "required": false,
+      "status": "SKIP",
+      "reason": "Installed real harness probes are outside offline #7 verification"
+    },
+    {
+      "name": "native-shell-integration",
+      "required": false,
+      "status": "SKIP",
+      "reason": "Production Omarchy/QML UI is not implemented in #7"
+    }
+  ],
+  "passed": true,
+  "scope": "M1 #7 hosted-correction local bubblewrap run after duplicate-mount test tightening; NOT actual Docker execution",
+  "source_manifest_sha256": "f8194faf0c6a601c94d6fd0b2dd39ed88c7ed021ae4f5d9041dbf591c1c9e2e2",
+  "required_counts": {
+    "PASS": 21
+  },
+  "source_hashes": {
+    "scripts/verification/container.py": "24a1632374d5979b901487eac68f1c0e89f45a8cd6e2dc8a38c53b6fc3511175",
+    "scripts/verification/probe.py": "23d9d604777e2fe649562061276f6717a22da101c57d092da95d0aebe3677ad1",
+    "tests/verification/test_container.py": "bd50613b681a2f4916d31a29fe64e870ff3725bb1038e2e41b8f2d7fdae2a676",
+    "tests/verification/test_ci_contract.py": "20695691f9569203133d786fdddb65afad2706c9c7d2fed699dd11422cf0f38c",
+    ".github/workflows/verify.yml": "42ad2a39eb32d2d27f6e0ef220f113dbb89b80a744804d2a5736dce6451a6698"
+  },
+  "test_summaries": {
+    "python-verification": [
+      "Ran 54 tests in 3.401s"
+    ],
+    "python-tooling": [
+      "Ran 16 tests in 0.088s"
+    ],
+    "rust-unit": [
+      "test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s"
+    ],
+    "rust-integration": [
+      "test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s"
+    ],
+    "qml-native": [
+      "Totals: 3 passed, 0 failed, 0 skipped, 0 blacklisted, 1ms"
+    ],
+    "m0-design-model": [
+      "# tests 15",
+      "# pass 15",
+      "# fail 0",
+      "# skipped 0"
+    ]
+  }
+}

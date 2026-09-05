@@ -36,7 +36,7 @@ class CIContractTests(unittest.TestCase):
         workflow = load_json(path)
         self.assertEqual(workflow["permissions"], {"contents": "read"})
         self.assertEqual(workflow["on"], {
-            "pull_request": {}, "push": {"branches": ["main", "feat/**", "fix/**", "docs/**", "chore/**"]}
+            "pull_request": {}, "push": {"branches": ["main"]}
         })
         self.assertTrue(workflow["concurrency"]["cancel-in-progress"])
         self.assertEqual(set(workflow["jobs"]), {"verify"})

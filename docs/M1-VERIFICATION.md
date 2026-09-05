@@ -127,6 +127,49 @@ Independent reviewers accepted responsibility boundaries, public interfaces,
 duplication/coupling and necessity. They specifically accepted the scanner
 traversal complexity and bounded-execution helper without metric-driven splitting.
 
+The hosted #7 correction (see below) separately records 54 verifier tests;
+this paragraph retains the original post-CORE-correction baseline.
+
+## Hosted isolation correction
+
+The first [PR run](https://github.com/vhmarquez/omarchy-harbormaster/actions/runs/33986331099)
+and its redundant push run failed `isolation-probe` before the rest of the
+required inventory. Those failures are not a hosted pass. The exact error was
+`host credentials or desktop paths are exposed`, the probe's shared rejection
+for a visible `/work/.git` or `/run/user`.
+
+A disposable namespace reproduction isolates the runtime-directory condition:
+adding only an empty `/run/user` reproduces the exact failure, masking image
+runtime paths with a fresh read-only `/run` passes, and exposing `.git` still
+fails. [The executable reproduction](../evidence/m1-7/reproduce-runtime-layout.py)
+and [actual cases](../evidence/m1-7/runtime-layout-cases.json) are deliberately
+labeled synthetic bubblewrap evidence, not a Docker image execution. Run it with:
+
+    python3 -B evidence/m1-7/reproduce-runtime-layout.py
+
+The container launch policy now mounts a fresh 16 MiB, read-only `/run` tmpfs
+with `nosuid,nodev,noexec`; HOME/XDG runtime state stays in private `/state`.
+No host runtime path is bound, no probe check is removed, and no Docker
+permission or daemon setting changes. The policy test failed before the change
+and passed afterward. Workflow trigger tests also went RED/GREEN when removing
+duplicate feature-push runs: PR checks and main-push verification remain, on
+standard `ubuntu-24.04` runners. Free GitHub CI is owner-authorized; paid runners,
+paid services and increasing paid usage are not. Artifact scope/retention and
+all required check gates are unchanged.
+
+The policy assertion also checks the complete tmpfs list: independent review
+found that a duplicate `/run` option escaped the earlier membership-only test.
+The test-only tightening has [observed mutation RED/GREEN evidence](../evidence/m1-7/duplicate-runtime-policy.json);
+the production command remains unchanged. Synthetic reproduction remains separate
+from Docker wiring qualification, as explicitly noted by the reviewer.
+
+[RED/GREEN evidence](../evidence/m1-7/hosted-correction-red-green.json) and
+[the corrected local inventory](../evidence/m1-7/hosted-correction-local.json)
+record actual results. That local inventory is not the mandatory hosted result:
+read PR #49's exact current-head checks and linked run artifacts before approval.
+This correction still requires independent review before publication and owner
+approval before merge; the PR's review record identifies the reviewed revision.
+
 The baseline GitHub branch-protection endpoint reports main is not protected.
 No protection/settings were changed; explicit owner approval and current-head
 CI remain mandatory operational gates. Code/maintainability review has passed;

@@ -3,7 +3,7 @@
   "on": {
     "pull_request": {},
     "push": {
-      "branches": ["main", "feat/**", "fix/**", "docs/**", "chore/**"]
+      "branches": ["main"]
     }
   },
   "permissions": {"contents": "read"},

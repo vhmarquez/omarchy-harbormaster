@@ -37,7 +37,14 @@ dependent #8 implementation until #7 has been approved and merged.
 - `docs/`: version-controlled handoff, decisions and verification evidence.
 
 Dependency direction now: executable -> pure library; verification runner ->
-check definitions and isolated subprocess boundary. Production does not import
+check definitions and isolated subprocess boundary. The hosted #7 correction
+keeps runtime-path isolation in the container launch policy: a private, bounded,
+read-only `/run` mount hides image-provided runtime directories. The common probe
+continues to reject visible `/run/user` and `.git`; it does not interpret image
+contents as proof of host exposure or waive the rejection. Configuration tests
+cover launch policy; disposable namespace reproductions and actual hosted runs
+provide distinct execution evidence. No product module or dependency is added.
+Production does not import
 test tooling. Future pure domain/reducer logic must not depend on IPC, storage,
 adapters or UI; those boundaries are constraints, not authorization to scaffold
 future milestones. The #7 workspace deliberately has no speculative crates.

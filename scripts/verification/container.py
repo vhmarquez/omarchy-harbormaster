@@ -11,7 +11,8 @@ def command(name, source, tools, state, image, environment):
             "--network", "none", "--cap-drop", "ALL", "--security-opt", "no-new-privileges",
             "--read-only", "--pids-limit", "256", "--memory", "4g", "--cpus", "2",
             "--user", f"{os.getuid()}:{os.getgid()}", "--workdir", "/work",
-            "--tmpfs", "/tmp:rw,nosuid,nodev,size=256m"]
+            "--tmpfs", "/tmp:rw,nosuid,nodev,size=256m",
+            "--tmpfs", "/run:ro,nosuid,nodev,noexec,size=16m,mode=755"]
     for host, guest, readonly in ((source, "/work", True), (tools, "/tools", True),
                                    (state, "/state", False)):
         if "," in str(host):

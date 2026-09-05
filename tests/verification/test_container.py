@@ -15,6 +15,17 @@ class ContainerPolicyTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             command("fixture", Path("/src"), Path("/tools"), Path("/state"), "latest", {})
 
+    def test_runtime_directory_is_private_bounded_and_read_only(self):
+        from verification.container import command
+        argv = command("fixture", Path("/src"), Path("/tools"), Path("/state"),
+                       "sha256:" + "1" * 64, {})
+        mounts = [argv[index + 1] for index, value in enumerate(argv) if value == "--tmpfs"]
+        self.assertEqual(mounts, ["/tmp:rw,nosuid,nodev,size=256m",
+                                 "/run:ro,nosuid,nodev,noexec,size=16m,mode=755"])
+        binds = [argv[index + 1] for index, value in enumerate(argv) if value == "--mount"]
+        self.assertEqual(len(binds), 3)
+        self.assertFalse(any("dst=/run" in mount for mount in binds))
+
     def test_container_has_no_network_privileges_or_host_home(self):
         self.assertTrue((SCRIPTS / "verification/container.py").is_file(),
                         "container boundary missing")
