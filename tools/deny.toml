@@ -1,0 +1,36 @@
+# cargo-deny 0.20.2: caller MUST use --frozen and check --deny warnings.
+# Otherwise unavailable registry yank metadata is only a warning upstream.
+[graph]
+all-features = true
+
+[advisories]
+# Caller copies the prepared parent directory into writable isolated state.
+db-path = "/state/advisory-db"
+db-urls = ["https://github.com/RustSec/advisory-db"]
+maximum-db-staleness = "P7D"
+unmaintained = "all"
+unsound = "all"
+yanked = "deny"
+disable-yank-checking = false
+ignore = []
+
+[licenses]
+allow = ["MIT", "Apache-2.0", "BSD-2-Clause", "BSD-3-Clause", "ISC", "Unicode-3.0", "Zlib"]
+confidence-threshold = 0.95
+include-dev = true
+include-build = true
+unused-allowed-license = "allow"
+
+[licenses.private]
+ignore = false
+
+[bans]
+multiple-versions = "deny"
+wildcards = "deny"
+highlight = "all"
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]
+allow-git = []

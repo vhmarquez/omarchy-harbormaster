@@ -1,0 +1,127 @@
+{
+  "scope": [
+    "CORE-1",
+    "CORE-2",
+    "CORE-3"
+  ],
+  "tdd": [
+    {
+      "id": "CORE-1",
+      "change": "Select the single-package cli integration target explicitly; retain nonzero Rust execution validation.",
+      "fault_cases": [
+        "absent-integration",
+        "empty-integration"
+      ],
+      "red": {
+        "exit_code": 1,
+        "tests_run": 1,
+        "assertion_failures": 2
+      },
+      "green": {
+        "exit_code": 0,
+        "tests_run": 1,
+        "assertion_failures": 0
+      }
+    },
+    {
+      "id": "CORE-2",
+      "change": "Require an anchored native PASS line for a test_ function; lifecycle totals cannot satisfy execution. Failure, skip and blacklist totals still fail.",
+      "fault_cases": [
+        "empty-qml",
+        "failed-qml",
+        "skipped-qml"
+      ],
+      "red": {
+        "exit_code": 1,
+        "tests_run": 5,
+        "assertion_failures": 4
+      },
+      "green": {
+        "exit_code": 0,
+        "tests_run": 5,
+        "assertion_failures": 0
+      }
+    },
+    {
+      "id": "CORE-3",
+      "change": "The existing tool-pins preflight reuses read-only verify_existing, then enforces channel = workspace rust-version = lock release = checked rustc release. No lower MSRV or older toolchain.",
+      "fault_cases": [
+        "drift-channel",
+        "drift-workspace",
+        "drift-lock-release"
+      ],
+      "red": {
+        "exit_code": 1,
+        "tests_run": 2,
+        "assertion_failures": 4
+      },
+      "green": {
+        "exit_code": 0,
+        "tests_run": 2,
+        "assertion_failures": 0
+      }
+    }
+  ],
+  "fix_file_sha256": {
+    "docs/TOOLCHAIN.md": "ed880a7dbffcae45103b7f5c2084044aa7b7a49aaeebc88e2fa888cbef1aec0a",
+    "scripts/verification/checks.py": "684ee8016fd1883ca23501de844987134342d53316c83de53e83589c4cac022d",
+    "scripts/verification/preflight.py": "3b14ae211350389852543d41729f9b1f50d5e883ba4986303cb4d1e6ea98af25",
+    "tests/verification/test_integration_gate.py": "6ed30ee1c9f208f7f6e636345d2f2688c444f04189f515c712a200edeea162f5",
+    "tests/verification/test_qml_reporting.py": "4a0e6fa9cc2198e2c1817c483fabf78ff32394030208e704c8c952712b2981ff",
+    "tests/verification/test_rust_pins.py": "179b9f5709036156acc51105e7800d27d8b2b9e3f865ba7a96be99045c729768"
+  },
+  "faults": [
+    {
+      "case": "drift-channel",
+      "exit_code": 1,
+      "failed_gate": "tool-pins",
+      "remaining_required_not_run": 19
+    },
+    {
+      "case": "drift-workspace",
+      "exit_code": 1,
+      "failed_gate": "tool-pins",
+      "remaining_required_not_run": 19
+    },
+    {
+      "case": "drift-lock-release",
+      "exit_code": 1,
+      "failed_gate": "tool-pins",
+      "remaining_required_not_run": 19
+    },
+    {
+      "case": "absent-integration",
+      "gate": "rust-integration",
+      "gate_status": "FAIL",
+      "child_exit_code": 101
+    },
+    {
+      "case": "empty-integration",
+      "gate": "rust-integration",
+      "gate_status": "FAIL",
+      "child_exit_code": 0
+    },
+    {
+      "case": "empty-qml",
+      "gate": "qml-native",
+      "gate_status": "FAIL",
+      "child_exit_code": 0
+    },
+    {
+      "case": "failed-qml",
+      "gate": "qml-native",
+      "gate_status": "FAIL",
+      "child_exit_code": 1
+    },
+    {
+      "case": "skipped-qml",
+      "gate": "qml-native",
+      "gate_status": "FAIL",
+      "child_exit_code": 0
+    }
+  ],
+  "limitations": [
+    "Local bwrap fault-injection evidence, not hosted CI or product implementation",
+    "Independent review is recorded separately; no review or goal constitutes owner merge approval"
+  ]
+}

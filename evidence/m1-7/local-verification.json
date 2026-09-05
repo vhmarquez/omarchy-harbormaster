@@ -1,0 +1,367 @@
+{
+  "schema": 1,
+  "scope": "M1 #7; parent local bubblewrap run after CORE-1/2/3 fixes, not hosted CI or product validation",
+  "recorded_at": "2026-09-05T19:10:09.959675+00:00",
+  "main_baseline": "ed68ec9dd954b9a54bc20bc14e39a088f99290b0",
+  "source_manifest_sha256": "f0719236b789118a9659141551392a7b62fd28451bb5cd633928e18f106d8c08",
+  "passed": true,
+  "checks": [
+    {
+      "name": "isolation-probe",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.035,
+      "timed_out": false,
+      "output_limited": false
+    },
+    {
+      "name": "tool-pins",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.559,
+      "timed_out": false,
+      "output_limited": false
+    },
+    {
+      "name": "native-tool-pins",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.033,
+      "timed_out": false,
+      "output_limited": false
+    },
+    {
+      "name": "rust-format",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.019,
+      "timed_out": false,
+      "output_limited": false
+    },
+    {
+      "name": "rust-clippy",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.111,
+      "timed_out": false,
+      "output_limited": false
+    },
+    {
+      "name": "rust-unit",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.111,
+      "timed_out": false,
+      "output_limited": false
+    },
+    {
+      "name": "rust-integration",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.189,
+      "timed_out": false,
+      "output_limited": false
+    },
+    {
+      "name": "qml-lint",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.079,
+      "timed_out": false,
+      "output_limited": false
+    },
+    {
+      "name": "qml-format",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.032,
+      "timed_out": false,
+      "output_limited": false
+    },
+    {
+      "name": "qml-native",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.164,
+      "timed_out": false,
+      "output_limited": false
+    },
+    {
+      "name": "python-verification",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 3.254,
+      "timed_out": false,
+      "output_limited": false
+    },
+    {
+      "name": "python-tooling",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.143,
+      "timed_out": false,
+      "output_limited": false
+    },
+    {
+      "name": "m0-contract-tests",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.075,
+      "timed_out": false,
+      "output_limited": false
+    },
+    {
+      "name": "m0-fixture-contract",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.019,
+      "timed_out": false,
+      "output_limited": false
+    },
+    {
+      "name": "m0-runtime-identity",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.034,
+      "timed_out": false,
+      "output_limited": false
+    },
+    {
+      "name": "m0-runtime-cleanup",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.098,
+      "timed_out": false,
+      "output_limited": false
+    },
+    {
+      "name": "m0-harness-helpers",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.2,
+      "timed_out": false,
+      "output_limited": false
+    },
+    {
+      "name": "m0-design-model",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.08,
+      "timed_out": false,
+      "output_limited": false
+    },
+    {
+      "name": "frozen-design-integrity",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.028,
+      "timed_out": false,
+      "output_limited": false
+    },
+    {
+      "name": "advisory-license",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.128,
+      "timed_out": false,
+      "output_limited": false
+    },
+    {
+      "name": "maintainability",
+      "required": true,
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.068,
+      "timed_out": false,
+      "output_limited": false
+    },
+    {
+      "name": "m0-live-runtime",
+      "required": false,
+      "status": "SKIP",
+      "reason": "Separate opt-in desktop/service probe; no deployment authorized"
+    },
+    {
+      "name": "m0-live-harness",
+      "required": false,
+      "status": "SKIP",
+      "reason": "Installed real harness probes are outside offline #7 verification"
+    },
+    {
+      "name": "native-shell-integration",
+      "required": false,
+      "status": "SKIP",
+      "reason": "Production Omarchy/QML UI is not implemented in #7"
+    }
+  ],
+  "suite_counts": {
+    "python-verification": {
+      "python": [
+        "53"
+      ],
+      "rust": [],
+      "qml": [],
+      "node": []
+    },
+    "python-tooling": {
+      "python": [
+        "16"
+      ],
+      "rust": [],
+      "qml": [],
+      "node": []
+    },
+    "m0-contract-tests": {
+      "python": [
+        "10"
+      ],
+      "rust": [],
+      "qml": [],
+      "node": []
+    },
+    "m0-runtime-identity": {
+      "python": [
+        "2"
+      ],
+      "rust": [],
+      "qml": [],
+      "node": []
+    },
+    "m0-runtime-cleanup": {
+      "python": [
+        "6"
+      ],
+      "rust": [],
+      "qml": [],
+      "node": []
+    },
+    "m0-harness-helpers": {
+      "python": [
+        "5"
+      ],
+      "rust": [],
+      "qml": [],
+      "node": []
+    },
+    "rust-unit": {
+      "python": [],
+      "rust": [
+        [
+          "8",
+          "0",
+          "0"
+        ]
+      ],
+      "qml": [],
+      "node": []
+    },
+    "rust-integration": {
+      "python": [],
+      "rust": [
+        [
+          "9",
+          "0",
+          "0"
+        ]
+      ],
+      "qml": [],
+      "node": []
+    },
+    "qml-native": {
+      "python": [],
+      "rust": [],
+      "qml": [
+        [
+          "3",
+          "0",
+          "0"
+        ]
+      ],
+      "node": []
+    },
+    "m0-design-model": {
+      "python": [],
+      "rust": [],
+      "qml": [],
+      "node": [
+        [
+          "tests",
+          "15"
+        ],
+        [
+          "pass",
+          "15"
+        ],
+        [
+          "fail",
+          "0"
+        ],
+        [
+          "skipped",
+          "0"
+        ]
+      ]
+    }
+  },
+  "rust_duplicate_note": "The explicit cli integration target executes 9 tests separately from the 8 library tests. QML totals include init/cleanup around one engine sentinel; the gate requires an actual test_ PASS line.",
+  "metrics": {
+    "complete": true,
+    "files_analyzed": 39,
+    "production_hotspots": [],
+    "test_hotspots": [],
+    "largest_production_file": {
+      "path": "scripts/verification/maintainability.py",
+      "nonblank_lines": 266
+    }
+  },
+  "policy_fault_probes": {
+    "fixture": {
+      "url": "https://static.crates.io/crates/rustc-serialize/rustc-serialize-0.3.24.crate",
+      "sha256": "dcf128d1287d2ea9d80910b5f1120d0b8eede3fbf1abe91c40d39ea7d51e6fda"
+    },
+    "cases": {
+      "dependency-free": [
+        "lockfile",
+        "deny_all",
+        "test",
+        "fmt",
+        "clippy",
+        "forbidden_license_rejected",
+        "missing_database_rejected"
+      ],
+      "registry-vulnerability": [
+        "lockfile",
+        "vulnerable_dependency_rejected",
+        "missing_registry_index_rejected"
+      ]
+    },
+    "exit_code": 0,
+    "limitations": "Vulnerable vendored crate used only for metadata, never compiled. Dependency-free tool smoke has 0 tests; not counted as an application suite. Offline snapshot only, not a live security audit."
+  },
+  "limitations": [
+    "This artifact is local evidence. Current-head hosted CI is read separately from the PR.",
+    "No M1 product IPC/storage/recovery, full UI, or real harness implemented",
+    "No benchmark/production resource-budget claim",
+    "Branch protection endpoint reports main is not protected; settings unchanged; owner approval/current-head CI remains mandatory operational gate"
+  ]
+}

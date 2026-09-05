@@ -36,7 +36,8 @@ class CleanupTests(unittest.TestCase):
         wrapper.body[0].body = finalizer.finalbody + [probe.body[-1]]
         exec(compile(ast.fix_missing_locations(wrapper), str(HERE / "probe.py"), "exec"),
              self.module.__dict__)
-        temporary = tempfile.TemporaryDirectory(prefix="hb-cleanup-test-", dir=HERE.parents[2])
+        # Honor the verifier's private TMPDIR; the checkout/parents can be read-only.
+        temporary = tempfile.TemporaryDirectory(prefix="hb-cleanup-test-")
         self.addCleanup(temporary.cleanup)
         self.root = Path(temporary.name)
         self.directory = self.root / "owned-scratch"

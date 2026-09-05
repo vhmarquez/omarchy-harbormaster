@@ -3,6 +3,9 @@ __pycache__/
 .venv/
 .worktrees/
 .m0-local/
+.tools/
+.verify/
+target/
 .env
 .env.*
 *.log

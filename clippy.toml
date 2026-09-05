@@ -1,0 +1,4 @@
+# Review triggers, not incentives to split cohesive code or add blanket allows.
+# A triggered lint requires focused review and a documented disposition.
+cognitive-complexity-threshold = 50
+too-many-lines-threshold = 50
