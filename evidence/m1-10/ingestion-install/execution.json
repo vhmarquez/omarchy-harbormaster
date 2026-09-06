@@ -1,0 +1,206 @@
+{
+  "observed_at": "2026-09-06T19:17:26.905587+00:00",
+  "base_commit": "e166ba3a72b22459bd6ee518ff2865dff53d3b43",
+  "source_sha256": {
+    "crates/harbormaster/src/ingestion/control.rs": "bdbcea1b54689b11f574cefdef2da114340e3859a6d3f4002cf0bed17f5648fe",
+    "crates/harbormaster/src/ingestion/mod.rs": "3e65800b5c292cb6539d44fb4ecadf37a3b969f04874126069bf8319d00636a6",
+    "crates/harbormaster/src/ingestion/queue.rs": "d18720c030e2beb5ec2400358a396e71e3658547184d76b64813ded2950f466b",
+    "crates/harbormaster/src/ingestion/registry/tests/fixtures.rs": "eecf7398ceddda3e247ed4fd1d91485577012dd68a4ba9f98509d7c4145fb41a",
+    "crates/harbormaster/src/ingestion/registry/tests.rs": "71500960da0b79bfacdc293ad6064efc58e5dde3838b3b7b7a0dc9bf514cd112",
+    "crates/harbormaster/src/ingestion/registry.rs": "5b28fcb4cd34767f51259415d5062094bf489b92936684dd4a11dd35bee4911a"
+  },
+  "results": [
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.009,
+      "name": "preflight",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verification/preflight.py",
+        "--stage-cargo"
+      ],
+      "log": "preflight.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 15.992,
+      "name": "sqlite",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verification/sqlite.py"
+      ],
+      "log": "sqlite.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.057,
+      "name": "format",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "log": "format.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 3.514,
+      "name": "unit",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib"
+      ],
+      "log": "unit.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.652,
+      "name": "ingestion-compatibility",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--test",
+        "ingestion"
+      ],
+      "log": "ingestion-compatibility.txt"
+    },
+    {
+      "exit_code": 101,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.608,
+      "name": "clippy-component-strict",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-targets",
+        "--all-features",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "log": "clippy-component-strict.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.758,
+      "name": "clippy-component-unused-seam-only",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-targets",
+        "--all-features",
+        "--",
+        "-D",
+        "warnings",
+        "-A",
+        "dead_code"
+      ],
+      "log": "clippy-component-unused-seam-only.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.129,
+      "name": "maintainability",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verification/maintainability.py",
+        "."
+      ],
+      "log": "maintainability.txt"
+    },
+    {
+      "exit_code": 101,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.371,
+      "name": "mutation-local-generation",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib",
+        "ingestion::registry::tests::committed_generation_and_checkpoint_replace_only_the_named_producer",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "log": "mutation-local-generation.txt"
+    },
+    {
+      "exit_code": 101,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.342,
+      "name": "mutation-ineffective-invalidation",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib",
+        "ingestion::registry::tests::invalidation_blocks_old_and_new_sessions_without_erasing_replay_receipts",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "log": "mutation-ineffective-invalidation.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.554,
+      "name": "restored-unit",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib"
+      ],
+      "log": "restored-unit.txt"
+    }
+  ]
+}

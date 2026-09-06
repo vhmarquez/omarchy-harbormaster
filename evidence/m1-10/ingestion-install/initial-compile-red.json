@@ -1,0 +1,60 @@
+{
+  "observed_at": "2026-09-06T19:13:51.388739+00:00",
+  "kind": "COMPILE_ONLY_RED",
+  "description": "Tests authored before the new private seam exists. Missing methods are not a semantic failure of the existing #8 volatile contract; later real mutations establish test sensitivity.",
+  "source_sha256": {
+    "crates/harbormaster/src/ingestion/control.rs": "bdbcea1b54689b11f574cefdef2da114340e3859a6d3f4002cf0bed17f5648fe",
+    "crates/harbormaster/src/ingestion/mod.rs": "3e65800b5c292cb6539d44fb4ecadf37a3b969f04874126069bf8319d00636a6",
+    "crates/harbormaster/src/ingestion/queue.rs": "d18720c030e2beb5ec2400358a396e71e3658547184d76b64813ded2950f466b",
+    "crates/harbormaster/src/ingestion/registry/tests/fixtures.rs": "4756914bd556ef71daa8817778e8f0e6cdc5d700ec90b340bf26d86a93626646",
+    "crates/harbormaster/src/ingestion/registry/tests.rs": "de133a4a3a26e6f22e269737055e1358bd7016212761f05ffe338a4613147960",
+    "crates/harbormaster/src/ingestion/registry.rs": "e723d2afbc4e0883f64e671f6d80b98ed9356d4355e7b742f89eeef908c1cc98"
+  },
+  "results": [
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.995,
+      "name": "preflight",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verification/preflight.py",
+        "--stage-cargo"
+      ],
+      "log": "preflight-red.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 15.99,
+      "name": "sqlite",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verification/sqlite.py"
+      ],
+      "log": "sqlite-red.txt"
+    },
+    {
+      "exit_code": 101,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 2.745,
+      "name": "absent-seam-compile",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--lib",
+        "--all-features",
+        "ingestion::registry::tests"
+      ],
+      "log": "absent-seam-compile-red.txt"
+    }
+  ]
+}

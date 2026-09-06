@@ -1,0 +1,61 @@
+{
+  "author_commit": "399c26211acb4efe8458e20dde908d3e2b868dab",
+  "observed_at": "2026-09-06T19:19:59.377630+00:00",
+  "author_verdict": "READY_FOR_INDEPENDENT_REVIEW_AND_COORDINATOR_INTEGRATION",
+  "scope": "Private Registry install_committed/invalidate seam and private real-Unix-peer unit tests; no public authority/test escape, no new dependency, no live adapter/runtime/database execution",
+  "api": {
+    "install_committed": "pub(crate) fn install_committed(&mut self, ProducerRegistration) -> Result<usize, AdmissionError>",
+    "invalidate": "pub(crate) fn invalidate(&mut self, &ProducerId) -> Result<usize, AdmissionError>"
+  },
+  "semantics": [
+    "Exact supplied generation/checkpoint installed only after validating all fields; run/harness/UID mismatch PermissionDenied, duplicate/oversized signal list InvalidHandshake, same generation StaleGeneration, new producer at10k ResourceExhausted",
+    "Fresh private session scope invalidates old sessions; replaced producer receipts and queued backlog are removed without retagging; unrelated producers preserved",
+    "Invalidation blocks current/new sessions and discards bounded queue while preserving receipt/checkpoint replay protection; unknown producer rejected; repeated invalidation discards zero",
+    "Shared discard helper preserves public volatile reconcile behavior and saturates cumulative discard counter; private generation install never invokes entropy",
+    "Caller must supply an actual committed durable reconciliation result; types/method visibility are not runtime/source proof and this seam never returns a durable acknowledgment"
+  ],
+  "actual_results": {
+    "receipt": "execution.json",
+    "unit_tests": 46,
+    "private_new_unit_tests": 7,
+    "public_ingestion_compatibility_tests": 23,
+    "format": "PASS",
+    "source_whitespace": "PASS",
+    "strict_component_clippy": "Expected failure solely unused install_committed/invalidate until coordinator integrates; exact diagnostic retained",
+    "other_all_target_all_feature_clippy": "PASS with command-only -A dead_code; no source suppression added. Final integrated strict -D warnings remains mandatory",
+    "initial_red": "initial-compile-red.json: absent new methods, COMPILE_ONLY_RED, explicitly not a semantic regression in the old public volatile API",
+    "causal_negative_controls": [
+      {
+        "log": "mutation-local-generation.txt",
+        "change": "Replace supplied durable generation with locally generated UUID",
+        "actual": "Runtime equality assertion fails on exact expected durable generation; exit101"
+      },
+      {
+        "log": "mutation-ineffective-invalidation.txt",
+        "change": "Omit blocked flag and session-scope invalidation",
+        "actual": "Runtime assertion fails: old session receives Ok(AlreadyAdmitted) instead of Err(StaleGeneration); exit101"
+      }
+    ],
+    "restored_after_mutations": "All46 library tests PASS"
+  },
+  "source_sha256": {
+    "crates/harbormaster/src/ingestion/control.rs": "bdbcea1b54689b11f574cefdef2da114340e3859a6d3f4002cf0bed17f5648fe",
+    "crates/harbormaster/src/ingestion/mod.rs": "3e65800b5c292cb6539d44fb4ecadf37a3b969f04874126069bf8319d00636a6",
+    "crates/harbormaster/src/ingestion/queue.rs": "d18720c030e2beb5ec2400358a396e71e3658547184d76b64813ded2950f466b",
+    "crates/harbormaster/src/ingestion/registry/tests/fixtures.rs": "eecf7398ceddda3e247ed4fd1d91485577012dd68a4ba9f98509d7c4145fb41a",
+    "crates/harbormaster/src/ingestion/registry/tests.rs": "71500960da0b79bfacdc293ad6064efc58e5dde3838b3b7b7a0dc9bf514cd112",
+    "crates/harbormaster/src/ingestion/registry.rs": "5b28fcb4cd34767f51259415d5062094bf489b92936684dd4a11dd35bee4911a"
+  },
+  "maintainability": {
+    "registry_file_nonblank_lines": 340,
+    "install_committed_nonblank_lines": 33,
+    "invalidate_nonblank_lines": 9,
+    "new_function_above50": false,
+    "new_test_file_above300": false,
+    "disposition": "Root reviewer provisionally accepts the cohesive registry file trigger: authority, receipt and queue invariants remain visible together; new install33/invalidate9 lines and no new function trigger. No metric-only split. Final independent whole-PR review will reassess."
+  },
+  "pending": [
+    "Independent root review of authored seam",
+    "Coordinator integration provides legitimate production callers; integrated strict Clippy and exact-candidate canonical qualification remain root gates"
+  ]
+}
