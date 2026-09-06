@@ -1,0 +1,115 @@
+{
+  "source_commit": "0e7589c318d914a1724251fb449d420273e8d977",
+  "source_sha256": {
+    "crates/harbormaster/src/lib.rs": "9f967e40c37edc62a9cdb11a686ebff27f990acb72efd3787769f6d531668bc6",
+    "crates/harbormaster/src/recovery/cleanup.rs": "5210f5cd6a24eb4fbd12e4cca3edf5731c44daaf9b5794311d780267348ef761",
+    "crates/harbormaster/src/recovery/files.rs": "6cba5262f426f96bca08847064fc07b8fa30a6ea88e90ceab5cbf5c5f0d2fc75",
+    "crates/harbormaster/src/recovery/logs.rs": "95f00c6eb80dcd168bb2d39a0ed8e73bc821e5a406d591bd2fe66617e195787a",
+    "crates/harbormaster/src/recovery/mod.rs": "aac76c3973eccfc472eac53ce2ff660a57e5a684829500d698e49bef92bb1481",
+    "crates/harbormaster/src/recovery/names.rs": "f8b93afb209cdfd10e8b84612730da49c2c0d122c9ee2721f87f305910f2d9b8",
+    "crates/harbormaster/src/recovery/paths.rs": "274814bc719b546cfd0ebf3cefb2d9a586acbc0b1ded01bf16e0376263a1daaa",
+    "crates/harbormaster/src/recovery/provenance.rs": "837843acff19e447577265003974b44f34dd981b95443ce6c00e28aa4697a8a0",
+    "crates/harbormaster/src/recovery/spool.rs": "981f20d757ada5fc3d12e6692cc3cd1f5be584f50bc5e73285a55115b78fd129",
+    "crates/harbormaster/src/recovery/tests/bounds.rs": "46723b07412a32a1ad91df4298893990846db687748fb68c1499633103ca524d",
+    "crates/harbormaster/src/recovery/tests/crash.rs": "4a18c8f5e5e98f8713578baf192da1c5f18cef8b0ee95e476c8d65a47e5896c0",
+    "crates/harbormaster/src/recovery/tests/mod.rs": "0b18e489684c79e2e2aa42033a69bdf589e22eef9248b9b1ac269fb375434bb5",
+    "crates/harbormaster/src/recovery/tests/privacy.rs": "6c115e4c2a0bba13b37c9a36e755572c085d3ce11dbd0a7a8321e78d2d67a763",
+    "crates/harbormaster/src/recovery/tests/replay.rs": "29c6ecdd4802f952cd15bed6304aeea1fc8249a017b74037831bdfe2655caab1",
+    "crates/harbormaster/tests/recovery/fixture.rs": "29dd3fe67e8bc40a0a46ccbe1479af74c1165f1877fbe30a31fd5a6f3bd29bbe",
+    "crates/harbormaster/tests/recovery.rs": "7b72c55cb6bcd7a865eb3a1e45f5d8fc3588ba60ade5b398c5696005c15be6c8"
+  },
+  "base_commit": "a7af902f78e3e112e60682fbee1d975a4b70fa00",
+  "fault_policy_commit": "48bc492",
+  "scope": "Focused isolated recovery implementation evidence; not final canonical hosted/native qualification, deployment, harness qualification, or performance measurement.",
+  "environment": {
+    "tools_root": "explicit private .tools-m1-9",
+    "source": "read-only fresh snapshot per revision",
+    "sandbox": "existing bwrap canonical environment including private 1MiB /fault-fs",
+    "network": "disabled",
+    "dependencies": "locked/offline, prepared static SQLite reused for focused Rust iterations",
+    "preparation": "actual pinned-tool preflight and actual static SQLite build passed in fresh initial disposable state; subsequent source snapshots reused only that private Cargo/SQLite build state"
+  },
+  "commands": {
+    "unit": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "--workspace",
+      "--lib",
+      "--",
+      "--nocapture"
+    ],
+    "public": [
+      "cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "--workspace",
+      "--test",
+      "recovery"
+    ],
+    "clippy": [
+      "cargo",
+      "clippy",
+      "--locked",
+      "--offline",
+      "--workspace",
+      "--all-targets",
+      "--all-features",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "fmt": [
+      "cargo",
+      "fmt",
+      "--all",
+      "--",
+      "--check"
+    ]
+  },
+  "results": {
+    "unit": "56 passed, including 17 recovery tests",
+    "public": "8 passed",
+    "clippy": "PASS",
+    "fmt": "PASS",
+    "maintainability": "8 production and 7 test files; one 52-line cohesive function reviewed, no file >300 nonblank"
+  },
+  "behavioral_red_green": [
+    {
+      "red": "baseline-schema-red.json",
+      "meaning": "Before recovery implementation, actual wire-schema baseline accepts synthetic prompt content in a legal TurnId. This is schema insufficiency, not a claim of existing persistence regression.",
+      "green": "public.json + unit.json provenance tests"
+    },
+    {
+      "red": "retained-bytes-red.json",
+      "meaning": "Reviewer-found held-preview regular FDs retain deleted log bytes beyond four MiB.",
+      "green": "retained-bytes-green.json and public.json; corrected handles retain identity/lock, not regular FDs."
+    },
+    {
+      "red": "order-red.json",
+      "meaning": "Reviewer-found UUID ordering selected sequences64..33 before1..32 despite complete64-record backlog.",
+      "green": "unit.json bounded_replay_selects_predecessor_before_adversarial_uuid_order"
+    },
+    {
+      "red": "provenance-causal.json",
+      "meaning": "Only remove required turn-source gate before serialization; leave replay gate intact. Real staging leaves one forbidden artifact and test fails.",
+      "green": "unit.json mis_mapped_allowed_turn_and_version_strings_reject_before_temp"
+    }
+  ],
+  "actual_faults": [
+    "SIGKILL at created, file+directory-fsynced staging, and rename checkpoints in private unit-test children",
+    "Regular-file ENOSPC on fixed tmpfs after proving type and <=1MiB capacity; bounded fill; failed stage leaves accounted empty partial and no receipt; reopen cleanup and subsequent stage succeed",
+    "Public write-open attempt on verifier read-only /work fails",
+    "Symlink, hardlink, nonprivate modes, directory substitution, retained token/in-place replacement, stale/cross-store plans",
+    "Canary scans of all manager recovery artifacts and fixed logs across success, crash, full filesystem and cleanup; root owns combined DB/WAL/coordinator diagnostic scan"
+  ],
+  "limitations": [
+    "M1 production source-mapping registry is empty; private synthetic mappings qualify no live adapter.",
+    "Long-lived token ownership prevents a second store until release. Full stat identity detects ordinary replacement; same-UID malicious races are not isolated.",
+    "TTL limits replay eligibility; explicit caller maintenance applies cleanup. No automatic M1 scheduler.",
+    "rejected_attempts and discarded_artifacts are volatile attempt/artifact units, not unique lost events; unknown_gap remains explicit.",
+    "No physical block-device durability or callback-time performance claim."
+  ]
+}
