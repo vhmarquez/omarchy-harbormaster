@@ -1,4 +1,8 @@
-use super::{validation::decode_number, *};
+use super::{
+    AttentionMutation, AttentionReason, DeliveryState, ObservationState, OutcomeKey, OutcomeRecord,
+    ProcessState, ProducerRecord, RunProjection, SnapshotPage, SnapshotQuery, StorageError,
+    TurnState, validation::decode_number,
+};
 use crate::protocol::Revision;
 use rusqlite::{Connection, OptionalExtension};
 
@@ -39,8 +43,8 @@ pub(super) fn producer(
                 let next: Option<Vec<u8>> = row.get(2)?;
                 Ok(ProducerRecord {
                     producer_id: id.clone(),
-                    generation: parse(row.get(0)?)?,
-                    run_id: parse(row.get(1)?)?,
+                    generation: parse(&row.get::<_, String>(0)?)?,
+                    run_id: parse(&row.get::<_, String>(1)?)?,
                     next_sequence: next
                         .map(decode_number)
                         .transpose()?
@@ -74,11 +78,15 @@ pub(super) fn snapshot(
             ],
             |row| {
                 Ok(RunProjection {
-                    run_id: parse(row.get(0)?)?,
+                    run_id: parse(&row.get::<_, String>(0)?)?,
                     process: process(row.get(1)?)?,
                     observation: observation(row.get(2)?)?,
                     turn: turn(row.get(3)?)?,
-                    turn_id: row.get::<_, Option<String>>(4)?.map(parse).transpose()?,
+                    turn_id: row
+                        .get::<_, Option<String>>(4)?
+                        .as_deref()
+                        .map(parse)
+                        .transpose()?,
                 })
             },
         )?
@@ -127,13 +135,13 @@ pub(super) fn outcome(
         .optional()?;
     Ok(Some(OutcomeRecord {
         outcome: key.clone(),
-        run_id: parse(run)?,
+        run_id: parse(&run)?,
         attention,
         delivery,
     }))
 }
 
-pub(super) fn parse<T: std::str::FromStr>(value: String) -> Result<T, rusqlite::Error> {
+pub(super) fn parse<T: std::str::FromStr>(value: &str) -> Result<T, rusqlite::Error> {
     value.parse().map_err(|_| rusqlite::Error::InvalidQuery)
 }
 fn process(value: u8) -> Result<ProcessState, rusqlite::Error> {

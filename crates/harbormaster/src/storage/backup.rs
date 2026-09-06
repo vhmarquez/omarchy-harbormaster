@@ -32,9 +32,7 @@ fn copy_to_stage(source: &Connection, paths: &Paths) -> Result<(), StorageError>
     let deadline = Instant::now() + Duration::from_secs(2);
     let mut destination = Connection::open_with_flags(
         paths.path(STAGING),
-        OpenFlags::SQLITE_OPEN_READ_WRITE
-            | OpenFlags::SQLITE_OPEN_NO_MUTEX
-            | OpenFlags::SQLITE_OPEN_NOFOLLOW,
+        OpenFlags::SQLITE_OPEN_READ_WRITE | OpenFlags::SQLITE_OPEN_NO_MUTEX,
     )?;
     destination.busy_timeout(Duration::from_millis(50))?;
     destination.pragma_update(None, "max_page_count", schema::MAX_PAGES)?;
@@ -64,7 +62,10 @@ fn copy_to_stage(source: &Connection, paths: &Paths) -> Result<(), StorageError>
     Ok(())
 }
 
-pub(super) fn stage_restore(paths: &Paths) -> Result<(), StorageError> {
+pub(super) fn stage_restore(
+    paths: &Paths,
+    live_revision: crate::protocol::Revision,
+) -> Result<crate::protocol::Revision, StorageError> {
     if !paths.exists(BACKUP)? || paths.exists(STAGING)? || paths.exists(ROLLBACK)? {
         return Err(StorageError::RecoveryRequired);
     }
@@ -72,6 +73,11 @@ pub(super) fn stage_restore(paths: &Paths) -> Result<(), StorageError> {
     if schema::inspect(&backup)? != schema::VERSION {
         return Err(StorageError::RecoveryRequired);
     }
+    let backup_revision = super::queries::revision(&backup)?;
+    let next = live_revision
+        .max(backup_revision)
+        .checked_next()
+        .ok_or(StorageError::ResourceExhausted)?;
     paths.create(STAGING)?;
     let result = copy_to_stage(&backup, paths);
     if result.is_err() {
@@ -79,7 +85,7 @@ pub(super) fn stage_restore(paths: &Paths) -> Result<(), StorageError> {
     }
     result?;
     paths.sync(STAGING)?;
-    Ok(())
+    Ok(next)
 }
 
 pub(super) fn replace(paths: &Paths) -> Result<(), StorageError> {

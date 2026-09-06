@@ -6,6 +6,10 @@ use super::{
 use rusqlite::Connection;
 use std::path::Path;
 
+#[cfg(test)]
+#[path = "tests/mod.rs"]
+mod tests;
+
 pub(crate) struct Engine {
     connection: Option<Connection>,
     paths: Paths,
@@ -13,6 +17,9 @@ pub(crate) struct Engine {
 impl Engine {
     pub(crate) fn open(root: &Path) -> Result<Self, StorageError> {
         let paths = Paths::open(root)?;
+        if paths.length("state.db-wal")? > schema::WAL_BOUND {
+            return Err(StorageError::ResourceExhausted);
+        }
         let exists = paths.exists(DATABASE)?;
         let version = if exists {
             let readonly = schema::read_only(&paths.path(DATABASE))?;
@@ -25,12 +32,14 @@ impl Engine {
         if !exists {
             schema::initialize(&mut connection)?;
         }
+        pressure(&connection, &paths)?;
         if version < schema::VERSION {
             backup::create(&connection, &paths)?;
             schema::migrate(&mut connection)?;
         }
         schema::configure(&connection)?;
-        invalidate_generations(&mut connection)?;
+        pressure(&connection, &paths)?;
+        invalidate_generations(&mut connection, None)?;
         checkpoint(&connection)?;
         paths.check()?;
         Ok(Self {
@@ -92,7 +101,7 @@ impl Engine {
             .as_ref()
             .ok_or(StorageError::RecoveryRequired)?;
         pressure(conn, &self.paths)?;
-        backup::stage_restore(&self.paths)?;
+        let next = backup::stage_restore(&self.paths, queries::revision(conn)?)?;
         checkpoint(conn)?;
         let conn = self
             .connection
@@ -111,7 +120,7 @@ impl Engine {
             self.connection = Some(schema::writable(&self.paths)?);
             return Err(StorageError::RecoveryRequired);
         }
-        invalidate_generations(&mut restored)?;
+        invalidate_generations(&mut restored, Some(next))?;
         let revision = queries::revision(&restored)?;
         self.connection = Some(restored);
         self.paths.remove(ROLLBACK)?;
@@ -137,17 +146,23 @@ fn checkpoint(conn: &Connection) -> Result<(), StorageError> {
     Ok(())
 }
 
-fn invalidate_generations(conn: &mut Connection) -> Result<(), StorageError> {
+fn invalidate_generations(
+    conn: &mut Connection,
+    forced_revision: Option<crate::protocol::Revision>,
+) -> Result<(), StorageError> {
     let tx = conn.transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
     let active: bool = tx.query_row(
         "SELECT EXISTS(SELECT 1 FROM producers WHERE active=1)",
         [],
         |row| row.get(0),
     )?;
-    if active {
-        let next = queries::revision(&tx)?
-            .checked_next()
-            .ok_or(StorageError::ResourceExhausted)?;
+    if active || forced_revision.is_some() {
+        let next = match forced_revision {
+            Some(next) => next,
+            None => queries::revision(&tx)?
+                .checked_next()
+                .ok_or(StorageError::ResourceExhausted)?,
+        };
         tx.execute("UPDATE producers SET active=0 WHERE active=1", [])?;
         queries::advance(&tx, next)?;
     }

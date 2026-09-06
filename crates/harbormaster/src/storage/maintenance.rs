@@ -1,4 +1,7 @@
-use super::{queries, *};
+use super::{
+    DAY, DeliveryState, DeliveryUpdate, HistoryRetention, MAX_FACTS, MAX_TOMBSTONES,
+    MaintenanceResult, Response, ReviewUpdate, StorageError, queries,
+};
 use rusqlite::{Connection, OptionalExtension, params};
 
 pub(super) fn maintain(
@@ -9,7 +12,8 @@ pub(super) fn maintain(
 ) -> Result<Response, StorageError> {
     let tx = conn.transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
     let next = queries::require_revision(&tx, expected)?;
-    let facts_removed = tx.execute("DELETE FROM facts WHERE rowid IN(SELECT rowid FROM facts WHERE accepted<=?1 ORDER BY accepted,rowid LIMIT 100)", [now.saturating_sub(history.days() * DAY)])?;
+    let facts: u32 = tx.query_row("SELECT count(*) FROM facts", [], |row| row.get(0))?;
+    let facts_removed = tx.execute("DELETE FROM facts WHERE rowid IN(SELECT rowid FROM facts WHERE accepted<=?1 OR ?2 ORDER BY accepted,rowid LIMIT 100)", params![now.saturating_sub(history.days() * DAY), u64::from(facts) >= MAX_FACTS as u64])?;
     let (tombstones_removed, generations_retired) = tombstones(&tx, now)?;
     let deliveries_expired = tx.execute("UPDATE outbox SET state=3,changed=?1 WHERE rowid IN(SELECT rowid FROM outbox WHERE state IN(0,1) AND created<=?2 ORDER BY created,rowid LIMIT 100)", params![now, now.saturating_sub(7 * DAY)])?;
     tx.execute(

@@ -14,15 +14,11 @@ pub const MAX_OUTBOX_AUDIT: usize = 20_000;
 pub const PAGE_LIMIT: u16 = 100;
 pub const DAY: i64 = 86_400;
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Default)]
 pub enum HistoryRetention {
     SevenDays,
+    #[default]
     ThirtyDays,
-}
-impl Default for HistoryRetention {
-    fn default() -> Self {
-        Self::ThirtyDays
-    }
 }
 impl HistoryRetention {
     #[must_use]
