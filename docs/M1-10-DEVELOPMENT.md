@@ -59,6 +59,13 @@ still needs explicit owner approval before merge or dependent implementation.
   tests. Preserve locked-down Docker and separately mandatory native checks,
   including the two original M0 methods and unmapped-peer-PID method.
 
+Actual filesystem-full tests need a dedicated bounded fixture, rather than
+filling the host volume or relabeling a device-write failure as a full regular
+filesystem. Both existing launch backends will provide a fresh private 1 MiB
+tmpfs at `/fault-fs` for each check. Tests must verify its filesystem type and
+capacity before bounded filling, with no fallback directory. This adds no host
+mount, network, capability, seccomp exception or optional-native waiver.
+
 ## Reducer rules and protected boundaries
 
 Process, observation, turn, attention, human review and delivery are independent.
