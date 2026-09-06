@@ -1,6 +1,72 @@
 use super::*;
 
 #[test]
+fn protected_attention_audit_and_projection_caps_do_not_silently_evict() {
+    let cases = [
+        (
+            "attention",
+            "WITH RECURSIVE n(x) AS(VALUES(1) UNION ALL SELECT x+1 FROM n WHERE x<20000) INSERT INTO attention SELECT 'fixture','fixture',printf('%d',x),'fixture',0,0 FROM n",
+            20_000,
+        ),
+        (
+            "outbox",
+            "WITH RECURSIVE n(x) AS(VALUES(1) UNION ALL SELECT x+1 FROM n WHERE x<20000) INSERT INTO outbox SELECT 'fixture','fixture',printf('%d',x),'fixture',2,100,100 FROM n",
+            20_000,
+        ),
+        (
+            "projections",
+            "WITH RECURSIVE n(x) AS(VALUES(1) UNION ALL SELECT x+1 FROM n WHERE x<10000) INSERT INTO projections SELECT printf('%d',x),0,0,0,NULL FROM n",
+            10_000,
+        ),
+    ];
+    for (table, sql, maximum) in cases {
+        let fixture = Fixture::new();
+        let mut engine = fixture.open();
+        let (generation, revision) = register(&mut engine, 1);
+        engine
+            .connection
+            .as_ref()
+            .unwrap()
+            .execute_batch(sql)
+            .unwrap();
+        let set = write(generation, revision, 1, 3);
+        assert_eq!(
+            engine.execute(&Request::Commit(Box::new(set))),
+            Err(StorageError::ResourceExhausted)
+        );
+        assert_eq!(count(&engine, table), maximum);
+        assert_eq!(count(&engine, "facts"), 0);
+        assert_eq!(
+            queries::revision(engine.connection.as_ref().unwrap()).unwrap(),
+            revision
+        );
+    }
+}
+
+#[test]
+fn producer_registry_cap_rejects_registration_without_new_revision() {
+    let fixture = Fixture::new();
+    let mut engine = fixture.open();
+    engine.connection.as_ref().unwrap().execute_batch("WITH RECURSIVE n(x) AS(VALUES(1) UNION ALL SELECT x+1 FROM n WHERE x<10000) INSERT INTO producers SELECT printf('%d',x),'fixture','fixture',0,X'0000000000000000',0 FROM n").unwrap();
+    assert_eq!(
+        engine.execute(&Request::Register(Registration {
+            expected_revision: Revision::new(0),
+            producer_id: id(1),
+            run_id: id(2),
+            harness: HarnessKind::Hermes,
+            next_sequence: Seq::new(1),
+            previous_generation: None
+        })),
+        Err(StorageError::ResourceExhausted)
+    );
+    assert_eq!(count(&engine, "producers"), 10_000);
+    assert_eq!(
+        queries::revision(engine.connection.as_ref().unwrap()).unwrap(),
+        Revision::new(0)
+    );
+}
+
+#[test]
 fn fact_capacity_can_be_released_by_bounded_maintenance_only() {
     let fixture = Fixture::new();
     let mut engine = fixture.open();
