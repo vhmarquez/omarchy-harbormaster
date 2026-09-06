@@ -1,0 +1,46 @@
+{
+  "source_commit": "3bcb9f0f65889d665ad793ea7a942ad281a52086",
+  "selected_files": 289,
+  "qualification_complete": false,
+  "hosted_portable": "NOT_RUN",
+  "combined": {
+    "passed": true,
+    "complete": false,
+    "required": 34,
+    "required_nonpass": [],
+    "optional": [
+      [
+        "m0-live-runtime",
+        "SKIP"
+      ],
+      [
+        "m0-live-harness",
+        "SKIP"
+      ],
+      [
+        "native-shell-integration",
+        "SKIP"
+      ]
+    ]
+  },
+  "native": {
+    "passed": true,
+    "complete": false,
+    "required": 5,
+    "required_nonpass": [],
+    "optional": [
+      [
+        "m0-live-runtime",
+        "SKIP"
+      ],
+      [
+        "m0-live-harness",
+        "SKIP"
+      ],
+      [
+        "native-shell-integration",
+        "SKIP"
+      ]
+    ]
+  }
+}

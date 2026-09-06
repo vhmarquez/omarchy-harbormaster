@@ -1,0 +1,41 @@
+   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.18s
+     Running tests/domain.rs (/state/target/debug/deps/domain-533ac3f7ae4cb2e7)
+
+running 33 tests
+test ordering::conflicting_terminal_preserves_first_outcome_and_requests_reconciliation ... ok
+test ordering::cross_producer_or_generation_sequence_is_not_turn_authority ... ok
+test ordering::different_turn_progress_without_a_terminal_cannot_replace_current_attention ... ok
+test ordering::late_terminal_keeps_current_newer_turn_and_its_transient_attention ... ok
+test ordering::genuinely_new_turn_can_start_after_terminal_without_reviewing_old_outcome ... ok
+test ordering::pruned_legacy_terminal_still_protects_and_cannot_be_guessed ... ok
+test ordering::repeated_terminal_has_no_second_outcome_even_with_new_event_identity ... ok
+test ordering::stale_policy_applies_to_historical_terminals_without_losing_the_outcome ... ok
+test ordering::terminal_dominance_does_not_bypass_current_freshness_policy ... ok
+test ordering::terminal_tombstones_dominate_late_start_and_wait_even_at_u64_max ... ok
+test policy::contradictory_current_evidence_cannot_revive_or_preserve_false_working ... ok
+test policy::inconsistent_tombstone_and_projection_evidence_rejects_before_effects ... ok
+test policy::policy_rejects_duplicate_signals ... ok
+test policy::missing_declared_hooks_degrade_but_health_cannot_restore_current_turn_proof ... ok
+test policy::stale_policy_does_not_claim_working_or_manufacture_success ... ok
+test policy::unchanged_health_is_deterministic_and_has_no_attention_or_policy_side_effect ... ok
+test policy::unsupported_signals_cannot_be_enabled_by_health_claims ... ok
+test reconciliation::independently_matched_current_turn_produces_exact_baseline ... ok
+test reconciliation::missing_or_ambiguous_turn_and_liveness_cannot_activate ... ok
+test reconciliation::same_pid_wrong_boot_start_or_scope_never_activates ... ok
+test reconciliation::verified_no_current_turn_is_unknown_instead_of_invented_working_or_completion ... ok
+test reconciliation::zero_process_identity_components_are_not_evidence ... ok
+test review_regressions::lost_observation_cannot_establish_process_exit ... ok
+test review_regressions::terminal_contradiction_preserves_disconnected_observation ... ok
+test review_regressions::terminal_contradiction_preserves_unsupported_observation ... ok
+test review_regressions::unknown_observation_cannot_establish_process_exit ... ok
+test review_regressions::unknown_terminal_kind_cannot_preserve_live_current_work ... ok
+test turns::delayed_same_turn_start_cannot_resolve_native_approval ... ok
+test turns::new_turn_sets_working_without_changing_process_authority ... ok
+test turns::run_exit_never_invents_a_turn_completion ... ok
+test turns::run_started_is_observation_not_runtime_liveness_proof ... ok
+test turns::terminal_facts_preserve_distinct_outcomes_and_resolve_only_their_turn ... ok
+test turns::waits_request_native_attention_once_per_scoped_reason ... ok
+
+test result: ok. 33 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

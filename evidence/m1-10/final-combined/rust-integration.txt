@@ -1,0 +1,17 @@
+   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.96s
+     Running tests/cli.rs (/state/target/debug/deps/cli-83d9db1e44b537d0)
+
+running 9 tests
+test failed_stderr_returns_an_output_failure_status ... ok
+test non_unicode_arguments_get_an_encoding_error_without_echo ... ok
+test help_describes_the_foundation_without_starting_a_mode ... ok
+test failed_stdout_is_reported_without_os_error_details ... ok
+test argument_count_takes_precedence_over_invalid_encoding ... ok
+test version_flags_report_the_cargo_package_version ... ok
+test short_help_and_no_arguments_match_long_help ... ok
+test excess_arguments_never_short_circuit_to_help_or_version ... ok
+test unsupported_arguments_get_a_fixed_private_diagnostic ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+

@@ -108,3 +108,13 @@ records must bind the same selected source bytes of the published full commit.
 Only trusted actual reports count; component passes and review verdicts do not
 substitute for absent execution. The PR will identify the exact head, hosted run,
 artifact and actual paired result before owner approval is requested.
+
+[Final local combined](final-combined/report.json) passes all 34 required checks;
+[dedicated native](final-native/report.json) passes all five, including every
+preserved native integration method. No required skips; only the three declared
+optional live/future probes skipped. Both actual 289-file selected-source
+manifests match source commit `3bcb9f0f65889d665ad793ea7a942ad281a52086`.
+Evidence-only publication commits can change the repository SHA while preserving
+those selected bytes; the actual hosted/native pairing binds the published full
+revision. A single execution still reports qualification_complete=false.
+The PR's final evidence comment supplies hosted run/artifact and actual pairing.
