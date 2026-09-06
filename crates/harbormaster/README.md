@@ -45,7 +45,7 @@ transactions, known migration/backup/recovery, supported retention and real
 process interruption. Their synthetic SQL fault injection is confined to test
 fixtures; no arbitrary SQL or callback interface is exposed by storage.
 
-CLI Integration tests execute the actual Cargo-built binary with a cleared
+CLI integration tests execute the actual Cargo-built binary with a cleared
 environment and synthetic private HOME/XDG/profile/work-directory fixtures.
 They compare the full fixture tree before and after every invocation. Unit
 tests cover the pure result and typed error contract, including malformed

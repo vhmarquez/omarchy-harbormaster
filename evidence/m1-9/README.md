@@ -29,3 +29,5 @@ records are required against the exact published head. The PR identifies their
 full revision, run and artifact IDs; no component pass fills an absent final gate.
 The only optional skips are the preserved three live/future probes. Evidence
 consistency is not execution attestation; use trusted actual records.
+
+[Final independent review](independent-final-review/review-final.json) binds the final production/test files and actual crash negative controls. [Review dispositions](../../docs/M1-9-REVIEW.md) explain corrected findings and size exceptions.

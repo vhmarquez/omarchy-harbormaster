@@ -116,9 +116,10 @@ linkage, transaction/worker APIs, privacy scope and approximately 300-file /
 50-function size triggers. Metrics are review triggers, not file-splitting quotas.
 Actual fixture measurements do not claim future product latency/RSS budgets.
 
-Publish an evidence-backed #9 PR only after local combined, dedicated native,
-hosted portable Docker and actual paired qualification at the exact candidate,
-plus independent review. Stop for explicit owner approval of that PR/revision
+Create the issue-linked draft PR to obtain actual hosted portable Docker
+evidence. Mark it ready for owner review only after local combined, dedicated
+native, hosted portable Docker and actual paired qualification at the exact
+candidate, plus independent review. Stop for explicit owner approval of that PR/revision
 before merge or dependent #10 implementation. #50's approval is not #9 approval.
 
 ## Review refinement: shared generation issuance

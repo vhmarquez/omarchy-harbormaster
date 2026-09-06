@@ -7,7 +7,7 @@ the #8 unmapped-peer-PID target and preserved M0 sandbox check (both exact metho
 Docker confinement and the mandatory pairing contract remain unchanged.
 
 [#9 responsibilities](M1-9-DEVELOPMENT.md), [storage guarantees and limits](M1-9-STORAGE-ENGINE.md),
-[SQLite source/build review](M1-9-SQLITE-BUILD.md), and [the evidence index](../evidence/m1-9/README.md)
+[SQLite source/build review](M1-9-SQLITE-BUILD.md), [review dispositions](M1-9-REVIEW.md), and [the evidence index](../evidence/m1-9/README.md)
 separate semantic RED/GREEN, independent review and final qualification.
 The issue-linked PR records the exact candidate, hosted run/artifact and actual
 paired CLI result. An earlier pass never qualifies changed selected source.
