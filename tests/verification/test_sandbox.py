@@ -56,6 +56,13 @@ class SnapshotTests(unittest.TestCase):
 
 
 class BoundaryTests(unittest.TestCase):
+    def test_fault_filesystem_is_separately_private_and_physically_bounded(self):
+        from verification import sandbox
+        argv = sandbox._bubblewrap(Path("/source"), Path("/tools"), Path("/state"))
+        position = argv.index("/fault-fs")
+        self.assertEqual(argv[position - 5:position + 1],
+                         ["--perms", "0700", "--size", "1048576", "--tmpfs", "/fault-fs"])
+
     # Real isolation now runs as the common required isolation-probe check.
     # Unit tests exercise process bounds without needing a nested user namespace.
     def test_bubblewrap_policy_unshares_network_and_excludes_host_homes(self):

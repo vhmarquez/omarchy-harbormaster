@@ -1,5 +1,6 @@
 """Container launch policy tests; real container evidence comes from CI."""
 from pathlib import Path
+import os
 import sys
 import unittest
 
@@ -21,7 +22,8 @@ class ContainerPolicyTests(unittest.TestCase):
                        "sha256:" + "1" * 64, {})
         mounts = [argv[index + 1] for index, value in enumerate(argv) if value == "--tmpfs"]
         self.assertEqual(mounts, ["/tmp:rw,nosuid,nodev,size=256m",
-                                 "/run:ro,nosuid,nodev,noexec,size=16m,mode=755"])
+                                 "/run:ro,nosuid,nodev,noexec,size=16m,mode=755",
+                                 f"/fault-fs:rw,nosuid,nodev,noexec,size=1m,mode=700,uid={os.getuid()},gid={os.getgid()}"])
         binds = [argv[index + 1] for index, value in enumerate(argv) if value == "--mount"]
         self.assertEqual(len(binds), 3)
         self.assertFalse(any("dst=/run" in mount for mount in binds))
