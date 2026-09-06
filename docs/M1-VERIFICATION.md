@@ -1,6 +1,6 @@
-# M1 #9 candidate verification
+# M1 #10 verification continuation
 
-The storage addition introduces required `sqlite-build`, `rust-storage` and
+The merged storage dependency introduced required `sqlite-build`, `rust-storage` and
 `rust-storage-crash` checks. Portable has 28 required entries, local combined
 has 30, and separately executed native has five: three shared preflights plus
 the #8 unmapped-peer-PID target and preserved M0 sandbox check (both exact methods).
@@ -30,6 +30,15 @@ Failure of SQLite source preflight or offline compilation blocks later code
 execution while enumerating every remaining required check as NOT_RUN.
 
 ## Current main post-merge qualification
+
+Owner-approved PR #51 / closed #9 main
+`23be30f0d8fa4fb9767241d08faa0a543a3c950b` passed fresh qualification on
+2026-09-06: hosted locked-down Docker portable 28 required PASS, local combined
+30 PASS, dedicated native 5 PASS, actual paired PASS for 215 selected files.
+[Actual reports and logs](../evidence/m1-10/post-merge-main/summary.json) include
+run 34052470724 / artifact 9995027347 and fresh local receipts. This completes
+the #9 dependency gate. #10 requires its own newly registered test families,
+independent review, exact-current-head qualification and owner PR approval.
 
 Owner-merged PR #50 / closed #8 main
 `47d726972991c88da897fe20ef4ce413142227d5` passed fresh qualification on

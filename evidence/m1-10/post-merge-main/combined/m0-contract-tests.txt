@@ -1,0 +1,15 @@
+test_checker_reports_file_errors_as_json (test_m0_contracts.FixtureContractTests.test_checker_reports_file_errors_as_json) ... ok
+test_checker_reports_json_parse_errors_as_json (test_m0_contracts.FixtureContractTests.test_checker_reports_json_parse_errors_as_json) ... ok
+test_each_of_the_fourteen_specified_scenarios_is_required (test_m0_contracts.FixtureContractTests.test_each_of_the_fourteen_specified_scenarios_is_required) ... ok
+test_fixture_records_are_explicit_unique_and_nonempty (test_m0_contracts.FixtureContractTests.test_fixture_records_are_explicit_unique_and_nonempty) ... ok
+test_fixture_root_requires_an_object (test_m0_contracts.FixtureContractTests.test_fixture_root_requires_an_object) ... ok
+test_required_failure_scenarios_cannot_be_missing (test_m0_contracts.FixtureContractTests.test_required_failure_scenarios_cannot_be_missing) ... ok
+test_scenario_ids_require_nonempty_strings_before_set_checks (test_m0_contracts.FixtureContractTests.test_scenario_ids_require_nonempty_strings_before_set_checks) ... ok
+test_scenario_records_require_objects (test_m0_contracts.FixtureContractTests.test_scenario_records_require_objects) ... ok
+test_scenarios_requires_a_list (test_m0_contracts.FixtureContractTests.test_scenarios_requires_a_list) ... ok
+test_schema_version_requires_exact_integer_one (test_m0_contracts.FixtureContractTests.test_schema_version_requires_exact_integer_one) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.040s
+
+OK

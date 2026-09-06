@@ -1,28 +1,28 @@
 # M1 status and handoff
 
-Live state verified 2026-09-06: the owner merged PR #49 and PR #50; issues #7
-and #8 are closed. Main is `47d726972991c88da897fe20ef4ce413142227d5`.
-Milestone 2 remains open with two closed and two open issues; roadmap #1 is open.
+Live state verified 2026-09-06: PRs #49–#51 were explicitly owner-approved
+and merged; issues #7–#9 are closed. Main is
+`23be30f0d8fa4fb9767241d08faa0a543a3c950b`. M1 milestone 2 and roadmap #1
+remain open; #10 remains open and M2 has not begun.
 
 | Issue | Current scope | Gate |
 |---|---|---|
 | #7 | Owner-merged foundation, qualified main | Completed dependency |
 | #8 | Owner-merged protocol/private IPC, qualified main | Completed dependency |
-| #9 | SQLite library candidate on `codex/m1-9-sqlite-storage` | Current-head qualification and explicit owner PR/revision approval before merge |
-| #10 | Not started | Approved/merged dependencies; no dependent implementation before #9 approval |
+| #9 | Owner-approved and merged SQLite library, qualified main | Completed dependency |
+| #10 | Reducers/recovery work on `codex/m1-10-reducers-recovery` | Independent review, current-head qualification and explicit owner PR/revision approval before merge |
 
-[#8 post-merge evidence](../evidence/m1-9/post-merge-main/summary.json) preserves
-actual main hosted Docker portable 25 required PASS, fresh combined 27 PASS,
-dedicated native 4 PASS, and paired PASS for all 174 selected source files.
-Run 34039894234 / artifact 9991394591 was downloaded and inspected. The three
+[#9 post-merge evidence](../evidence/m1-10/post-merge-main/summary.json) preserves
+actual main hosted Docker portable 28 required PASS, fresh combined 30 PASS,
+dedicated native 5 PASS, and paired PASS for all 215 selected source files.
+Run 34052470724 / artifact 9995027347 was downloaded and inspected. The three
 optional live/future probes skipped; no required checks skipped.
 
-The [#9 evidence index](../evidence/m1-9/README.md) maps its three acceptance
-criteria to executed fixtures, review and final qualification records. Read the
-issue-linked PR for its exact published head, hosted run/artifact and actual
-paired report. Component evidence cannot substitute for those final gates.
-[#8 evidence](../evidence/m1-8/README.md) and its former approval text remain
-historical; the verified owner merge supersedes that former blocker.
+[#10 boundaries](M1-10-DEVELOPMENT.md) were committed before implementation.
+The [#9 evidence index](../evidence/m1-9/README.md) remains the historical
+acceptance/review record; its former approval gate is superseded by the verified
+owner-approved merge. [#8 post-merge evidence](../evidence/m1-9/post-merge-main/summary.json)
+and [#8 implementation evidence](../evidence/m1-8/README.md) remain unchanged.
 
 ## Current implementation and limits
 
@@ -38,8 +38,9 @@ known migration, live backup, bounded query/row/page/WAL policies and explicit
 recovery limits. A lost ticket or startup/recovery timeout is an unknown outcome.
 Corrupt-page recovery needs an authoritative revision upper bound including
 possibly committed unknown outcomes; without it the recovery API is unavailable.
-No deterministic lifecycle reducer, replay/reconciliation controller, logging,
-spool or read-only diagnostic product interface is claimed; #10 still owes them.
+The qualified main does not yet provide a deterministic lifecycle reducer,
+replay/reconciliation controller, logging/spool or read-only diagnostic product
+interface. #10 is implementing and must evidence those acceptance criteria.
 Product latency/RSS/idle-CPU budgets remain unmeasured.
 
 ## Approved retention

@@ -1,0 +1,14 @@
+   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.50s
+     Running tests/storage_crash.rs (/state/target/debug/deps/storage_crash-0f67f31027620725)
+
+running 2 tests
+
+running 1 test
+
+running 1 test
+test kill_after_commit_before_receipt_preserves_atomic_outcome_and_retry ... ok
+test kill_during_atomic_write_rolls_back_every_effect ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.14s
+

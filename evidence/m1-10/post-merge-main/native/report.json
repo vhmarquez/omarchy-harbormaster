@@ -1,0 +1,121 @@
+{
+  "schema": 2,
+  "started_at": "2026-09-06T18:41:40.299027+00:00",
+  "backend": "bwrap",
+  "scope": "native",
+  "checks": [
+    {
+      "name": "isolation-probe",
+      "required": true,
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verification/probe.py",
+        "/tmp/harbormaster-verify-68zsuc32/outside-canary"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.031,
+      "log": "isolation-probe.txt"
+    },
+    {
+      "name": "tool-pins",
+      "required": true,
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verification/preflight.py",
+        "--stage-cargo"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.045,
+      "log": "tool-pins.txt"
+    },
+    {
+      "name": "sqlite-build",
+      "required": true,
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verification/sqlite.py"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 16.946,
+      "log": "sqlite-build.txt"
+    },
+    {
+      "name": "rust-ipc-namespace",
+      "required": true,
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--test",
+        "ipc_namespace",
+        "--all-features",
+        "--",
+        "--exact",
+        "peer_without_visible_pid_is_rejected",
+        "--nocapture"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 3.903,
+      "log": "rust-ipc-namespace.txt"
+    },
+    {
+      "name": "m0-harness-sandbox",
+      "required": true,
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "spikes/harnesses/test_sandbox.py",
+        "Helpers.test_sandbox_denies_network_and_inherited_credentials",
+        "NetworkNamespace.test_sandbox_uses_distinct_network_namespace",
+        "-v"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.077,
+      "log": "m0-harness-sandbox.txt"
+    },
+    {
+      "name": "m0-live-runtime",
+      "required": false,
+      "status": "SKIP",
+      "reason": "Separate opt-in desktop/service probe; no deployment authorized"
+    },
+    {
+      "name": "m0-live-harness",
+      "required": false,
+      "status": "SKIP",
+      "reason": "Installed real harness probes are outside offline #7 verification"
+    },
+    {
+      "name": "native-shell-integration",
+      "required": false,
+      "status": "SKIP",
+      "reason": "Production Omarchy/QML UI is not implemented in #7"
+    }
+  ],
+  "passed": true,
+  "qualification_complete": false,
+  "qualifications": {
+    "portable": "NOT_RUN",
+    "native": "PASS"
+  }
+}
