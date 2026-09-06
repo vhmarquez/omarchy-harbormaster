@@ -3,6 +3,8 @@
 use std::ffi::OsString;
 use std::fmt;
 
+pub mod ingestion;
+
 /// The foundation's supported output requests.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Action {

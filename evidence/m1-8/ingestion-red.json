@@ -1,0 +1,17 @@
+{
+  "exit_code": 101,
+  "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\nerror[E0432]: unresolved import `harbormaster::ingestion`\n --> crates/harbormaster/tests/ingestion.rs:2:19\n  |\n2 | use harbormaster::ingestion::{Admission, AdmissionError, ProducerRegistration, Registry};\n  |                   ^^^^^^^^^ could not find `ingestion` in `harbormaster`\n\nerror[E0432]: unresolved import `harbormaster::ipc`\n --> crates/harbormaster/tests/ingestion.rs:3:19\n  |\n3 | use harbormaster::ipc::{Channel, Connection, ConnectionBudget, PrivateSockets};\n  |                   ^^^ could not find `ipc` in `harbormaster`\n\nerror[E0432]: unresolved import `harbormaster::protocol`\n --> crates/harbormaster/tests/ingestion.rs:4:19\n  |\n4 | use harbormaster::protocol::{EventHandshake, HarnessKind, ProducerGeneration, Seq, parse_event_handshake};\n  |                   ^^^^^^^^ could not find `protocol` in `harbormaster`\n\nFor more information about this error, try `rustc --explain E0432`.\nerror: could not compile `harbormaster` (test \"ingestion\") due to 3 previous errors\nwarning: build failed, waiting for other jobs to finish...\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 0.138,
+  "command": [
+    "/tools/rust/bin/cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--workspace",
+    "--test",
+    "ingestion",
+    "--all-features"
+  ]
+}
