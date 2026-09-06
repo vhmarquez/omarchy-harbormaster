@@ -31,6 +31,8 @@ pub struct ReducerWrite {
     pub effects: Effects,
     pub accepted_at: i64,
     pub notify: bool,
+    /// Known old-scope backlog discarded before this exact atomic intent.
+    pub discarded_events: u64,
 }
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum ReconciliationBaseline {
@@ -48,6 +50,9 @@ pub struct Reconciliation {
     pub discarded_events: u64,
     /// Independently established progress for the stored old current turn.
     pub resolved_turn: Option<crate::domain::TurnKey>,
+    /// Same independently verified native wait, without claiming progress.
+    /// Only its bounded obligation-resolution link moves to the fresh generation.
+    pub continued_turn: Option<crate::domain::TurnKey>,
 }
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ProducerRetirement {

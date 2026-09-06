@@ -12,8 +12,7 @@ pub(super) fn apply(
     next: Revision,
 ) -> Result<(), StorageError> {
     if let Some(key) = &set.effects.resolve_transient {
-        // The partial unique index proves at most three matching active rows.
-        conn.execute("UPDATE attention SET resolved=1 WHERE producer=?1 AND generation=?2 AND run=?3 AND turn_id=?4 AND scoped=1 AND resolved=0 AND reason IN(0,1,3)", params![key.producer_id.as_str(),key.generation.as_str(),key.run_id.as_str(),key.turn_id.as_str()])?;
+        resolve(conn, key)?;
     }
     let mut inserted = false;
     for reason in &set.effects.attention {
@@ -58,14 +57,14 @@ fn ensure(
             | AttentionReason::NativeApproval
             | AttentionReason::ConnectionUncertainty
     ) {
-        let exists: bool = conn.query_row("SELECT EXISTS(SELECT 1 FROM attention WHERE producer=?1 AND generation=?2 AND run=?3 AND turn_id IS ?4 AND reason=?5 AND scoped=1 AND resolved=0)", params![set.fact.producer_id.as_str(),set.fact.generation.as_str(),set.fact.run_id.as_str(),turn,reason as u8], |row| row.get(0))?;
+        let exists: bool = conn.query_row("SELECT EXISTS(SELECT 1 FROM attention WHERE producer=?1 AND resolution_generation=?2 AND run=?3 AND turn_id IS ?4 AND reason=?5 AND scoped=1 AND resolved=0)", params![set.fact.producer_id.as_str(),set.fact.generation.as_str(),set.fact.run_id.as_str(),turn,reason as u8], |row| row.get(0))?;
         if exists {
             return Ok(false);
         }
     }
     capacity(conn, "SELECT count(*) FROM attention", MAX_ATTENTION, 1)?;
     conn.execute(
-        "INSERT INTO attention VALUES(?1,?2,?3,?4,?5,0,?6,0,?7,1)",
+        "INSERT INTO attention VALUES(?1,?2,?3,?4,?5,0,?6,0,?7,1,?2)",
         params![
             set.fact.producer_id.as_str(),
             set.fact.generation.as_str(),
@@ -77,6 +76,12 @@ fn ensure(
         ],
     )?;
     Ok(true)
+}
+pub(super) fn resolve(conn: &Connection, key: &crate::domain::TurnKey) -> Result<(), StorageError> {
+    // The partial unique index proves at most three matching active rows;
+    // provenance generation/event/revision and human review remain unchanged.
+    conn.execute("UPDATE attention SET resolved=1 WHERE producer=?1 AND resolution_generation=?2 AND run=?3 AND turn_id=?4 AND scoped=1 AND resolved=0 AND reason IN(0,1,3)", params![key.producer_id.as_str(),key.generation.as_str(),key.run_id.as_str(),key.turn_id.as_str()])?;
+    Ok(())
 }
 pub(super) fn review(
     conn: &mut Connection,

@@ -49,7 +49,7 @@ pub(super) fn current() -> Vec<(&'static str, String)> {
                 ",producer TEXT,generation TEXT,CHECK((producer IS NULL)=(generation IS NULL))"
             }
             "attention" => {
-                ",turn_id TEXT,resolved INTEGER NOT NULL DEFAULT 0 CHECK(resolved IN(0,1)),outcome_revision BLOB CHECK(outcome_revision IS NULL OR (typeof(outcome_revision)='blob' AND length(outcome_revision)=8)),scoped INTEGER NOT NULL DEFAULT 0 CHECK(scoped IN(0,1))"
+                ",turn_id TEXT,resolved INTEGER NOT NULL DEFAULT 0 CHECK(resolved IN(0,1)),outcome_revision BLOB CHECK(outcome_revision IS NULL OR (typeof(outcome_revision)='blob' AND length(outcome_revision)=8)),scoped INTEGER NOT NULL DEFAULT 0 CHECK(scoped IN(0,1)),resolution_generation TEXT,CHECK(scoped=0 OR resolution_generation IS NOT NULL)"
             }
             "outbox" => {
                 ",outcome_revision BLOB CHECK(outcome_revision IS NULL OR (typeof(outcome_revision)='blob' AND length(outcome_revision)=8))"
@@ -65,6 +65,6 @@ pub(super) fn current() -> Vec<(&'static str, String)> {
             .unwrap_or_else(|| sql.len() - ") STRICT".len());
         sql.insert_str(position, extra);
     }
-    tables.push(("attention_active_scope", "CREATE UNIQUE INDEX attention_active_scope ON attention(producer,generation,run,coalesce(turn_id,''),reason) WHERE scoped=1 AND resolved=0 AND reason IN(0,1,3)".to_owned()));
+    tables.push(("attention_active_scope", "CREATE UNIQUE INDEX attention_active_scope ON attention(producer,resolution_generation,run,coalesce(turn_id,''),reason) WHERE scoped=1 AND resolved=0 AND reason IN(0,1,3)".to_owned()));
     tables
 }

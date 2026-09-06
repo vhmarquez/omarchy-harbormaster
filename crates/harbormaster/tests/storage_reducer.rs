@@ -73,6 +73,7 @@ impl Fixture {
                 },
                 discarded_events: 0,
                 resolved_turn: None,
+                continued_turn: None,
             })))
             .unwrap()
         else {
@@ -159,12 +160,14 @@ fn write(generation: ProducerGeneration) -> ReducerWrite {
         },
         accepted_at: 100,
         notify: true,
+        discarded_events: 0,
     }
 }
 #[test]
 fn regular_filesystem_enospc_never_acknowledges_or_partially_commits_then_same_request_retries() {
     let fixture = Fixture::new();
-    let set = write(fixture.reconcile());
+    let mut set = write(fixture.reconcile());
+    set.discarded_events = 7;
     let before = fixture
         .call(Request::Context(Box::new(set.fact.clone())))
         .unwrap();
@@ -205,6 +208,10 @@ fn regular_filesystem_enospc_never_acknowledges_or_partially_commits_then_same_r
         }
     );
     assert!(context.state.tombstone.is_some());
+    let Response::Status(status) = fixture.call(Request::Status).unwrap() else {
+        panic!("status")
+    };
+    assert_eq!(status.discarded_events, 7);
 }
 
 fn fill(fixture: &Fixture) -> PathBuf {
@@ -233,6 +240,7 @@ fn assert_empty_effects(fixture: &Fixture, set: &ReducerWrite) {
     let Response::Status(status) = fixture.call(Request::Status).unwrap() else {
         panic!("status")
     };
+    assert_eq!(status.discarded_events, 0);
     assert_eq!(
         (
             status.facts,

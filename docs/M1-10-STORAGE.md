@@ -17,6 +17,9 @@ Each run admits at most one active producer. A reconciliation request may name
 one explicitly verified old current turn whose transient reasons resolve; a
 generation change alone does not resolve them. Uncertainty effects atomically
 retire admission before the worker can execute another queued write.
+The original `Apply` intent includes the known discarded-backlog count, so a
+retiring reducer decision records loss in that same transaction. Overflow
+rejects every effect; exact retries include this field and do not count twice.
 `RetireProducer` handles a scoped conflict/gap without persisting an invalid
 fact or issuing another generation. It preserves the independent process
 dimension, current turn identity, terminal outcomes and sequence checkpoint;
@@ -44,6 +47,20 @@ generation and run. Legacy unknown scopes remain protected. Repeated ensures
 do not create another outbox item; terminal outcomes retain their first revision
 after fact pruning. A late terminal may add its own tombstone and outcome while
 the current-turn projection remains another turn.
+
+An explicit `continued_turn` may preserve the same independently verified native
+Input/Approval wait through reconciliation. It must match the stored old scoped
+current turn and fresh baseline TurnId, and cannot accompany `resolved_turn`.
+The manager must use explicit progress evidence to resolve a prior wait before
+declaring Working; continuation does not prove progress. The V3 partial index
+uses a separate `resolution_generation` link for at most three transient rows.
+Only that link changes during continuation: original fact/outcome generation,
+event, outcome revision, review and outbox remain intact. Repeated reconnections
+move the same bounded links instead of accumulating references or notifications.
+A later terminal/proven progress under the fresh scope resolves the linked
+original reasons. Without explicit continuity, old obligations stay protected.
+Current NeedsYou derives from the durable verified wait projection, including a
+baseline with no producer event; reconciliation fabricates no event or outcome.
 
 `Policy`, `Status` and cleanup preview read existing state. Policy changes and
 cleanup application are explicit operations. A preview contains at most 100

@@ -13,6 +13,7 @@ pub(super) fn apply_set(set: WriteSet) -> ReducerWrite {
         fact: set.fact.clone(),
         accepted_at: set.accepted_at,
         notify: true,
+        discarded_events: 0,
         effects: Effects {
             projection: set.projection,
             current_turn: Some(key.clone()),
@@ -117,6 +118,7 @@ fn policy_preview_is_read_only_and_unavailable_reconciliation_is_inactive() {
             baseline: ReconciliationBaseline::Unavailable,
             discarded_events: 3,
             resolved_turn: None,
+            continued_turn: None,
         })))
         .unwrap();
     let Response::Producer(Some(producer)) = engine.execute(&Request::Producer(id(1))).unwrap()
@@ -149,6 +151,7 @@ pub(super) fn reconcile(engine: &mut Engine) -> (ProducerGeneration, Revision) {
             },
             discarded_events: 0,
             resolved_turn: None,
+            continued_turn: None,
         })))
         .unwrap();
     let Response::Registered {

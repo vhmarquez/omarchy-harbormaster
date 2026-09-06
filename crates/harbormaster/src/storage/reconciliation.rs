@@ -14,9 +14,10 @@ pub(super) fn reconcile(
     queries::require_revision(&tx, request.registration.expected_revision)?;
     let discarded = discarded_next(&tx, request.discarded_events)?;
     let verified = matches!(request.baseline, ReconciliationBaseline::Verified { .. });
-    resolve_old(&tx, request)?;
+    validate_previous_turn(&tx, request)?;
     let (generation, next) =
         transaction::registration_inside(&tx, &request.registration, verified, verified)?;
+    update_obligations(&tx, request, &generation)?;
     let (projection, current) = match &request.baseline {
         ReconciliationBaseline::Unavailable => (
             RunProjection {
@@ -90,7 +91,7 @@ pub(super) fn retire(
     Ok(Response::Retired { revision: next })
 }
 
-fn discarded_next(conn: &Connection, adding: u64) -> Result<u64, StorageError> {
+pub(super) fn discarded_next(conn: &Connection, adding: u64) -> Result<u64, StorageError> {
     conn.query_row("SELECT discarded FROM metadata WHERE id=1", [], |row| {
         decode_number(row.get(0)?)
     })?
@@ -98,17 +99,36 @@ fn discarded_next(conn: &Connection, adding: u64) -> Result<u64, StorageError> {
     .ok_or(StorageError::ResourceExhausted)
 }
 
-fn resolve_old(conn: &Connection, request: &Reconciliation) -> Result<(), StorageError> {
-    let Some(key) = &request.resolved_turn else {
+fn validate_previous_turn(conn: &Connection, request: &Reconciliation) -> Result<(), StorageError> {
+    let Some(key) = request
+        .resolved_turn
+        .as_ref()
+        .or(request.continued_turn.as_ref())
+    else {
         return Ok(());
     };
-    let (_, current) = super::context::projection(conn, &request.registration.run_id)?;
+    let (projection, current) = super::context::projection(conn, &request.registration.run_id)?;
     if current.as_ref() != Some(key)
         || key.producer_id != request.registration.producer_id
         || request.registration.previous_generation.as_ref() != Some(&key.generation)
+        || (request.continued_turn.is_some() && projection.turn.is_terminal())
     {
         return Err(StorageError::Conflict);
     }
-    conn.execute("UPDATE attention SET resolved=1 WHERE producer=?1 AND generation=?2 AND run=?3 AND turn_id=?4 AND scoped=1 AND resolved=0 AND reason IN(0,1,3)", rusqlite::params![key.producer_id.as_str(),key.generation.as_str(),key.run_id.as_str(),key.turn_id.as_str()])?;
+    Ok(())
+}
+
+fn update_obligations(
+    conn: &Connection,
+    request: &Reconciliation,
+    fresh: &crate::protocol::ProducerGeneration,
+) -> Result<(), StorageError> {
+    if let Some(key) = &request.resolved_turn {
+        super::attention_state::resolve(conn, key)?;
+    }
+    if let Some(key) = &request.continued_turn {
+        // Move a bounded resolution link, never the original fact/outcome scope.
+        conn.execute("UPDATE attention SET resolution_generation=?1 WHERE producer=?2 AND resolution_generation=?3 AND run=?4 AND turn_id=?5 AND scoped=1 AND resolved=0 AND reason IN(0,1,3)", rusqlite::params![fresh.as_str(),key.producer_id.as_str(),key.generation.as_str(),key.run_id.as_str(),key.turn_id.as_str()])?;
+    }
     Ok(())
 }

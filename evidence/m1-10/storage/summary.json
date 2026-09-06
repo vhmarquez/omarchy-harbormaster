@@ -30,5 +30,22 @@
     "Root review: invalid current/projection shape previously committed; actual RED then corrected GREEN.",
     "Coordinator prerequisite: typed exact-scope retirement added after actual stub RED; no fabricated fact/generation, unknown ticket semantics retained.",
     "Author review: retained legacy fact for another turn must not invent terminal kind; actual RED Some(Completed) corrected to protected None."
-  ]
+  ],
+  "continuity_red": {
+    "tests": 3,
+    "failed": 3,
+    "observed": [
+      "Repeated reconciliation duplicated approval attention",
+      "Contradictory continued and resolved proof was accepted",
+      "Apply ignored discarded-count overflow"
+    ]
+  },
+  "continuity_green": {
+    "unit": 64,
+    "legacy_storage": 15,
+    "storage_crash": 2,
+    "storage_reducer": 2,
+    "failed": 0,
+    "strict_all_target_clippy": "PASS"
+  }
 }

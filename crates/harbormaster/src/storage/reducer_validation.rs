@@ -64,7 +64,18 @@ pub(super) fn reconciliation(request: &Reconciliation) -> Result<(), StorageErro
         return Err(StorageError::InvalidRequest);
     }
     if matches!(request.baseline, ReconciliationBaseline::Unavailable)
-        && request.resolved_turn.is_some()
+        && (request.resolved_turn.is_some() || request.continued_turn.is_some())
+    {
+        return Err(StorageError::InvalidRequest);
+    }
+    if let Some(key) = &request.continued_turn
+        && (request.resolved_turn.is_some()
+            || key.producer_id != request.registration.producer_id
+            || key.run_id != request.registration.run_id
+            || request.registration.previous_generation.as_ref() != Some(&key.generation)
+            || !matches!(&request.baseline, ReconciliationBaseline::Verified { projection, current_turn }
+                if matches!(projection.turn, TurnState::AwaitingInput | TurnState::AwaitingApproval)
+                    && current_turn.as_ref() == Some(&key.turn_id)))
     {
         return Err(StorageError::InvalidRequest);
     }

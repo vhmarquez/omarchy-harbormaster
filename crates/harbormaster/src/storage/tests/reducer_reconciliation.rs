@@ -42,6 +42,7 @@ fn reconciliation_requires_fresh_concrete_evidence_and_one_active_producer() {
             },
             discarded_events: 0,
             resolved_turn: None,
+            continued_turn: None,
         }));
         assert_eq!(engine.execute(&request), Err(StorageError::InvalidRequest));
     }

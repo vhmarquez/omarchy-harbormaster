@@ -10,6 +10,8 @@ mod bounds;
 mod recovery;
 mod reducer;
 mod reducer_attention;
+mod reducer_continuity;
+mod reducer_continuity_guards;
 mod reducer_migration;
 mod reducer_progress;
 mod reducer_reconciliation;

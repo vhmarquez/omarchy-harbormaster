@@ -146,5 +146,6 @@ fn reconciliation(set: &ReducerWrite) -> Reconciliation {
         },
         discarded_events: 3,
         resolved_turn: set.effects.current_turn.clone(),
+        continued_turn: None,
     }
 }

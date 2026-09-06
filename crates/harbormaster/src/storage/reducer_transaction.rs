@@ -19,6 +19,7 @@ pub(super) fn apply(conn: &mut Connection, set: &ReducerWrite) -> Result<Respons
     }
     let next = queries::require_revision(&tx, set.expected_revision)?;
     scope(&tx, &set.fact)?;
+    let discarded = super::reconciliation::discarded_next(&tx, set.discarded_events)?;
     transaction::capacity(&tx, "SELECT count(*) FROM facts", MAX_FACTS, 1)?;
     projection(
         &tx,
@@ -46,6 +47,10 @@ pub(super) fn apply(conn: &mut Connection, set: &ReducerWrite) -> Result<Respons
         .checked_next()
         .map(|seq| number(seq.value()).to_vec());
     tx.execute("UPDATE producers SET next_seq=?1,active=?2,reconciled=?2 WHERE producer=?3 AND generation=?4", params![next_sequence,!set.effects.reconciliation_required,set.fact.producer_id.as_str(),set.fact.generation.as_str()])?;
+    tx.execute(
+        "UPDATE metadata SET discarded=?1 WHERE id=1",
+        [number(discarded).as_slice()],
+    )?;
     queries::advance(&tx, next)?;
     tx.commit()?;
     Ok(Response::Committed {
