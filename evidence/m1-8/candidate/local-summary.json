@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "scope": "Actual final local combined and separately executed native records; hosted Docker and paired qualification are separately published on the PR",
+  "executed_source_revision": "816a0e349278834041f408ba2aa68ace224c4074",
+  "selected_source_count": 174,
+  "selected_manifests_identical": true,
+  "combined": {
+    "report": "combined/report.json",
+    "required_pass": 27,
+    "optional_skip": 3,
+    "passed": true,
+    "qualification_complete": false
+  },
+  "native": {
+    "report": "native/report.json",
+    "required_pass": 4,
+    "optional_skip": 3,
+    "passed": true,
+    "qualification_complete": false
+  },
+  "publication_rule": "Only evidence files may be committed after these selected source snapshots. The actual paired CLI must bind the identical bytes to the full published head. No assumed hosted/paired pass."
+}
