@@ -111,3 +111,14 @@ Volatile receipt retention is capped at 1,024 per producer, 8,192 globally and
 receipt saturation freezes the generation until trusted reconciliation; draining
 the queue never erases duplicate protection. These are in-memory admission
 limits, not the later terminal tombstone cap/TTL or an implementation of cleanup.
+
+Independent review observed that the kernel can return peer PID 0 across PID
+namespaces, while rustix 1.1.4's socket credential wrapper assumes a nonzero PID.
+The fix uses nix's raw signed-pid credential representation and rejects unknown
+PIDs before conversion. Both socket callsites move to nix; rustix's `net` feature
+is removed. No authored unsafe shim or permission exception is introduced.
+One additional mandatory native Rust target exercises the real namespace case;
+it never runs in portable Docker and does not replace either original M0 method.
+Dependency source/index/license/advisory review and preparation cover the expanded
+graph. This host uses a new private `.tools-m1-8-final` root; the original `.tools`
+groups and unrelated worktrees remain intact.

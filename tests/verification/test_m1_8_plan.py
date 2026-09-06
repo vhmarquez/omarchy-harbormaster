@@ -8,6 +8,17 @@ from verification.checks import plan, validate
 
 
 class IpcInventoryTests(unittest.TestCase):
+    def test_real_unmapped_peer_pid_is_mandatory_native_and_absent_from_docker(self):
+        portable = {name for name, _, _ in plan(scope="portable")}
+        native = {name: (argv, kind) for name, argv, kind in plan(scope="native")}
+        self.assertNotIn("rust-ipc-namespace", portable)
+        self.assertIn("rust-ipc-namespace", native)
+        argv, kind = native["rust-ipc-namespace"]
+        self.assertEqual(argv[argv.index("--test") + 1], "ipc_namespace")
+        self.assertEqual(argv[argv.index("--exact") + 1], "peer_without_visible_pid_is_rejected")
+        self.assertEqual(kind, "rust")
+        self.assertFalse(validate(kind, "test result: ok. 0 passed; 0 failed; 0 ignored;"))
+
     def test_each_ipc_family_is_a_separate_required_portable_target(self):
         inventory = {name: (argv, kind) for name, argv, kind in plan(scope="portable")}
         for name, target in (("rust-protocol", "protocol"),

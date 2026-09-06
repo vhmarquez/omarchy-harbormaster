@@ -56,10 +56,10 @@ impl ControlAuthorizer {
             .requested
             .iter()
             .map(|operation| {
-                if self.granted.contains(operation) {
-                    if let Some(record) = self.capabilities.get(operation) {
-                        return record.clone();
-                    }
+                if self.granted.contains(operation)
+                    && let Some(record) = self.capabilities.get(operation)
+                {
+                    return record.clone();
                 }
                 CapabilityRecord {
                     operation: *operation,

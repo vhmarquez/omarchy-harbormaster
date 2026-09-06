@@ -1,8 +1,9 @@
 # M1 #8 candidate verification
 
 The #8 integration adds four separately required portable Rust targets, taking
-portable to 25 and local combined to 26 required checks. Native remains three
-required entries including both real integration methods. The mandatory paired
+portable to 25 and local combined to 27 required checks. Native has four required
+entries: the original two preflights and both real M0 integration methods, plus
+the separately required unmapped-peer-PID namespace target. The mandatory paired
 contract and locked-down Docker policy below still apply without exception.
 [The #8 protocol/IPC scope](M1-8-PROTOCOL.md) describes executable coverage and
 limits; `evidence/m1-8/` and the issue-linked PR identify actual candidate reports,

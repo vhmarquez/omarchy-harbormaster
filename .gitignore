@@ -4,6 +4,7 @@ __pycache__/
 .worktrees/
 .m0-local/
 .tools/
+.tools-m1-8-final/
 .verify/
 target/
 .env

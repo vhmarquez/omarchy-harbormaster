@@ -19,7 +19,7 @@ const PRODUCER: &str = "22222222-2222-4222-8222-222222222222";
 const RUN: &str = "44444444-4444-4444-8444-444444444444";
 
 struct Fixture {
-    _client: UnixStream,
+    client: UnixStream,
     peer: Connection,
     _sockets: PrivateSockets,
     path: PathBuf,
@@ -46,7 +46,7 @@ impl Fixture {
             .unwrap()
             .unwrap();
         Self {
-            _client: client,
+            client: client,
             peer,
             _sockets: sockets,
             path,
@@ -271,17 +271,17 @@ fn real_socket_frames_negotiate_then_enter_only_the_event_queue() {
     use std::io::Write;
     let mut f = Fixture::new(Channel::Event);
     let mut registry = registered(&f.peer);
-    f._client
+    f.client
         .write_all(&encode_frame(&handshake()).unwrap())
         .unwrap();
     let frame = f.peer.read_frame(Instant::now()).unwrap().unwrap();
     let claim = parse_event_handshake(&frame).unwrap();
     let session = registry.connect(&f.peer, &claim).unwrap();
     f.peer.complete_handshake(Instant::now()).unwrap();
-    f._client.write_all(&event(1, 1, GENERATION)).unwrap();
+    f.client.write_all(&event(1, 1, GENERATION)).unwrap();
     let frame = f.peer.read_frame(Instant::now()).unwrap().unwrap();
     assert_eq!(registry.admit(&session, &frame), Ok(Admission::Queued));
-    f._client
+    f.client
         .write_all(b"{\"protocol\":0,\"channel\":\"control\",\"operation\":\"end_owned\"}\n")
         .unwrap();
     let frame = f.peer.read_frame(Instant::now()).unwrap().unwrap();

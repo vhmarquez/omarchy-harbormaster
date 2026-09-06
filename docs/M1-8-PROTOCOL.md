@@ -71,7 +71,8 @@ directory and fixed `events.sock`/`control.sock` entries are private. Existing
 socket/file entries are refused, not blindly removed or adopted. Linux binding
 through a held `/proc/self/fd` directory anchors the path across ancestor renames.
 Socket nodes are restricted to 0600 before accepting peers. `SO_PEERCRED` is read
-from the actual accepted stream; listener channel and UID/GID/PID evidence cannot
+from the actual accepted stream with nix's raw `pid_t` representation; an unmapped
+zero or negative PID is rejected before conversion. Listener channel and UID/GID/PID evidence cannot
 be deserialized from JSON or replaced through a raw-stream escape hatch.
 
 Cleanup owns only recorded socket identities, with a retained descriptor when
@@ -129,8 +130,10 @@ cap/TTL and retention mapping remain unresolved before later cleanup work.
 
 The canonical portable plan now has 25 required checks, including separately
 named `protocol`, `protocol_fuzz`, `ipc` and `ingestion` integration targets.
-The local combined plan has 26; native retains its original three required
-entries and both real sandbox methods. Docker confinement is unchanged.
+The local combined plan has 27; native retains its original three required
+entries and both real sandbox methods, plus the required `ipc_namespace` target.
+That real native fixture connects an outer same-UID client to an inner PID
+namespace server, which must safely reject its unmapped PID. Docker confinement is unchanged.
 Only real portable/native paired qualification can set completion true.
 
 Deterministic seeded malformed-input fuzzing records its actual corpus and

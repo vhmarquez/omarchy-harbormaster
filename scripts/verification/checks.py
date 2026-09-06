@@ -52,9 +52,15 @@ def plan(outside_canary="/outside-canary", scope="all"):
         python + ["spikes/harnesses/test_sandbox.py", *NATIVE_METHODS, "-v"],
         "native",
     )
+    native_peer = (
+        "rust-ipc-namespace",
+        cargo + ["test", "--locked", "--offline", "--workspace", "--test", "ipc_namespace",
+                 "--all-features", "--", "--exact", "peer_without_visible_pid_is_rejected", "--nocapture"],
+        "rust",
+    )
     if scope == "native":
-        return preflights + [native_sandbox]
-    return portable if scope == "portable" else portable + [native_sandbox]
+        return preflights + [native_peer, native_sandbox]
+    return portable if scope == "portable" else portable + [native_peer, native_sandbox]
 
 
 def passed(results):
