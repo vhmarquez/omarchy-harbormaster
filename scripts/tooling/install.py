@@ -37,7 +37,7 @@ def private_root(root):
 
 @contextlib.contextmanager
 def owned_stage(root, name):
-    if name not in {"rust", "bin", "advisory-db", "node", "dependencies"}:
+    if name not in {"rust", "bin", "advisory-db", "node", "dependencies", "sqlite-source"}:
         raise ValueError("unsupported tool installation name")
     root = private_root(root)
     with (root / MARKER).open("r") as lock:
