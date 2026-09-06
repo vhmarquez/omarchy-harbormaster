@@ -1,3 +1,14 @@
+# M1 #8 candidate verification
+
+The #8 integration adds four separately required portable Rust targets, taking
+portable to 25 and local combined to 26 required checks. Native remains three
+required entries including both real integration methods. The mandatory paired
+contract and locked-down Docker policy below still apply without exception.
+[The #8 protocol/IPC scope](M1-8-PROTOCOL.md) describes executable coverage and
+limits; `evidence/m1-8/` and the issue-linked PR identify actual candidate reports,
+source revision and independent review. Component passes and historical #7
+receipts cannot replace current candidate qualification or owner approval.
+
 # Current post-merge verification
 
 Owner-merged #49 / closed #7 main `70a671bf5bf93aaed7a3acbc1ad26df76fd60187`

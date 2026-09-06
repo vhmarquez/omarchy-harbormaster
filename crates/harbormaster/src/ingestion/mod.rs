@@ -1,5 +1,6 @@
 //! Volatile admission and authorization. No durable acknowledgment or reducer.
 mod control;
+mod generation;
 mod queue;
 mod registry;
 
@@ -39,6 +40,7 @@ pub enum AdmissionError {
     ResourceExhausted,
     CapabilityUnavailable,
     StaleRevision,
+    EntropyUnavailable,
 }
 
 impl fmt::Display for AdmissionError {
@@ -56,6 +58,7 @@ impl fmt::Display for AdmissionError {
             Self::QueueFull | Self::ResourceExhausted => "resource_exhausted",
             Self::CapabilityUnavailable => "capability_unavailable",
             Self::StaleRevision => "stale_target",
+            Self::EntropyUnavailable => "entropy_unavailable",
         })
     }
 }

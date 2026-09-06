@@ -4,6 +4,7 @@ use std::ffi::OsString;
 use std::fmt;
 
 pub mod ingestion;
+pub mod protocol;
 
 /// The foundation's supported output requests.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]

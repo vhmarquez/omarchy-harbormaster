@@ -41,7 +41,7 @@ The workflow must not replicate the Rust/QML checks or suppress its exit code.
 
 ## #8 Cargo dependency scope
 
-Direct exact pins are `rustix=1.1.4` with only `fs`, `net`, `process` plus its
+Direct exact pins are `rustix=1.1.4` with only `fs`, `net`, `process`, `rand` plus its
 default `std`, `serde=1.0.229` with `derive`, and `serde_json=1.0.151` with default
 `std`. They provide safe OS wrappers and typed JSON. No network listener,
 async runtime, database, UUID/randomness package or future milestone scaffold

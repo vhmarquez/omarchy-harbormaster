@@ -93,3 +93,21 @@ Stop for explicit owner approval of that PR/revision before merge or dependent
 #9 implementation. Green checks, review and #49's merge are not approval of #8.
 No M2 work. Retention mapping and numeric tombstone TTL/cap must be resolved before
 later cleanup implementation; this issue introduces no retention policy or spool.
+
+## Independent review correction boundaries
+
+Review reproduced A-to-B-to-A trusted generation reuse and cross-instance session
+reuse. Reconciliation will issue a fresh UUID internally through a small
+`ingestion/generation.rs` entropy boundary (one nonblocking safe rustix getrandom
+call). Callers cannot provide a retired generation. No retired-generation denylist
+or SQLite work is introduced. Entropy failure occurs before any mutation.
+Connection-local session proofs are also bound to their creating registry or
+control-authorizer identity. Producer-generation scope changes invalidate prior
+session proofs independently of UUID equality. Trusted initial restoration still
+owes authoritative replay/reconciliation evidence from the future durable owner.
+
+Volatile receipt retention is capped at 1,024 per producer, 8,192 globally and
+8 MiB of accepted frame bytes. Unlike the independently bounded admission queue,
+receipt saturation freezes the generation until trusted reconciliation; draining
+the queue never erases duplicate protection. These are in-memory admission
+limits, not the later terminal tombstone cap/TTL or an implementation of cleanup.

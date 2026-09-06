@@ -45,7 +45,10 @@ impl Queue {
     }
 
     pub fn discard(&mut self, producer: &ProducerId) -> usize {
-        let removed = self.producers.remove(producer).map_or(0, |queue| queue.len());
+        let removed = self
+            .producers
+            .remove(producer)
+            .map_or(0, |queue| queue.len());
         self.count -= removed;
         self.ready.retain(|id| id != producer);
         removed

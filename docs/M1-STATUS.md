@@ -26,14 +26,14 @@ merge approval, and no dependent #9/#10 implementation or M2 work is authorized 
 
 ## Scope now
 
-- One dependency-free Rust package supplies real help/version/error handling
-  and a minimal build/test foundation. Unsupported runtime/bridge/launch modes
+- One Rust package supplies help/version/error handling and the pinned typed
+  protocol/private IPC/admission library, qualified only with disposable fixtures. Unsupported runtime/bridge/launch modes
   fail explicitly; this is not an installable manager or a daemon stub.
 - The QML file is a real Qt Quick Test sentinel, not a production screen or
   claim of approved UI/native-accessibility implementation.
 - Verification uses private disposable homes and bounded offline subprocesses;
   live runtime/harness probes remain separate explicit opt-ins, not silent passes.
-- Performance budgets, hostile IPC, storage/crash/replay/retention and read-only
+- Measured performance budgets, durable storage/crash/replay/retention and read-only
   product diagnostics are still owed by their corresponding M1/later issues.
 
 ## Outstanding decisions before cleanup implementation
