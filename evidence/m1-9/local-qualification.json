@@ -1,0 +1,15 @@
+{
+  "executed_source_revision": "16b00e1aa9461263ffe32d854c969d3357d04c6a",
+  "source_files": 215,
+  "required": {
+    "combined": 30,
+    "native": 5
+  },
+  "status": "PASS local executions; hosted Docker and actual pairing remain required",
+  "optional_skips": [
+    "m0-live-runtime",
+    "m0-live-harness",
+    "native-shell-integration"
+  ],
+  "scope": "Actual unmodified reports and source hashes; not fabricated Docker evidence or merge authorization"
+}

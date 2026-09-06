@@ -1,0 +1,23 @@
+   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.45s
+     Running tests/storage_crash.rs (/state/target/debug/deps/storage_crash-0f67f31027620725)
+
+running 1 test
+
+running 1 test
+
+thread 'kill_during_atomic_write_rolls_back_every_effect' (439) panicked at crates/harbormaster/tests/storage_crash.rs:218:9:
+assertion `left == right` failed: partial effect in projections
+  left: 1
+ right: 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test kill_during_atomic_write_rolls_back_every_effect ... FAILED
+
+failures:
+
+failures:
+    kill_during_atomic_write_rolls_back_every_effect
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.14s
+
+error: test failed, to rerun pass `--test storage_crash`

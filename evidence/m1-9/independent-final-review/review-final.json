@@ -1,0 +1,156 @@
+{
+  "verdict": "PASS",
+  "observed_at": "2026-09-06T18:19:19.838499+00:00",
+  "reviewer": "Independent storage_review agent; did not author reviewed production components",
+  "reviewed_root_commit": "16b00e1aa9461263ffe32d854c969d3357d04c6a",
+  "scope": "Independent dependency/source/static-link review, storage transactional correctness and resource bounds, bounded worker/recovery receipt semantics, public integration/crash test quality, shared generation helper, documentation and maintainability. Dedicated filesystem/backup path review is separately attributed.",
+  "blocking_findings": [],
+  "reviewed_source_sha256": {
+    ".github/workflows/verify.yml": "e50853b50472ed3fa5ff7640790a0b25794bfe85414de14430a525203d8589c1",
+    "Cargo.lock": "b684d33c42a002af1d026aea69013126b158873792b3702196669ad32cbb06a9",
+    "crates/harbormaster/Cargo.toml": "eda6ada95eb5448ad500a730fbe6d01f36f99e8a1b4c54846ffc53cb793e14ce",
+    "crates/harbormaster/README.md": "0f18db51b3db6fd73883a6b9e3e33f45d11dedbe24c4a294448575f28412da23",
+    "crates/harbormaster/src/generation.rs": "ca78bffb635b5e327667be3fe3e40b86a5d6f7d94a2b633b717a4e3f0c648631",
+    "crates/harbormaster/src/ingestion/mod.rs": "3e65800b5c292cb6539d44fb4ecadf37a3b969f04874126069bf8319d00636a6",
+    "crates/harbormaster/src/ingestion/registry.rs": "977738afda3997faec0dce41eda4243221dc5a221d1bcc9caf2a35a0ad43951a",
+    "crates/harbormaster/src/lib.rs": "6ad9b739665eec44a7291e4c887d51ea71a231fafd56f5bce3d5ccef658825f4",
+    "crates/harbormaster/src/storage/backup.rs": "303d58dc8363e67c4f34634395d5dd4e52cf8dd791a32ead7512a33af1b8df19",
+    "crates/harbormaster/src/storage/engine.rs": "c453236e33867b1394a2489c136409f45519d33cc04167394aff68afdab80557",
+    "crates/harbormaster/src/storage/maintenance.rs": "ea35fddc36f37293613631d6d43bcd6737f554aa0fd8cbaeeae35fd320fcc201",
+    "crates/harbormaster/src/storage/mod.rs": "e4fde5375083bd02924a6dc3ed3f49ec25ddeede214187a00f1731d167313b0d",
+    "crates/harbormaster/src/storage/paths.rs": "6183c564bcfa68b2be49edf61a7a821f11b339680d475782b933a9f1aa3164a8",
+    "crates/harbormaster/src/storage/queries.rs": "9b0cfe80dfe10c1ea6d19cd17f024b04c48e54a4ca4a17b62988e269e6202ffb",
+    "crates/harbormaster/src/storage/schema.rs": "8ef2d6ec4179c326da3b604b0dba5fbe86e63581120381256c896746d994f957",
+    "crates/harbormaster/src/storage/tests/bounds.rs": "c31d2bd9bee0ca43ade0b0141ba97443c0c52051252c7ec90955155b979e0ee2",
+    "crates/harbormaster/src/storage/tests/mod.rs": "745d3c605d87de3ab1c75975e3d6b5a9e3ac31969d042c0c517674199668878a",
+    "crates/harbormaster/src/storage/tests/recovery.rs": "f01c704604d2ab311bc50b5c5e032c46c4f94ec0ec3454ace1f72ea87455c80d",
+    "crates/harbormaster/src/storage/tests/writes.rs": "db89a38bad4398b039d51e5c25b3705ab2c6f70a7361d6eb448694d8f8350714",
+    "crates/harbormaster/src/storage/transaction.rs": "5d0d1020ebed31af4517cb37b8b27fedc790b442fc43c2a30b295c4aeb0f86f1",
+    "crates/harbormaster/src/storage/types.rs": "61116e143cb83daf1bc4dfb23b204f7e020b40c2c787d72b5fc271d3711e2aed",
+    "crates/harbormaster/src/storage/validation.rs": "1913d9ab3543dfadd3daf1219e8174d81be29caf2c78628b271cba8a89d10a35",
+    "crates/harbormaster/src/storage/worker.rs": "aab9d166596b3a13a9cd222e41e37c83321493ffab965d3bbde97092b9f0b4d1",
+    "crates/harbormaster/src/storage/worker/pending.rs": "39363474df2d24fa347e0dea263cabd65ccb85710ef9975a8972c475f42c56cb",
+    "crates/harbormaster/src/storage/worker/tests.rs": "8bd3336983eb958b37aebd5bcb5bbb7a922dd447a4ed1d8d9db8709e697b3ecb",
+    "crates/harbormaster/tests/storage.rs": "50c44d3588a566e4c7df206131a5a1bd002778692c858123359a8b7aa3fc197e",
+    "crates/harbormaster/tests/storage/common.rs": "99ac53ad70cc240fc14c3951c965bd649ed26b1ec8498f24adc6654252bca9d9",
+    "crates/harbormaster/tests/storage/event.rs": "ed753d177affc5209dd36d2699d5c385a06c08eec5c3e819aa53d00a7077d5ea",
+    "crates/harbormaster/tests/storage/linkage.rs": "1d1f259380d27bdb35a99a887d18918c4cd459610920fb33e3867f0d71335c6c",
+    "crates/harbormaster/tests/storage/policy.rs": "0f823bf47b5140c13e974f830a57ba9bffa878872ab4ac9eb9608962605cef89",
+    "crates/harbormaster/tests/storage/queries.rs": "f70077b8ea413fc73ebf0d9cfba1941832ba88ce798e9c7f0d18f0da8b896876",
+    "crates/harbormaster/tests/storage/recovery.rs": "367e0d5e3520656fedd895d41371a5a6dde24aeca5931869bcbeaf8f91566ba9",
+    "crates/harbormaster/tests/storage/transactions.rs": "88af32511c3e5f0d73afdb432d30fca78020be782057a6fecde8fcaf294f9899",
+    "crates/harbormaster/tests/storage_crash.rs": "36d706d6aa6239cb89920d562062d0539132136f82b68956cb8c2bef04f7f8e9",
+    "docs/DEPENDENCIES.md": "2b626b72bf1a0b94796fd6081b58a80aa9a126219450ba0b7a52ced1ea0d6217",
+    "docs/M1-9-DEVELOPMENT.md": "116f04f2d3a430eb51ca1396d45834ab2978ea2b70675f7e7f44ce504c264b99",
+    "docs/M1-9-REVIEW.md": "d98d1bc21d1f2eb381b20cd62e9c0ce55b51a534db778cb131d54c0173ce46f4",
+    "docs/M1-9-SQLITE-BUILD.md": "25c1042c95a4eec975cf13a9c9fb285060ed67f99a9a321b046eebf8b62e0259",
+    "docs/M1-9-STORAGE-ENGINE.md": "777c9767d2a980384f64ddb24dcae765393e856c3b285e7734bd369583bc57b6",
+    "docs/M1-STATUS.md": "8a9dcdf0a3926d06367a0162830e20087114633b8751935f67f315356ec38993",
+    "docs/M1-VERIFICATION.md": "2921a6f2c9fa7df1f9f67e594992d28a8a9989c7a5337b15839f88f778fd1d46",
+    "docs/TOOLCHAIN.md": "afe9338d7e9d8aff87a180c3d8dfcdd4440a8fa7c158daf84a1093fb87a363c4",
+    "scripts/prepare-sqlite.py": "46dfa4513455ae721da4e920c1b0ff3f8bf645a0a26a072a8bb55687c8481df3",
+    "scripts/tooling/install.py": "86917819f4a8bd7521d50bf2965789761da2d5c7d7aaff312e2db571444e328e",
+    "scripts/tooling/sqlite_prepare.py": "9ea06bd393d0b17c245bd29158e287e3390e2bc82ceb1ddba363e9f1887f0f07",
+    "scripts/tooling/sqlite_source.py": "da7985c5f5c743655b9196b8048f90dad338122e5225f21c09e41854357294da",
+    "scripts/verification/checks.py": "b43eee99338ecafa44ace331ccfe5d7ef24774905da4d8b4768a762f0ccef10b",
+    "scripts/verification/preflight.py": "17569b44ebb1b31bc8e584cec7602dcf4f304782db31e60321619b74a791f513",
+    "scripts/verification/runner.py": "2d301a9574e4b8a70a38f02b1bbdf25e0a67ec1f72ceffef449441c2f3a2f6a7",
+    "scripts/verification/sandbox.py": "9e41230cb0b5d764af3f622e353b1520c24143257b73ff08509d134700cf38f9",
+    "scripts/verification/sqlite.py": "fdb9f232b86be054d6f7de47de6ce9eedb8aca795916aae5b6922d2cce340561",
+    "tests/tooling/probe_dependencies.py": "7f5684e0dd1fff4f2aa558f0ce0f5a0c41312275e3de1cf7acaa047c9c4385e1",
+    "tests/tooling/probe_sqlite.py": "1039ef99c6e822edd0f6955aaf65ce77e51f9ec3ae3939bc44aa823db45564d7",
+    "tests/tooling/sqlite_probe.rs": "5bf87ba0ba0d10c74aa862438a3137294a4744e70f079f5d5f6fbc0883b00f6f",
+    "tests/tooling/test_sqlite_build.py": "a64c590c53df4fe055d9d57e3223eac1b51dc06e86a868730bc6c4ed2eb7997c",
+    "tests/tooling/test_sqlite_prepare.py": "954e17a62267e1ab4afba6cc7d6b2c0d71e704f1fb14332dca06d995fe401a57",
+    "tests/tooling/test_sqlite_source.py": "373ea8915e00c867131da45825859843c0adce021512d6ddd2a3cc97e7cfc846",
+    "tests/verification/test_m1_9_plan.py": "6adea3c143a9fc5c5e195e83f25b8ecebf1f022acf993ed1a1e31ae3a4a338f1",
+    "tools/dependencies.lock.json": "ea916681a1a9173e83bc46dc6c425b9f67a365e28808ec0fd123836c588d62c6",
+    "tools/sqlite.lock.json": "ded1a5386920b1f4e5fba23b93507a58210713d15c5498e27aa02e63df833414"
+  },
+  "all_executed_snapshot_source_hashes": "execution.json; every copied file matched the reviewed commit git blob, with no independent fixtures or modifications in the final baseline",
+  "actual_final_execution": {
+    "receipt": "execution.json",
+    "format": "PASS",
+    "strict_all_target_all_feature_clippy": "PASS (-D warnings)",
+    "fresh_offline_static_sqlite_build": "PASS",
+    "test_counts": {
+      "unit": 39,
+      "ingestion": 23,
+      "storage": 15,
+      "storage_crash": 2
+    },
+    "total_focused_tests": 79,
+    "tools": "Separately prepared .tools-m1-9 mounted read-only in unchanged bwrap boundary; private disposable state, offline, no credentials or inherited environment"
+  },
+  "crash_causal_execution": {
+    "receipt": "crash-causal-a26a64d/results.json",
+    "actual_mutated_root_base": "a26a64db03ef53f0e0ba4b6bada5462527139579",
+    "baseline": "41 unit (39 root plus 2 independent review fixtures), 15 public storage, 2 process crash passed; exact snapshot hashes and fixture additions are explicit in original receipt",
+    "mutations": [
+      {
+        "change": "Move projection insertion before BEGIN; remove its insertion inside transaction",
+        "result": "Actual runtime assertion failure: partial effect in projections, actual 1 expected 0; exit 101",
+        "log": "crash-causal-a26a64d/mutation-projection-before-begin.txt"
+      },
+      {
+        "change": "Replace commit transaction wrapper with autocommit connection and remove COMMIT",
+        "result": "Actual runtime assertion failure: partial effect in projections, actual 1 expected 0; exit 101",
+        "log": "crash-causal-a26a64d/mutation-autocommit.txt"
+      }
+    ],
+    "restored_source": "Both crash tests passed after restoring the original transaction bytes",
+    "final_source_binding": "The entire commit function body and crash test/worker/permit file bytes are identical between mutation base and final reviewed root; only registration uses the subsequently shared generation primitive. Final root baseline independently reran both crash tests.",
+    "unchanged_commit_body_sha256": "ed66f0387efa38ce79ddd0ff704a7fb52c82af2c384a260f8bf904b9114355aa",
+    "claim_limit": "Observed sustained write transaction lock, not exact SQL instruction at SIGKILL. Actual mutation failures establish sensitivity to two concrete partial-write defects, not exhaustive crash coverage or physical power-loss durability."
+  },
+  "component_reviews": [
+    {
+      "receipt": "../independent-sqlite-review/review.json",
+      "disposition": "All reviewed dependency source hashes unchanged at final root; independent actual offline C/Rust linkage, 41 tooling tests, eleven source faults, unsafe URI/trusted-schema builds, actual dynamic-link guard mutation and missing/corrupt/index/yank registry controls remain applicable"
+    },
+    {
+      "receipt": "../independent-core-review/review-core.json",
+      "disposition": "Final review closes its remaining wrapper/public crash/source-binding items. Independent actual restore-floor and queued-permit causal failures remain applicable; initial open runtime failure and review-only duplicate-hook compile error retain their original limited classification"
+    },
+    {
+      "receipt": "../independent-path-review/review.json",
+      "disposition": "Separate reviewer owns filesystem/backup findings, original 12-test fixture execution and hardlinked-sidecar/staged-v1-migration causal controls; no claim that this reviewer authored or independently executed those original tests"
+    }
+  ],
+  "resolved_findings": [
+    "Producer/generation scoped outcome identity and complete write-set duplicate equality prevent cross-producer event aliasing or altered-effect retries from borrowing a success",
+    "Explicit review update remains independent of delivery/history and retained unresolved obligations; registration checks run/harness/generation",
+    "Full u64 values use checked eight-byte BLOB encoding; transaction writes and producer/global checkpoints commit together, with bounded capacity and rollback behavior",
+    "Live restore uses a revision above both current and backup; explicit corrupt-page recovery requires authoritative upper bound including unknown committed revisions, identifiable supported main header and no pending WAL",
+    "Startup retirement also passes WAL pressure; failed/busy post-commit checkpoint cannot replace a successful committed response",
+    "History cap maintenance is bounded and distinct from tombstones, protected obligations and outbox audit; tombstone removal retires the affected current generation atomically",
+    "Worker permits cover queued/executing/completed retained receipts; rejected submission returns exact request, timeout or disconnect never claims rollback, explicit recovery timeout may have committed",
+    "Shared crate-private generation helper reuses the existing entropy code without protocol I/O, a storage-to-ingestion dependency, new public API or new dependency; both callers preserve their existing sanitized error categories",
+    "Filesystem/SQLite descriptor-anchor behavior and same-UID limits are documented; fixed standalone backup sidecars and staged known migration corrected as separately reviewed"
+  ],
+  "maintainability": {
+    "new_storage_production_hotspots": [],
+    "accepted_exceptions": [
+      "54-line shallow declarative verification plan: three branches, nesting one; keeping a single required-check inventory avoids parallel fragments",
+      "One retention integration fixture has 56 lexical/54 Clippy lines with a specific expect: it follows history/tombstone/obligation lifetimes together. No production or blanket suppression"
+    ],
+    "responsibilities": "One worker/connection; explicit transport/permits, types/validation, fixed path ownership, schema/configuration, transactions, bounded queries, maintenance and supported backup/recovery. Protocol stays pure; no arbitrary SQL/callback seam exposed."
+  },
+  "documentation_review": {
+    "files": [
+      "docs/M1-9-DEVELOPMENT.md",
+      "docs/M1-9-STORAGE-ENGINE.md",
+      "docs/M1-9-REVIEW.md",
+      "crates/harbormaster/README.md"
+    ],
+    "disposition": "PASS; source provenance is a prerequisite rather than a property proved by typed frames; recovery floor and timeout limitations, process-crash scope, separate retention policies, test-size exceptions and no live activation/approval are stated accurately"
+  },
+  "limits": [
+    "Review does not authorize PR merge or dependent #10 implementation; owner explicit approval of the subsequent PR/revision remains required",
+    "Mandatory exact-candidate combined, dedicated native, hosted locked Docker portable and actual paired qualification remain separate root-owned gates; these focused bwrap runs are not substitutes",
+    "No live user database, harness, adapter, model, desktop configuration or M2 was exercised or activated",
+    "Schema/type validation does not establish version-specific adapter source provenance or safe metadata extraction",
+    "Trusted private files and reviewed filesystem allowlist are not a hostile-same-UID or physical backing-device durability boundary; no secure erasure claim",
+    "No upstream full SQLite test-suite run, complete redistribution audit, or achieved product performance budget is claimed"
+  ]
+}

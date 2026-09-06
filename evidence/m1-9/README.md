@@ -31,3 +31,11 @@ The only optional skips are the preserved three live/future probes. Evidence
 consistency is not execution attestation; use trusted actual records.
 
 [Final independent review](independent-final-review/review-final.json) binds the final production/test files and actual crash negative controls. [Review dispositions](../../docs/M1-9-REVIEW.md) explain corrected findings and size exceptions.
+
+[Final local combined](final-combined/report.json) passes 30 required checks;
+[dedicated native](final-native/report.json) passes five, with all three original
+M0/#8 native methods executed. Their identical 215-file selected-source manifests
+match committed source `16b00e1aa9461263ffe32d854c969d3357d04c6a`.
+Evidence-only commits may change the publication SHA while preserving those
+selected bytes; actual pairing binds the final published full revision.
+The current PR's final comment supplies the hosted artifact and paired report.
