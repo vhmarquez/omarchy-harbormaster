@@ -412,3 +412,65 @@ fn second_bind_failure_rolls_back_only_the_socket_created_by_this_call() {
         b"preexisting"
     );
 }
+
+#[test]
+fn file_descriptor_exhaustion_cleans_only_created_socket_names() {
+    const CHILD: &str = "HARBORMASTER_IPC_FD_LIMIT_FIXTURE";
+    if std::env::var(CHILD).as_deref() != Ok("1") {
+        let output = Command::new(std::env::current_exe().unwrap())
+            .args([
+                "--exact",
+                "file_descriptor_exhaustion_cleans_only_created_socket_names",
+                "--nocapture",
+            ])
+            .env(CHILD, "1")
+            .output()
+            .unwrap();
+        assert!(
+            output.status.success(),
+            "{} {}",
+            String::from_utf8_lossy(&output.stdout),
+            String::from_utf8_lossy(&output.stderr)
+        );
+        return;
+    }
+    check_cleanup_under_descriptor_pressure();
+}
+
+fn check_cleanup_under_descriptor_pressure() {
+    // Process-wide RLIMIT belongs only to this disposable child, never parallel tests.
+    let old = rustix::process::getrlimit(rustix::process::Resource::Nofile);
+    rustix::process::setrlimit(
+        rustix::process::Resource::Nofile,
+        rustix::process::Rlimit {
+            current: Some(32),
+            maximum: old.maximum,
+        },
+    )
+    .unwrap();
+    let mut leftovers = Vec::new();
+    for free in 1..8 {
+        let fixture = Fixture::new();
+        let mut held = Vec::new();
+        while let Ok(file) = fs::File::open("/dev/null") {
+            held.push(file);
+        }
+        for _ in 0..free {
+            held.pop();
+        }
+        let result = PrivateSockets::bind(&fixture.0);
+        let failed = result.is_err();
+        drop(result);
+        drop(held);
+        for channel in [Channel::Event, Channel::Control] {
+            if failed && fixture.path(channel).exists() {
+                leftovers.push((free, channel));
+            }
+        }
+    }
+    rustix::process::setrlimit(rustix::process::Resource::Nofile, old).unwrap();
+    assert!(
+        leftovers.is_empty(),
+        "owned socket remains after bind failure: {leftovers:?}"
+    );
+}

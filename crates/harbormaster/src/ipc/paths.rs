@@ -101,7 +101,7 @@ fn same_entry(parent: &OwnedFd, name: &str, original: &Stat) -> bool {
 
 struct Listener {
     stream: UnixListener,
-    node: OwnedFd,
+    node: Option<OwnedFd>,
     directory: Rc<Directory>,
     name: &'static str,
     identity: Stat,
@@ -113,13 +113,9 @@ impl Listener {
         // The private directory prevents cross-UID pathname replacement.
         let path = format!("/proc/self/fd/{}/{name}", directory.fd.as_raw_fd());
         let stream = UnixListener::bind(&path).map_err(|_| IpcError::UnsafePath)?;
-        let node = fs::openat(
-            &directory.fd,
-            name,
-            OFlags::PATH | OFlags::NOFOLLOW | OFlags::CLOEXEC,
-            Mode::empty(),
-        )?;
-        let initial = fs::fstat(&node)?;
+        // statat needs no spare fd: install cleanup ownership before openat can
+        // fail under descriptor pressure. Never remove an entry without proof.
+        let initial = fs::statat(&directory.fd, name, AtFlags::SYMLINK_NOFOLLOW)?;
         if initial.st_uid != directory.uid
             || FileType::from_raw_mode(initial.st_mode) != FileType::Socket
         {
@@ -129,16 +125,25 @@ impl Listener {
         // fchmod cannot operate on O_PATH; never chmod the ambient socket name.
         let mut listener = Self {
             stream,
-            node,
+            node: None,
             directory,
             name,
             identity: initial,
         };
-        std::fs::set_permissions(
-            format!("/proc/self/fd/{}", listener.node.as_raw_fd()),
-            std::fs::Permissions::from_mode(0o600),
+        let node = fs::openat(
+            &listener.directory.fd,
+            name,
+            OFlags::PATH | OFlags::NOFOLLOW | OFlags::CLOEXEC,
+            Mode::empty(),
         )?;
-        listener.identity = fs::fstat(&listener.node)?;
+        let pinned = fs::fstat(&node)?;
+        if pinned.st_dev != listener.identity.st_dev || pinned.st_ino != listener.identity.st_ino {
+            return Err(IpcError::UnsafePath);
+        }
+        let node_path = format!("/proc/self/fd/{}", node.as_raw_fd());
+        listener.node = Some(node);
+        std::fs::set_permissions(node_path, std::fs::Permissions::from_mode(0o600))?;
+        listener.identity.st_mode = (listener.identity.st_mode & !0o7777) | 0o600;
         if !same_entry(&listener.directory.fd, name, &listener.identity) {
             return Err(IpcError::UnsafePath);
         }
