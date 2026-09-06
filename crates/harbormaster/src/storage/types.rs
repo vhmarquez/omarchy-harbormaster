@@ -113,6 +113,15 @@ pub struct DeliveryUpdate {
 }
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Request {
+    Context(Box<EventEnvelope>),
+    Apply(Box<super::ReducerWrite>),
+    Reconcile(super::Reconciliation),
+    ReviewOutcome(super::OutcomeReview),
+    Policy,
+    Status,
+    UpdatePolicy { expected_revision: Revision, history: HistoryRetention },
+    CleanupPreview { now: i64 },
+    ApplyCleanup(super::CleanupPreview),
     Register(Registration),
     Commit(Box<WriteSet>),
     Snapshot(SnapshotQuery),
@@ -150,6 +159,8 @@ pub struct OutcomeRecord {
     pub run_id: RunId,
     pub attention: Vec<AttentionMutation>,
     pub delivery: Option<DeliveryState>,
+    pub outcome_revision: Option<Revision>,
+    pub resolved_reasons: Vec<AttentionReason>,
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub struct MaintenanceResult {
@@ -161,6 +172,10 @@ pub struct MaintenanceResult {
 }
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Response {
+    Context(super::ReducerContext),
+    Policy(super::StoragePolicy),
+    Status(super::StorageStatus),
+    CleanupPreview(super::CleanupPreview),
     Registered {
         generation: ProducerGeneration,
         revision: Revision,

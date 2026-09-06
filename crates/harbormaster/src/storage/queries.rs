@@ -144,6 +144,8 @@ pub(super) fn outcome(
         run_id: parse(&run)?,
         attention,
         delivery,
+        outcome_revision: None,
+        resolved_reasons: Vec::new(),
     }))
 }
 

@@ -8,6 +8,7 @@ use std::{
 
 mod bounds;
 mod recovery;
+mod reducer;
 mod writes;
 
 static NEXT: AtomicUsize = AtomicUsize::new(0);

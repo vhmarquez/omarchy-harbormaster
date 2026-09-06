@@ -4,6 +4,7 @@ mod engine;
 mod maintenance;
 mod paths;
 mod queries;
+mod reducer_types;
 mod schema;
 mod transaction;
 mod types;
@@ -11,6 +12,7 @@ mod validation;
 mod worker;
 pub(crate) use engine::Engine;
 pub use types::*;
+pub use reducer_types::*;
 pub use worker::{
     DatabaseWorker, MAX_OUTSTANDING, ReceiptError, SubmitError, SubmitFailure, Ticket,
 };

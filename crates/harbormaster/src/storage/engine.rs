@@ -95,6 +95,7 @@ impl Engine {
             pressure(conn, &self.paths)?;
         }
         let result = match request {
+            Request::Context(_) | Request::Apply(_) | Request::Reconcile(_) | Request::ReviewOutcome(_) | Request::Policy | Request::Status | Request::UpdatePolicy { .. } | Request::CleanupPreview { .. } | Request::ApplyCleanup(_) => Err(StorageError::PersistenceUnavailable),
             Request::Register(registration) => transaction::register(conn, registration),
             Request::Commit(set) => transaction::commit(conn, set),
             Request::Snapshot(query) => queries::snapshot(conn, query).map(Response::Snapshot),
