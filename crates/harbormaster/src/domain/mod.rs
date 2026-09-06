@@ -3,8 +3,13 @@ mod types;
 pub use types::*;
 mod evidence;
 mod policy;
+mod reconciliation;
 mod reducer;
 pub use policy::{DomainError, ObservationPolicy};
+pub use reconciliation::{
+    CurrentTurnEvidence, ReconciliationEvidence, ReconciliationScope, RuntimeIdentity,
+    reconcile_projection,
+};
 pub use reducer::reduce;
 
 /// One revision-consistent view supplied by the durable owner. The tombstone

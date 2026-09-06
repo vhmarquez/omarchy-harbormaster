@@ -3,7 +3,7 @@ use super::{
     AttentionReason, DomainError, Effects, ObservationPolicy, ObservationState, ProcessState,
     ReductionState, TombstoneEvidence, TurnKey, TurnState, evidence,
 };
-use crate::protocol::{EventEnvelope, EventPayload};
+use crate::protocol::{EventEnvelope, EventPayload, RunExitedPayload, TerminationReason};
 
 /// Reduce a typed observation after separate admission/provenance checks.
 /// # Errors
@@ -42,12 +42,12 @@ fn reduce_turn(
 ) {
     let observed = evidence::turn_state(&event.event);
     if let Some(terminal) = &state.tombstone {
-        if evidence::is_terminal(observed) && terminal.terminal != Some(observed) {
-            uncertain(effects, ObservationState::Stale, false);
+        if observed.is_terminal() && terminal.terminal != Some(observed) {
+            uncertain(effects, stale_unless_explicit(policy), false);
         }
         return;
     }
-    if evidence::is_terminal(observed) {
+    if observed.is_terminal() {
         terminal(event, key, observed, effects);
     } else if policy.freshness() != ObservationState::Fresh {
         uncertain(effects, policy.freshness(), true);
@@ -63,7 +63,7 @@ fn reduce_turn(
 
 fn progress(key: TurnKey, observed: TurnState, effects: &mut Effects) {
     let same = effects.current_turn.as_ref() == Some(&key);
-    if !same && effects.current_turn.is_some() && !evidence::is_terminal(effects.projection.turn) {
+    if !same && effects.current_turn.is_some() && !effects.projection.turn.is_terminal() {
         uncertain(effects, ObservationState::Stale, false);
         return;
     }
@@ -115,12 +115,15 @@ fn terminal(event: &EventEnvelope, key: TurnKey, observed: TurnState, effects: &
 
 fn reduce_run(event: &EventEnvelope, policy: &ObservationPolicy, effects: &mut Effects) {
     match &event.event {
-        EventPayload::RunExited(_) => {
-            effects.projection.process = ProcessState::Exited;
-            effects.reconciliation_required = true;
-            if !evidence::is_terminal(effects.projection.turn) {
-                uncertain(effects, ObservationState::Stale, true);
-            }
+        EventPayload::RunExited(exit) => {
+            effects.projection.process = match exit {
+                RunExitedPayload::ExitCode { .. }
+                | RunExitedPayload::Terminated {
+                    reason: TerminationReason::Signaled,
+                } => ProcessState::Exited,
+                RunExitedPayload::Terminated { .. } => ProcessState::Unknown,
+            };
+            uncertain(effects, stale_unless_explicit(policy), true);
         }
         EventPayload::ProducerHealth(health) => {
             let missing = crate::protocol::EventKind::ALL
@@ -149,8 +152,16 @@ fn uncertain(effects: &mut Effects, freshness: ObservationState, lose_current: b
             .push(AttentionReason::ConnectionUncertainty);
     }
     effects.projection.observation = freshness;
-    if lose_current && !evidence::is_terminal(effects.projection.turn) {
+    if lose_current && !effects.projection.turn.is_terminal() {
         effects.projection.turn = TurnState::Unknown;
     }
     effects.reconciliation_required = true;
+}
+
+fn stale_unless_explicit(policy: &ObservationPolicy) -> ObservationState {
+    if policy.freshness() == ObservationState::Fresh {
+        ObservationState::Stale
+    } else {
+        policy.freshness()
+    }
 }

@@ -20,7 +20,7 @@ pub(super) fn validate(
         || (state.current_turn.is_none() && state.projection.turn != TurnState::Unknown)
         || state.tombstone.as_ref().is_some_and(|terminal| {
             Some(&terminal.key) != turn_key(event).as_ref()
-                || terminal.terminal.is_some_and(|kind| !is_terminal(kind))
+                || terminal.terminal.is_some_and(|kind| !kind.is_terminal())
         })
     {
         return Err(DomainError::InvalidEvidence);
@@ -40,10 +40,13 @@ fn current_terminal(state: &ReductionState, event: &EventEnvelope) -> Result<(),
         if terminal
             .terminal
             .is_some_and(|kind| kind != state.projection.turn)
+            || (terminal.terminal.is_none()
+                && !state.projection.turn.is_terminal()
+                && state.projection.turn != TurnState::Unknown)
         {
             return Err(DomainError::InvalidEvidence);
         }
-    } else if is_terminal(state.projection.turn) {
+    } else if state.projection.turn.is_terminal() {
         return Err(DomainError::InvalidEvidence);
     }
     Ok(())
@@ -74,11 +77,4 @@ pub(super) const fn turn_state(event: &EventPayload) -> TurnState {
         EventPayload::TurnInterrupted(_) => TurnState::Interrupted,
         _ => TurnState::Unknown,
     }
-}
-
-pub(super) const fn is_terminal(state: TurnState) -> bool {
-    matches!(
-        state,
-        TurnState::Completed | TurnState::Failed | TurnState::Interrupted
-    )
 }
