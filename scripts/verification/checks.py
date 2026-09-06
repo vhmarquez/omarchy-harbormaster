@@ -21,6 +21,7 @@ def plan(outside_canary="/outside-canary", scope="all"):
     preflights = [
         ("isolation-probe", python + ["scripts/verification/probe.py", outside_canary], "exit"),
         ("tool-pins", python + ["scripts/verification/preflight.py", "--stage-cargo"], "exit"),
+        ("sqlite-build", python + ["scripts/verification/sqlite.py"], "exit"),
     ]
     portable = preflights + [
         ("native-tool-pins", native + ["versions"], "exit"),
@@ -32,6 +33,8 @@ def plan(outside_canary="/outside-canary", scope="all"):
         ("rust-protocol-fuzz", cargo + ["test", "--locked", "--offline", "--workspace", "--test", "protocol_fuzz", "--all-features"], "rust"),
         ("rust-ipc", cargo + ["test", "--locked", "--offline", "--workspace", "--test", "ipc", "--all-features"], "rust"),
         ("rust-ingestion", cargo + ["test", "--locked", "--offline", "--workspace", "--test", "ingestion", "--all-features"], "rust"),
+        ("rust-storage", cargo + ["test", "--locked", "--offline", "--workspace", "--test", "storage", "--all-features"], "rust"),
+        ("rust-storage-crash", cargo + ["test", "--locked", "--offline", "--workspace", "--test", "storage_crash", "--all-features"], "rust"),
         ("qml-lint", native + ["lint"], "exit"),
         ("qml-format", native + ["format"], "exit"),
         ("qml-native", ["/usr/lib/qt6/bin/qmltestrunner", "-input", "qml/tests", "-maxwarnings", "0"], "qml"),
