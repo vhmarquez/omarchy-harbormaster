@@ -15,7 +15,16 @@ pub(super) fn approval(set: WriteSet) -> ReducerWrite {
 }
 pub(super) fn continuation(engine: &Engine, generation: ProducerGeneration) -> Reconciliation {
     let conn = engine.connection.as_ref().unwrap();
-    let (projection, current) = super::super::super::context::projection(conn, &id(2)).unwrap();
+    let (_, current) = super::super::super::context::projection(conn, &id(2)).unwrap();
+    // Independent synthetic native evidence: the fixture remains waiting even
+    // when restart correctly degrades the saved observer projection.
+    let projection = RunProjection {
+        run_id: id(2),
+        process: ProcessState::Alive,
+        observation: ObservationState::Fresh,
+        turn: TurnState::AwaitingApproval,
+        turn_id: Some("fixture-turn".parse().unwrap()),
+    };
     Reconciliation {
         registration: Registration {
             expected_revision: queries::revision(conn).unwrap(),

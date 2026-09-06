@@ -128,25 +128,19 @@ fn late_failure_rolls_back_resolution_projection_reasons_and_checkpoint() {
     engine
         .execute(&Request::Apply(Box::new(waiting(first.clone()))))
         .unwrap();
+    let context_request = Request::Context(Box::new(waiting(first.clone()).fact));
+    let before_context = engine.execute(&context_request).unwrap();
+    let before_outcome =
+        queries::outcome(engine.connection.as_ref().unwrap(), &outcome(&first)).unwrap();
     engine.connection.as_ref().unwrap().execute_batch("CREATE TRIGGER fixture_failure BEFORE INSERT ON facts BEGIN SELECT RAISE(ABORT,'fixture'); END").unwrap();
     let terminal = apply_set(write(generation, Revision::new(2), 2, 6));
     assert!(engine.execute(&Request::Apply(Box::new(terminal))).is_err());
     assert_eq!(count(&engine, "facts"), 1);
     assert_eq!(count(&engine, "outbox"), 1);
     assert_eq!(count(&engine, "tombstones"), 0);
-    let record = queries::outcome(engine.connection.as_ref().unwrap(), &outcome(&first))
-        .unwrap()
-        .unwrap();
-    assert!(record.resolved_reasons.is_empty());
+    assert_eq!(engine.execute(&context_request).unwrap(), before_context);
     assert_eq!(
-        queries::revision(engine.connection.as_ref().unwrap()).unwrap(),
-        Revision::new(2)
-    );
-    assert_eq!(
-        queries::producer(engine.connection.as_ref().unwrap(), &id(1))
-            .unwrap()
-            .unwrap()
-            .next_sequence,
-        Some(Seq::new(2))
+        queries::outcome(engine.connection.as_ref().unwrap(), &outcome(&first)).unwrap(),
+        before_outcome
     );
 }

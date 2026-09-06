@@ -28,6 +28,14 @@ full-u64 known-loss overflow are checked before mutations. The exact ticket is
 retained through unknown completion, so callers must not retry loss accounting
 as a new operation merely because acknowledgment has not arrived.
 
+Startup, restore and tombstone cleanup apply the same passive retirement rule
+inside their transaction. Only the retired current producer/generation loses
+Fresh observation and a nonterminal turn state; independent process evidence,
+current identity and terminal states remain intact. Removing protection from an
+older generation cannot degrade a freshly reconciled generation. Recognized
+legacy migration also degrades unscoped saved projections, including those
+whose producer was already inactive, and advances the revision atomically.
+
 The V3 schema preserves V1/V2 receipt bytes and migrates only recognized layouts,
 with the existing verified pre-migration backup. Scoped current identity is not
 invented for a legacy projection. Retained facts can establish outcome revision
@@ -74,7 +82,8 @@ tombstones and 1,000-pending/7-day outbox policy.
 Component receipts in `evidence/m1-10/storage` record actual RED/GREEN and source
 hashes. Coverage includes preserved legacy migration/restore, full payload and
 write-set conflicts, pruned outcome evidence, exact transient resolution,
-coalescing, late terminal retention, inactive admission, late transaction abort,
+coalescing, late terminal retention, inactive admission, exact-generation
+passive retirement, full-context/outcome rollback after late transaction abort,
 cross-engine cleanup rejection, and real regular-file ENOSPC on the verifier's
 guarded 1 MiB tmpfs. This is synthetic library evidence; final current-head
 Docker/native qualification and owner approval remain separate.

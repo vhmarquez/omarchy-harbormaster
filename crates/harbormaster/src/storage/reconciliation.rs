@@ -67,21 +67,13 @@ pub(super) fn retire(
         return Err(StorageError::StaleGeneration);
     }
     let discarded = discarded_next(&tx, request.discarded_events)?;
-    let (mut projection, current) = super::context::projection(&tx, &record.run_id)?;
+    let (_, current) = super::context::projection(&tx, &record.run_id)?;
     if current.as_ref().is_some_and(|key| {
         key.producer_id != record.producer_id || key.generation != record.generation
     }) {
         return Err(StorageError::Conflict);
     }
-    projection.observation = ObservationState::Stale;
-    if !projection.turn.is_terminal() {
-        projection.turn = TurnState::Unknown;
-    }
-    reducer_transaction::projection(&tx, &projection, current.as_ref())?;
-    tx.execute(
-        "UPDATE producers SET active=0,reconciled=0 WHERE producer=?1 AND generation=?2",
-        rusqlite::params![record.producer_id.as_str(), record.generation.as_str()],
-    )?;
+    super::retirement::one(&tx, &record.producer_id, &record.generation)?;
     tx.execute(
         "UPDATE metadata SET discarded=?1 WHERE id=1",
         [number(discarded).as_slice()],

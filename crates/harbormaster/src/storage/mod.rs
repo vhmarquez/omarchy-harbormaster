@@ -13,6 +13,7 @@ mod reconciliation;
 mod reducer_transaction;
 mod reducer_types;
 mod reducer_validation;
+mod retirement;
 mod schema;
 mod schema_layout;
 mod transaction;

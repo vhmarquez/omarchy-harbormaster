@@ -16,6 +16,7 @@ mod reducer_migration;
 mod reducer_progress;
 mod reducer_reconciliation;
 mod reducer_retirement;
+mod retirement_projection;
 mod writes;
 
 static NEXT: AtomicUsize = AtomicUsize::new(0);

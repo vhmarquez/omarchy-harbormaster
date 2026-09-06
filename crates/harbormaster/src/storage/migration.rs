@@ -5,6 +5,9 @@ use rusqlite::{Connection, params};
 pub(super) fn migrate(conn: &mut Connection) -> Result<(), StorageError> {
     let version = schema::inspect(conn)?;
     let tx = conn.transaction()?;
+    let next = super::queries::revision(&tx)?
+        .checked_next()
+        .ok_or(StorageError::ResourceExhausted)?;
     for (name, sql) in schema_layout::current() {
         if name == "attention_active_scope" {
             tx.execute_batch(&sql)?;
@@ -28,6 +31,9 @@ pub(super) fn migrate(conn: &mut Connection) -> Result<(), StorageError> {
         tx.execute_batch(&format!("ALTER TABLE {name} RENAME TO legacy_{name};{sql};INSERT INTO {name}({columns}) SELECT {columns} FROM legacy_{name};DROP TABLE legacy_{name}"))?;
     }
     backfill(&tx)?;
+    super::retirement::all(&tx)?;
+    super::retirement::legacy(&tx)?;
+    super::queries::advance(&tx, next)?;
     tx.execute_batch("PRAGMA user_version=3")?;
     tx.commit()?;
     Ok(())

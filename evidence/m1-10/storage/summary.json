@@ -47,5 +47,24 @@
     "storage_reducer": 2,
     "failed": 0,
     "strict_all_target_clippy": "PASS"
-  }
+  },
+  "retirement_projection_red": {
+    "tests": 5,
+    "failed": 4,
+    "observed": "Retiring registration left current or migrated projection Fresh; the late-failure rollback control already passed."
+  },
+  "retirement_projection_green": {
+    "unit": 70,
+    "legacy_storage": 15,
+    "storage_crash": 2,
+    "storage_reducer": 2,
+    "failed": 0,
+    "strict_all_target_clippy": "PASS"
+  },
+  "retirement_projection_findings": [
+    "Independent review found cleanup and startup/restore retirement could leave a Fresh nonterminal projection.",
+    "The shared exact-generation retirement helper now preserves independent process and terminal facts while degrading current observation; legacy migration advances revision with its visible degradation.",
+    "Old-generation cleanup preserves the new current generation. Full-context and outcome equality now strengthen the late Apply failure regression.",
+    "Reconnection fixtures supply independently known synthetic native wait evidence instead of copying saved post-restart observation."
+  ]
 }

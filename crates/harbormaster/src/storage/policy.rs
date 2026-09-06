@@ -137,7 +137,17 @@ fn execute(conn: &Connection, plan: &CleanupPreview) -> Result<(), StorageError>
         conn.execute("DELETE FROM facts WHERE rowid=?1", [rowid])?;
     }
     for rowid in &plan.tombstones {
-        conn.execute("UPDATE producers SET active=0,reconciled=0 WHERE active=1 AND EXISTS(SELECT 1 FROM tombstones t WHERE t.rowid=?1 AND t.producer=producers.producer AND t.generation=producers.generation)", [rowid])?;
+        let (producer, generation) = conn.query_row(
+            "SELECT producer,generation FROM tombstones WHERE rowid=?1",
+            [rowid],
+            |row| {
+                Ok((
+                    queries::parse(&row.get::<_, String>(0)?)?,
+                    queries::parse(&row.get::<_, String>(1)?)?,
+                ))
+            },
+        )?;
+        super::retirement::one(conn, &producer, &generation)?;
         conn.execute("DELETE FROM tombstones WHERE rowid=?1", [rowid])?;
     }
     for rowid in &plan.deliveries {

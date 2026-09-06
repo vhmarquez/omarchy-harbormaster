@@ -205,10 +205,7 @@ fn invalidate_generations(
                 .checked_next()
                 .ok_or(StorageError::ResourceExhausted)?,
         };
-        tx.execute(
-            "UPDATE producers SET active=0,reconciled=0 WHERE active=1",
-            [],
-        )?;
+        super::retirement::all(&tx)?;
         queries::advance(&tx, next)?;
     }
     tx.commit()?;
