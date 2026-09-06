@@ -7,6 +7,7 @@ use std::{
 };
 
 mod bounds;
+mod catalog;
 mod recovery;
 mod reducer;
 mod reducer_attention;

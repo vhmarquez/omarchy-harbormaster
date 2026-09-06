@@ -1,3 +1,5 @@
+#[path = "cli/projects.rs"]
+mod projects;
 mod support;
 
 #[cfg(target_os = "linux")]
@@ -144,13 +146,14 @@ fn short_help_and_no_arguments_match_long_help() {
 }
 
 #[test]
-fn help_describes_the_foundation_without_starting_a_mode() {
+fn help_describes_available_commands_without_starting_a_mode() {
     let output = support::Fixture::new().run(&["--help"]);
 
     assert!(output.status.success());
-    assert_eq!(
-        String::from_utf8(output.stdout).expect("UTF-8 help"),
-        "Harbormaster CLI foundation\n\nUsage: harbormaster [--help | --version]\n\nOptions:\n  -h, --help     Show this help\n  -V, --version  Show package version\n\nNo arguments show help. Runtime modes are not implemented.\n"
-    );
+    let text = String::from_utf8(output.stdout).expect("UTF-8 help");
+    for command in ["project add", "preset add", "task add", "task plan"] {
+        assert!(text.contains(command));
+    }
+    assert!(text.contains("Task plans do not execute Hermes"));
     assert!(output.stderr.is_empty());
 }

@@ -1,3 +1,9 @@
+Current continuation: M1 is complete and #11 adds operational CLI commands.
+The existing inventory remains 32 portable / 34 combined / 5 native; new CLI
+and migration cases are included in the existing required Rust targets.
+The owner's proportionate workflow is recorded in [DEVELOPMENT](DEVELOPMENT.md).
+The historical execution records below remain scoped to their named revisions.
+
 # Current M1 #10 candidate
 
 Main after the approved #9 merge is qualified at

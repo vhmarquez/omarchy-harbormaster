@@ -2,7 +2,13 @@
 
 An Omarchy-native, local-first agent manager for concurrent Hermes, Claude Code and Codex work.
 
-**Stage: M0 feasibility/design accepted; M1 #7–#9 are owner-merged and post-merge qualified; #10 adds reducers, recovery and diagnostics as a library candidate requiring its own owner approval before merge. This repository does not yet contain an installable manager.** See [M1 status](docs/M1-STATUS.md), [development boundaries](docs/DEVELOPMENT.md) and [verification](docs/M1-VERIFICATION.md). The approved composition is option 02, Project manager: project navigation, session list and inspector, plus an attention-first bar popup, with the supplemental review/settings/recovery study approved. A finished agent turn is not proof the work is correct.
+**Stage: M1 is complete and merged. M2 #11 adds usable project/preset/task CLI
+commands and launch previews; its PR requires owner approval before merge.**
+The native manager, managed terminal runtime and live Hermes observer are the
+next implementation steps. [CLI usage and build](crates/harbormaster/README.md) ·
+[Current development](docs/DEVELOPMENT.md) · [M1 completion](docs/M1-STATUS.md).
+The approved native design remains option 02 with the supplemental study.
+
 
 ## Project tracking
 

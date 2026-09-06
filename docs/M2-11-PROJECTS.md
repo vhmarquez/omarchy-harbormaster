@@ -12,6 +12,8 @@ manager/runtime in #12 remains dependent on this PR's approved merge.
 - `storage/catalog`: fixed queries and transactions on the existing bounded
   SQLite worker. Version 4 adds project, preset and task tables; recognized
   older schemas retain their existing migration/backup guarantees.
+- `scripts/build-cli.py`: reuse the existing offline sandbox/tool preflights to
+  export a usable release CLI. Building is not verification or installation.
 - `cli`: bounded argument parsing, the user's state directory, worker receipts
   and JSON output. The executable routes operational commands here; help and
   invalid arguments retain their side-effect-free behavior.

@@ -1,59 +1,80 @@
-# Harbormaster M1 library and CLI foundation
+# Harbormaster project and task CLI
 
-The package contains the CLI foundation, typed protocol, private Unix IPC,
-volatile admission and bounded SQLite storage. The public library is exercised
-only in disposable isolated fixtures; the executable has no operational manager
-mode. The exact dependency/source graph and separate static SQLite preparation
-are documented in [the build review](../../docs/M1-9-SQLITE-BUILD.md).
-[Storage guarantees](../../docs/M1-9-STORAGE-ENGINE.md) and
-[protocol boundaries](../../docs/M1-8-PROTOCOL.md) remain separate from future
-reducers, adapters and UI. ADR 0001's daemon/bridge is not scaffolded here.
+The #11 candidate turns the existing foundation into usable project, preset and
+task commands. It saves manager-owned metadata in SQLite and previews a fixed
+Hermes launch command. Runtime launch and the native interface follow in #12/M3.
 
-## Command contract
+## Build
 
-| Arguments | Standard output | Standard error | Exit status |
-| --- | --- | --- | --- |
-| none, `--help`, or `-h` | Foundation help | empty | 0 |
-| `--version` or `-V` | `harbormaster <Cargo package version>` | empty | 0 |
-| any unsupported single argument | empty | Fixed usage error | 2 |
-| more than one argument, including combined flags | empty | Fixed excess-arguments error | 2 |
-| one non-Unicode argument | empty | Fixed encoding error | 2 |
+With the [prepared pinned tools](../../docs/TOOLCHAIN.md), including SQLite:
 
-No arguments mean help, never an implicit runtime start. `daemon`, `bridge`,
-`help`, `version`, `--`, and arbitrary positional arguments are unsupported.
-Arity is checked before encoding: excess arguments always get the same error.
-Diagnostics do not quote argument values, paths, environment values, or OS I/O
-errors. Output failures return status 1 with a fixed diagnostic if stderr is
-available. The version comes from `env!("CARGO_PKG_VERSION")`, not a second
-manually maintained value.
+```sh
+env -i PATH=/usr/bin python3 -B scripts/build-cli.py \
+  --tools "$PWD/.tools-m1-9" --output /absolute/new-build-directory
+```
 
-`interpret` is pure argument interpretation; `main` owns argument collection,
-stdout/stderr, and exit status. Neither layer reads configuration or profiles,
-creates state, starts subprocesses, nor performs networking.
+The output directory must not exist; its parent must exist. The command builds
+and checks help inside the existing offline bubblewrap boundary, then exports
+`harbormaster`, a checksum and build records. It does not install or start a
+service. On another machine, pass that machine's prepared tools directory.
+Build records do not replace required verification.
 
-## Tests and isolation
+## Use
 
-Run required Rust checks through `scripts/verify.py` from the repository root
-with the documented prepared tools root. The verifier first validates public
-inputs and builds the exact static SQLite source offline, then runs formatting,
-strict all-target Clippy and each separately required test family. Native
-qualification and actual hosted Docker/native pairing remain mandatory; see
-[M1 verification](../../docs/M1-VERIFICATION.md).
+Run the exported binary; quote paths and labels containing spaces:
 
-The storage suites exercise private manager files, bounded worker receipts,
-transactions, known migration/backup/recovery, supported retention and real
-process interruption. Their synthetic SQL fault injection is confined to test
-fixtures; no arbitrary SQL or callback interface is exposed by storage.
+```sh
+/absolute/new-build-directory/harbormaster project add /absolute/project "My project"
+/absolute/new-build-directory/harbormaster project list
+/absolute/new-build-directory/harbormaster preset add coding /absolute/bin/hermes default
+/absolute/new-build-directory/harbormaster preset list
+/absolute/new-build-directory/harbormaster task add PROJECT_UUID coding "Implement settings"
+/absolute/new-build-directory/harbormaster task list PROJECT_UUID
+/absolute/new-build-directory/harbormaster task plan TASK_UUID
+```
 
-CLI integration tests execute the actual Cargo-built binary with a cleared
-environment and synthetic private HOME/XDG/profile/work-directory fixtures.
-They compare the full fixture tree before and after every invocation. Unit
-tests cover the pure result and typed error contract, including malformed
-arguments. These fixture assertions prove no changes in those trees, not
-arbitrary-host-write detection. Running tests in a separate worktree is not
-security isolation: use the verifier's filesystem, credential, desktop, and
-network restrictions. No live harness, profile, credential, or model is needed.
+Use the returned `Project.id` and `Task.id` values. Commands return JSON.
+List pages contain `items`, `revision` and `next_after`; supply the cursor as
+an extra final argument to continue. If the revision changes between pages,
+restart listing. Pages contain at most 100 entries. Capacity is 1,000 projects,
+100 presets and 10,000 tasks; exhausted capacity rejects changes without cleanup.
 
-Workspace unsafe code is forbidden. Clippy `all`/`pedantic` are enabled, with
-50-line and 50-point complexity review triggers in `clippy.toml`. Any cohesive
-exception requires a written review disposition, not a blanket lint allowance.
+A project uses an existing absolute, normalized directory without symlinks.
+The preset explicitly trusts a regular executable named `hermes`, with safe
+ownership/permissions, and a profile name of at most 64 ASCII letters, digits,
+hyphens or underscores (no leading hyphen). The stored executable/profile is
+user-selected metadata, not proof of installed-version compatibility. Nothing
+reads project configuration, changes Git state or installs a Hermes profile.
+
+`task plan` rechecks saved directory/executable identities and returns exactly
+`-p PROFILE chat`, the working directory and task identity. Labels are metadata,
+never prompts or arguments. The command executes no harness. The in-memory
+`PreparedLaunch::command` builds an unstarted argv-based process with explicit
+HOME, fixed system PATH and bounded terminal/locale settings. It does not copy
+API keys, loader overrides, PYTHONPATH or HERMES_HOME from the parent. Native
+Hermes retains its own profile-based authentication; real runtime environment
+integration remains #12. Launch preparation is not a race-free spawn authority.
+
+State lives in `$XDG_STATE_HOME/harbormaster`, falling back to
+`$HOME/.local/state/harbormaster`. Missing state parents are created privately.
+Existing XDG parents may be 0755; the manager directory stays 0700 and its files
+0600. Symlinked or other-user-writable paths are refused, without changing their
+permissions. Only one process owns the database. These pre-daemon CLI commands
+open the existing worker; #12 must route clients through the running manager.
+
+Repeated registration with the same contents returns the saved record. Changed
+contents/identities conflict; rename, replacement and deletion are not yet CLI
+operations. Worker timeouts are unknown outcomes: inspect saved state before
+retrying. Help and invalid command shapes do not open storage. Diagnostics use
+fixed errors without echoing supplied values; listing intentionally returns the
+explicit metadata the user registered. No transcripts or environment values
+are stored in the registry.
+
+## Verification
+
+The existing `rust-integration` check includes the actual CLI persistence,
+validation and synthetic child-environment flow. The library suite covers the
+V3-to-V4 migration and retained backup/outcome behavior. Full qualification uses
+unchanged `scripts/verify.py`, locked Docker CI and separate mandatory native
+execution. Raw development logs remain outside the source diff. Workspace
+unsafe-code and existing lint/security/license policies remain in force.
