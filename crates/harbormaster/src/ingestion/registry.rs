@@ -11,6 +11,9 @@ use crate::protocol::{
 use std::collections::{BTreeMap, BTreeSet};
 use std::rc::Rc;
 
+#[cfg(test)]
+mod tests;
+
 /// Trusted manager input, never deserialized from a producer frame.
 /// Generations must be newly manager-issued or restored with authoritative
 /// replay knowledge by the future durable owner. No process proof is inferred.
@@ -127,6 +130,68 @@ impl Registry {
             Producer::new(registration),
         );
         Ok(())
+    }
+
+    /// Install the exact generation returned by committed durable reconciliation.
+    /// The coordinator supplies that receipt; this seam does not establish it.
+    /// Validate before discarding old work, and never issue or reuse a generation.
+    /// Returns the bounded number of queued observations discarded, without ACK.
+    /// # Errors
+    /// Rejects changed identity, repeated generation, invalid grants or capacity.
+    pub(crate) fn install_committed(
+        &mut self,
+        registration: ProducerRegistration,
+    ) -> Result<usize, AdmissionError> {
+        unique_signals(&registration.allowed_signals)?;
+        let (receipts, bytes) =
+            if let Some(previous) = self.producers.get(&registration.producer_id) {
+                let old = &previous.registration;
+                if old.run_id != registration.run_id
+                    || old.harness != registration.harness
+                    || old.uid != registration.uid
+                {
+                    return Err(AdmissionError::PermissionDenied);
+                }
+                if old.generation == registration.generation {
+                    return Err(AdmissionError::StaleGeneration);
+                }
+                (previous.receipts.len(), previous.bytes)
+            } else {
+                if self.producers.len() >= MAX_PRODUCERS {
+                    return Err(AdmissionError::ResourceExhausted);
+                }
+                (0, 0)
+            };
+        self.receipts -= receipts;
+        self.receipt_bytes -= bytes;
+        let discarded = self.discard_queued(&registration.producer_id);
+        self.producers.insert(
+            registration.producer_id.clone(),
+            Producer::new(registration),
+        );
+        Ok(discarded)
+    }
+
+    /// Block all sessions and discard queued work without retagging observations.
+    /// Retained receipts/checkpoint still protect replay until a committed install.
+    /// # Errors
+    /// Rejects an unknown producer without changing registry state.
+    pub(crate) fn invalidate(&mut self, producer: &ProducerId) -> Result<usize, AdmissionError> {
+        let record = self
+            .producers
+            .get_mut(producer)
+            .ok_or(AdmissionError::UnknownProducer)?;
+        record.blocked = true;
+        record.scope = Rc::new(());
+        Ok(self.discard_queued(producer))
+    }
+
+    fn discard_queued(&mut self, producer: &ProducerId) -> usize {
+        let discarded = self.queue.discard(producer);
+        self.discarded = self
+            .discarded
+            .saturating_add(u64::try_from(discarded).unwrap_or(u64::MAX));
+        discarded
     }
 
     /// Bind an existing scope to a real event-channel peer and narrowed signals.
@@ -263,10 +328,7 @@ impl Registry {
         record.scope = Rc::new(());
         record.next = Some(next);
         record.blocked = false;
-        let discarded = self.queue.discard(producer);
-        self.discarded = self
-            .discarded
-            .saturating_add(u64::try_from(discarded).unwrap_or(u64::MAX));
+        self.discard_queued(producer);
         Ok(generation)
     }
 
