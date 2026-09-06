@@ -1,0 +1,1 @@
+PASS lint: qml/tests/tst_toolchain.qml

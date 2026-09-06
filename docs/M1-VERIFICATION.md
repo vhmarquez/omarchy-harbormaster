@@ -1,3 +1,16 @@
+# Current post-merge verification
+
+Owner-merged #49 / closed #7 main `70a671bf5bf93aaed7a3acbc1ad26df76fd60187`
+passed fresh post-merge verification on 2026-09-06: actual hosted portable 21
+required PASS; fresh local combined 22 required PASS; dedicated native 3 required
+PASS including both real integration methods; paired qualification PASS for all
+140 selected source files. Each execution explicitly skipped only the 3 optional
+live/future probes. [Actual reports and logs](../evidence/m1-8/post-merge-main/summary.json)
+preserve the downloaded main artifact (run 34001018813, artifact 9979529198),
+fresh local executions, and actual paired report. Historical PR-head records
+below remain unchanged; their former approval blockers are superseded by the
+owner merge. #8 requires new source-bound verification and its own approval.
+
 # Verification — M1 #7
 
 ## Commands and supported scope

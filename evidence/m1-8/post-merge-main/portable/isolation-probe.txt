@@ -1,0 +1,1 @@
+PASS outside canary, allowlisted environment, read-only inputs, offline network probe

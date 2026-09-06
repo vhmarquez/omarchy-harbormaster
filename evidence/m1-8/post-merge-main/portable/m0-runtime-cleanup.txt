@@ -1,0 +1,11 @@
+test_clean_finalizer_still_validates_and_fingerprints_cleanup_tests (test_cleanup.CleanupTests.test_clean_finalizer_still_validates_and_fingerprints_cleanup_tests) ... ok
+test_early_probe_failure_stays_failed_without_owned_resources (test_cleanup.CleanupTests.test_early_probe_failure_stays_failed_without_owned_resources) ... ok
+test_false_readbacks_do_not_short_circuit_later_owned_targets (test_cleanup.CleanupTests.test_false_readbacks_do_not_short_circuit_later_owned_targets) ... ok
+test_first_stop_timeout_does_not_skip_remaining_cleanup_or_export (test_cleanup.CleanupTests.test_first_stop_timeout_does_not_skip_remaining_cleanup_or_export) ... ok
+test_multiple_cleanup_errors_are_reported_without_skipping_later_attempts (test_cleanup.CleanupTests.test_multiple_cleanup_errors_are_reported_without_skipping_later_attempts) ... ok
+test_output_failure_returns_failed_structured_sanitized_summary (test_cleanup.CleanupTests.test_output_failure_returns_failed_structured_sanitized_summary) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.091s
+
+OK

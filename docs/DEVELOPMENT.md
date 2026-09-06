@@ -1,3 +1,11 @@
+# Current continuation
+
+The owner merged #49 on 2026-09-06 and #7 is closed. Its fresh main qualification
+and the pre-implementation #8 boundaries are recorded in [M1-8-DEVELOPMENT.md](M1-8-DEVELOPMENT.md).
+The following #7 responsibility and review records are historical. Subsequent
+PRs still require explicit owner approval of each revision before merge or
+dependent implementation.
+
 # Development contract — M1 #7
 
 ## Scope and approval boundary
