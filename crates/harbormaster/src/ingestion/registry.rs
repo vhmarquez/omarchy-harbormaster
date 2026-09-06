@@ -186,6 +186,22 @@ impl Registry {
         Ok(self.discard_queued(producer))
     }
 
+    /// Invalidate only the named installed generation. Old replay must never
+    /// disable a newer committed registration for the same producer.
+    pub(crate) fn invalidate_generation(
+        &mut self,
+        producer: &ProducerId,
+        generation: Option<&ProducerGeneration>,
+    ) -> Result<usize, AdmissionError> {
+        let Some(record) = self.producers.get(producer) else {
+            return Ok(0);
+        };
+        if generation != Some(&record.registration.generation) {
+            return Err(AdmissionError::StaleGeneration);
+        }
+        self.invalidate(producer)
+    }
+
     fn discard_queued(&mut self, producer: &ProducerId) -> usize {
         let discarded = self.queue.discard(producer);
         self.discarded = self
