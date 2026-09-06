@@ -249,7 +249,8 @@ impl Registry {
             .producers
             .get_mut(producer)
             .ok_or(AdmissionError::UnknownProducer)?;
-        let generation = super::generation::fresh()?;
+        let generation =
+            crate::generation::fresh().map_err(|_| AdmissionError::EntropyUnavailable)?;
         if generation == record.registration.generation {
             return Err(AdmissionError::StaleGeneration);
         }

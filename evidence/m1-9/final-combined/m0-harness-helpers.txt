@@ -1,0 +1,9 @@
+test_command_hook_emits_only_allowlisted_metadata_without_stdout (test_probe.EventProjection.test_command_hook_emits_only_allowlisted_metadata_without_stdout) ... ok
+test_invalid_oversized_and_unwritable_payloads_fail_open_silently (test_probe.EventProjection.test_invalid_oversized_and_unwritable_payloads_fail_open_silently) ... ok
+test_overlay_refuses_symlink_and_concurrent_edits (test_probe.Install.test_overlay_refuses_symlink_and_concurrent_edits) ... ok
+test_reversible_overlay_preserves_unrelated_hooks_and_exact_original_bytes (test_probe.Install.test_reversible_overlay_preserves_unrelated_hooks_and_exact_original_bytes) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.112s
+
+OK

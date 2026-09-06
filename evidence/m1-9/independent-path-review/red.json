@@ -1,0 +1,21 @@
+{
+  "exit_code": 101,
+  "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.41s\n     Running tests/review_paths.rs (/state/target/debug/deps/review_paths-a57321acee6a8aa2)\n\nrunning 12 tests\ntest symlink_ancestors_and_public_state_roots_are_rejected_before_creation ... ok\ntest known_entries_reject_symlinks_and_hardlinks_without_touching_targets ... ok\nbackup header journal bytes [2, 2], candidate state.backup.db-wal\nbackup with state.backup.db-wal: Err(Storage(PersistenceUnavailable))\nhardlinked state.backup.db-wal initial0 resultOk(BackupComplete) after0\ntest retained_database_replacement_is_refused_and_preserved ... ok\ntest fresh_database_refuses_other_owner_lock ... ok\noversized existing WAL before71696417, result ResourceExhausted, afterOk(71696417)\ntest oversized_existing_wal_is_rejected_before_sqlite_rewrites_it ... ok\ntest manager_open_and_backup_uses_only_private_fixed_paths ... ok\ntest failed_backup_preserves_existing_backup_and_replacement_sentinel ... ok\nbackup header journal bytes [2, 2], candidate state.backup.db-shm\n\nthread 'pre_migration_backup_is_usable_by_the_fixed_restore_api' (429) panicked at crates/harbormaster/tests/review_paths.rs:239:5:\npre-migration backup cannot be restored\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\ntest pre_migration_backup_is_usable_by_the_fixed_restore_api ... FAILED\nbackup with state.backup.db-shm: Err(Storage(PersistenceUnavailable))\nhardlinked state.backup.db-wal initial32768 resultOk(BackupComplete) after32768\ntest incomplete_restore_entries_require_recovery_without_deleting_data ... ok\nbackup header journal bytes [2, 2], candidate state.backup.db-journal\nbackup with state.backup.db-journal: Err(Storage(PersistenceUnavailable))\nhardlinked state.backup.db-shm initial0 resultOk(BackupComplete) after32768\ntest foreign_future_and_corrupt_main_files_are_not_modified ... ok\ntest backup_sidecars_must_not_follow_symlinks_or_modify_targets ... ok\nhardlinked state.backup.db-shm initial32768 resultOk(BackupComplete) after32768\nhardlinked state.backup.db-journal initial0 resultOk(BackupComplete) after0\nhardlinked state.backup.db-journal initial32768 resultErr(Storage(PersistenceUnavailable)) after32768\n\nthread 'backup_sidecars_reject_hardlinks_before_writing_external_inodes' (421) panicked at crates/harbormaster/tests/review_paths.rs:288:5:\naccepted hardlinkstate.backup.db-wal initial0; accepted hardlinkstate.backup.db-wal initial32768; modified hardlinked target throughstate.backup.db-shm, before0 after32768; accepted hardlinkstate.backup.db-shm initial0; modified hardlinked target throughstate.backup.db-shm, before32768 after32768; accepted hardlinkstate.backup.db-shm initial32768; accepted hardlinkstate.backup.db-journal initial0\ntest backup_sidecars_reject_hardlinks_before_writing_external_inodes ... FAILED\n\nfailures:\n\nfailures:\n    backup_sidecars_reject_hardlinks_before_writing_external_inodes\n    pre_migration_backup_is_usable_by_the_fixed_restore_api\n\ntest result: FAILED. 10 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.19s\n\nerror: test failed, to rerun pass `--test review_paths`\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 0.607,
+  "command": [
+    "/tools/rust/bin/cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--workspace",
+    "--test",
+    "review_paths",
+    "--all-features",
+    "--",
+    "--nocapture"
+  ],
+  "source_commit": "65f2673366debf9a0008abfd624ff0a16e98252e",
+  "fixture_sha256": "6d254b7fa114e8e025bcfe7125b27e3e25c2ef7afa320faeced82c1c320e56eb"
+}

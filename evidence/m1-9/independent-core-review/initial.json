@@ -1,0 +1,56 @@
+{
+  "observed_at": "2026-09-06T17:47:56.795196+00:00",
+  "author_engine_revision": "9b17cce",
+  "results": [
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.014,
+      "name": "preflight",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verification/preflight.py",
+        "--stage-cargo"
+      ],
+      "log": "preflight.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 16.104,
+      "name": "sqlite-build",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verification/sqlite.py"
+      ],
+      "log": "sqlite-build.txt"
+    },
+    {
+      "exit_code": 101,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 3.035,
+      "name": "engine-initial",
+      "command": [
+        "/usr/bin/env",
+        "SQLITE3_NO_PKG_CONFIG=1",
+        "SQLITE3_STATIC=1",
+        "SQLITE3_LIB_DIR=/state/sqlite/lib",
+        "SQLITE3_INCLUDE_DIR=/state/sqlite/include",
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--lib",
+        "independent_",
+        "--",
+        "--nocapture"
+      ],
+      "log": "engine-initial.txt"
+    }
+  ]
+}

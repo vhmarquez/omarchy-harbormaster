@@ -1,0 +1,14 @@
+{
+  "schema": 2,
+  "started_at": "2026-09-06T14:45:05.357670+00:00",
+  "backend": null,
+  "scope": "paired",
+  "checks": [],
+  "passed": true,
+  "qualification_complete": true,
+  "qualifications": {
+    "portable": "PASS",
+    "native": "PASS"
+  },
+  "revision": "47d726972991c88da897fe20ef4ce413142227d5"
+}

@@ -3,8 +3,10 @@
 use std::ffi::OsString;
 use std::fmt;
 
+mod generation;
 pub mod ingestion;
 pub mod protocol;
+pub mod storage;
 
 /// The foundation's supported output requests.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]

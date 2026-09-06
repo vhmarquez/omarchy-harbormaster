@@ -1,0 +1,23 @@
+   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.59s
+     Running tests/storage.rs (/state/target/debug/deps/storage-453fea48faa3c592)
+
+running 15 tests
+test policy::approved_history_choices_do_not_silently_clamp_the_illustrated_ninety_days ... ok
+test linkage::actual_rust_consumer_uses_the_pinned_static_sqlite_with_hardened_defaults ... ok
+test queries::invalid_page_limits_are_rejected_before_queuing_and_return_the_request ... ok
+test recovery::symlinked_database_is_rejected_and_unrelated_target_remains_exact ... ok
+test transactions::stale_revision_and_sequence_gap_do_not_partially_mutate_any_rows ... ok
+test policy::seven_day_delivery_expiry_keeps_history_and_human_review_separate ... ok
+test transactions::full_u64_sequence_survives_sqlite_and_cannot_wrap ... ok
+test transactions::commit_atomically_exposes_projection_attention_outbox_and_durable_retry ... ok
+test policy::history_removal_preserves_obligations_and_tombstones_until_their_own_policy ... ok
+test recovery::private_fixed_state_is_exclusive_and_rejects_foreign_db_without_writing_it ... ok
+test transactions::event_ids_are_scoped_to_their_producer_and_generation ... ok
+test queries::bounded_snapshot_pages_have_no_omissions_and_reject_a_stale_cursor ... ok
+test recovery::reopen_preserves_committed_outcome_and_refuses_old_generation_new_work ... ok
+test recovery::live_backup_and_restore_reject_every_pre_restore_revision ... ok
+test recovery::explicit_worker_recovery_requires_a_nonoverflowing_trusted_revision_upper_bound ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.25s
+

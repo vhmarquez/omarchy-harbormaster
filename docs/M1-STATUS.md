@@ -1,62 +1,67 @@
 # M1 status and handoff
 
-M1 is authorized by the owner. Live state checked 2026-09-06: owner-merged PR #49,
-closed #7, main `70a671bf5bf93aaed7a3acbc1ad26df76fd60187`, and open #8/#9/#10.
-Milestone 2 remains open (one closed, three open issues); roadmap #1 remains open.
+Live state verified 2026-09-06: the owner merged PR #49 and PR #50; issues #7
+and #8 are closed. Main is `47d726972991c88da897fe20ef4ce413142227d5`.
+Milestone 2 remains open with two closed and two open issues; roadmap #1 is open.
 
 | Issue | Current scope | Gate |
 |---|---|---|
-| #7 | Merged by owner; post-merge main qualified | Completed foundation dependency |
-| #8 | Protocol/private IPC library candidate on `codex/m1-8-protocol-ipc` | Explicit owner PR/revision approval after current-head qualification; unmerged |
-| #9 | Not started | Approved/merged #8 |
-| #10 | Not started | Approved/merged dependencies |
+| #7 | Owner-merged foundation, qualified main | Completed dependency |
+| #8 | Owner-merged protocol/private IPC, qualified main | Completed dependency |
+| #9 | SQLite library candidate on `codex/m1-9-sqlite-storage` | Current-head qualification and explicit owner PR/revision approval before merge |
+| #10 | Not started | Approved/merged dependencies; no dependent implementation before #9 approval |
 
-[Post-merge evidence](../evidence/m1-8/post-merge-main/summary.json): actual main
-hosted Docker portable 21 required PASS, fresh combined 22 required PASS, dedicated
-native 3 required PASS, paired PASS for 140 selected source files. Only the three
-explicit optional live/future probes skipped. See [verification](M1-VERIFICATION.md)
-and [pre-implementation #8 responsibilities](M1-8-DEVELOPMENT.md).
+[#8 post-merge evidence](../evidence/m1-9/post-merge-main/summary.json) preserves
+actual main hosted Docker portable 25 required PASS, fresh combined 27 PASS,
+dedicated native 4 PASS, and paired PASS for all 174 selected source files.
+Run 34039894234 / artifact 9991394591 was downloaded and inspected. The three
+optional live/future probes skipped; no required checks skipped.
 
-The [#8 evidence index](../evidence/m1-8/README.md) maps each acceptance criterion
-to executable tests and actual reports. [Independent review](M1-8-REVIEW.md)
-records corrected defects and maintainability dispositions. The issue-linked PR
-records the exact published revision, hosted artifact and actual paired result;
-read that record before approval. #8 remains open until its approved merge.
+The [#9 evidence index](../evidence/m1-9/README.md) maps its three acceptance
+criteria to executed fixtures, review and final qualification records. Read the
+issue-linked PR for its exact published head, hosted run/artifact and actual
+paired report. Component evidence cannot substitute for those final gates.
+[#8 evidence](../evidence/m1-8/README.md) and its former approval text remain
+historical; the verified owner merge supersedes that former blocker.
 
-Keep Docker locked down and native bubblewrap integration separately mandatory.
-A portable green run alone never completes qualification. Actual trusted receipts
-must pair against each exact candidate revision. Work uses dedicated branches;
-independent editing agents use separate worktrees, not security sandboxes.
-Only free standard public-repository GitHub CI is authorized. No new PR has owner
-merge approval, and no dependent #9/#10 implementation or M2 work is authorized yet.
+## Current implementation and limits
 
-## Scope now
+The single Rust package supplies help/version/error handling, typed protocol,
+private IPC/admission and the bounded SQLite worker. Only private disposable
+fixtures run these libraries. Unsupported daemon/bridge/launch modes still fail;
+there is no installable manager, live adapter, observer or recovery UI.
+QML remains the native Qt Quick Test sentinel, with no durable business logic.
 
-- One Rust package supplies help/version/error handling and the pinned typed
-  protocol/private IPC/admission library, qualified only with disposable fixtures. Unsupported runtime/bridge/launch modes
-  fail explicitly; this is not an installable manager or a daemon stub.
-- The QML file is a real Qt Quick Test sentinel, not a production screen or
-  claim of approved UI/native-accessibility implementation.
-- Verification uses private disposable homes and bounded offline subprocesses;
-  live runtime/harness probes remain separate explicit opt-ins, not silent passes.
-- Measured performance budgets, durable storage/crash/replay/retention and read-only
-  product diagnostics are still owed by their corresponding M1/later issues.
+The [storage contract](M1-9-STORAGE-ENGINE.md) covers atomic facts/projection/
+attention/outbox/checkpoint/tombstones, scoped exact retries, fixed safe paths,
+known migration, live backup, bounded query/row/page/WAL policies and explicit
+recovery limits. A lost ticket or startup/recovery timeout is an unknown outcome.
+Corrupt-page recovery needs an authoritative revision upper bound including
+possibly committed unknown outcomes; without it the recovery API is unavailable.
+No deterministic lifecycle reducer, replay/reconciliation controller, logging,
+spool or read-only diagnostic product interface is claimed; #10 still owes them.
+Product latency/RSS/idle-CPU budgets remain unmeasured.
 
-## Outstanding decisions before cleanup implementation
+## Approved retention
 
-The illustrated 90-day retention choice is not permission to exceed the
-20,000-fact/30-day backend ceiling. Resolve the effective history choices and
-separate active/unreviewed/outbox policies before #9/#10 cleanup. Pin numeric
-terminal-tombstone cap/TTL with atomic producer-generation retirement and
-reconciliation; no silent cap increase or replay-defense eviction.
+The owner approved 7/30-day history, default 30; reject illustrated 90, with the
+independent 20,000-fact ceiling. Tombstones have a separate 20,000/30-day limit;
+eviction atomically retires affected generations and needs fresh reconciliation.
+Active/unreviewed obligations are protected separately. Outbox keeps its separate
+1,000 pending / 7-day expiry policy. No frozen design asset was changed, and
+there is no real-data cleanup or secure-erasure claim.
 
-## Safety and preserved decisions
+## Preserved boundaries
 
-MIT, original font/OFL and frozen design provenance are unchanged. Option 02
-and the supplemental UX are approved; native harness approvals stay native.
-Codex remains Limited visibility, without trusted-native-callback qualification.
-No live Watcher changes, desktop activation, harness profiles, real sessions,
-credentials, protected context files, system package updates or toolchain cleanup
-are authorized. Local Docker daemon access is denied; no permission/system change
-is made to work around it. CI uses an isolated container instead; actual hosted
-execution must be verified before acceptance. No M2/deployment has started.
+Keep Docker locked down and native bubblewrap separately mandatory, preserving
+both original M0 methods and the #8 unmapped-peer-PID method. Portable green
+alone is incomplete. Pair actual trusted receipts against the exact candidate's
+selected source bytes. Dedicated branches and separate editing worktrees remain
+required; worktrees are not security sandboxes. Only standard free public-repo
+GitHub CI is authorized. No runner, permission or system configuration changed.
+
+MIT, frozen option 02/supplemental designs, native harness approvals and Codex
+Limited visibility remain unchanged. Watcher, real sessions, credentials,
+harness profiles, desktop configuration and prior tool/report roots are intact.
+No M2, deployment, live shell activation or subsequent-PR merge is authorized.
+M1 remains incomplete until all #7–#10 gates and approved merges are verified.

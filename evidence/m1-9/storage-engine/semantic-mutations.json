@@ -1,0 +1,119 @@
+{
+  "scope": "author executed behavioral negative controls in disposable read-only snapshots; no live DB, credentials or weakened sandbox",
+  "base_commit": "6dcdd24",
+  "results": [
+    {
+      "name": "projection_autocommitted_before_transaction",
+      "file": "crates/harbormaster/src/storage/transaction.rs",
+      "before_sha256": "581aa3df1cde741ebcea59c6dfd8f7a8833daae5819879d11a5f64da072fa79c",
+      "after_sha256": "745383f8d23c4a85bdb9b5c20256ba91aa78d3e7b2f20fad7c161ec65ca9e935",
+      "replacement": {
+        "old": "    let identity = serde_json::to_vec(set).map_err(|_| StorageError::InvalidRequest)?;",
+        "new": "    insert_projection(conn, set)?;\n    let identity = serde_json::to_vec(set).map_err(|_| StorageError::InvalidRequest)?;"
+      },
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--lib",
+        "storage::engine::tests::writes::all_effects_roll_back_after_late_sql_failure",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "semantic_red": true,
+      "exit_code": 101,
+      "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\nwarning: unused import: `engine::Engine`\n  --> crates/harbormaster/src/storage/mod.rs:11:16\n   |\n11 | pub(crate) use engine::Engine;\n   |                ^^^^^^^^^^^^^^\n   |\n   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default\n\nwarning: `harbormaster` (lib test) generated 1 warning (run `cargo fix --lib -p harbormaster --tests` to apply 1 suggestion)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.33s\n     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)\n\nrunning 1 test\n\nthread 'storage::engine::tests::writes::all_effects_roll_back_after_late_sql_failure' (260) panicked at crates/harbormaster/src/storage/tests/writes.rs:37:9:\nassertion `left == right` failed\n  left: 1\n right: 0\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\ntest storage::engine::tests::writes::all_effects_roll_back_after_late_sql_failure ... FAILED\n\nfailures:\n\nfailures:\n    storage::engine::tests::writes::all_effects_roll_back_after_late_sql_failure\n\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 30 filtered out; finished in 0.04s\n\nerror: test failed, to rerun pass `--lib`\n",
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.384
+    },
+    {
+      "name": "tombstone_retirement_disabled",
+      "file": "crates/harbormaster/src/storage/maintenance.rs",
+      "before_sha256": "ea35fddc36f37293613631d6d43bcd6737f554aa0fd8cbaeeae35fd320fcc201",
+      "after_sha256": "53b4d0861655366c0ed412896de53f45b9d444de5c68805de15a1404a8a122b1",
+      "replacement": {
+        "old": "AND active=1\",",
+        "new": "AND active=1 AND 0\","
+      },
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--lib",
+        "storage::engine::tests::bounds::tombstone_cap_requires_atomic_retirement_and_failed_retirement_preserves_rows",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "semantic_red": true,
+      "exit_code": 101,
+      "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\nwarning: unused import: `engine::Engine`\n  --> crates/harbormaster/src/storage/mod.rs:11:16\n   |\n11 | pub(crate) use engine::Engine;\n   |                ^^^^^^^^^^^^^^\n   |\n   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default\n\nwarning: `harbormaster` (lib test) generated 1 warning (run `cargo fix --lib -p harbormaster --tests` to apply 1 suggestion)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.31s\n     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)\n\nrunning 1 test\n\nthread 'storage::engine::tests::bounds::tombstone_cap_requires_atomic_retirement_and_failed_retirement_preserves_rows' (260) panicked at crates/harbormaster/src/storage/tests/bounds.rs:67:5:\nassertion `left == right` failed\n  left: 0\n right: 1\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\ntest storage::engine::tests::bounds::tombstone_cap_requires_atomic_retirement_and_failed_retirement_preserves_rows ... FAILED\n\nfailures:\n\nfailures:\n    storage::engine::tests::bounds::tombstone_cap_requires_atomic_retirement_and_failed_retirement_preserves_rows\n\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 30 filtered out; finished in 0.09s\n\nerror: test failed, to rerun pass `--lib`\n",
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.41
+    },
+    {
+      "name": "duplicate_write_set_comparison_disabled",
+      "file": "crates/harbormaster/src/storage/transaction.rs",
+      "before_sha256": "581aa3df1cde741ebcea59c6dfd8f7a8833daae5819879d11a5f64da072fa79c",
+      "after_sha256": "90a38ca555c0b1c31dca71239f64c504844176ec2d8bb763a9c52e054aba0c28",
+      "replacement": {
+        "old": "if bytes == identity =>",
+        "new": "if !bytes.is_empty() && !identity.is_empty() =>"
+      },
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--lib",
+        "storage::engine::tests::writes::duplicates_require_identical_complete_write_set",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "semantic_red": true,
+      "exit_code": 101,
+      "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\nwarning: unused import: `engine::Engine`\n  --> crates/harbormaster/src/storage/mod.rs:11:16\n   |\n11 | pub(crate) use engine::Engine;\n   |                ^^^^^^^^^^^^^^\n   |\n   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default\n\nwarning: `harbormaster` (lib test) generated 1 warning (run `cargo fix --lib -p harbormaster --tests` to apply 1 suggestion)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.31s\n     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)\n\nrunning 1 test\n\nthread 'storage::engine::tests::writes::duplicates_require_identical_complete_write_set' (260) panicked at crates/harbormaster/src/storage/tests/writes.rs:84:5:\nassertion `left == right` failed\n  left: Ok(Committed { revision: Revision(2), duplicate: true })\n right: Err(Conflict)\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\ntest storage::engine::tests::writes::duplicates_require_identical_complete_write_set ... FAILED\n\nfailures:\n\nfailures:\n    storage::engine::tests::writes::duplicates_require_identical_complete_write_set\n\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 30 filtered out; finished in 0.04s\n\nerror: test failed, to rerun pass `--lib`\n",
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.361
+    },
+    {
+      "name": "wal_pressure_threshold_replaced_by_overshoot_bound",
+      "file": "crates/harbormaster/src/storage/engine.rs",
+      "before_sha256": "c453236e33867b1394a2489c136409f45519d33cc04167394aff68afdab80557",
+      "after_sha256": "6bb073f6e0d935d627416bcb337a2a790684b26bb6139c73b29cd0e1315e2cde",
+      "replacement": {
+        "old": "if length >= u64::from(schema::WAL_TRIGGER) {",
+        "new": "if length >= schema::WAL_BOUND {"
+      },
+      "command": [
+        "cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--lib",
+        "storage::engine::tests::bounds::blocked_real_wal_reader_backpressures_next_write",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "semantic_red": true,
+      "exit_code": 101,
+      "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\nwarning: unused import: `engine::Engine`\n  --> crates/harbormaster/src/storage/mod.rs:11:16\n   |\n11 | pub(crate) use engine::Engine;\n   |                ^^^^^^^^^^^^^^\n   |\n   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default\n\nwarning: `harbormaster` (lib test) generated 1 warning (run `cargo fix --lib -p harbormaster --tests` to apply 1 suggestion)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.30s\n     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)\n\nrunning 1 test\n\nthread 'storage::engine::tests::bounds::blocked_real_wal_reader_backpressures_next_write' (260) panicked at crates/harbormaster/src/storage/tests/bounds.rs:208:5:\na real reader must eventually prevent checkpoint and admission\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\ntest storage::engine::tests::bounds::blocked_real_wal_reader_backpressures_next_write ... FAILED\n\nfailures:\n\nfailures:\n    storage::engine::tests::bounds::blocked_real_wal_reader_backpressures_next_write\n\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 30 filtered out; finished in 45.45s\n\nerror: test failed, to rerun pass `--lib`\n",
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 45.765
+    }
+  ],
+  "passed": true
+}

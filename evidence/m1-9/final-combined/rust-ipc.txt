@@ -1,0 +1,24 @@
+   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.18s
+     Running tests/ipc.rs (/state/target/debug/deps/ipc-4f9a82de67027aab)
+
+running 16 tests
+test connection_cap_releases_on_drop_and_deadline_closes_connection ... ok
+test bind_failure_and_cleanup_never_delete_existing_or_replaced_files ... ok
+test held_directory_survives_rename_without_touching_replacement_directory ... ok
+test malformed_encoding_and_eof_reject_buffered_frame ... ok
+test framing_is_incremental_bounded_and_poisoned_after_failure ... ok
+test nonblocking_io_preserves_fragmented_frames_and_separate_consumers ... ok
+test file_descriptor_exhaustion_cleans_only_created_socket_names ... ok
+test outbound_enforces_both_caps_before_copying ... ok
+test authenticated_slow_writer_expires_while_another_client_stays_responsive ... ok
+test cross_process_peer_credentials_are_from_the_kernel ... ok
+test private_socket_paths_are_owned_and_channels_are_listener_evidence ... ok
+test second_bind_failure_rolls_back_only_the_socket_created_by_this_call ... ok
+test partial_frame_deadline_does_not_extend_with_dripped_bytes ... ok
+test unsafe_runtime_and_symlink_ancestors_are_rejected ... ok
+test queue_overflow_disconnects_so_a_client_must_resynchronize ... ok
+test manager_connection_cap_cannot_be_bypassed_with_new_caller_budgets ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+

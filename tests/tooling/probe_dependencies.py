@@ -20,7 +20,9 @@ def execute(tools, state, command):
 def probe(tools, crate="serde"):
     inspection = verify_dependencies(ROOT, tools)
     version = next(p["version"] for p in read_pins(ROOT)["packages"] if p["name"] == crate)
-    cargo = ["/tools/rust/bin/cargo", "test", "--frozen", "--workspace"]
+    cargo = ["/usr/bin/env", "SQLITE3_NO_PKG_CONFIG=1", "SQLITE3_STATIC=1",
+             "SQLITE3_LIB_DIR=/state/sqlite/lib", "SQLITE3_INCLUDE_DIR=/state/sqlite/include",
+             "/tools/rust/bin/cargo", "test", "--frozen", "--workspace", "--lib"]
     deny = ["/tools/bin/cargo-deny", "--config", "tools/deny.toml", "--frozen",
             "--workspace", "check", "--deny", "warnings", "all"]
     results = {"inspection": inspection}
@@ -45,6 +47,11 @@ def probe(tools, crate="serde"):
                         entry["yanked"] = True
                     rows.append(json.dumps(entry))
                 cached.write_bytes(cache_record(("\n".join(rows) + "\n").encode()))
+            if case == "complete":
+                built = execute(tools, state, ["/usr/bin/python3", "-B", "scripts/verification/sqlite.py"])
+                if built["exit_code"] != 0:
+                    raise AssertionError(f"SQLite preparation failed: {built}")
+                results["sqlite-build"] = built
             command = deny if case == "yanked" else cargo
             result = execute(tools, state, command)
             if (result["exit_code"] == 0) != (case == "complete"):
@@ -63,6 +70,6 @@ def probe(tools, crate="serde"):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--tools-root", type=Path, required=True)
-    parser.add_argument("--crate", choices=("serde", "nix"), default="serde")
+    parser.add_argument("--crate", choices=("serde", "nix", "rusqlite", "libsqlite3-sys"), default="serde")
     args = parser.parse_args()
     print(json.dumps(probe(args.tools_root, args.crate), indent=2))

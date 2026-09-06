@@ -1,0 +1,10 @@
+   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.37s
+     Running tests/protocol_fuzz.rs (/state/target/debug/deps/protocol_fuzz-5ff4e7a5e7e72945)
+
+running 2 tests
+test structured_hostile_families_are_rejected_on_every_wire_entry_point ... ok
+test deterministic_seeded_malformed_input_and_roundtrip_properties ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.30s
+

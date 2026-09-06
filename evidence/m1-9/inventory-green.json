@@ -1,0 +1,73 @@
+{
+  "scope": "Actual inventory/environment/preserved-boundary regressions; not SQLite/storage execution qualification",
+  "results": [
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/verification",
+        "-p",
+        "test_m1_9_plan.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_sqlite_build_precedes_every_cargo_check_in_each_scope (test_m1_9_plan.StorageInventoryTests.test_sqlite_build_precedes_every_cargo_check_in_each_scope) ... ok\ntest_sqlite_link_inputs_are_fixed_and_never_inherited (test_m1_9_plan.StorageInventoryTests.test_sqlite_link_inputs_are_fixed_and_never_inherited) ... ok\ntest_storage_and_abrupt_exit_are_separate_required_portable_targets (test_m1_9_plan.StorageInventoryTests.test_storage_and_abrupt_exit_are_separate_required_portable_targets) ... ok\n\n----------------------------------------------------------------------\nRan 3 tests in 0.001s\n\nOK\n"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/verification",
+        "-p",
+        "test_scope_plan.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout": "FAIL m0-harness-sandbox\nFAIL m0-harness-sandbox\nFAIL m0-harness-sandbox\nFAIL m0-harness-sandbox\nFAIL m0-harness-sandbox\nFAIL m0-harness-sandbox\n",
+      "stderr": "test_harness_files_partition_four_portable_tests_and_two_native_tests (test_scope_plan.HarnessPartitionTests.test_harness_files_partition_four_portable_tests_and_two_native_tests) ... ok\ntest_either_skipped_native_method_cannot_become_optional_success (test_scope_plan.NativeTargetTests.test_either_skipped_native_method_cannot_become_optional_success) ... ok\ntest_missing_empty_or_renamed_native_target_fails_required_check (test_scope_plan.NativeTargetTests.test_missing_empty_or_renamed_native_target_fails_required_check) ... ok\ntest_missing_namespace_method_fails_when_original_target_exists (test_scope_plan.NativeTargetTests.test_missing_namespace_method_fails_when_original_target_exists) ... ok\ntest_all_is_the_unique_union_with_shared_preflights_once (test_scope_plan.ScopePlanTests.test_all_is_the_unique_union_with_shared_preflights_once) ... ok\ntest_custom_canary_is_preserved_in_each_scope (test_scope_plan.ScopePlanTests.test_custom_canary_is_preserved_in_each_scope) ... ok\ntest_native_contains_only_shared_preflights_and_explicit_sandbox_target (test_scope_plan.ScopePlanTests.test_native_contains_only_shared_preflights_and_explicit_sandbox_target) ... ok\ntest_portable_preserves_unique_common_inventory_without_native_target (test_scope_plan.ScopePlanTests.test_portable_preserves_unique_common_inventory_without_native_target) ... ok\ntest_unknown_scope_is_rejected_instead_of_becoming_all (test_scope_plan.ScopePlanTests.test_unknown_scope_is_rejected_instead_of_becoming_all) ... ok\n\n----------------------------------------------------------------------\nRan 9 tests in 0.188s\n\nOK\n"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/verification",
+        "-p",
+        "test_sandbox.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_bubblewrap_policy_unshares_network_and_excludes_host_homes (test_sandbox.BoundaryTests.test_bubblewrap_policy_unshares_network_and_excludes_host_homes) ... ok\ntest_excessive_output_is_bounded_and_fails (test_sandbox.BoundaryTests.test_excessive_output_is_bounded_and_fails) ... ok\ntest_timeout_is_failure_not_an_exception_or_leaked_child (test_sandbox.BoundaryTests.test_timeout_is_failure_not_an_exception_or_leaked_child) ... ok\ntest_only_allowlisted_environment_reaches_children (test_sandbox.EnvironmentTests.test_only_allowlisted_environment_reaches_children) ... ok\ntest_snapshot_copies_only_allowed_sources_without_private_files (test_sandbox.SnapshotTests.test_snapshot_copies_only_allowed_sources_without_private_files) ... ok\ntest_snapshot_rejects_symlinks_in_allowed_sources (test_sandbox.SnapshotTests.test_snapshot_rejects_symlinks_in_allowed_sources) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.049s\n\nOK\n"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/verification",
+        "-p",
+        "test_container.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_container_has_no_network_privileges_or_host_home (test_container.ContainerPolicyTests.test_container_has_no_network_privileges_or_host_home) ... ok\ntest_runtime_directory_is_private_bounded_and_read_only (test_container.ContainerPolicyTests.test_runtime_directory_is_private_bounded_and_read_only) ... ok\ntest_unpinned_image_is_rejected (test_container.ContainerPolicyTests.test_unpinned_image_is_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 3 tests in 0.002s\n\nOK\n"
+    }
+  ]
+}

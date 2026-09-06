@@ -1,0 +1,106 @@
+{
+  "schema": 2,
+  "started_at": "2026-09-06T14:41:32.730353+00:00",
+  "backend": "bwrap",
+  "scope": "native",
+  "checks": [
+    {
+      "name": "isolation-probe",
+      "required": true,
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verification/probe.py",
+        "/tmp/harbormaster-verify-8mw5vrvp/outside-canary"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.027,
+      "log": "isolation-probe.txt"
+    },
+    {
+      "name": "tool-pins",
+      "required": true,
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verification/preflight.py",
+        "--stage-cargo"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.97,
+      "log": "tool-pins.txt"
+    },
+    {
+      "name": "rust-ipc-namespace",
+      "required": true,
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--test",
+        "ipc_namespace",
+        "--all-features",
+        "--",
+        "--exact",
+        "peer_without_visible_pid_is_rejected",
+        "--nocapture"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 3.145,
+      "log": "rust-ipc-namespace.txt"
+    },
+    {
+      "name": "m0-harness-sandbox",
+      "required": true,
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "spikes/harnesses/test_sandbox.py",
+        "Helpers.test_sandbox_denies_network_and_inherited_credentials",
+        "NetworkNamespace.test_sandbox_uses_distinct_network_namespace",
+        "-v"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.073,
+      "log": "m0-harness-sandbox.txt"
+    },
+    {
+      "name": "m0-live-runtime",
+      "required": false,
+      "status": "SKIP",
+      "reason": "Separate opt-in desktop/service probe; no deployment authorized"
+    },
+    {
+      "name": "m0-live-harness",
+      "required": false,
+      "status": "SKIP",
+      "reason": "Installed real harness probes are outside offline #7 verification"
+    },
+    {
+      "name": "native-shell-integration",
+      "required": false,
+      "status": "SKIP",
+      "reason": "Production Omarchy/QML UI is not implemented in #7"
+    }
+  ],
+  "passed": true,
+  "qualification_complete": false,
+  "qualifications": {
+    "portable": "NOT_RUN",
+    "native": "PASS"
+  }
+}

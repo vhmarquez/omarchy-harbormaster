@@ -1,0 +1,36 @@
+{
+  "command": [
+    "cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--workspace",
+    "--lib",
+    "storage::engine::tests::recovery::restore_never_reuses_a_pre_restore_revision",
+    "--",
+    "--exact",
+    "--nocapture"
+  ],
+  "exit_code": 101,
+  "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\nwarning: unused import: `engine::Engine`\n  --> crates/harbormaster/src/storage/mod.rs:11:16\n   |\n11 | pub(crate) use engine::Engine;\n   |                ^^^^^^^^^^^^^^\n   |\n   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default\n\nwarning: `harbormaster` (lib test) generated 1 warning (run `cargo fix --lib -p harbormaster --tests` to apply 1 suggestion)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.36s\n     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)\n\nrunning 1 test\n\nthread 'storage::engine::tests::recovery::restore_never_reuses_a_pre_restore_revision' (260) panicked at crates/harbormaster/src/storage/tests/recovery.rs:11:5:\nrestore must invalidate all prior revision-bound commands\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\ntest storage::engine::tests::recovery::restore_never_reuses_a_pre_restore_revision ... FAILED\n\nfailures:\n\nfailures:\n    storage::engine::tests::recovery::restore_never_reuses_a_pre_restore_revision\n\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 24 filtered out; finished in 0.10s\n\nerror: test failed, to rerun pass `--lib`\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 0.469,
+  "storage_source_sha256": {
+    "crates/harbormaster/src/storage/backup.rs": "3beba44c9a0ab2c88e988d95c4156070fe5cae4f52a86bb850697c780ead753d",
+    "crates/harbormaster/src/storage/engine.rs": "abb40c74331044bc70e23fd10d997adad4b0bed901d862b53a9c7b3a4c3bc5da",
+    "crates/harbormaster/src/storage/maintenance.rs": "afc73e1422e9b9ef4d87122f08f1bfd15857b35822d1af0d7ac16cd6930dd88a",
+    "crates/harbormaster/src/storage/mod.rs": "faee191188a7613f4feb54863e84e3abfb1598ed6003db70bc94c00d8110cbda",
+    "crates/harbormaster/src/storage/paths.rs": "230ff90950ce1e193c32b9d5598ceb39cf84cbe628c24f74c2e6f0e35c1451f1",
+    "crates/harbormaster/src/storage/queries.rs": "b2aef46940f898fcaf9045bb024513247379447df6c11b002d58911fcbc3c1f1",
+    "crates/harbormaster/src/storage/schema.rs": "d8841ef0988cd52d2159d2825c6b9fa95d6c6babaefe185df80f4513e901c9ac",
+    "crates/harbormaster/src/storage/tests/bounds.rs": "ae957a3b18065507d7acff5852896f84d958f5abe189cdac9aec11af018cde1f",
+    "crates/harbormaster/src/storage/tests/mod.rs": "745d3c605d87de3ab1c75975e3d6b5a9e3ac31969d042c0c517674199668878a",
+    "crates/harbormaster/src/storage/tests/recovery.rs": "2a41ca16c162015b90efaed9efc5526226afc826824b6c658481b844196af276",
+    "crates/harbormaster/src/storage/tests/writes.rs": "107fc6ebd83d24db2e7fcfc9b69e4864d4cc7a01d21f8adfd24c923ff5b346b8",
+    "crates/harbormaster/src/storage/transaction.rs": "830aa8ca721b6ae4360b1af9c8870c7fdf8f1a9f754dbd9957e05df1d59c4b1c",
+    "crates/harbormaster/src/storage/types.rs": "1a5b35e01dbcbda10082ba106ddbc0243b3ece9a460e80547195324f78f307dc",
+    "crates/harbormaster/src/storage/validation.rs": "1913d9ab3543dfadd3daf1219e8174d81be29caf2c78628b271cba8a89d10a35"
+  },
+  "source_snapshot": "actual bounded verification snapshot for this execution"
+}

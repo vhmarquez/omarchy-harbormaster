@@ -1,0 +1,21 @@
+{
+  "exit_code": 0,
+  "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\nwarning: associated function `recover_backup` is never used\n  --> crates/harbormaster/src/storage/engine.rs:21:19\n   |\n17 | impl Engine {\n   | ----------- associated function in this implementation\n...\n21 |     pub(crate) fn recover_backup(\n   |                   ^^^^^^^^^^^^^^\n   |\n   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default\n\nwarning: `harbormaster` (lib) generated 1 warning\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.74s\n     Running tests/review_paths.rs (/state/target/debug/deps/review_paths-a57321acee6a8aa2)\n\nrunning 12 tests\ntest symlink_ancestors_and_public_state_roots_are_rejected_before_creation ... ok\ntest known_entries_reject_symlinks_and_hardlinks_without_touching_targets ... ok\nbackup header journal bytes [1, 1], candidate state.backup.db-wal\nbackup with state.backup.db-wal: Err(Storage(UnsafePath))\nhardlinked state.backup.db-wal initial0 resultErr(Storage(UnsafePath)) after0\noversized existing WAL before71696417, result ResourceExhausted, afterOk(71696417)\ntest retained_database_replacement_is_refused_and_preserved ... ok\ntest oversized_existing_wal_is_rejected_before_sqlite_rewrites_it ... ok\nbackup header journal bytes [1, 1], candidate state.backup.db-shm\nbackup with state.backup.db-shm: Err(Storage(UnsafePath))\nhardlinked state.backup.db-wal initial32768 resultErr(Storage(UnsafePath)) after32768\ntest fresh_database_refuses_other_owner_lock ... ok\ntest manager_open_and_backup_uses_only_private_fixed_paths ... ok\ntest failed_backup_preserves_existing_backup_and_replacement_sentinel ... ok\ntest incomplete_restore_entries_require_recovery_without_deleting_data ... ok\nhardlinked state.backup.db-shm initial0 resultErr(Storage(UnsafePath)) after0\nbackup header journal bytes [1, 1], candidate state.backup.db-journal\ntest pre_migration_backup_is_usable_by_the_fixed_restore_api ... ok\nbackup with state.backup.db-journal: Err(Storage(UnsafePath))\ntest foreign_future_and_corrupt_main_files_are_not_modified ... ok\ntest backup_sidecars_must_not_follow_symlinks_or_modify_targets ... ok\nhardlinked state.backup.db-shm initial32768 resultErr(Storage(UnsafePath)) after32768\nhardlinked state.backup.db-journal initial0 resultErr(Storage(UnsafePath)) after0\nhardlinked state.backup.db-journal initial32768 resultErr(Storage(UnsafePath)) after32768\ntest backup_sidecars_reject_hardlinks_before_writing_external_inodes ... ok\n\ntest result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.16s\n\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 0.918,
+  "command": [
+    "/tools/rust/bin/cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--workspace",
+    "--test",
+    "review_paths",
+    "--all-features",
+    "--",
+    "--nocapture"
+  ],
+  "source_commit": "09c2f70f8bf6cbe22ae3484d961dda94f51eedd2",
+  "fixture_sha256": "6d254b7fa114e8e025bcfe7125b27e3e25c2ef7afa320faeced82c1c320e56eb"
+}

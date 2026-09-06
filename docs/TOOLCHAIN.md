@@ -1,3 +1,8 @@
+Current #9 continuation: [SQLite source/static build](M1-9-SQLITE-BUILD.md) adds
+a separate source-only preparation group and required offline build. Fresh tools
+need `scripts/prepare-sqlite.py --online --tools-root <new-root>` after the existing
+tool and Cargo preparation commands below. The Cargo graph now has 30 pins.
+
 # Private toolchain preparation — M1 #7
 
 ## Scope and pins

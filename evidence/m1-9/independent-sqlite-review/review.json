@@ -1,0 +1,69 @@
+{
+  "reviewed_author_commit": "f0cabc1cf758391ab1423e69aceb4e17569e324c",
+  "observed_at": "2026-09-06T17:49:19.317930+00:00",
+  "verdict": "PASS",
+  "scope": "Independent source, security and maintainability review of dependency preparation and SQLite offline static build only; no #9 integrated qualification claim",
+  "blocking_findings": [],
+  "selected_dependency_file_sha256": {
+    ".github/workflows/verify.yml": "e50853b50472ed3fa5ff7640790a0b25794bfe85414de14430a525203d8589c1",
+    "Cargo.lock": "b684d33c42a002af1d026aea69013126b158873792b3702196669ad32cbb06a9",
+    "crates/harbormaster/Cargo.toml": "eda6ada95eb5448ad500a730fbe6d01f36f99e8a1b4c54846ffc53cb793e14ce",
+    "docs/DEPENDENCIES.md": "2b626b72bf1a0b94796fd6081b58a80aa9a126219450ba0b7a52ced1ea0d6217",
+    "docs/M1-9-SQLITE-BUILD.md": "25c1042c95a4eec975cf13a9c9fb285060ed67f99a9a321b046eebf8b62e0259",
+    "docs/TOOLCHAIN.md": "afe9338d7e9d8aff87a180c3d8dfcdd4440a8fa7c158daf84a1093fb87a363c4",
+    "scripts/prepare-sqlite.py": "46dfa4513455ae721da4e920c1b0ff3f8bf645a0a26a072a8bb55687c8481df3",
+    "scripts/tooling/install.py": "86917819f4a8bd7521d50bf2965789761da2d5c7d7aaff312e2db571444e328e",
+    "scripts/tooling/sqlite_prepare.py": "9ea06bd393d0b17c245bd29158e287e3390e2bc82ceb1ddba363e9f1887f0f07",
+    "scripts/tooling/sqlite_source.py": "da7985c5f5c743655b9196b8048f90dad338122e5225f21c09e41854357294da",
+    "scripts/verification/preflight.py": "17569b44ebb1b31bc8e584cec7602dcf4f304782db31e60321619b74a791f513",
+    "scripts/verification/sqlite.py": "fdb9f232b86be054d6f7de47de6ce9eedb8aca795916aae5b6922d2cce340561",
+    "tests/tooling/probe_dependencies.py": "7f5684e0dd1fff4f2aa558f0ce0f5a0c41312275e3de1cf7acaa047c9c4385e1",
+    "tests/tooling/probe_sqlite.py": "1039ef99c6e822edd0f6955aaf65ce77e51f9ec3ae3939bc44aa823db45564d7",
+    "tests/tooling/sqlite_probe.rs": "5bf87ba0ba0d10c74aa862438a3137294a4744e70f079f5d5f6fbc0883b00f6f",
+    "tests/tooling/test_sqlite_build.py": "a64c590c53df4fe055d9d57e3223eac1b51dc06e86a868730bc6c4ed2eb7997c",
+    "tests/tooling/test_sqlite_prepare.py": "954e17a62267e1ab4afba6cc7d6b2c0d71e704f1fb14332dca06d995fe401a57",
+    "tests/tooling/test_sqlite_source.py": "373ea8915e00c867131da45825859843c0adce021512d6ddd2a3cc97e7cfc846",
+    "tools/dependencies.lock.json": "ea916681a1a9173e83bc46dc6c425b9f67a365e28808ec0fd123836c588d62c6",
+    "tools/sqlite.lock.json": "ded1a5386920b1f4e5fba23b93507a58210713d15c5498e27aa02e63df833414"
+  },
+  "actual_evidence": {
+    "execution": "execution.json",
+    "tooling_tests": 41,
+    "source_faults_rejected": 11,
+    "unsafe_C_configurations_rejected": 2,
+    "dynamic_guard_mutation": "removing only dynamic-link rejection accepts same actual host-dynamic ELF while normal validator rejects",
+    "registry_probe": "registry-probe.json",
+    "registry_success": [
+      "actual frozen Cargo11library tests",
+      "actual full cargo-deny advisories/bans/licenses/sources"
+    ],
+    "registry_expected_failures": [
+      "libsqlite3-sys missing archive",
+      "libsqlite3-sys invalid gzip archive",
+      "libsqlite3-sys missing index",
+      "libsqlite3-sys pinned-version yanked"
+    ]
+  },
+  "primary_sources_independently_opened": [
+    "https://sqlite.org/download.html",
+    "https://sqlite.org/releaselog/3_53_4.html",
+    "https://sqlite.org/cves.html",
+    "https://rustsec.org/packages/rusqlite.html",
+    "https://rustsec.org/packages/libsqlite3-sys.html",
+    "https://sqlite.org/wal.html",
+    "https://sqlite.org/backup.html"
+  ],
+  "review_reasoning": [
+    "Exact official archive and source digests agree with current release/download primary sources; loaded3.53.4 sourceID verified in C and actual Rust consumer",
+    "Minimum default-disabled rusqlite backup/limits/modern_sqlite graph preserves original23 crates and adds7 reviewed packages; no bundled3.53.2 compilation",
+    "Read-only prepared source, closed inventory, separate explicit HTTPS preparation; actual source faults rejected before compiler",
+    "Fixed static link environment disables pkg-config lookup; C and Rust ELF dynamic-needed entries exclude SQLite; alternate actual dynamic ELF fails even when tested with matching static runtime identity",
+    "URI interpretation and trusted_schema defaults tested by executing actual independently mutated C configurations, not only compile-option string assertions",
+    "No new dependency code file or function near300/50 thresholds; cohesive prep/integrity/build responsibilities; canonical engine/runtime/runner integration separately reviewed"
+  ],
+  "limits": [
+    "Execution receipts prove behavior on reviewed trusted inputs; not protection against hostile same-UID tampering",
+    "Current advisory assessment is time-sensitive; final canonical fresh checks remain mandatory",
+    "This reviewer did not run upstream SQLite full regression suite"
+  ]
+}

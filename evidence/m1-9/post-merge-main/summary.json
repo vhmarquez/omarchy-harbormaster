@@ -1,0 +1,31 @@
+{
+  "revision": "47d726972991c88da897fe20ef4ce413142227d5",
+  "owner_merged_pr": 50,
+  "issue_8_state": "CLOSED",
+  "hosted_run": 34039894234,
+  "artifact": 9991394591,
+  "portable_required_pass": 25,
+  "combined_required_pass": 27,
+  "native_required_pass": 4,
+  "selected_source_count": 174,
+  "paired": {
+    "schema": 2,
+    "started_at": "2026-09-06T14:45:05.357670+00:00",
+    "backend": null,
+    "scope": "paired",
+    "checks": [],
+    "passed": true,
+    "qualification_complete": true,
+    "qualifications": {
+      "portable": "PASS",
+      "native": "PASS"
+    },
+    "revision": "47d726972991c88da897fe20ef4ce413142227d5"
+  },
+  "optional_skips": [
+    "m0-live-runtime",
+    "m0-live-harness",
+    "native-shell-integration"
+  ],
+  "scope": "Actual main post-merge execution receipts; not evidence for later #9 source."
+}

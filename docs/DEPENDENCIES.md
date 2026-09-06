@@ -22,7 +22,7 @@ The workflow must not replicate the Rust/QML checks or suppress its exit code.
 
 - Rust: the separate pinned `cargo-deny` policy covers the actual workspace,
   including private, build and development dependencies. The #7 authored MIT
-  baseline is extended only by the reviewed #8 graph below. Its advisory, license, source and bans gates are required,
+  baseline is extended by the reviewed #8 graph below and the #9 SQLite graph. Its advisory, license, source and bans gates are required,
   with an explicitly prepared, pinned, freshness-checked RustSec database.
   Rust/tool/advisory pins belong to their dedicated lock/policy files, not this
   distro manifest. An absent database or new unreviewed license fails closed.
@@ -38,6 +38,13 @@ The workflow must not replicate the Rust/QML checks or suppress its exit code.
   updating the appropriate lock, this scope table and applicable positive and
   negative gate fixtures. A license exception requires explicit review, scope,
   rationale and a tracking issue; do not broaden policy just to obtain green.
+
+## #9 SQLite dependency scope
+
+[The SQLite source/build review](M1-9-SQLITE-BUILD.md) records the seven added
+crate pins, the separate official SQLite 3.53.4 source pin, actual static build
+and linkage requirements, and unchanged license/advisory/yank policies. The full
+Cargo graph now has 30 registry packages. The #8 table below is historical.
 
 ## #8 Cargo dependency scope
 
@@ -195,6 +202,7 @@ and explicit public-download consent:
 ```sh
 python3 scripts/prepare-tools.py --online --tools-root .tools
 python3 scripts/prepare-dependencies.py --online --tools-root .tools
+python3 scripts/prepare-sqlite.py --online --tools-root .tools
 ```
 
 Only public distro/tool/advisory retrieval is allowed in preparation. Image

@@ -1,0 +1,1 @@
+PASS format: qml/tests/tst_toolchain.qml

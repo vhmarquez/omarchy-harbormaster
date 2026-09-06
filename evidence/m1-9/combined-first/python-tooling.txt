@@ -1,0 +1,46 @@
+test_cargo_lock_and_registry_checksum_must_match (test_dependencies.DependencyInputs.test_cargo_lock_and_registry_checksum_must_match) ... ok
+test_complete_inputs_pass_without_writes (test_dependencies.DependencyInputs.test_complete_inputs_pass_without_writes) ... ok
+test_corrupt_source_and_registry_inputs_fail (test_dependencies.DependencyInputs.test_corrupt_source_and_registry_inputs_fail) ... ok
+test_duplicate_dependency_name_and_unsafe_version_rejected (test_dependencies.DependencyInputs.test_duplicate_dependency_name_and_unsafe_version_rejected) ... ok
+test_duplicate_or_malformed_records_rejected (test_dependencies.DependencyInputs.test_duplicate_or_malformed_records_rejected) ... ok
+test_failed_integrity_never_stages_inputs (test_dependencies.DependencyInputs.test_failed_integrity_never_stages_inputs) ... ok
+test_failed_online_group_preserves_other_installed_groups (test_dependencies.DependencyInputs.test_failed_online_group_preserves_other_installed_groups) ... ok
+test_missing_source_and_registry_inputs_fail (test_dependencies.DependencyInputs.test_missing_source_and_registry_inputs_fail) ... ok
+test_online_preparation_never_overwrites_existing_group (test_dependencies.DependencyInputs.test_online_preparation_never_overwrites_existing_group) ... ok
+test_staging_uses_fresh_private_home_and_copies_inputs (test_dependencies.DependencyInputs.test_staging_uses_fresh_private_home_and_copies_inputs) ... ok
+test_stale_and_future_index_rejected (test_dependencies.DependencyInputs.test_stale_and_future_index_rejected) ... ok
+test_unexpected_and_symlink_files_rejected (test_dependencies.DependencyInputs.test_unexpected_and_symlink_files_rejected) ... ok
+test_yanked_locked_release_rejected_even_with_matching_pins (test_dependencies.DependencyInputs.test_yanked_locked_release_rejected_even_with_matching_pins) ... ok
+test_credential_urls_and_insecure_redirects_are_refused (test_download.DownloadTests.test_credential_urls_and_insecure_redirects_are_refused) ... ok
+test_refuses_symlink_parent_before_network_or_write (test_download.DownloadTests.test_refuses_symlink_parent_before_network_or_write) ... ok
+test_timeout_and_oversize_leave_no_partial_file (test_download.DownloadTests.test_timeout_and_oversize_leave_no_partial_file) ... ok
+test_wrong_hash_refuses_artifact_and_cleans_partial_download (test_download.DownloadTests.test_wrong_hash_refuses_artifact_and_cleans_partial_download) ... ok
+test_file_hash_and_symlink_rejected (test_inspection.InspectionTests.test_file_hash_and_symlink_rejected) ... ok
+test_git_metadata_symlink_is_not_trusted (test_inspection.InspectionTests.test_git_metadata_symlink_is_not_trusted) ... ok
+test_owned_stage_failure_cleans_only_its_files (test_install.ExtractionTests.test_owned_stage_failure_cleans_only_its_files) ... ok
+test_subprocess_clears_credentials_and_timeout_kills_child (test_install.ExtractionTests.test_subprocess_clears_credentials_and_timeout_kills_child) ... ok
+test_tar_traversal_and_link_escape_leave_no_files (test_install.ExtractionTests.test_tar_traversal_and_link_escape_leave_no_files) ... ok
+test_unowned_or_insecure_root_is_refused (test_install.ExtractionTests.test_unowned_or_insecure_root_is_refused) ... ok
+test_component_versions_are_not_all_rust_release_numbers (test_prepare.PreparationTests.test_component_versions_are_not_all_rust_release_numbers) ... ok
+test_lock_requires_weekly_snapshot_refresh (test_prepare.PreparationTests.test_lock_requires_weekly_snapshot_refresh) ... ok
+test_network_requires_explicit_online_and_root (test_prepare.PreparationTests.test_network_requires_explicit_online_and_root) ... ok
+test_node_is_pinned_for_preserved_design_regressions (test_prepare.PreparationTests.test_node_is_pinned_for_preserved_design_regressions) ... ok
+test_readonly_check_rejects_missing_tools_without_creating_them (test_prepare.PreparationTests.test_readonly_check_rejects_missing_tools_without_creating_them) ... ok
+test_stale_and_future_snapshot_dates_fail_closed (test_prepare.PreparationTests.test_stale_and_future_snapshot_dates_fail_closed) ... ok
+test_dynamic_host_sqlite_and_unreadable_section_fail (test_sqlite_build.SqliteBuild.test_dynamic_host_sqlite_and_unreadable_section_fail) ... ok
+test_exact_static_identity_passes (test_sqlite_build.SqliteBuild.test_exact_static_identity_passes) ... ok
+test_invalid_source_never_creates_or_compiles_output (test_sqlite_build.SqliteBuild.test_invalid_source_never_creates_or_compiles_output) ... ok
+test_other_version_number_and_source_fail (test_sqlite_build.SqliteBuild.test_other_version_number_and_source_fail) ... ok
+test_required_compile_option_loss_fails (test_sqlite_build.SqliteBuild.test_required_compile_option_loss_fails) ... ok
+test_download_failure_preserves_other_groups (test_sqlite_prepare.SqlitePreparation.test_download_failure_preserves_other_groups) ... ok
+test_existing_group_is_not_overwritten (test_sqlite_prepare.SqlitePreparation.test_existing_group_is_not_overwritten) ... ok
+test_preparation_installs_only_source_and_archive (test_sqlite_prepare.SqlitePreparation.test_preparation_installs_only_source_and_archive) ... ok
+test_complete_inputs_are_read_only (test_sqlite_source.SqliteInputs.test_complete_inputs_are_read_only) ... ok
+test_missing_corrupt_and_symlink_inputs_fail (test_sqlite_source.SqliteInputs.test_missing_corrupt_and_symlink_inputs_fail) ... ok
+test_unexpected_file_and_directory_fail (test_sqlite_source.SqliteInputs.test_unexpected_file_and_directory_fail) ... ok
+test_wrong_published_source_digest_fails (test_sqlite_source.SqliteInputs.test_wrong_published_source_digest_fails) ... ok
+
+----------------------------------------------------------------------
+Ran 41 tests in 0.094s
+
+OK

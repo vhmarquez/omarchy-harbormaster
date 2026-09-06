@@ -8,6 +8,7 @@ import tomllib
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tooling.inspection import verify_existing
 from tooling.dependencies import stage_cargo, verify_dependencies
+from tooling.sqlite_source import verify_sqlite
 
 
 def verify(root, tools):
@@ -27,6 +28,7 @@ def verify(root, tools):
         raise ValueError("Rust declaration mismatch: " + json.dumps(declarations, sort_keys=True))
     report["rust_declarations"] = declarations
     report["dependencies"] = verify_dependencies(root, tools)
+    report["sqlite_source"] = verify_sqlite(root, tools)
     return report
 
 

@@ -1,0 +1,23 @@
+{
+  "url": "https://sqlite.org/2026/sqlite-amalgamation-3530400.zip",
+  "archive_sha256": "1e71ddf93849c6a6ecf58b827c0692073d2dd7ee40196158068f7b29f422e87d",
+  "archive_sha3_256": "628a44cfe82c66aed1ccbbe85a562d2e33ebe64b3288981ed76285612227934e",
+  "files": [
+    {
+      "path": "sqlite-amalgamation-3530400/sqlite3.c",
+      "sha256": "b1dd5d74ec7f29055a6684fa06fb3c2f6821c87dd38f9a458dfd2e8a1db28189",
+      "sha3_256": "67f423e9ebbbdc473cbc4772c872ee6b89f31fde4ed0279a5c25d5f65c043a16"
+    },
+    {
+      "path": "sqlite-amalgamation-3530400/sqlite3.h",
+      "sha256": "919e7f2e8ed1d8f56ac17b412b8971c76aa5d1a879752cc6058f75e7d5910e1d",
+      "sha3_256": "89d0de498b1012938bb78dc18b68fea52e26f7f7b6db6347d126a2e58b86a05c"
+    }
+  ],
+  "schema": 1,
+  "version": "3.53.4",
+  "version_number": 3053004,
+  "source_id": "2026-07-24 19:02:57 bf7c7f30031888f4e796e429ab3978879485813aaca6f641c7b33e4e09459bcc",
+  "license": "Public Domain",
+  "release_url": "https://sqlite.org/releaselog/3_53_4.html"
+}

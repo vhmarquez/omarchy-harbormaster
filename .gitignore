@@ -5,6 +5,7 @@ __pycache__/
 .m0-local/
 .tools/
 .tools-m1-8-final/
+.tools-m1-9/
 .verify/
 target/
 .env

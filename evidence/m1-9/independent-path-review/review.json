@@ -1,0 +1,88 @@
+{
+  "reviewer": "sqlite_dependencies (independent author of dependency preparation; not author of reviewed storage filesystem/backup code)",
+  "verdict": "PASS for reviewed filesystem, backup and restoration boundaries after findings corrected",
+  "source_commit": "fa87da0bd8aaa83176eec859f33c793ee768dc0a",
+  "production_author_commits": [
+    "c71eeda",
+    "6dcdd24"
+  ],
+  "root_equivalent_latest_author_commit": "a1b47dc",
+  "reviewed_files_sha256": {
+    "crates/harbormaster/src/storage/paths.rs": "6183c564bcfa68b2be49edf61a7a821f11b339680d475782b933a9f1aa3164a8",
+    "crates/harbormaster/src/storage/backup.rs": "303d58dc8363e67c4f34634395d5dd4e52cf8dd791a32ead7512a33af1b8df19",
+    "crates/harbormaster/src/storage/schema.rs": "8ef2d6ec4179c326da3b604b0dba5fbe86e63581120381256c896746d994f957",
+    "crates/harbormaster/src/storage/engine.rs": "c453236e33867b1394a2489c136409f45519d33cc04167394aff68afdab80557"
+  },
+  "scope": [
+    "private root/no-follow descriptor traversal and fixed filenames",
+    "same-UID private single-link regular-file preconditions and retained directory/file identities",
+    "manager flock ownership and late replacement detection",
+    "all main/backup/staging/rollback SQLite-derived sidecars",
+    "supported live backup API, standalone DELETE backup, V1 staged migration and monotonic restore",
+    "foreign/future/corrupt schema and oversized WAL refusal before SQLite writes",
+    "directory fsync ordering and preservation of incomplete restore/rollback entries",
+    "source review of explicit known-manager corruption recovery and its authoritative revision-bound precondition"
+  ],
+  "actual_results": {
+    "initial_full_fixture": "10 passed;2 failed;0 ignored",
+    "original_fixture_after_fix": "12 passed;0 failed;0 ignored",
+    "strengthened_fixture_after_fix": "12 passed;0 failed;0 ignored",
+    "causal_remove_backup_shm_inventory_guard": "one real test failed after completed execution; unsafe hardlink accepted; standalone DELETE backup still prevented external data modification",
+    "causal_remove_only_v1_staged_migration": "one real test failed after completed restore; actual user_version1 rather than2"
+  },
+  "resolved_findings": [
+    {
+      "priority": "P1",
+      "finding": "Backup SQLite WAL header and omitted sidecar inventory allowed a preexisting state.backup.db-shm hardlink to alter an external synthetic inode during a read-only backup open. BackupComplete was returned.",
+      "actual_red": "empty private sentinel grew32768 bytes and existing32768-byte patterned sentinel content changed; no race or privilege",
+      "fix": "all17 derived fixed filenames validate single-link private regular entries; backup converted to standalone DELETE; standalone header verified before SQLite open",
+      "status": "corrected; unchanged fixture passes and guard mutation fails"
+    },
+    {
+      "priority": "P2",
+      "finding": "Known V1 pre-migration backup could not be restored by sole fixed RestoreBackup operation.",
+      "fix": "validate backup, migrate only bounded staged copy to active V2, preserve original backup, then replace and advance revision",
+      "status": "corrected; original fixture passes; strengthened fixture verifies active version/maintenance schema and unchanged original backup; specific migration mutation fails"
+    }
+  ],
+  "maintainability": {
+    "reviewed_files": [
+      {
+        "path": "crates/harbormaster/src/storage/backup.rs",
+        "nonblank_lines": 104,
+        "maximum_function_nonblank_lines": 43
+      },
+      {
+        "path": "crates/harbormaster/src/storage/engine.rs",
+        "nonblank_lines": 204,
+        "maximum_function_nonblank_lines": 46
+      },
+      {
+        "path": "crates/harbormaster/src/storage/paths.rs",
+        "nonblank_lines": 260,
+        "maximum_function_nonblank_lines": 41
+      },
+      {
+        "path": "crates/harbormaster/src/storage/schema.rs",
+        "nonblank_lines": 207,
+        "maximum_function_nonblank_lines": 40
+      }
+    ],
+    "new_production_hotspots": [],
+    "disposition": "PASS: filesystem identity/ownership, SQL identity/migration and backup/replacement responsibilities are cohesive; no reviewed production300-file/50-function trigger. Independent fixture is a cohesive twelve-case audit file above300 lines; retained as evidence, not a production module."
+  },
+  "limitations": [
+    "SQLite cannot isolate against a concurrently hostile same-UID process able to replace valid private paths or bypass the manager lock; the ordinary preexisting hardlink/symlink checks are still required and were tested.",
+    "Focused runs reused only already-verified private Cargo/static SQLite build state while new source snapshots were compiled. No exact-candidate canonical/Docker/native qualification is claimed by this review.",
+    "Incomplete restore states were synthetic filesystem fixtures; this reviewer did not claim actual abrupt-process restore tests. Root owns actual cross-process commit crash integration.",
+    "Explicit corrupt-manager recovery was source-reviewed; its caller revision upper bound must be authoritative and must never be guessed from a last acknowledgement. Parent/other reviewer cover worker API and runtime recovery fixtures.",
+    "No dependency self-review verdict, production edits, live or harness database access, global state, Docker permission changes, push, merge or M2 work."
+  ],
+  "receipt_sha256": {
+    "red.json": "02c68f34b4ef43b523fe8711f146f6910545f44162f91f401a21045355fb2667",
+    "green-original-fixture.json": "c8f8f95ec50a410a3760adbc62e8dc0550b302f6ad31936616cd54c428ee9c6d",
+    "causal.json": "2f0033c5af91280d5ee0b84976996de1b67d6190f031e182d8938c36106a6d6e",
+    "metrics.json": "2f2e5fe0a32d2bd8e7c256a2815870ac816f35520816a18b00075256b5dff35b",
+    "review_paths.rs": "d1be6159268e932c0a9e451948b7ef339e123a32e3b1a45395a8f8c7ebeafb52"
+  }
+}

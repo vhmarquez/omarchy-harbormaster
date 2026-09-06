@@ -23,7 +23,7 @@ def execute_checks(checks, executor, output):
         except (OSError, ValueError) as error:
             result["error"] = type(error).__name__
         results.append(result)
-        if name in {"isolation-probe", "tool-pins", "native-tool-pins"} and result["status"] != "PASS":
+        if name in {"isolation-probe", "tool-pins", "sqlite-build", "native-tool-pins"} and result["status"] != "PASS":
             blocked_by = name
         print(f"{result['status']:4} {name}", flush=True)
     return results

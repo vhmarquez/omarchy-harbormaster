@@ -1,0 +1,593 @@
+{
+  "schema": 2,
+  "started_at": "2026-09-06T18:03:47.217961+00:00",
+  "backend": "bwrap",
+  "scope": "all",
+  "checks": [
+    {
+      "name": "isolation-probe",
+      "required": true,
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verification/probe.py",
+        "/tmp/harbormaster-verify-2jnixgzy/outside-canary"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.028,
+      "log": "isolation-probe.txt"
+    },
+    {
+      "name": "tool-pins",
+      "required": true,
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verification/preflight.py",
+        "--stage-cargo"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.009,
+      "log": "tool-pins.txt"
+    },
+    {
+      "name": "sqlite-build",
+      "required": true,
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verification/sqlite.py"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 16.056,
+      "log": "sqlite-build.txt"
+    },
+    {
+      "name": "native-tool-pins",
+      "required": true,
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verification/native.py",
+        "versions"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.046,
+      "log": "native-tool-pins.txt"
+    },
+    {
+      "name": "rust-format",
+      "required": true,
+      "command": [
+        "/tools/rust/bin/cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "status": "FAIL",
+      "exit_code": 1,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.056,
+      "log": "rust-format.txt"
+    },
+    {
+      "name": "rust-clippy",
+      "required": true,
+      "command": [
+        "/tools/rust/bin/cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-targets",
+        "--all-features",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 2.666,
+      "log": "rust-clippy.txt"
+    },
+    {
+      "name": "rust-unit",
+      "required": true,
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--lib",
+        "--all-features"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 2.502,
+      "log": "rust-unit.txt"
+    },
+    {
+      "name": "rust-integration",
+      "required": true,
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--test",
+        "cli",
+        "--all-features"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.497,
+      "log": "rust-integration.txt"
+    },
+    {
+      "name": "rust-protocol",
+      "required": true,
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--test",
+        "protocol",
+        "--all-features"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.18,
+      "log": "rust-protocol.txt"
+    },
+    {
+      "name": "rust-protocol-fuzz",
+      "required": true,
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--test",
+        "protocol_fuzz",
+        "--all-features"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.296,
+      "log": "rust-protocol-fuzz.txt"
+    },
+    {
+      "name": "rust-ipc",
+      "required": true,
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--test",
+        "ipc",
+        "--all-features"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.229,
+      "log": "rust-ipc.txt"
+    },
+    {
+      "name": "rust-ingestion",
+      "required": true,
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--test",
+        "ingestion",
+        "--all-features"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.317,
+      "log": "rust-ingestion.txt"
+    },
+    {
+      "name": "rust-storage",
+      "required": true,
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--test",
+        "storage",
+        "--all-features"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.288,
+      "log": "rust-storage.txt"
+    },
+    {
+      "name": "rust-storage-crash",
+      "required": true,
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--test",
+        "storage_crash",
+        "--all-features"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.211,
+      "log": "rust-storage-crash.txt"
+    },
+    {
+      "name": "qml-lint",
+      "required": true,
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verification/native.py",
+        "lint"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.091,
+      "log": "qml-lint.txt"
+    },
+    {
+      "name": "qml-format",
+      "required": true,
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verification/native.py",
+        "format"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.03,
+      "log": "qml-format.txt"
+    },
+    {
+      "name": "qml-native",
+      "required": true,
+      "command": [
+        "/usr/lib/qt6/bin/qmltestrunner",
+        "-input",
+        "qml/tests",
+        "-maxwarnings",
+        "0"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.329,
+      "log": "qml-native.txt"
+    },
+    {
+      "name": "python-verification",
+      "required": true,
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/verification",
+        "-v"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 10.16,
+      "log": "python-verification.txt"
+    },
+    {
+      "name": "python-tooling",
+      "required": true,
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/tooling",
+        "-v"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.17,
+      "log": "python-tooling.txt"
+    },
+    {
+      "name": "m0-contract-tests",
+      "required": true,
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.076,
+      "log": "m0-contract-tests.txt"
+    },
+    {
+      "name": "m0-fixture-contract",
+      "required": true,
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verify-m0.py"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.018,
+      "log": "m0-fixture-contract.txt"
+    },
+    {
+      "name": "m0-runtime-identity",
+      "required": true,
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "spikes/runtime",
+        "-p",
+        "test_identity.py",
+        "-v"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.035,
+      "log": "m0-runtime-identity.txt"
+    },
+    {
+      "name": "m0-runtime-cleanup",
+      "required": true,
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "spikes/runtime",
+        "-p",
+        "test_cleanup.py",
+        "-v"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.1,
+      "log": "m0-runtime-cleanup.txt"
+    },
+    {
+      "name": "m0-harness-helpers",
+      "required": true,
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "spikes/harnesses",
+        "-p",
+        "test_probe.py",
+        "-v"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.173,
+      "log": "m0-harness-helpers.txt"
+    },
+    {
+      "name": "m0-design-model",
+      "required": true,
+      "command": [
+        "node",
+        "--test",
+        "--test-reporter=tap",
+        "docs/design/tests/study.test.cjs"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.081,
+      "log": "m0-design-model.txt"
+    },
+    {
+      "name": "frozen-design-integrity",
+      "required": true,
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "docs/design/tests/verify_bundle.py"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.035,
+      "log": "frozen-design-integrity.txt"
+    },
+    {
+      "name": "advisory-license",
+      "required": true,
+      "command": [
+        "/tools/bin/cargo-deny",
+        "--config",
+        "tools/deny.toml",
+        "--frozen",
+        "--workspace",
+        "check",
+        "--deny",
+        "warnings",
+        "all"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.167,
+      "log": "advisory-license.txt"
+    },
+    {
+      "name": "maintainability",
+      "required": true,
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verification/maintainability.py",
+        "."
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.128,
+      "log": "maintainability.txt"
+    },
+    {
+      "name": "rust-ipc-namespace",
+      "required": true,
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--test",
+        "ipc_namespace",
+        "--all-features",
+        "--",
+        "--exact",
+        "peer_without_visible_pid_is_rejected",
+        "--nocapture"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.138,
+      "log": "rust-ipc-namespace.txt"
+    },
+    {
+      "name": "m0-harness-sandbox",
+      "required": true,
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "spikes/harnesses/test_sandbox.py",
+        "Helpers.test_sandbox_denies_network_and_inherited_credentials",
+        "NetworkNamespace.test_sandbox_uses_distinct_network_namespace",
+        "-v"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.067,
+      "log": "m0-harness-sandbox.txt"
+    },
+    {
+      "name": "m0-live-runtime",
+      "required": false,
+      "status": "SKIP",
+      "reason": "Separate opt-in desktop/service probe; no deployment authorized"
+    },
+    {
+      "name": "m0-live-harness",
+      "required": false,
+      "status": "SKIP",
+      "reason": "Installed real harness probes are outside offline #7 verification"
+    },
+    {
+      "name": "native-shell-integration",
+      "required": false,
+      "status": "SKIP",
+      "reason": "Production Omarchy/QML UI is not implemented in #7"
+    }
+  ],
+  "passed": false,
+  "qualification_complete": false,
+  "qualifications": {
+    "portable": "FAIL",
+    "native": "PASS"
+  }
+}

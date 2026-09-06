@@ -1,0 +1,169 @@
+{
+  "implementation_commit": "f0cabc1cf758391ab1423e69aceb4e17569e324c",
+  "scope": "author review and actual isolated subtask receipts; independent review and exact candidate qualification remain separate",
+  "primary_sources": [
+    {
+      "url": "https://sqlite.org/releaselog/3_53_4.html",
+      "retrieved_sha256": "c8d12ef674ac295edba47c341cb18b5913795ba94a78474c68e4213970d128ac"
+    },
+    {
+      "url": "https://sqlite.org/releaselog/3_53_2.html",
+      "retrieved_sha256": "2e31f325d3f73b4af790e6d053e6feee4878ab2194b4922bba8d4904584af869"
+    },
+    {
+      "url": "https://sqlite.org/src/timeline?from=version-3.53.2&to=version-3.53.4&to2=branch-3.53&y=ci",
+      "retrieved_sha256": "7d91195f5871833da476945bf40c55822bff90b885b71ce83fad371bddf58d11"
+    },
+    {
+      "url": "https://sqlite.org/wal.html",
+      "retrieved_sha256": "f3467b530b883d4a00574fe1a898b3d121ed72764ae28cf66941080ac0badb9e"
+    },
+    {
+      "url": "https://sqlite.org/cves.html",
+      "retrieved_sha256": "0ef51a811fdc3dcfcd86692736190db83ef78073892fbe2d89029cbc57ade3a5"
+    },
+    {
+      "url": "https://sqlite.org/security.html",
+      "retrieved_sha256": "55cf2628b79907b1b2e10af9b2caeba09829abedbfdd5f173d166f2058c85047"
+    },
+    {
+      "url": "https://sqlite.org/c3ref/backup_finish.html",
+      "retrieved_sha256": "3beb8d98440837d57fe8841e13a0d90c4a71b7387ed8dbaf5b92c79f4247325b"
+    },
+    {
+      "url": "https://sqlite.org/c3ref/wal_checkpoint_v2.html",
+      "retrieved_sha256": "0b1d1ff100749da95b6db5032ad1f1b9dc93b531c864441b75507b85d91b7a0f"
+    },
+    {
+      "url": "https://sqlite.org/howtocorrupt.html",
+      "retrieved_sha256": "e00709e3f37e95332d8e6df243510665e9cab1d7938d4fd85cbf5f47648a50bf"
+    },
+    {
+      "url": "https://sqlite.org/copyright.html",
+      "retrieved_sha256": "44ca9f793055c8e32fc65f65a4f5bcf813a33f5bdaaa084067dd617a4ed3cc70"
+    },
+    {
+      "url": "https://sqlite.org/pragma.html",
+      "retrieved_sha256": "b9bcb335ae818497f3fa05114a10492f64f35503f275da2264f2d5d436db3f5d"
+    },
+    {
+      "url": "https://github.com/rusqlite/rusqlite/releases/tag/v0.40.2",
+      "retrieved_sha256": "0f6bfd9e64d74a83f29c7f74b4ddea8659bf5aec48c566bf2b94bb03f68e45b8"
+    },
+    {
+      "url": "https://rustsec.org/packages/rusqlite.html",
+      "retrieved_sha256": "049f110968383dad7c079fa686d290257648b24ded6a837732731d5fcc4a03b5"
+    },
+    {
+      "url": "https://rustsec.org/packages/libsqlite3-sys.html",
+      "retrieved_sha256": "fb82fc268b11bd6db1410f941b8f47dfc8d03b4d71e9b747b8dfffd61906efef"
+    }
+  ],
+  "source_pin": {
+    "url": "https://sqlite.org/2026/sqlite-amalgamation-3530400.zip",
+    "archive_sha256": "1e71ddf93849c6a6ecf58b827c0692073d2dd7ee40196158068f7b29f422e87d",
+    "archive_sha3_256": "628a44cfe82c66aed1ccbbe85a562d2e33ebe64b3288981ed76285612227934e",
+    "files": [
+      {
+        "path": "sqlite-amalgamation-3530400/sqlite3.c",
+        "sha256": "b1dd5d74ec7f29055a6684fa06fb3c2f6821c87dd38f9a458dfd2e8a1db28189",
+        "sha3_256": "67f423e9ebbbdc473cbc4772c872ee6b89f31fde4ed0279a5c25d5f65c043a16"
+      },
+      {
+        "path": "sqlite-amalgamation-3530400/sqlite3.h",
+        "sha256": "919e7f2e8ed1d8f56ac17b412b8971c76aa5d1a879752cc6058f75e7d5910e1d",
+        "sha3_256": "89d0de498b1012938bb78dc18b68fea52e26f7f7b6db6347d126a2e58b86a05c"
+      }
+    ],
+    "schema": 1,
+    "version": "3.53.4",
+    "version_number": 3053004,
+    "source_id": "2026-07-24 19:02:57 bf7c7f30031888f4e796e429ab3978879485813aaca6f641c7b33e4e09459bcc",
+    "license": "Public Domain",
+    "release_url": "https://sqlite.org/releaselog/3_53_4.html"
+  },
+  "added_packages": [
+    {
+      "name": "rusqlite",
+      "version": "0.40.2",
+      "checksum": "23f2a97da3e3873c73cb2a2e71b35c40ff95e0b1eefa8d72d8499a6928c3b5b3",
+      "index_sha256": "d2748c074c13d4495f8a238ad9d56701cccc7390f47de1d7f2534df1e68d90ac",
+      "license": "MIT"
+    },
+    {
+      "name": "libsqlite3-sys",
+      "version": "0.38.2",
+      "checksum": "f1d20bef17f513b9b3004532233187769cd072d790971f4e4da0e346eb6401e8",
+      "index_sha256": "84ce25ebec0a34fad336098927f4ad219d226b3aa2d5ce9795e244691d9f4afc",
+      "license": "MIT"
+    },
+    {
+      "name": "fallible-iterator",
+      "version": "0.3.0",
+      "checksum": "2acce4a10f12dc2fb14a218589d4f1f62ef011b2d0cc4b3cb1bba8e94da14649",
+      "index_sha256": "ce5204728489f91032f1d27af28c301a9eb280f37bc1664df0f96d8651824539",
+      "license": "MIT/Apache-2.0"
+    },
+    {
+      "name": "fallible-streaming-iterator",
+      "version": "0.1.9",
+      "checksum": "7360491ce676a36bf9bb3c56c1aa791658183a54d2744120f27285738d90465a",
+      "index_sha256": "40fe4174720beb86d95e204ca166137ac0d7d4ca0b5f9859c41f36c1104c4f23",
+      "license": "MIT/Apache-2.0"
+    },
+    {
+      "name": "smallvec",
+      "version": "1.16.0",
+      "checksum": "b9be42f50aa861c555654aa3a37f52f4b1074bacf4e48fe0ef7fa584e80f1f0f",
+      "index_sha256": "4443e90d3af4ec1dfdef1bb0e28a71110fe941513d62c8ff33563a44f7439103",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "pkg-config",
+      "version": "0.3.34",
+      "checksum": "f6b464fbc74e149a392436b17d523f769e057cb6877f6a5c4618bc6f11800548",
+      "index_sha256": "5bb3b4001e6f96b9e7c250ec5577873662144513a5b38733e4a627ed150f07b4",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "vcpkg",
+      "version": "0.2.15",
+      "checksum": "accd4ea62f7bb7a82fe23066fb0957d48ef677f6eeb8215f372f52e48bb32426",
+      "index_sha256": "bb12b95ed445815fbbd340ac41bf1ecaea7178cb85e27c46239980b024d563ae",
+      "license": "MIT/Apache-2.0"
+    }
+  ],
+  "observed_red": "Initial checksum-only source inspection accepted missing/corrupt/symlink archive, extra file/directory and mismatching published SHA3. Fixed boundary rejected every case. RED6 failed assertions, then GREEN4 tests. Full tooling GREEN41 includes12 SQLite tests.",
+  "intermediate_failures": "An initial runtime check expected USE_URI=0 in compile_options, while upstream reports bareUSE_URI. Fixed interpretation with actual URI/trusted-schema behavior. Initial Rust smoke used unsupported u64 FromSql, then corrected to i64. These intermediate failures are not semantic RED evidence.",
+  "limits": "M1 build fixtures only; no full upstream SQLite test suite, installed product, live data, redistribution approval, Docker/native paired qualification or M2 work.",
+  "receipt_sha256": {
+    "source-red.json": "072d3108fd88ec01d403796928f141af5bf5e93166bf337394fc5a575f0dd1c2",
+    "source-green.json": "f68dd92ca123d4cd2fcc68436cef4f4bcba5db440c5c8244c403910daba3c50b",
+    "tooling-tests.json": "4e68d14b05dbea1b6e9b8c4116605a094d42f103d77df64524aa7bcf34636408",
+    "static-rust-link.json": "cbf4f1303046955c606aa9f2519a2653d957d7b2c4c787a52eb986b656e76a40",
+    "cargo-policy.json": "965ebcc761891eb609e0c860e79a9725e7bcef6f6363819cfacb20e59a235192",
+    "resolved-graph.json": "6f3dd31cfd87e314f0ce02f23b100d07cd71a1286d86cbf0a5ebe55715fbe013"
+  },
+  "implementation_files_sha256": {
+    ".github/workflows/verify.yml": "e50853b50472ed3fa5ff7640790a0b25794bfe85414de14430a525203d8589c1",
+    "Cargo.lock": "b684d33c42a002af1d026aea69013126b158873792b3702196669ad32cbb06a9",
+    "crates/harbormaster/Cargo.toml": "eda6ada95eb5448ad500a730fbe6d01f36f99e8a1b4c54846ffc53cb793e14ce",
+    "docs/DEPENDENCIES.md": "2b626b72bf1a0b94796fd6081b58a80aa9a126219450ba0b7a52ced1ea0d6217",
+    "docs/M1-9-SQLITE-BUILD.md": "25c1042c95a4eec975cf13a9c9fb285060ed67f99a9a321b046eebf8b62e0259",
+    "docs/TOOLCHAIN.md": "afe9338d7e9d8aff87a180c3d8dfcdd4440a8fa7c158daf84a1093fb87a363c4",
+    "scripts/prepare-sqlite.py": "46dfa4513455ae721da4e920c1b0ff3f8bf645a0a26a072a8bb55687c8481df3",
+    "scripts/tooling/install.py": "86917819f4a8bd7521d50bf2965789761da2d5c7d7aaff312e2db571444e328e",
+    "scripts/tooling/sqlite_prepare.py": "9ea06bd393d0b17c245bd29158e287e3390e2bc82ceb1ddba363e9f1887f0f07",
+    "scripts/tooling/sqlite_source.py": "da7985c5f5c743655b9196b8048f90dad338122e5225f21c09e41854357294da",
+    "scripts/verification/preflight.py": "17569b44ebb1b31bc8e584cec7602dcf4f304782db31e60321619b74a791f513",
+    "scripts/verification/sqlite.py": "fdb9f232b86be054d6f7de47de6ce9eedb8aca795916aae5b6922d2cce340561",
+    "tests/tooling/probe_dependencies.py": "7f5684e0dd1fff4f2aa558f0ce0f5a0c41312275e3de1cf7acaa047c9c4385e1",
+    "tests/tooling/probe_sqlite.py": "1039ef99c6e822edd0f6955aaf65ce77e51f9ec3ae3939bc44aa823db45564d7",
+    "tests/tooling/sqlite_probe.rs": "5bf87ba0ba0d10c74aa862438a3137294a4744e70f079f5d5f6fbc0883b00f6f",
+    "tests/tooling/test_sqlite_build.py": "a64c590c53df4fe055d9d57e3223eac1b51dc06e86a868730bc6c4ed2eb7997c",
+    "tests/tooling/test_sqlite_prepare.py": "954e17a62267e1ab4afba6cc7d6b2c0d71e704f1fb14332dca06d995fe401a57",
+    "tests/tooling/test_sqlite_source.py": "373ea8915e00c867131da45825859843c0adce021512d6ddd2a3cc97e7cfc846",
+    "tools/dependencies.lock.json": "ea916681a1a9173e83bc46dc6c425b9f67a365e28808ec0fd123836c588d62c6",
+    "tools/sqlite.lock.json": "ded1a5386920b1f4e5fba23b93507a58210713d15c5498e27aa02e63df833414"
+  }
+}

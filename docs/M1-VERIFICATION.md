@@ -1,43 +1,50 @@
-# M1 #8 candidate verification
+# M1 #9 candidate verification
 
-The #8 integration adds four separately required portable Rust targets, taking
-portable to 25 and local combined to 27 required checks. Native has four required
-entries: the original two preflights and both real M0 integration methods, plus
-the separately required unmapped-peer-PID namespace target. The mandatory paired
-contract and locked-down Docker policy below still apply without exception.
-[The #8 protocol/IPC scope](M1-8-PROTOCOL.md) describes executable coverage and
-limits; [the evidence index](../evidence/m1-8/README.md) and the issue-linked PR identify actual candidate reports,
-source revision and independent review. Component passes and historical #7
-receipts cannot replace current candidate qualification or owner approval.
+The storage addition introduces required `sqlite-build`, `rust-storage` and
+`rust-storage-crash` checks. Portable has 28 required entries, local combined
+has 30, and separately executed native has five: three shared preflights plus
+the #8 unmapped-peer-PID target and preserved M0 sandbox check (both exact methods).
+Docker confinement and the mandatory pairing contract remain unchanged.
 
-Current preparation includes the explicit public dependency command, followed
-by offline execution. Use a newly prepared private tools root as described in
-[TOOLCHAIN.md](TOOLCHAIN.md); this machine's reviewed 23-package graph is in
-`.tools-m1-8-final`, leaving the older `.tools` inputs intact:
+[#9 responsibilities](M1-9-DEVELOPMENT.md), [storage guarantees and limits](M1-9-STORAGE-ENGINE.md),
+[SQLite source/build review](M1-9-SQLITE-BUILD.md), [review dispositions](M1-9-REVIEW.md), and [the evidence index](../evidence/m1-9/README.md)
+separate semantic RED/GREEN, independent review and final qualification.
+The issue-linked PR records the exact candidate, hosted run/artifact and actual
+paired CLI result. An earlier pass never qualifies changed selected source.
 
-    env -i PATH=/usr/bin python3 -B scripts/verify.py --tools /home/vhm/Work/omarchy-harbormaster/.tools-m1-8-final
-    env -i PATH=/usr/bin python3 -B scripts/verify.py --tools /home/vhm/Work/omarchy-harbormaster/.tools-m1-8-final --scope native
+Public preparation explicitly verifies tools, the 30-package registry graph and
+the separate official SQLite source. No implicit network access occurs during
+verification. Use a NEW private tools root; this host uses `.tools-m1-9` and
+preserves `.tools` and `.tools-m1-8-final`. See [preparation](M1-9-SQLITE-BUILD.md).
+
+    env -i PATH=/usr/bin python3 -B scripts/verify.py --tools /home/vhm/Work/omarchy-harbormaster/.tools-m1-9
+    env -i PATH=/usr/bin python3 -B scripts/verify.py --tools /home/vhm/Work/omarchy-harbormaster/.tools-m1-9 --scope native
     env -i PATH=/usr/bin python3 -B scripts/verify.py --qualify PORTABLE_REPORT_DIRECTORY NATIVE_REPORT_DIRECTORY --revision FULL_COMMIT_SHA
 
-Pair actual report directories, not JSON paths. Paired mode takes no tools
-option. The PR's current-head hosted artifact must be portable Docker evidence;
-local combined execution alone cannot complete qualification. All source-bearing
-docs are included in the selected hashes. Receipts under `evidence/` are excluded
-to avoid recursive hashes; recording receipts does not permit changed selected
-source bytes to reuse an old execution.
+Pair actual directories containing reports/manifests/logs, not JSON paths.
+Paired mode takes no tools option. The current-head hosted artifact must be
+portable Docker evidence. Local combined execution alone remains incomplete.
+Selected sources include docs; receipts under `evidence/` are excluded to avoid
+recursive hashes, which never permits altered code/docs to reuse old execution.
+Failure of SQLite source preflight or offline compilation blocks later code
+execution while enumerating every remaining required check as NOT_RUN.
 
-# Current post-merge verification
+## Current main post-merge qualification
 
-Owner-merged #49 / closed #7 main `70a671bf5bf93aaed7a3acbc1ad26df76fd60187`
-passed fresh post-merge verification on 2026-09-06: actual hosted portable 21
-required PASS; fresh local combined 22 required PASS; dedicated native 3 required
-PASS including both real integration methods; paired qualification PASS for all
-140 selected source files. Each execution explicitly skipped only the 3 optional
-live/future probes. [Actual reports and logs](../evidence/m1-8/post-merge-main/summary.json)
-preserve the downloaded main artifact (run 34001018813, artifact 9979529198),
-fresh local executions, and actual paired report. Historical PR-head records
-below remain unchanged; their former approval blockers are superseded by the
-owner merge. #8 requires new source-bound verification and its own approval.
+Owner-merged PR #50 / closed #8 main
+`47d726972991c88da897fe20ef4ce413142227d5` passed fresh qualification on
+2026-09-06: hosted locked-down Docker portable 25 required PASS, local combined
+27 PASS, dedicated native 4 PASS, actual paired PASS for 174 selected files.
+[Actual reports and logs](../evidence/m1-9/post-merge-main/summary.json) include
+run 34039894234 / artifact 9991394591 and fresh local receipts. This completes
+the #8 dependency check; #9 still requires its own qualification and approval.
+
+PR #49 / closed #7 main `70a671bf5bf93aaed7a3acbc1ad26df76fd60187` had
+[its own post-merge qualification](../evidence/m1-8/post-merge-main/summary.json):
+portable 21, combined 22, native 3 required PASS, paired 140 selected files.
+Only the same three optional live/future probes skipped in either baseline.
+Historical records below retain their original results and former blockers;
+verified owner merges supersede the old approval text.
 
 # Historical verification — M1 #7
 
