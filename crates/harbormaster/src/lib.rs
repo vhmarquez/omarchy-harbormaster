@@ -64,3 +64,5 @@ pub fn interpret(args: &[OsString]) -> Result<Action, CliError> {
 
 #[cfg(test)]
 mod tests;
+
+pub mod ipc;

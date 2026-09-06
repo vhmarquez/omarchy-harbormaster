@@ -1,0 +1,545 @@
+{
+  "production": {
+    "files": [
+      {
+        "path": "crates/harbormaster/src/ipc/connection.rs",
+        "language": "rust",
+        "nonblank_lines": 238,
+        "functions": [
+          {
+            "name": "new",
+            "line": 22,
+            "end_line": 30,
+            "nonblank_lines": 9,
+            "nesting": 1,
+            "branches": 1
+          },
+          {
+            "name": "active",
+            "line": 33,
+            "end_line": 35,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "acquire",
+            "line": 37,
+            "end_line": 43,
+            "nonblank_lines": 7,
+            "nesting": 1,
+            "branches": 1
+          },
+          {
+            "name": "drop",
+            "line": 49,
+            "end_line": 51,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "accept",
+            "line": 76,
+            "end_line": 108,
+            "nonblank_lines": 33,
+            "nesting": 1,
+            "branches": 6
+          },
+          {
+            "name": "channel",
+            "line": 111,
+            "end_line": 113,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "peer",
+            "line": 116,
+            "end_line": 118,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "complete_handshake",
+            "line": 125,
+            "end_line": 129,
+            "nonblank_lines": 5,
+            "nesting": 0,
+            "branches": 1
+          },
+          {
+            "name": "read_frame",
+            "line": 135,
+            "end_line": 177,
+            "nonblank_lines": 43,
+            "nesting": 3,
+            "branches": 8
+          },
+          {
+            "name": "queue_frame",
+            "line": 183,
+            "end_line": 196,
+            "nonblank_lines": 14,
+            "nesting": 2,
+            "branches": 4
+          },
+          {
+            "name": "flush",
+            "line": 203,
+            "end_line": 229,
+            "nonblank_lines": 27,
+            "nesting": 2,
+            "branches": 4
+          },
+          {
+            "name": "check_deadlines",
+            "line": 231,
+            "end_line": 248,
+            "nonblank_lines": 18,
+            "nesting": 1,
+            "branches": 2
+          },
+          {
+            "name": "close",
+            "line": 250,
+            "end_line": 254,
+            "nonblank_lines": 5,
+            "nesting": 0,
+            "branches": 0
+          }
+        ],
+        "analysis_error": null,
+        "metric_kind": "lexical-approximate"
+      },
+      {
+        "path": "crates/harbormaster/src/ipc/framing.rs",
+        "language": "rust",
+        "nonblank_lines": 112,
+        "functions": [
+          {
+            "name": "feed",
+            "line": 20,
+            "end_line": 41,
+            "nonblank_lines": 22,
+            "nesting": 2,
+            "branches": 4
+          },
+          {
+            "name": "finish",
+            "line": 47,
+            "end_line": 55,
+            "nonblank_lines": 9,
+            "nesting": 1,
+            "branches": 1
+          },
+          {
+            "name": "has_partial",
+            "line": 57,
+            "end_line": 59,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "close",
+            "line": 61,
+            "end_line": 64,
+            "nonblank_lines": 4,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "valid_frame",
+            "line": 67,
+            "end_line": 74,
+            "nonblank_lines": 8,
+            "nesting": 0,
+            "branches": 3
+          },
+          {
+            "name": "push",
+            "line": 89,
+            "end_line": 102,
+            "nonblank_lines": 14,
+            "nesting": 1,
+            "branches": 4
+          },
+          {
+            "name": "frames",
+            "line": 105,
+            "end_line": 107,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "bytes",
+            "line": 110,
+            "end_line": 112,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "front",
+            "line": 114,
+            "end_line": 116,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "advance",
+            "line": 118,
+            "end_line": 124,
+            "nonblank_lines": 7,
+            "nesting": 1,
+            "branches": 1
+          }
+        ],
+        "analysis_error": null,
+        "metric_kind": "lexical-approximate"
+      },
+      {
+        "path": "crates/harbormaster/src/ipc/mod.rs",
+        "language": "rust",
+        "nonblank_lines": 58,
+        "functions": [
+          {
+            "name": "fmt",
+            "line": 40,
+            "end_line": 52,
+            "nonblank_lines": 13,
+            "nesting": 1,
+            "branches": 1
+          },
+          {
+            "name": "from",
+            "line": 58,
+            "end_line": 60,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "from",
+            "line": 64,
+            "end_line": 66,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          }
+        ],
+        "analysis_error": null,
+        "metric_kind": "lexical-approximate"
+      },
+      {
+        "path": "crates/harbormaster/src/ipc/paths.rs",
+        "language": "rust",
+        "nonblank_lines": 208,
+        "functions": [
+          {
+            "name": "open",
+            "line": 27,
+            "end_line": 46,
+            "nonblank_lines": 20,
+            "nesting": 1,
+            "branches": 5
+          },
+          {
+            "name": "drop",
+            "line": 50,
+            "end_line": 55,
+            "nonblank_lines": 6,
+            "nesting": 1,
+            "branches": 2
+          },
+          {
+            "name": "open_runtime",
+            "line": 58,
+            "end_line": 77,
+            "nonblank_lines": 20,
+            "nesting": 3,
+            "branches": 12
+          },
+          {
+            "name": "validate_directory",
+            "line": 79,
+            "end_line": 91,
+            "nonblank_lines": 13,
+            "nesting": 1,
+            "branches": 6
+          },
+          {
+            "name": "same_entry",
+            "line": 93,
+            "end_line": 100,
+            "nonblank_lines": 8,
+            "nesting": 1,
+            "branches": 3
+          },
+          {
+            "name": "bind",
+            "line": 111,
+            "end_line": 147,
+            "nonblank_lines": 37,
+            "nesting": 1,
+            "branches": 9
+          },
+          {
+            "name": "drop",
+            "line": 151,
+            "end_line": 157,
+            "nonblank_lines": 7,
+            "nesting": 1,
+            "branches": 1
+          },
+          {
+            "name": "bind",
+            "line": 176,
+            "end_line": 185,
+            "nonblank_lines": 10,
+            "nesting": 1,
+            "branches": 4
+          },
+          {
+            "name": "accept",
+            "line": 193,
+            "end_line": 220,
+            "nonblank_lines": 28,
+            "nesting": 2,
+            "branches": 3
+          }
+        ],
+        "analysis_error": null,
+        "metric_kind": "lexical-approximate"
+      },
+      {
+        "path": "crates/harbormaster/src/ipc/peer.rs",
+        "language": "rust",
+        "nonblank_lines": 42,
+        "functions": [
+          {
+            "name": "read",
+            "line": 13,
+            "end_line": 20,
+            "nonblank_lines": 8,
+            "nesting": 1,
+            "branches": 1
+          },
+          {
+            "name": "uid",
+            "line": 23,
+            "end_line": 25,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "gid",
+            "line": 28,
+            "end_line": 30,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "pid",
+            "line": 33,
+            "end_line": 35,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "require_uid",
+            "line": 41,
+            "end_line": 47,
+            "nonblank_lines": 7,
+            "nesting": 1,
+            "branches": 1
+          }
+        ],
+        "analysis_error": null,
+        "metric_kind": "lexical-approximate"
+      }
+    ],
+    "hotspots": []
+  },
+  "tests": {
+    "files": [
+      {
+        "path": "crates/harbormaster/tests/ipc.rs",
+        "language": "rust",
+        "nonblank_lines": 393,
+        "functions": [
+          {
+            "name": "new",
+            "line": 19,
+            "end_line": 29,
+            "nonblank_lines": 11,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "path",
+            "line": 31,
+            "end_line": 36,
+            "nonblank_lines": 6,
+            "nesting": 1,
+            "branches": 1
+          },
+          {
+            "name": "drop",
+            "line": 40,
+            "end_line": 42,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "deadline",
+            "line": 45,
+            "end_line": 47,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "framing_is_incremental_bounded_and_poisoned_after_failure",
+            "line": 50,
+            "end_line": 65,
+            "nonblank_lines": 16,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "malformed_encoding_and_eof_reject_buffered_frame",
+            "line": 68,
+            "end_line": 75,
+            "nonblank_lines": 8,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "outbound_enforces_both_caps_before_copying",
+            "line": 78,
+            "end_line": 98,
+            "nonblank_lines": 21,
+            "nesting": 1,
+            "branches": 2
+          },
+          {
+            "name": "private_socket_paths_are_owned_and_channels_are_listener_evidence",
+            "line": 101,
+            "end_line": 138,
+            "nonblank_lines": 38,
+            "nesting": 1,
+            "branches": 1
+          },
+          {
+            "name": "unsafe_runtime_and_symlink_ancestors_are_rejected",
+            "line": 141,
+            "end_line": 155,
+            "nonblank_lines": 15,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "bind_failure_and_cleanup_never_delete_existing_or_replaced_files",
+            "line": 158,
+            "end_line": 170,
+            "nonblank_lines": 13,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "held_directory_survives_rename_without_touching_replacement_directory",
+            "line": 173,
+            "end_line": 188,
+            "nonblank_lines": 16,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "nonblocking_io_preserves_fragmented_frames_and_separate_consumers",
+            "line": 191,
+            "end_line": 226,
+            "nonblank_lines": 36,
+            "nesting": 1,
+            "branches": 1
+          },
+          {
+            "name": "connection_cap_releases_on_drop_and_deadline_closes_connection",
+            "line": 229,
+            "end_line": 257,
+            "nonblank_lines": 29,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "cross_process_peer_credentials_are_from_the_kernel",
+            "line": 260,
+            "end_line": 285,
+            "nonblank_lines": 26,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "queue_overflow_disconnects_so_a_client_must_resynchronize",
+            "line": 288,
+            "end_line": 306,
+            "nonblank_lines": 19,
+            "nesting": 1,
+            "branches": 1
+          },
+          {
+            "name": "partial_frame_deadline_does_not_extend_with_dripped_bytes",
+            "line": 309,
+            "end_line": 331,
+            "nonblank_lines": 23,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "authenticated_slow_writer_expires_while_another_client_stays_responsive",
+            "line": 334,
+            "end_line": 367,
+            "nonblank_lines": 34,
+            "nesting": 1,
+            "branches": 2
+          },
+          {
+            "name": "manager_connection_cap_cannot_be_bypassed_with_new_caller_budgets",
+            "line": 370,
+            "end_line": 398,
+            "nonblank_lines": 29,
+            "nesting": 2,
+            "branches": 2
+          },
+          {
+            "name": "second_bind_failure_rolls_back_only_the_socket_created_by_this_call",
+            "line": 401,
+            "end_line": 414,
+            "nonblank_lines": 14,
+            "nesting": 0,
+            "branches": 0
+          }
+        ],
+        "analysis_error": null,
+        "metric_kind": "lexical-approximate"
+      }
+    ],
+    "hotspots": [
+      {
+        "path": "crates/harbormaster/tests/ipc.rs",
+        "kind": "file",
+        "nonblank_lines": 393,
+        "disposition": "review required"
+      }
+    ]
+  }
+}
