@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests/verification",
+    "-p",
+    "test_m1_9_plan.py",
+    "-v"
+  ],
+  "exit_code": 0,
+  "output": "test_failed_sqlite_build_prevents_following_execution (test_m1_9_plan.StorageInventoryTests.test_failed_sqlite_build_prevents_following_execution) ... ok\ntest_sqlite_build_precedes_every_cargo_check_in_each_scope (test_m1_9_plan.StorageInventoryTests.test_sqlite_build_precedes_every_cargo_check_in_each_scope) ... ok\ntest_sqlite_link_inputs_are_fixed_and_never_inherited (test_m1_9_plan.StorageInventoryTests.test_sqlite_link_inputs_are_fixed_and_never_inherited) ... ok\ntest_storage_and_abrupt_exit_are_separate_required_portable_targets (test_m1_9_plan.StorageInventoryTests.test_storage_and_abrupt_exit_are_separate_required_portable_targets) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.009s\n\nOK\n",
+  "scope": "Actual inert subprocess regression after blocking SQLite prerequisite failure; consumer not executed."
+}

@@ -1,16 +1,34 @@
 """SQLite source/build and storage suites remain mandatory in explicit scopes."""
 from pathlib import Path
 import os
+import contextlib
+import io
 import sys
+import tempfile
 import unittest
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
 from verification.checks import plan, validate
 from verification.sandbox import environment
+from verification.sandbox import _execute
+from verification.runner import execute_checks
 
 
 class StorageInventoryTests(unittest.TestCase):
+    def test_failed_sqlite_build_prevents_following_execution(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            marker = root / "unexpected-following-execution"
+            checks = [("sqlite-build", ["/usr/bin/python3", "-c", "raise SystemExit(1)"], "exit"),
+                      ("rust-unit", ["/usr/bin/python3", "-c",
+                                     "from pathlib import Path; import sys; Path(sys.argv[1]).touch()",
+                                     str(marker)], "exit")]
+            with contextlib.redirect_stdout(io.StringIO()):
+                results = execute_checks(checks, lambda argv: _execute(argv, 5), root)
+            self.assertEqual([item["status"] for item in results], ["FAIL", "NOT_RUN"])
+            self.assertFalse(marker.exists(), "failed SQLite prerequisite still ran its consumer")
+
     def test_sqlite_build_precedes_every_cargo_check_in_each_scope(self):
         for scope in ("portable", "native", "all"):
             checks = plan(scope=scope)

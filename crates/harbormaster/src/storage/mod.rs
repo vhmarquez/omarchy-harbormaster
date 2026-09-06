@@ -8,8 +8,10 @@ mod schema;
 mod transaction;
 mod types;
 mod validation;
+mod worker;
 pub(crate) use engine::Engine;
 pub use types::*;
+pub use worker::{DatabaseWorker, MAX_OUTSTANDING, ReceiptError, SubmitError, SubmitFailure, Ticket};
 
 /// Sanitized failure categories contain no paths, SQL, metadata or OS messages.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
