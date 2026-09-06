@@ -1,6 +1,5 @@
 //! Volatile admission and authorization. No durable acknowledgment or reducer.
 mod control;
-mod generation;
 mod queue;
 mod registry;
 

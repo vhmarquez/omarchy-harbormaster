@@ -3,6 +3,7 @@
 use std::ffi::OsString;
 use std::fmt;
 
+mod generation;
 pub mod ingestion;
 pub mod protocol;
 pub mod storage;

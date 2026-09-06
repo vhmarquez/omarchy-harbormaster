@@ -2,7 +2,7 @@ use super::{
     MAX_ATTENTION, MAX_FACTS, MAX_OUTBOX_AUDIT, MAX_OUTBOX_PENDING, MAX_RUNS, MAX_TOMBSTONES,
     Registration, Response, StorageError, WriteSet, queries, validation::number,
 };
-use crate::protocol::{ProducerGeneration, Revision};
+use crate::protocol::Revision;
 use rusqlite::{Connection, OptionalExtension, params};
 
 pub(super) fn register(
@@ -23,7 +23,8 @@ pub(super) fn register(
     if previous.is_none() {
         capacity(&tx, "SELECT count(*) FROM producers", MAX_RUNS, 1)?;
     }
-    let generation = fresh_generation()?;
+    let generation =
+        crate::generation::fresh().map_err(|_| StorageError::PersistenceUnavailable)?;
     tx.execute("INSERT INTO producers VALUES(?1,?2,?3,?4,?5,1) ON CONFLICT(producer) DO UPDATE SET generation=excluded.generation,next_seq=excluded.next_seq,active=1", params![registration.producer_id.as_str(), generation.as_str(), registration.run_id.as_str(), registration.harness as u8, number(registration.next_sequence.value()).as_slice()])?;
     queries::advance(&tx, next)?;
     tx.commit()?;
@@ -198,25 +199,4 @@ pub(super) fn capacity(
         return Err(StorageError::ResourceExhausted);
     }
     Ok(())
-}
-fn fresh_generation() -> Result<ProducerGeneration, StorageError> {
-    use std::fmt::Write;
-    let mut bytes = [0_u8; 16];
-    if rustix::rand::getrandom(bytes.as_mut_slice(), rustix::rand::GetRandomFlags::NONBLOCK)?
-        != bytes.len()
-    {
-        return Err(StorageError::PersistenceUnavailable);
-    }
-    bytes[6] = (bytes[6] & 15) | 64;
-    bytes[8] = (bytes[8] & 63) | 128;
-    let mut value = String::with_capacity(36);
-    for (index, byte) in bytes.iter().enumerate() {
-        if matches!(index, 4 | 6 | 8 | 10) {
-            value.push('-');
-        }
-        write!(&mut value, "{byte:02x}").map_err(|_| StorageError::PersistenceUnavailable)?;
-    }
-    value
-        .parse()
-        .map_err(|_| StorageError::PersistenceUnavailable)
 }
