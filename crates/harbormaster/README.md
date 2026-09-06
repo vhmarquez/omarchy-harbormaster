@@ -1,8 +1,13 @@
-# Harbormaster CLI foundation (#7)
+# Harbormaster M1 library and CLI foundation
 
-This package establishes the Rust CLI boundary, not an operational manager.
-It has no third-party dependencies. ADR 0001's eventual daemon/bridge and richer
-command stack are deliberately not scaffolded here.
+The package contains the CLI foundation, typed protocol, private Unix IPC,
+volatile admission and bounded SQLite storage. The public library is exercised
+only in disposable isolated fixtures; the executable has no operational manager
+mode. The exact dependency/source graph and separate static SQLite preparation
+are documented in [the build review](../../docs/M1-9-SQLITE-BUILD.md).
+[Storage guarantees](../../docs/M1-9-STORAGE-ENGINE.md) and
+[protocol boundaries](../../docs/M1-8-PROTOCOL.md) remain separate from future
+reducers, adapters and UI. ADR 0001's daemon/bridge is not scaffolded here.
 
 ## Command contract
 
@@ -28,16 +33,19 @@ creates state, starts subprocesses, nor performs networking.
 
 ## Tests and isolation
 
-Run Rust checks through the repository's isolated verification entry point once
-integrated. The underlying offline commands are:
+Run required Rust checks through `scripts/verify.py` from the repository root
+with the documented prepared tools root. The verifier first validates public
+inputs and builds the exact static SQLite source offline, then runs formatting,
+strict all-target Clippy and each separately required test family. Native
+qualification and actual hosted Docker/native pairing remain mandatory; see
+[M1 verification](../../docs/M1-VERIFICATION.md).
 
-```text
-cargo fmt --all -- --check
-cargo clippy --workspace --all-targets --locked --offline -- -D warnings
-cargo test --workspace --locked --offline
-```
+The storage suites exercise private manager files, bounded worker receipts,
+transactions, known migration/backup/recovery, supported retention and real
+process interruption. Their synthetic SQL fault injection is confined to test
+fixtures; no arbitrary SQL or callback interface is exposed by storage.
 
-Integration tests execute the actual Cargo-built binary with a cleared
+CLI Integration tests execute the actual Cargo-built binary with a cleared
 environment and synthetic private HOME/XDG/profile/work-directory fixtures.
 They compare the full fixture tree before and after every invocation. Unit
 tests cover the pure result and typed error contract, including malformed
