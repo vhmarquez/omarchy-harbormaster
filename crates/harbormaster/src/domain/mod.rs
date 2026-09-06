@@ -1,6 +1,11 @@
 //! Pure deterministic domain vocabulary; no I/O or storage dependencies.
 mod types;
 pub use types::*;
+mod evidence;
+mod policy;
+mod reducer;
+pub use policy::{DomainError, ObservationPolicy};
+pub use reducer::reduce;
 
 /// One revision-consistent view supplied by the durable owner. The tombstone
 /// concerns the incoming event's turn, which can differ from the current turn.
