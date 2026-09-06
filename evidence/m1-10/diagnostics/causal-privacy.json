@@ -1,0 +1,13 @@
+{
+  "source_commit": "703dd46",
+  "mutation": "Artificial bad implementation reads the actual disposable private canary fixture and appends its content to diagnostics, exercising the output canary assertion.",
+  "original_sha256": "5460652dda37840da5c160b5fb1f427dae1ef9f644924ad968a553a0177ce3c9",
+  "mutated_sha256": "41f2405809a9cbf899a04d81b312f3ac6001f45330f9c9e5c5f2b2f245e46613",
+  "result": {
+    "exit_code": 101,
+    "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.67s\n     Running tests/coordination.rs (/state/target/debug/deps/coordination-a6313296cfcea5b3)\n\nrunning 1 test\n\nthread 'actual_snapshots_format_repeatedly_without_files_policy_or_canary_collection' (436) panicked at crates/harbormaster/tests/coordination.rs:137:13:\nassertion failed: !bytes.windows(canary.len()).any(|window| window == canary.as_bytes())\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\ntest actual_snapshots_format_repeatedly_without_files_policy_or_canary_collection ... FAILED\n\nfailures:\n\nfailures:\n    actual_snapshots_format_repeatedly_without_files_policy_or_canary_collection\n\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.03s\n\nerror: test failed, to rerun pass `--test coordination`\n",
+    "timed_out": false,
+    "output_limited": false,
+    "elapsed_seconds": 0.708
+  }
+}
