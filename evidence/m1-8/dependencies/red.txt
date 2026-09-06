@@ -1,0 +1,21 @@
+test_dependencies (unittest.loader._FailedTest.test_dependencies) ... ERROR
+
+======================================================================
+ERROR: test_dependencies (unittest.loader._FailedTest.test_dependencies)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_dependencies
+Traceback (most recent call last):
+  File "/usr/lib/python3.14/unittest/loader.py", line 433, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/usr/lib/python3.14/unittest/loader.py", line 374, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "/home/vhm/Work/harbormaster-m1-8-dependencies/tests/tooling/test_dependencies.py", line 12, in <module>
+    from tooling.dependencies import cache_record, verify_dependencies
+ModuleNotFoundError: No module named 'tooling.dependencies'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

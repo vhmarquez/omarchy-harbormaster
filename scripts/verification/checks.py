@@ -20,7 +20,7 @@ def plan(outside_canary="/outside-canary", scope="all"):
     native = python + ["scripts/verification/native.py"]
     preflights = [
         ("isolation-probe", python + ["scripts/verification/probe.py", outside_canary], "exit"),
-        ("tool-pins", python + ["scripts/verification/preflight.py"], "exit"),
+        ("tool-pins", python + ["scripts/verification/preflight.py", "--stage-cargo"], "exit"),
     ]
     portable = preflights + [
         ("native-tool-pins", native + ["versions"], "exit"),

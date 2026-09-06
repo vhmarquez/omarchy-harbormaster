@@ -1,0 +1,18 @@
+test_cargo_lock_and_registry_checksum_must_match (test_dependencies.DependencyInputs.test_cargo_lock_and_registry_checksum_must_match) ... ok
+test_complete_inputs_pass_without_writes (test_dependencies.DependencyInputs.test_complete_inputs_pass_without_writes) ... ok
+test_corrupt_source_and_registry_inputs_fail (test_dependencies.DependencyInputs.test_corrupt_source_and_registry_inputs_fail) ... ok
+test_duplicate_dependency_name_and_unsafe_version_rejected (test_dependencies.DependencyInputs.test_duplicate_dependency_name_and_unsafe_version_rejected) ... ok
+test_duplicate_or_malformed_records_rejected (test_dependencies.DependencyInputs.test_duplicate_or_malformed_records_rejected) ... ok
+test_failed_integrity_never_stages_inputs (test_dependencies.DependencyInputs.test_failed_integrity_never_stages_inputs) ... ok
+test_failed_online_group_preserves_other_installed_groups (test_dependencies.DependencyInputs.test_failed_online_group_preserves_other_installed_groups) ... ok
+test_missing_source_and_registry_inputs_fail (test_dependencies.DependencyInputs.test_missing_source_and_registry_inputs_fail) ... ok
+test_online_preparation_never_overwrites_existing_group (test_dependencies.DependencyInputs.test_online_preparation_never_overwrites_existing_group) ... ok
+test_staging_uses_fresh_private_home_and_copies_inputs (test_dependencies.DependencyInputs.test_staging_uses_fresh_private_home_and_copies_inputs) ... ok
+test_stale_and_future_index_rejected (test_dependencies.DependencyInputs.test_stale_and_future_index_rejected) ... ok
+test_unexpected_and_symlink_files_rejected (test_dependencies.DependencyInputs.test_unexpected_and_symlink_files_rejected) ... ok
+test_yanked_locked_release_rejected_even_with_matching_pins (test_dependencies.DependencyInputs.test_yanked_locked_release_rejected_even_with_matching_pins) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.015s
+
+OK

@@ -1,0 +1,117 @@
+{
+  "schema": 1,
+  "index_commit": "9137a21173fbb8ae8536ae5b96cd1fa9da3ddfa3",
+  "commit_date": "2026-09-06T13:20:09Z",
+  "maximum_age_days": 7,
+  "config_sha256": "5b943a2c6f7eb743f7308aba07bdbb47d9ae44aafecd832d7f15df186afbafb3",
+  "packages": [
+    {
+      "name": "bitflags",
+      "version": "2.13.1",
+      "checksum": "b588b76d00fde79687d7646a9b5bdf3cc0f655e0bbd080335a95d7e96f3587da",
+      "index_sha256": "da93d35974877208e07bffb86fd0515e7b72e7c68b1c6468712d6a8b475027b7"
+    },
+    {
+      "name": "errno",
+      "version": "0.3.14",
+      "checksum": "39cab71617ae0d63f51a36d69f866391735b51691dbda63cf6f96d042b63efeb",
+      "index_sha256": "49f9272c19fd91100581009c2caabab0ca1fae26af4bc0175dcd3aabded3c5fa"
+    },
+    {
+      "name": "itoa",
+      "version": "1.0.18",
+      "checksum": "8f42a60cbdf9a97f5d2305f08a87dc4e09308d1276d28c869c684d7777685682",
+      "index_sha256": "5e275f1d7a32dd49bc850af460efbf99064cd058f4566f5f86a969e2a535eece"
+    },
+    {
+      "name": "libc",
+      "version": "0.2.189",
+      "checksum": "3eaf3ede3fee6db1a4c2ee091bf8a8b4dccdc6d17f656fb07896ee72867612f2",
+      "index_sha256": "215b24867f33861378783a11e55be902e569825727de53823f8697334b4d03f3"
+    },
+    {
+      "name": "linux-raw-sys",
+      "version": "0.12.1",
+      "checksum": "32a66949e030da00e8c7d4434b251670a91556f4144941d37452769c25d58a53",
+      "index_sha256": "4cef178ea82fc38ea711a33df62bff0bef3e3c2569e0061080896a192baca324"
+    },
+    {
+      "name": "memchr",
+      "version": "2.8.3",
+      "checksum": "cf8baf1c55e62ffcace7a9f06f4bd9cd3f0c4beb022d3b367256b91b87513d98",
+      "index_sha256": "577209be17cbaaf1a862c0e01a84d515d91bcc229476fd34e67ffd44a5a84f27"
+    },
+    {
+      "name": "proc-macro2",
+      "version": "1.0.107",
+      "checksum": "985e7ec9bb745e6ce6535b544d84d6cd6f7ad8bd711c398938ae983b91a766d9",
+      "index_sha256": "955448bc91f9c490e3bdc028f9d79a561b4f43142025ec46a99bdacaa140233c"
+    },
+    {
+      "name": "quote",
+      "version": "1.0.47",
+      "checksum": "1fbf4db142a473a8d80c26bbf18454ed458bf8d26c8219c331daecfdbd079001",
+      "index_sha256": "4359f39471050245ed6788ac1d3ee77f398405fb410433a755435f5ec1adb745"
+    },
+    {
+      "name": "rustix",
+      "version": "1.1.4",
+      "checksum": "b6fe4565b9518b83ef4f91bb47ce29620ca828bd32cb7e408f0062e9930ba190",
+      "index_sha256": "4987e0d53c52b38a6eea53d1dd06227608ba6515be8d43a4002af9ff860c7444"
+    },
+    {
+      "name": "serde",
+      "version": "1.0.229",
+      "checksum": "4148590afebada386688f18773da617792bf2ef03ffc1e4cbd2b1d45b023e0ba",
+      "index_sha256": "9eb6e78eab279f168b5787e4eb801765e1d5a2b40c50789e12166a616d73bbc5"
+    },
+    {
+      "name": "serde_core",
+      "version": "1.0.229",
+      "checksum": "67dca2c9c51e58a4791a4b1ed58308b39c64224d349a935ab5039aa360942a48",
+      "index_sha256": "58280b0772569b5900e04a8672d3541e2340b31a54c348a269b1beee3552811a"
+    },
+    {
+      "name": "serde_derive",
+      "version": "1.0.229",
+      "checksum": "e7a5d71263a5a7d47b41f6b3f06ba276f10cc18b0931f1799f710578e2309348",
+      "index_sha256": "9e45aa13a3855f66e4aad308ee5035a49e5690054189ce1216964d548f4d53de"
+    },
+    {
+      "name": "serde_json",
+      "version": "1.0.151",
+      "checksum": "c841b55ecdae098c80dcae9cf767f6f8a0c2cdb3416bbef72181df4d0fe73f14",
+      "index_sha256": "441879b8b5909e149e158309735a63b691691f4963dc4676d19e8c4c6c64b6a1"
+    },
+    {
+      "name": "syn",
+      "version": "3.0.5",
+      "checksum": "12df2e0110f65b775f769bb17ef989067a1d931b2eb822bd4346631eeada89f9",
+      "index_sha256": "438e8709c4ca69d215c1ac3b93877e75d2d7760ab6b8e227686190bd55c8380f"
+    },
+    {
+      "name": "unicode-ident",
+      "version": "1.0.24",
+      "checksum": "e6e4313cd5fcd3dad5cafa179702e2b244f760991f45397d14d4ebf38247da75",
+      "index_sha256": "72fedbe0408e33b9681b8212685b53c8f6f9b5e0df66a8cad39ba7d8dcf702dd"
+    },
+    {
+      "name": "windows-link",
+      "version": "0.2.1",
+      "checksum": "f0805222e57f7521d6a62e36fa9163bc891acd422f971defe97d64e70d0a4fe5",
+      "index_sha256": "2f6055c24a984135453c9932bd3c2d82e5885d0cc9a27877f7b24a405e7c8830"
+    },
+    {
+      "name": "windows-sys",
+      "version": "0.61.2",
+      "checksum": "ae137229bcbd6cdf0f7b80a31df61766145077ddf49416a728b02cb3921ff3fc",
+      "index_sha256": "2faa637e651ef2166c886b88a623f14a58013a749c0368303dbd2a6a7da62a87"
+    },
+    {
+      "name": "zmij",
+      "version": "1.0.23",
+      "checksum": "29666d0abbfad1e3dc4dcf6144730dd3a3ab225bbbdac83319345b1b44ccfc1b",
+      "index_sha256": "bf81df6dbb5da354e0b03658806f2ab9e549f8ad331cf567de3ad7b06e048b0e"
+    }
+  ]
+}

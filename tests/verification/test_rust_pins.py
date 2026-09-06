@@ -15,7 +15,7 @@ from verification.runner import execute_checks
 
 class RustPinTests(unittest.TestCase):
     def fixture(self, root):
-        for name in ("Cargo.toml", "rust-toolchain.toml"):
+        for name in ("Cargo.toml", "Cargo.lock", "rust-toolchain.toml"):
             shutil.copyfile(ROOT / name, root / name)
         for name in ("scripts", "tools"):
             shutil.copytree(ROOT / name, root / name)
@@ -28,6 +28,9 @@ class RustPinTests(unittest.TestCase):
         output.mkdir()
 
         def executor(argv):
+            # These nested regression probes inspect pins read-only; the outer
+            # canonical preflight already prepared the shared Cargo home.
+            argv = [argument for argument in argv if argument != "--stage-cargo"]
             result = subprocess.run(argv, cwd=root, capture_output=True,
                                     text=True, timeout=60, check=False)
             return {"exit_code": result.returncode, "output": result.stdout + result.stderr}
@@ -58,6 +61,27 @@ class RustPinTests(unittest.TestCase):
             root = Path(temporary)
             self.fixture(root)
             self.assertEqual([r["status"] for r in self.preflight(root)], ["PASS", "PASS"])
+
+    def test_dependency_pin_failures_block_following_execution(self):
+        for case in ("missing-lock", "stale-index", "corrupt-index-pin"):
+            with self.subTest(case=case), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                self.fixture(root)
+                path = root / "tools/dependencies.lock.json"
+                pins = json.loads(path.read_text())
+                if case == "missing-lock":
+                    path.unlink()
+                else:
+                    if case == "stale-index":
+                        pins["commit_date"] = "2000-01-01T00:00:00Z"
+                    else:
+                        pins["packages"][0]["index_sha256"] = "f" * 64
+                    path.write_text(json.dumps(pins))
+                results = self.preflight(root)
+                self.assertEqual([r["status"] for r in results], ["FAIL", "NOT_RUN"])
+                log = (root / "logs/tool-pins.txt").read_text()
+                self.assertIn({"missing-lock": "No such file", "stale-index": "stale",
+                               "corrupt-index-pin": "SHA256 mismatch"}[case], log)
 
 
 if __name__ == "__main__":

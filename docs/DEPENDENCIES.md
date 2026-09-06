@@ -21,8 +21,8 @@ optional live Omarchy probes must not masquerade as generic Qt coverage.
 The workflow must not replicate the Rust/QML checks or suppress its exit code.
 
 - Rust: the separate pinned `cargo-deny` policy covers the actual workspace,
-  including private, build and development dependencies; #7 permits only the
-  authored MIT graph. Its advisory, license, source and bans gates are required,
+  including private, build and development dependencies. The #7 authored MIT
+  baseline is extended only by the reviewed #8 graph below. Its advisory, license, source and bans gates are required,
   with an explicitly prepared, pinned, freshness-checked RustSec database.
   Rust/tool/advisory pins belong to their dedicated lock/policy files, not this
   distro manifest. An absent database or new unreviewed license fails closed.
@@ -38,6 +38,40 @@ The workflow must not replicate the Rust/QML checks or suppress its exit code.
   updating the appropriate lock, this scope table and applicable positive and
   negative gate fixtures. A license exception requires explicit review, scope,
   rationale and a tracking issue; do not broaden policy just to obtain green.
+
+## #8 Cargo dependency scope
+
+Direct exact pins are `rustix=1.1.4` with only `fs`, `net`, `process` plus its
+default `std`, `serde=1.0.229` with `derive`, and `serde_json=1.0.151` with default
+`std`. They provide safe OS wrappers and typed JSON. No network listener,
+async runtime, database, UUID/randomness package or future milestone scaffold
+is added. The complete resolver graph has 18 registry packages; only 14 compile
+on the pinned Linux target. Cargo also locks the alternate-platform `errno`,
+`libc`, `windows-sys` and `windows-link` sources; all 18 remain covered by the
+frozen license/advisory/source/bans gate rather than excluding unbuilt targets.
+
+`tools/dependencies.lock.json` records every exact version/checksum and immutable
+registry record hash; [TOOLCHAIN.md](TOOLCHAIN.md) documents explicit public
+preparation and the independent seven-day registry snapshot freshness rule.
+Cargo code executes only after archive and index inspection in the existing
+offline boundary. `--frozen --deny warnings`, yank denial and every existing
+license policy remain unchanged.
+
+Archive `Cargo.toml` license expressions were inspected for all 18 pins:
+
+| Packages | Declared expression and review |
+| --- | --- |
+| bitflags, errno, itoa, libc, proc-macro2, quote, serde, serde_core, serde_derive, serde_json, syn, windows-link, windows-sys | `MIT OR Apache-2.0`; existing allowlist applies. |
+| rustix, linux-raw-sys | `Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT`; existing MIT/Apache alternatives suffice without a new exception. |
+| memchr | `Unlicense OR MIT`; existing MIT alternative suffices. |
+| unicode-ident | `(MIT OR Apache-2.0) AND Unicode-3.0`; existing Unicode-3.0 permission and notices remain necessary. |
+| zmij | `MIT`; existing allowlist applies. |
+
+Full source archives retain their upstream notices. A passing development gate
+does not authorize redistribution or replace the required distribution-specific
+notice/linking review. The full four-category actual offline cargo-deny result
+and hostile missing/corrupt/yanked cache probes are recorded in
+`evidence/m1-8/dependencies/real-offline-policy.json`.
 
 ## Reproducible inputs, not a frozen host kernel
 
@@ -141,6 +175,7 @@ and explicit public-download consent:
 
 ```sh
 python3 scripts/prepare-tools.py --online --tools-root .tools
+python3 scripts/prepare-dependencies.py --online --tools-root .tools
 ```
 
 Only public distro/tool/advisory retrieval is allowed in preparation. Image
