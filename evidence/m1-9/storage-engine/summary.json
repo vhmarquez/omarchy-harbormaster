@@ -1,0 +1,43 @@
+{
+  "scope": "author-owned engine fixture evidence; not independent review, hosted/native qualification, or product performance",
+  "engine_commit": "6dcdd24",
+  "sandbox": "existing locked bwrap; source/tools read-only; fresh private state prepared with fixed pins + offline SQLite build, then incremental isolated Rust rebuilds",
+  "executions": [
+    {
+      "name": "anchored-open-red",
+      "file": "anchored-open-red.json",
+      "exit_code": 101,
+      "sha256": "8e9bf7d4c3d73dea5d904fc4e479bb04f5a973f8773ac3f14ee92f7031b177db"
+    },
+    {
+      "name": "anchored-open-green",
+      "file": "anchored-open-green.json",
+      "exit_code": 0,
+      "sha256": "18814a025eb3939c2b2798d3ca2275250ba5b81491cd23d994a0243c308a3e64"
+    },
+    {
+      "name": "restore-revision-red",
+      "file": "restore-revision-red.json",
+      "exit_code": 101,
+      "sha256": "c5f62b12e349a2e6bba3fa19dd6b150b67f8e19856e8e6613d59f94c34a7543e"
+    },
+    {
+      "name": "restore-revision-green",
+      "file": "restore-revision-green.json",
+      "exit_code": 0,
+      "sha256": "ef7a1a8b3e9093ec4b37fbfdc8e55129c812cb23aa837b4e89fdb70bc2980e8e"
+    },
+    {
+      "name": "engine-green",
+      "file": "engine-green.json",
+      "exit_code": 0,
+      "sha256": "23ca181f9b979970b958157662cb9da51a8eddf8f07c577c0b732b3005566a32"
+    }
+  ],
+  "semantic_mutations": {
+    "file": "semantic-mutations.json",
+    "passed": true,
+    "controls": 4
+  },
+  "latest_engine_source_matches_committed_snapshot": true
+}
