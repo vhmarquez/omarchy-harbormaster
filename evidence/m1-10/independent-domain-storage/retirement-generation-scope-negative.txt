@@ -1,0 +1,21 @@
+   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.41s
+     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)
+
+running 1 test
+
+thread 'storage::engine::tests::retirement_projection::pruning_prior_generation_protection_preserves_fresh_current_projection' (289) panicked at crates/harbormaster/src/storage/tests/retirement_projection.rs:233:5:
+assertion `left == right` failed
+  left: (RunProjection { run_id: RunId("00000002-0000-4000-8000-000000000000"), process: Alive, observation: Stale, turn: Unknown, turn_id: Some(TurnId("current-U")) }, Some(TurnKey { producer_id: ProducerId("00000001-0000-4000-8000-000000000000"), generation: ProducerGeneration("7be51252-519e-4324-b03c-cbf40153d04c"), run_id: RunId("00000002-0000-4000-8000-000000000000"), turn_id: TurnId("current-U") }))
+ right: (RunProjection { run_id: RunId("00000002-0000-4000-8000-000000000000"), process: Alive, observation: Fresh, turn: Working, turn_id: Some(TurnId("current-U")) }, Some(TurnKey { producer_id: ProducerId("00000001-0000-4000-8000-000000000000"), generation: ProducerGeneration("7be51252-519e-4324-b03c-cbf40153d04c"), run_id: RunId("00000002-0000-4000-8000-000000000000"), turn_id: TurnId("current-U") }))
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test storage::engine::tests::retirement_projection::pruning_prior_generation_protection_preserves_fresh_current_projection ... FAILED
+
+failures:
+
+failures:
+    storage::engine::tests::retirement_projection::pruning_prior_generation_protection_preserves_fresh_current_projection
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 94 filtered out; finished in 0.05s
+
+error: test failed, to rerun pass `--lib`

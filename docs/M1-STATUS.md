@@ -27,7 +27,10 @@ and [#8 implementation evidence](../evidence/m1-8/README.md) remain unchanged.
 ## Current implementation and limits
 
 The single Rust package supplies help/version/error handling, typed protocol,
-private IPC/admission and the bounded SQLite worker. Only private disposable
+private IPC/admission and the bounded SQLite worker. The #10 candidate adds
+pure lifecycle/attention reducers, exact durable receipt coordination, verified
+fresh-generation reconciliation, bounded recovery artifacts and metadata logs,
+explicit cleanup/policy, and immutable diagnostics. Only private disposable
 fixtures run these libraries. Unsupported daemon/bridge/launch modes still fail;
 there is no installable manager, live adapter, observer or recovery UI.
 QML remains the native Qt Quick Test sentinel, with no durable business logic.
@@ -41,6 +44,10 @@ possibly committed unknown outcomes; without it the recovery API is unavailable.
 The qualified main does not yet provide a deterministic lifecycle reducer,
 replay/reconciliation controller, logging/spool or read-only diagnostic product
 interface. #10 is implementing and must evidence those acceptance criteria.
+See [coordination](M1-10-COORDINATION.md), [recovery](M1-10-RECOVERY.md) and
+[diagnostics](M1-10-DIAGNOSTICS.md) for implemented library boundaries.
+Production source eligibility is deliberately empty: synthetic private mappings
+qualify privacy behavior, without claiming live adapter/version support.
 Product latency/RSS/idle-CPU budgets remain unmeasured.
 
 ## Approved retention
@@ -59,7 +66,9 @@ both original M0 methods and the #8 unmapped-peer-PID method. Portable green
 alone is incomplete. Pair actual trusted receipts against the exact candidate's
 selected source bytes. Dedicated branches and separate editing worktrees remain
 required; worktrees are not security sandboxes. Only standard free public-repo
-GitHub CI is authorized. No runner, permission or system configuration changed.
+GitHub CI is authorized. No runner, privilege, seccomp or system configuration changed. The verifier adds
+a private 1 MiB `/fault-fs` tmpfs in each existing backend for real ENOSPC tests;
+it never fills a host volume.
 
 MIT, frozen option 02/supplemental designs, native harness approvals and Codex
 Limited visibility remain unchanged. Watcher, real sessions, credentials,

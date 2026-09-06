@@ -1,0 +1,92 @@
+--- a/crates/harbormaster/src/recovery/tests/mod.rs
++++ b/crates/harbormaster/src/recovery/tests/mod.rs
+@@ -2,6 +2,7 @@
+ mod bounds;
+ mod crash;
+ mod privacy;
++mod reopen;
+ mod replay;
+ 
+ use super::{
+--- a/crates/harbormaster/src/recovery/tests/replay.rs
++++ b/crates/harbormaster/src/recovery/tests/replay.rs
+@@ -14,7 +14,7 @@
+     assert_eq!(store.snapshot().unwrap().spool_files, 1);
+     drop(receipt);
+     drop(store);
+-    let mut store = fixture.open();
++    let mut store = fixture.reopen_after_release();
+     let first = read_synthetic(&store, 10).remove(0);
+     let second = store
+         .read_reviewed(10, REVIEWED_SYNTHETIC)
+@@ -157,5 +157,5 @@
+         Err(RecoveryError::AlreadyOwned)
+     ));
+     drop(held);
+-    let _new_owner = fixture.open();
++    let _new_owner = fixture.reopen_after_release();
+ }
+--- a/crates/harbormaster/src/recovery/tests/crash.rs
++++ b/crates/harbormaster/src/recovery/tests/crash.rs
+@@ -108,7 +108,7 @@
+     drop(filler);
+     fs::remove_file(fixture.0.join("bounded-filler")).unwrap();
+     drop(store);
+-    let mut reopened = fixture.open();
++    let mut reopened = fixture.reopen_after_release();
+     assert!(read_synthetic(&reopened, 10).is_empty());
+     let plan = reopened
+         .preview_cleanup(&CleanupReason::Expired, 10 + SPOOL_TTL_MS)
+--- /dev/null
++++ b/crates/harbormaster/src/recovery/tests/reopen.rs
+@@ -0,0 +1,50 @@
++use super::*;
++use crate::recovery::RecoveryError;
++use std::{
++    os::unix::fs::MetadataExt,
++    time::{Duration, Instant},
++};
++
++impl Fixture {
++    /// Only after all local stores/tokens have been dropped. A parallel test's
++    /// fork can briefly retain a CLOEXEC lock description until its exec.
++    pub(crate) fn reopen_after_release(&self) -> ArtifactStore {
++        self.assert_no_local_lock_descriptor();
++        let deadline = Instant::now() + Duration::from_secs(2);
++        loop {
++            match ArtifactStore::open(&self.0) {
++                Ok(store) => return store,
++                Err(RecoveryError::AlreadyOwned) if Instant::now() < deadline => {
++                    self.assert_no_local_lock_descriptor();
++                    std::thread::sleep(Duration::from_millis(1));
++                }
++                Err(error) => panic!("fixture reopen after local release failed: {error:?}"),
++            }
++        }
++    }
++
++    fn assert_no_local_lock_descriptor(&self) {
++        let expected = fs::metadata(self.artifacts().join("recovery.lock")).unwrap();
++        for entry in fs::read_dir("/proc/self/fd").unwrap() {
++            match fs::metadata(entry.unwrap().path()) {
++                Ok(actual) => assert_ne!(
++                    (actual.dev(), actual.ino()),
++                    (expected.dev(), expected.ino()),
++                    "fixture still has a local lock descriptor; drop every owner/token first"
++                ),
++                Err(error) if error.kind() == std::io::ErrorKind::NotFound => (),
++                Err(error) => panic!("cannot establish fixture lock release: {error:?}"),
++            }
++        }
++    }
++}
++
++#[test]
++#[should_panic(expected = "fixture still has a local lock descriptor")]
++fn bounded_reopen_cannot_mask_a_retained_local_token() {
++    let fixture = Fixture::new();
++    let mut store = fixture.open();
++    let _held = stage_synthetic(&mut store, &source(1, 3), 10);
++    drop(store);
++    fixture.reopen_after_release();
++}

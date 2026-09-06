@@ -1,0 +1,28 @@
+   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.36s
+     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)
+
+running 20 tests
+test recovery::tests::independent_review::successful_unlink_is_counted_when_directory_sync_fails ... ignored, requires isolated source-level directory-fsync failure injection
+test recovery::tests::crash::crash_child ... ok
+test recovery::tests::crash::actual_full_private_filesystem_preserves_partial_and_reports_unknown_gap ... ok
+test recovery::tests::bounds::oversized_record_is_rejected_before_read_allocation ... ok
+test recovery::tests::bounds::global_limit_includes_unrecognized_orphan_without_deleting_it ... ok
+test recovery::tests::independent_review::replay_revalidates_required_source_provenance ... ok
+test recovery::tests::independent_review::filename_sequence_must_match_record_sequence ... ok
+test recovery::tests::privacy::unproven_optional_session_is_omitted_and_wrong_version_rejected ... ok
+test recovery::tests::bounds::retained_replay_handles_are_bounded_and_released_on_drop ... ok
+test recovery::tests::replay::replay_keeps_identity_is_repeatable_and_commit_requires_exact_event ... ok
+test recovery::tests::privacy::mis_mapped_allowed_turn_and_version_strings_reject_before_temp ... ok
+test recovery::tests::replay::retirement_and_ttl_are_explicit_and_never_retag_generations ... ok
+test recovery::tests::bounds::exact_producer_byte_limit_counts_partial_old_generation ... ok
+test recovery::tests::privacy::excluded_content_never_reaches_spool_temp_logs_or_cleanup ... ok
+test recovery::tests::replay::held_receipts_do_not_pin_deleted_spool_or_allow_new_owner ... ok
+test recovery::tests::replay::modified_record_and_renamed_event_identity_fail_closed ... ok
+test recovery::tests::crash::actual_sigkill_at_create_stage_and_rename_preserves_bounded_metadata ... ok
+test recovery::tests::bounds::global_file_count_scan_and_cleanup_batch_are_bounded ... ok
+test recovery::tests::bounds::producer_file_count_and_replay_batch_are_bounded ... ok
+test recovery::tests::replay::bounded_replay_selects_predecessor_before_adversarial_uuid_order ... ok
+
+test result: ok. 19 passed; 0 failed; 1 ignored; 0 measured; 39 filtered out; finished in 0.88s
+

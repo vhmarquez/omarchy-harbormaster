@@ -1,0 +1,101 @@
+{
+  "commit": "969099d3b344446aecba57618f1f3d2f8a4327be",
+  "fixture_sha256": "0ee2dcaf8b6e8aa6c79418404ea63bf66e8bd9d2c68069ef10a9d33e4090c5f7",
+  "results": [
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.86,
+      "name": "atomic-context-green",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib",
+        "storage::engine::tests::review_atomic::late_sql_failure_preserves_entire_context_and_original_outcome",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "expected_exit": 0,
+      "log": "atomic-context-green.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.483,
+      "name": "author-rollback-gap-control",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib",
+        "storage::engine::tests::reducer_attention::late_failure_rolls_back_resolution_projection_reasons_and_checkpoint",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "expected_exit": 0,
+      "log": "author-rollback-gap-control.txt"
+    },
+    {
+      "exit_code": 101,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.066,
+      "name": "atomic-context-negative",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib",
+        "storage::engine::tests::review_atomic::late_sql_failure_preserves_entire_context_and_original_outcome",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "expected_exit": 101,
+      "log": "atomic-context-negative.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.477,
+      "name": "atomic-context-restored",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib",
+        "storage::engine::tests::review_atomic::late_sql_failure_preserves_entire_context_and_original_outcome",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "expected_exit": 0,
+      "log": "atomic-context-restored.txt"
+    }
+  ],
+  "mutation": {
+    "file": "crates/harbormaster/src/storage/reducer_transaction.rs",
+    "description": "Move projection write before BEGIN, preserving the rest of the transaction.",
+    "source_sha256": "7516123015dc09f0b94165f1eeb78de329f8ba77d7d84a627eb8fd6b40a17a20"
+  },
+  "source_restored": true,
+  "verdict": "Independent regression passes correct source, catches projection-before-BEGIN at runtime; original author regression passed broken ordering and needs the independent assertion."
+}

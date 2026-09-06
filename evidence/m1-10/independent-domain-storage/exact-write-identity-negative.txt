@@ -1,0 +1,30 @@
+   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)
+warning: unused variable: `identity`
+  --> crates/harbormaster/src/storage/reducer_transaction.rs:64:5
+   |
+64 |     identity: &[u8],
+   |     ^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_identity`
+   |
+   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: `harbormaster` (lib test) generated 1 warning (run `cargo fix --lib -p harbormaster --tests` to apply 1 suggestion)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.44s
+     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)
+
+running 1 test
+
+thread 'storage::engine::tests::reducer_continuity::apply_discard_overflow_never_partially_commits_and_success_counts_once' (289) panicked at crates/harbormaster/src/storage/tests/reducer_continuity.rs:152:5:
+assertion `left == right` failed
+  left: Ok(Committed { revision: Revision(2), duplicate: true })
+ right: Err(Conflict)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test storage::engine::tests::reducer_continuity::apply_discard_overflow_never_partially_commits_and_success_counts_once ... FAILED
+
+failures:
+
+failures:
+    storage::engine::tests::reducer_continuity::apply_discard_overflow_never_partially_commits_and_success_counts_once
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 88 filtered out; finished in 0.05s
+
+error: test failed, to rerun pass `--lib`

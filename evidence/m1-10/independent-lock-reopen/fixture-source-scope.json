@@ -1,0 +1,23 @@
+{
+  "base_head": "2acf5ed6d04ba713fbeb7fd844294e5fbd04fa30",
+  "scope": "Root snapshot also includes then-uncommitted changes recorded by initial-runs.json hashes; only the following private fixture files were changed.",
+  "fixture_changes": {
+    "crates/harbormaster/src/recovery/tests/mod.rs": {
+      "before": "4d1ec23014deffb0e88f827a81fa46a97c73eb6d9d241702607d4de8b26726cb",
+      "after": "da1b5d0437d5ae294436acf7ff63bbc863bb67aa2454f453686740b98f095932"
+    },
+    "crates/harbormaster/src/recovery/tests/replay.rs": {
+      "before": "29c6ecdd4802f952cd15bed6304aeea1fc8249a017b74037831bdfe2655caab1",
+      "after": "de60f029faf2eb1789c40dc5767e1b75033ab1276886943a9839a883bc454d07"
+    },
+    "crates/harbormaster/src/recovery/tests/crash.rs": {
+      "before": "4a18c8f5e5e98f8713578baf192da1c5f18cef8b0ee95e476c8d65a47e5896c0",
+      "after": "6a3474a6c7f8f4b1ac29711fdd79bdabbeae5cd857a42d567abf250d2970a936"
+    },
+    "crates/harbormaster/src/recovery/tests/reopen.rs": {
+      "before": null,
+      "after": "6812f0cb551326e2957cdd70bde9cd2da685107d5faeb258277c52fa77aee46c"
+    }
+  },
+  "all_other_original_selected_files_unchanged": true
+}

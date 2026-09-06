@@ -1,0 +1,19 @@
+{
+  "exit_code": 0,
+  "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.60s\n     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)\n\nrunning 17 tests\ntest coordinator::tests::crash::committed_before_spool_unlink_child ... ok\ntest coordinator::tests::pipeline::missing_identity_proof_is_durable_unknown_and_never_active ... ok\ntest coordinator::tests::peers::real_peer_uses_committed_generation_and_reconnect_discards_old_backlog_once ... ok\ntest coordinator::tests::crash::actual_sigkill_after_sqlite_commit_before_unlink_replays_one_original_outcome ... ok\ntest coordinator::tests::peers::independent_old_scope_invalidation_preserves_new_peer_and_queued_event ... ok\ntest coordinator::tests::pipeline::sequence_gap_retires_scope_without_fact_ack_or_spool_removal ... ok\ntest coordinator::tests::review::independent_confirmation_receipt_cannot_authorize_a_different_source_harness ... ok\ntest coordinator::tests::review::independent_receipt_exists_only_after_observed_atomic_commit ... ok\ntest coordinator::tests::review::independent_exact_receipt_does_not_bypass_source_harness_scope ... ok\ntest coordinator::tests::pending::discarded_actual_worker_reply_is_unknown_until_the_same_intent_proves_commit ... ok\ntest coordinator::tests::pending::full_worker_retains_the_unsubmitted_intent_and_never_acknowledges ... ok\ntest coordinator::tests::pipeline::original_apply_intent_can_be_retained_and_replayed_after_receipt_is_discarded ... ok\ntest coordinator::tests::pipeline::one_durable_generation_and_exact_duplicate_receipt_survive_unlink_delay ... ok\ntest coordinator::tests::review::independent_same_identity_changed_payload_gets_no_receipt ... ok\ntest coordinator::tests::peers::missing_hook_retires_and_blocks_real_peer_while_preserving_native_wait ... ok\ntest coordinator::tests::pending::only_an_explicit_revision_conflict_refreshes_context_before_reducing_again ... ok\ntest coordinator::tests::pipeline::explicit_verified_wait_continuity_resolves_original_obligation_after_new_generation_terminal ... ok\n\ntest result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 94 filtered out; finished in 0.07s\n\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 0.685,
+  "command": [
+    "/tools/rust/bin/cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--workspace",
+    "--lib",
+    "coordinator::tests::",
+    "--",
+    "--nocapture"
+  ],
+  "source_head": "364f7c8d467594b3a7d5d79ea816d7e81b5903ef"
+}

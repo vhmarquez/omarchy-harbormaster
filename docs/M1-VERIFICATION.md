@@ -1,3 +1,28 @@
+# Current M1 #10 candidate
+
+Main after the approved #9 merge is qualified at
+`23be30f0d8fa4fb9767241d08faa0a543a3c950b`; its actual hosted/native paired
+receipts are in [the post-merge summary](../evidence/m1-10/post-merge-main/summary.json).
+The #10 branch extends the required inventory to 32 portable and 34 combined
+checks. The dedicated native inventory remains 5 required checks, including the
+preserved original two sandbox methods and the unmapped-peer-PID method.
+There are still only three declared optional live/future probes. A single run
+never establishes complete qualification; the actual hosted Docker and native
+records must pair against identical selected bytes of the exact final commit.
+
+Use the same canonical commands below with the prepared private tools root
+(e.g. `--tools /home/vhm/Work/omarchy-harbormaster/.tools-m1-9` on this machine).
+The four required new Rust targets are `domain`, `storage_reducer`, `recovery`
+and `coordination`; positive sealed-source pipeline tests also run in the
+required library suite. Real filesystem-full tests require the verifier's fresh
+owned 1 MiB `/fault-fs` tmpfs, validate its capacity before filling, and have no
+fallback to a host filesystem. Docker retains its locked-down policy; native
+execution remains separately mandatory. See [#10 evidence](../evidence/m1-10/README.md)
+for actual test/review receipts, failures, corrections and current qualification.
+
+The records below are historical #7/#8/#9 evidence with their original counts
+and revision-specific gates; they do not claim qualification of the #10 source.
+
 # M1 #10 verification continuation
 
 The merged storage dependency introduced required `sqlite-build`, `rust-storage` and

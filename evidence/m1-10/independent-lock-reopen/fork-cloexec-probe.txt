@@ -1,0 +1,1 @@
+{"cloexec_verified": true, "parent_lock_descriptors_after_close": [], "forked_child_inherited_descriptors": ["3"], "reopen_blocked_before_exec": true, "reopen_after_exec_passed": true}

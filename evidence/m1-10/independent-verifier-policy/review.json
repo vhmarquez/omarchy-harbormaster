@@ -1,0 +1,68 @@
+{
+  "review_scope": "Independent read-only policy review of root-authored verifier changes versus qualified main; no root edits and no product implementation.",
+  "baseline": "23be30f0d8fa4fb9767241d08faa0a543a3c950b",
+  "source_snapshot": "source-1788725853037928316",
+  "source_binding": "1788725853037928316-source-sha256.json",
+  "execution": "1788725853037928316-results.json",
+  "result": "PASS: no new security blocker; 22 applicable Python regressions actually passed in the unchanged canonical bwrap boundary.",
+  "docker_disposition": [
+    "Only a fresh fixed /fault-fs tmpfs is added: rw,nosuid,nodev,noexec,size=1m,mode=700 and the existing invoking UID/GID.",
+    "The same immutable built image ID, pull-never, network-none, cap-drop ALL, no-new-privileges, read-only root, existing readonly source/tools binds, private writable state, PID/memory/CPU limits and invoking UID/GID are preserved.",
+    "The read-only private /run mask remains unchanged. No privileged mode, host bind, socket, inherited home, seccomp-unconfined override or runtime-mask override was introduced. Docker default seccomp/runtime masking policy is unchanged.",
+    "The extra capacity is independent disposable kernel tmpfs rather than a new host bind; it does not grant new host filesystem or network access."
+  ],
+  "native_boundary_disposition": [
+    "Existing unshare-all, cap-drop ALL, readonly mounts/root, cleared allowlisted environment and process/output/time limits are unchanged.",
+    "Actual /fault-fs mount is tmpfs with size1024k, mode700, uid1000/gid1000, nosuid,nodev. Unlike the explicit Docker option, bwrap does not add noexec; this does not expand privilege beyond its existing writable scratch/execution state.",
+    "The two original exact harness sandbox methods and exact unmapped-peer-PID Rust method remain unchanged; the same five-check native inventory and fail-closed no-skip interpretation remain mandatory."
+  ],
+  "fixture_disposition": [
+    "The independently reviewed Python fault fixture checks no-follow lstat directory type, exact0700 mode, caller ownership, exactly one fixed mountpoint, tmpfs type and positive capacity <=1MiB before its first write.",
+    "It creates only an owned temporary regular file, attempts at most257 writes of4096bytes, requires actual ENOSPC and checks cleanup. There is no fallback directory or host-volume fill.",
+    "The storage Rust ENOSPC fixture was authored by this reviewer previously, so this report does not claim independent authorship separation for that fixture; its prior independent storage review remains separate."
+  ],
+  "inventory_disposition": "Four explicit --test families are added to portable/all with locked/offline/all-features flags and nonzero-success validation. The actual test runs exercise missing/empty target rejection and missing/skipped native method rejection. Portable32, all34 and native5 inventories remain distinct.",
+  "unchanged_protected_sources": {
+    "scripts/verify.py": {
+      "unchanged": true,
+      "baseline_sha256": "13f5186a2d29d0b918eb7eddcf5432daa44f5c4ce2d143fa068f7b7a687aebc1",
+      "reviewed_sha256": "13f5186a2d29d0b918eb7eddcf5432daa44f5c4ce2d143fa068f7b7a687aebc1"
+    },
+    "scripts/verification/runner.py": {
+      "unchanged": true,
+      "baseline_sha256": "2d301a9574e4b8a70a38f02b1bbdf25e0a67ec1f72ceffef449441c2f3a2f6a7",
+      "reviewed_sha256": "2d301a9574e4b8a70a38f02b1bbdf25e0a67ec1f72ceffef449441c2f3a2f6a7"
+    },
+    "scripts/verification/qualification.py": {
+      "unchanged": true,
+      "baseline_sha256": "c45657d11d4268ab7971526b266be5c26382a45fc206ac584a0d90653d86027c",
+      "reviewed_sha256": "c45657d11d4268ab7971526b266be5c26382a45fc206ac584a0d90653d86027c"
+    },
+    "scripts/verification/probe.py": {
+      "unchanged": true,
+      "baseline_sha256": "23d9d604777e2fe649562061276f6717a22da101c57d092da95d0aebe3677ad1",
+      "reviewed_sha256": "23d9d604777e2fe649562061276f6717a22da101c57d092da95d0aebe3677ad1"
+    },
+    ".github/workflows/verify.yml": {
+      "unchanged": true,
+      "baseline_sha256": "e50853b50472ed3fa5ff7640790a0b25794bfe85414de14430a525203d8589c1",
+      "reviewed_sha256": "e50853b50472ed3fa5ff7640790a0b25794bfe85414de14430a525203d8589c1"
+    },
+    "tools/ci.Dockerfile": {
+      "unchanged": true,
+      "baseline_sha256": "1e5b3858cbaedd44ccb5a14b8053ef2b6f9f9cde36ec4748fe1057a8278717a3",
+      "reviewed_sha256": "1e5b3858cbaedd44ccb5a14b8053ef2b6f9f9cde36ec4748fe1057a8278717a3"
+    },
+    "spikes/harnesses/test_sandbox.py": {
+      "unchanged": true,
+      "baseline_sha256": "e533ad4a988f8a2c4a65eedd110673e95ce7a468cf64c6716344cd48cd04ee52",
+      "reviewed_sha256": "e533ad4a988f8a2c4a65eedd110673e95ce7a468cf64c6716344cd48cd04ee52"
+    },
+    "crates/harbormaster/tests/ipc_namespace.rs": {
+      "unchanged": true,
+      "baseline_sha256": "beb2fa72fef97c03fc90da0f06cd24d33b698b74839c755c2ec2fd24437decbf",
+      "reviewed_sha256": "beb2fa72fef97c03fc90da0f06cd24d33b698b74839c755c2ec2fd24437decbf"
+    }
+  },
+  "limitations": "This is policy review and local component evidence, not actual hosted Docker execution, complete native qualification or owner approval. No root source edited."
+}

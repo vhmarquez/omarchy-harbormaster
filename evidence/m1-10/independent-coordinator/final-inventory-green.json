@@ -1,0 +1,20 @@
+{
+  "exit_code": 0,
+  "output": "test_each_new_family_is_explicit_required_portable_and_combined (test_m1_10_plan.RecoveryInventoryTests.test_each_new_family_is_explicit_required_portable_and_combined) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 0.039,
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests/verification",
+    "-p",
+    "test_m1_10_plan.py",
+    "-v"
+  ],
+  "source_head": "364f7c8d467594b3a7d5d79ea816d7e81b5903ef"
+}

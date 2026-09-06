@@ -1,0 +1,20 @@
+{
+  "exit_code": 0,
+  "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.49s\n     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)\n\nrunning 1 test\ntest coordinator::tests::review::independent_confirmation_receipt_cannot_authorize_a_different_source_harness ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 110 filtered out; finished in 0.03s\n\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 0.538,
+  "command": [
+    "/tools/rust/bin/cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--workspace",
+    "--lib",
+    "independent_confirmation_receipt_cannot_authorize_a_different_source_harness",
+    "--",
+    "--nocapture"
+  ],
+  "source_head": "364f7c8d467594b3a7d5d79ea816d7e81b5903ef",
+  "restored_sha256": "822e5736c534e1cdddfcab7267fec886d24564e93f66f42f139372e6396f7613"
+}

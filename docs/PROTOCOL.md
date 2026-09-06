@@ -68,3 +68,26 @@ The event allowlist provides field-level minimization, not proof of secrecy: opa
 Required adapter canary tests inject synthetic content/credential markers into excluded source fields and deliberately mis-map them into accepted string fields. Verify rejection or omission before persistence, then scan spool files, temporaries, database/WAL, logs and recovery/diagnostic output across crash/cleanup paths. Passing tests establish behavior for the tested mappings and versions, not that string schemas prove secrecy or that same-UID malicious code is isolated. These are M1+ implementation gates, not executed privacy evidence in M0.
 
 Machine-readable failure scenarios live in `contracts/failure-fixtures.json`. Schema version is exactly integer `1`; all 14 currently specified scenarios are required and their individual deletion is checked. They specify setup, operation, expected outcome, invariant and future proof mechanism. They are requirements to execute in M1+, not a reducer implementation or claims that those failures are fixed today.
+
+
+## M1 #10 durable library implementation
+
+The pure domain, scoped storage context and commit coordinator now implement
+these ordering/reconciliation rules in disposable library fixtures. Only an
+exact durable fact lookup or successful atomic Apply yields a nonconstructible
+`DurableReceipt`; volatile admission and a sequence checkpoint do not. Replay
+preserves event/generation/sequence identity. Unknown completion retains the
+original submitted intent; an explicit stale-revision failure alone permits a
+bounded context refresh. A lost reconciliation receipt cannot activate a guessed
+generation. Native approval/input is resolved only by same-turn terminal evidence
+or explicit independently verified progress, never a delayed repeated start.
+
+A verified continuation of the same native wait can explicitly link resolution
+to the fresh generation while preserving the original outcome's generation,
+event/revision, review and delivery. Missing continuity protects historical
+obligations without claiming they are a current native wait. Startup, restore
+and tombstone eviction retire affected active scopes and degrade live projections;
+late events cannot revive them. Lost/unknown process observations are uncertainty,
+not proof of exit. [Coordination](M1-10-COORDINATION.md) documents trusted input,
+receipt and unknown-outcome boundaries. No live adapter mapping or daemon is
+qualified by M1, and this implementation adds no wire operation or M2 collector.

@@ -1,0 +1,20 @@
+{
+  "exit_code": 0,
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 1.948,
+  "command": [
+    "/tools/rust/bin/cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--workspace",
+    "--all-features",
+    "--test",
+    "ownership_spawn_probe",
+    "--",
+    "--nocapture"
+  ],
+  "fixture_sha256": "704a8f642d5d3833ea95e41db6c677f9406c1b1f7570608b26c7afeb8f5a0651",
+  "log": "ownership-spawn-probe.txt"
+}

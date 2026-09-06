@@ -1,0 +1,25 @@
+{
+  "root": "/tmp/hb-m1-10-coordinator-review-hu3fwq2m",
+  "source_head": "3e68e80506e76dfff7b061ab64bde265b84b319c",
+  "source_hashes": {
+    "crates/harbormaster/src/coordinator/commit.rs": "4ba7f1f4d497f0bd05e7f82a07d4368658f8ebf339b3c05bba2ba5fc959ae78c",
+    "crates/harbormaster/src/coordinator/decision.rs": "90c6788e424cb0856755b1d41c7c3e29a49f79529af999f7f078c94bd96c6055",
+    "crates/harbormaster/src/coordinator/mod.rs": "f760e72aaec048ae36a4140d44c0a4fc4615399b89e86c06a8624abd27f1b9b9",
+    "crates/harbormaster/src/coordinator/operation.rs": "74a63e2b1c13b525c246502bf03e6fe7fc2352a1ac9e6373d816e146bb844d15",
+    "crates/harbormaster/src/coordinator/registration.rs": "cf04bd84daaaf260aa915d175c01b136b7a60cacdfc6113ec8204bb31ef15ae4",
+    "crates/harbormaster/src/coordinator/tests/crash.rs": "b92d55eb7234a50ddc6102c184be5be88bdaf7a5bce97c6f90cb96f48c7c6b8e",
+    "crates/harbormaster/src/coordinator/tests/mod.rs": "15ae6dbfb789ddaf42d63039e2893b16058ce751ff4f53fffedee5e7fa8f6265",
+    "crates/harbormaster/src/coordinator/tests/peers.rs": "c78b9930fd259196dd8e1ff5009047d9351af289565f13b04145e7728e4eb6d7",
+    "crates/harbormaster/src/coordinator/tests/pending.rs": "adf4e11a31682083d455bcbd3020a8d95925300b728b2586a5b94a2344dbff89",
+    "crates/harbormaster/src/coordinator/tests/pipeline.rs": "31d09bd66b0cbfabfa26c0e926c9177ad196c96e15f18c60b6b62e4af7fd9282",
+    "crates/harbormaster/src/domain/reconciliation.rs": "aaf7adcd8ee72821ace22c08d8800a0c18a7bb8e67edb8897df1d74b922b940b",
+    "crates/harbormaster/src/ingestion/registry.rs": "2398dd360f6e7ef917a7626df6efeb23e663d1bf90cbe2baf123d4f08cd7a116",
+    "crates/harbormaster/src/protocol/event.rs": "15e883dcd0a7d49e9239851e3f85d81ad88a744eb2960e07db07456d12efc00a",
+    "scripts/verification/checks.py": "285ed08b266bb47190e7259099ae3230ff1259d568ba696d5e88a2eb142a2932"
+  },
+  "excluded_authored": [
+    "recovery/**",
+    "diagnostics.rs"
+  ],
+  "tools": "/home/vhm/Work/omarchy-harbormaster/.tools-m1-9"
+}

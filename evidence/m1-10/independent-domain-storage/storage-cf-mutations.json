@@ -1,0 +1,111 @@
+{
+  "storage_commit": "cf52737ce1d258baeea14061b3b1f2700604d2f9",
+  "method": "Two deliberate semantic mutations in the disposable source; originals restored with fresh mtimes and actual compilation.",
+  "results": [
+    {
+      "exit_code": 101,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.502,
+      "name": "exact-write-identity-negative",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib",
+        "storage::engine::tests::reducer_continuity::apply_discard_overflow_never_partially_commits_and_success_counts_once",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "expected_exit": 101,
+      "log": "exact-write-identity-negative.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.504,
+      "name": "exact-write-identity-restored",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib",
+        "storage::engine::tests::reducer_continuity::apply_discard_overflow_never_partially_commits_and_success_counts_once",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "expected_exit": 0,
+      "log": "exact-write-identity-restored.txt"
+    },
+    {
+      "exit_code": 101,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.493,
+      "name": "continued-obligation-link-negative",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib",
+        "storage::engine::tests::reducer_continuity::same_wait_survives_repeated_restart_without_retagging_or_duplicate_attention",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "expected_exit": 101,
+      "log": "continued-obligation-link-negative.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.51,
+      "name": "continued-obligation-link-restored",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib",
+        "storage::engine::tests::reducer_continuity::same_wait_survives_repeated_restart_without_retagging_or_duplicate_attention",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "expected_exit": 0,
+      "log": "continued-obligation-link-restored.txt"
+    }
+  ],
+  "mutations": [
+    {
+      "name": "exact-write-identity",
+      "file": "reducer_transaction.rs",
+      "before": "Some((bytes, revision)) if bytes == identity",
+      "after": "Some((bytes, revision)) if super::context::decode_fact(&bytes)? == *fact",
+      "mutated_sha256": "ff724fe17c6a89426e4d78c803dde1163f75c270ed11953fa2058409a0be1142"
+    },
+    {
+      "name": "continued-obligation-link",
+      "file": "reconciliation.rs",
+      "before": "if let Some(key) = &request.continued_turn {",
+      "after": "if let Some(key) = None::<&crate::domain::TurnKey> {",
+      "mutated_sha256": "a839a601c19634617df7f0ac3c911193b5f48cac8f4b230ff3bac9f500e1b2a2"
+    }
+  ],
+  "verdict": "PASS: both changed complete-intent identity and omitted continuity link cause actual runtime regression; restored correct source passes."
+}

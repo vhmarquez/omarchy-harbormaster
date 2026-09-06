@@ -1,0 +1,25 @@
+{
+  "exit_code": 101,
+  "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.52s\n     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)\n\nrunning 1 test\n\nthread 'coordinator::tests::review::independent_confirmation_receipt_cannot_authorize_a_different_source_harness' (289) panicked at crates/harbormaster/src/coordinator/tests/review.rs:136:5:\ndurable Hermes receipt cannot confirm a Codex source artifact\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\ntest coordinator::tests::review::independent_confirmation_receipt_cannot_authorize_a_different_source_harness ... FAILED\n\nfailures:\n\nfailures:\n    coordinator::tests::review::independent_confirmation_receipt_cannot_authorize_a_different_source_harness\n\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 110 filtered out; finished in 0.03s\n\nerror: test failed, to rerun pass `--lib`\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 0.562,
+  "command": [
+    "/tools/rust/bin/cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--workspace",
+    "--lib",
+    "independent_confirmation_receipt_cannot_authorize_a_different_source_harness",
+    "--",
+    "--nocapture"
+  ],
+  "source_head": "364f7c8d467594b3a7d5d79ea816d7e81b5903ef",
+  "mutation": {
+    "path": "crates/harbormaster/src/coordinator/mod.rs",
+    "before": "    if entry.harness() != receipt.harness {",
+    "after": "    if false && entry.harness() != receipt.harness {",
+    "sha256": "530232ed3573adcc7ee91ab6f74c4c60b141c06929f12661b63aefa224e55cb4"
+  }
+}
