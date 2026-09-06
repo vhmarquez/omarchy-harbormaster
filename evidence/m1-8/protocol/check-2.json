@@ -1,0 +1,16 @@
+{
+  "command": [
+    "/tools/rust/bin/cargo",
+    "fmt",
+    "--all",
+    "--",
+    "--check"
+  ],
+  "result": {
+    "exit_code": 0,
+    "output": "",
+    "timed_out": false,
+    "output_limited": false,
+    "elapsed_seconds": 0.027
+  }
+}

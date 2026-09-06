@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/tools/rust/bin/cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--test",
+    "protocol"
+  ],
+  "boundary": "unchanged scripts.verification.sandbox.run bubblewrap",
+  "result": {
+    "exit_code": 101,
+    "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\nerror[E0432]: unresolved import `harbormaster::protocol`\n --> crates/harbormaster/tests/protocol.rs:1:19\n  |\n1 | use harbormaster::protocol::{EventKind, EventPayload, ProtocolError, Seq, encode_frame, parse_event};\n  |                   ^^^^^^^^ could not find `protocol` in `harbormaster`\n\nFor more information about this error, try `rustc --explain E0432`.\nerror: could not compile `harbormaster` (test \"protocol\") due to 1 previous error\nwarning: build failed, waiting for other jobs to finish...\n",
+    "timed_out": false,
+    "output_limited": false,
+    "elapsed_seconds": 0.128
+  }
+}

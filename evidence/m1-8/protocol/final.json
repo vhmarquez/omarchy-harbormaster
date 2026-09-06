@@ -1,0 +1,68 @@
+{
+  "boundary": "unchanged scripts.verification.sandbox.run, bubblewrap disposable source snapshot and state; offline verified dependency cache copied to disposable CARGO_HOME",
+  "records": [
+    {
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--frozen",
+        "--lib",
+        "--test",
+        "protocol",
+        "--test",
+        "protocol_fuzz",
+        "--",
+        "--nocapture"
+      ],
+      "log": "final-0.log",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 3.177
+    },
+    {
+      "command": [
+        "/tools/rust/bin/cargo",
+        "clippy",
+        "--frozen",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "log": "final-1.log",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.844
+    },
+    {
+      "command": [
+        "/tools/rust/bin/cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "log": "final-2.log",
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.028
+    }
+  ],
+  "source_sha256": {
+    "crates/harbormaster/src/protocol/capability.rs": "4304007eafadcc7de436cd25c61e836e7c692acbe67dab721d19c35b8d707d93",
+    "crates/harbormaster/src/protocol/control.rs": "259a532bf0a9ada19106b4eb0e2e45945f969cd914df4e445b3f0d8122bfcb86",
+    "crates/harbormaster/src/protocol/event.rs": "fdd5b856ed561e3401364a5beb5abed525b6f29a568e5226e76eff93cca61118",
+    "crates/harbormaster/src/protocol/identity.rs": "f3c1bdf87751fa0d31e529a562cc58ac6c788abbb5cca0ec6a26578a74dcab17",
+    "crates/harbormaster/src/protocol/mod.rs": "6a248b7d018847c8eeed9d1065d7235b54cb398d372867fe885b56b32872c30b",
+    "crates/harbormaster/src/protocol/response.rs": "60392bc8fc0d59d3c280be649914487848c8fa3ba8f40b05eb4d6cb0ee406008",
+    "crates/harbormaster/src/protocol/strict.rs": "a0225e0313212087b0fe3490fac46db6e09a7e597d5923fe50c60b79d4c961c0",
+    "crates/harbormaster/tests/protocol.rs": "1a2991253e41dbb97ee961ddbc412dc4e58d57d1a3157d7292c8844b385a3bad",
+    "crates/harbormaster/tests/protocol_fuzz.rs": "7eb40b223b256ab3aa470f54257fc8a3d698fe1a96c228b79f079f73ecbf6a2d",
+    "Cargo.lock": "431d6a9e43a22c3da31f7114e5757fab41930f360fe77d3d8d18825afe108f7e",
+    "crates/harbormaster/Cargo.toml": "530a184eea0108e1ca42b2bfb95da5394dd03061eec6af734b7adcec5d6759ec",
+    "crates/harbormaster/src/lib.rs": "b56e541626c371354b988cc4221402542bd421fed3f225d4ed1f1ce5650a3759"
+  }
+}
