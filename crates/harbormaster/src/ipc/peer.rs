@@ -11,12 +11,20 @@ pub struct PeerCredentials {
 
 impl PeerCredentials {
     pub(super) fn read(stream: &UnixStream) -> Result<Self, IpcError> {
-        let credentials = rustix::net::sockopt::socket_peercred(stream)?;
-        Ok(Self {
-            uid: credentials.uid.as_raw(),
-            gid: credentials.gid.as_raw(),
-            pid: credentials.pid.as_raw_nonzero().get().cast_unsigned(),
-        })
+        // Linux can return pid=0 for a peer outside this PID namespace. Read
+        // raw integer credentials; do not construct a nonzero PID prematurely.
+        let credentials =
+            nix::sys::socket::getsockopt(stream, nix::sys::socket::sockopt::PeerCredentials)
+                .map_err(|_| IpcError::Io)?;
+        Self::checked(credentials.pid(), credentials.uid(), credentials.gid())
+    }
+
+    fn checked(pid: i32, uid: u32, gid: u32) -> Result<Self, IpcError> {
+        let pid = u32::try_from(pid)
+            .ok()
+            .filter(|value| *value > 0)
+            .ok_or(IpcError::PermissionDenied)?;
+        Ok(Self { uid, gid, pid })
     }
 
     #[must_use]
@@ -44,5 +52,24 @@ impl PeerCredentials {
         } else {
             Err(IpcError::PermissionDenied)
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn raw_kernel_zero_or_negative_pid_is_rejected_before_peer_construction() {
+        for pid in [0, -1, i32::MIN] {
+            assert_eq!(
+                PeerCredentials::checked(pid, 1000, 1000),
+                Err(IpcError::PermissionDenied)
+            );
+        }
+        let peer = PeerCredentials::checked(i32::MAX, 1000, 1001).unwrap();
+        assert_eq!(peer.pid(), i32::MAX.cast_unsigned());
+        assert_eq!(peer.uid(), 1000);
+        assert_eq!(peer.gid(), 1001);
     }
 }

@@ -87,7 +87,8 @@ impl Connection {
         peer.require_uid(expected_uid)?;
         // Linux accounts roughly twice this requested size. Pinning the kernel
         // send buffer also bounds the additional bytes beyond our unsent queue.
-        rustix::net::sockopt::set_socket_send_buffer_size(&stream, 16_384)?;
+        nix::sys::socket::setsockopt(&stream, nix::sys::socket::sockopt::SndBuf, &16_384_usize)
+            .map_err(|_| IpcError::Io)?;
         stream.set_nonblocking(true)?;
         Ok(Self {
             stream,
