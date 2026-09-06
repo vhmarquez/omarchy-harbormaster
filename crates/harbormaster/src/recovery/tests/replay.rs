@@ -14,7 +14,7 @@ fn replay_keeps_identity_is_repeatable_and_commit_requires_exact_event() {
     assert_eq!(store.snapshot().unwrap().spool_files, 1);
     drop(receipt);
     drop(store);
-    let mut store = fixture.open();
+    let mut store = fixture.reopen_after_release();
     let first = read_synthetic(&store, 10).remove(0);
     let second = store
         .read_reviewed(10, REVIEWED_SYNTHETIC)
@@ -157,5 +157,5 @@ fn held_receipts_do_not_pin_deleted_spool_or_allow_new_owner() {
         Err(RecoveryError::AlreadyOwned)
     ));
     drop(held);
-    let _new_owner = fixture.open();
+    let _new_owner = fixture.reopen_after_release();
 }

@@ -2,6 +2,7 @@
 mod bounds;
 mod crash;
 mod privacy;
+mod reopen;
 mod replay;
 
 use super::{

@@ -108,7 +108,7 @@ fn actual_full_private_filesystem_preserves_partial_and_reports_unknown_gap() {
     drop(filler);
     fs::remove_file(fixture.0.join("bounded-filler")).unwrap();
     drop(store);
-    let mut reopened = fixture.open();
+    let mut reopened = fixture.reopen_after_release();
     assert!(read_synthetic(&reopened, 10).is_empty());
     let plan = reopened
         .preview_cleanup(&CleanupReason::Expired, 10 + SPOOL_TTL_MS)

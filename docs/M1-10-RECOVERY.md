@@ -104,3 +104,13 @@ The fixture helper owns disposable public-test setup and detached-file inspectio
 There are no new dependencies, unsafe Rust, exported synthetic constructors,
 global configuration changes, deployment or M2 work. Independent final review
 and canonical hosted/native qualification remain parent integration gates.
+
+Concurrent test forks can briefly inherit a CLOEXEC lock description until exec.
+At the three private fixture reopen sites following explicit store/token drop,
+`reopen_after_release` first rejects any matching local lock descriptor and then
+waits at most two seconds for a transient child description. This is test-only;
+production still returns `AlreadyOwned` immediately. Held-token negative tests
+remain direct, and a deliberate retained local token must fail the helper guard.
+Independent kernel and actual ArtifactStore probes record the inherited child
+FD and absence of a parent FD; no production lock weakening or serial-test flag
+is used to obtain a pass.
