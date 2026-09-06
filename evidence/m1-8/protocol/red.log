@@ -1,0 +1,10 @@
+   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)
+error[E0432]: unresolved import `harbormaster::protocol`
+ --> crates/harbormaster/tests/protocol.rs:1:19
+  |
+1 | use harbormaster::protocol::{EventKind, EventPayload, ProtocolError, Seq, encode_frame, parse_event};
+  |                   ^^^^^^^^ could not find `protocol` in `harbormaster`
+
+For more information about this error, try `rustc --explain E0432`.
+error: could not compile `harbormaster` (test "protocol") due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
