@@ -7,6 +7,7 @@ pub mod domain;
 mod generation;
 pub mod ingestion;
 pub mod protocol;
+pub mod recovery;
 pub mod storage;
 
 /// The foundation's supported output requests.
