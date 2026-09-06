@@ -7,7 +7,7 @@ Milestone 2 remains open (one closed, three open issues); roadmap #1 remains ope
 | Issue | Current scope | Gate |
 |---|---|---|
 | #7 | Merged by owner; post-merge main qualified | Completed foundation dependency |
-| #8 | Protocol/private IPC development on `codex/m1-8-protocol-ipc` | Fresh checks, independent review, explicit owner PR/revision approval before merge |
+| #8 | Protocol/private IPC library candidate on `codex/m1-8-protocol-ipc` | Explicit owner PR/revision approval after current-head qualification; unmerged |
 | #9 | Not started | Approved/merged #8 |
 | #10 | Not started | Approved/merged dependencies |
 
@@ -16,6 +16,12 @@ hosted Docker portable 21 required PASS, fresh combined 22 required PASS, dedica
 native 3 required PASS, paired PASS for 140 selected source files. Only the three
 explicit optional live/future probes skipped. See [verification](M1-VERIFICATION.md)
 and [pre-implementation #8 responsibilities](M1-8-DEVELOPMENT.md).
+
+The [#8 evidence index](../evidence/m1-8/README.md) maps each acceptance criterion
+to executable tests and actual reports. [Independent review](M1-8-REVIEW.md)
+records corrected defects and maintainability dispositions. The issue-linked PR
+records the exact published revision, hosted artifact and actual paired result;
+read that record before approval. #8 remains open until its approved merge.
 
 Keep Docker locked down and native bubblewrap integration separately mandatory.
 A portable green run alone never completes qualification. Actual trusted receipts
