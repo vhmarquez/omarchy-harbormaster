@@ -1,0 +1,134 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "reviewed_revision": "b062509847cc2803b6c650603abef3266eab6fa3",
+  "runtime_test_revision": "e39092da48315893959b77ddbcba3649a89dcb17",
+  "observed_at": "2026-09-06T14:04:40.104282+00:00",
+  "review_scope": "Independent correctness/security/maintainability review of IPC and ingestion authored by other agents, with canonical native target integration. Reviewer authored dependency preparation; its independent dependency review belongs to the protocol agent, not this receipt.",
+  "source_sha256": {
+    "crates/harbormaster/src/ingestion/control.rs": "bdbcea1b54689b11f574cefdef2da114340e3859a6d3f4002cf0bed17f5648fe",
+    "crates/harbormaster/src/ingestion/generation.rs": "8af58fc8628f1a8064e470b1531f6ca60a56e1352315e2c20060aa96453d510c",
+    "crates/harbormaster/src/ingestion/mod.rs": "4ee6dbaf202f3825d839e48ce46e8eb73f5ccf23b58a9ac22a584ca1c45523be",
+    "crates/harbormaster/src/ingestion/queue.rs": "d18720c030e2beb5ec2400358a396e71e3658547184d76b64813ded2950f466b",
+    "crates/harbormaster/src/ingestion/registry.rs": "696d98e5fb3218b06f46c3368d2ead9c090daeb2bd89d1768f7694098f378e4a",
+    "crates/harbormaster/src/ipc/connection.rs": "6870ea0e4eccb67d265731f3753e2d92222701771e6747a1ebef7c26f3fb5a33",
+    "crates/harbormaster/src/ipc/framing.rs": "0a9fe64cb95c15d1a157255fcf496e3a66165cddc5bce6b0773f9c5903ce2014",
+    "crates/harbormaster/src/ipc/mod.rs": "8ebfca9f68a36bda0b75acd1e24768a46ded3e06e7f05eac8a323a37b6222af3",
+    "crates/harbormaster/src/ipc/paths.rs": "5939b39eb58ae3581225b0c2d588516d76a04baf09c3dd480b3edffd98b5dcb7",
+    "crates/harbormaster/src/ipc/peer.rs": "692ede5dc68aae4fd9bb4ffa6ef88f906c3426974ded32e44233ebaa90e1f9c4",
+    "crates/harbormaster/tests/ingestion.rs": "cdd8c79b82028e5e0a4e77ef54a39bd64c967be8b4740b26e5656829eb643ada",
+    "crates/harbormaster/tests/ingestion/control.rs": "a650115d7b7d834007faee469b4d302e00aa0573af89e61a319fbb3f9421db9e",
+    "crates/harbormaster/tests/ingestion/limits.rs": "eb27a2458a280ef8d0f9208a879be7e6beb0f3b1ff230578046c9d57a39b2697",
+    "crates/harbormaster/tests/ipc.rs": "ddefa745c55565ddc4af3fc10d037bed4d25e5b7a605cec5b9321188ed3ab0aa",
+    "crates/harbormaster/tests/ipc_namespace.rs": "beb2fa72fef97c03fc90da0f06cd24d33b698b74839c755c2ec2fd24437decbf",
+    "docs/M1-8-DEVELOPMENT.md": "2ac30dcbb8be0c01c1ac4608578e3c8a669206dd964c422ab8e8bc4761c18e43",
+    "docs/M1-8-PROTOCOL.md": "cedb8c24f38db0a5fe5201ab980cde6c805cc98aa4d19bb426de2420174169e0",
+    "docs/PERFORMANCE.md": "9a9181732a7dc2cdd18c5c6b1a9e00a029b552cd9f6682f5ef8df7d4bdf90174",
+    "docs/PROTOCOL.md": "9aca1e4d7b47e3fc5fd3e1d50c4855a7b0f6c2a9ea8579aedf386db4c62f6cb4",
+    "docs/THREAT-MODEL.md": "f969cc6ebdb77e908114fa541917f73b5217c3d9873040081b64d521a794aab4",
+    "scripts/verification/checks.py": "536955d6afd28c659813a4bf804a23f3d37cd12e2052a00b43516ce918076c4d",
+    "tests/verification/test_m1_8_plan.py": "3b414fceac0ffa094db4fbf7e1a225cf7e695f1e7472efc30a97bfd6a5d5e98c",
+    "tests/verification/test_scope_plan.py": "c0e36bcefc731ec18220a9d6b4f17af5cff542c877d107df91c63bc43576e18b"
+  },
+  "revision_transition": {
+    "change": "Only test fixture `client: client` -> `client`; inspected exact diff. All IPC/ingestion production and namespace/FD test source bytes are identical.",
+    "current_head_clippy": "PASS",
+    "runtime_results_are_not_relabelled_as_current_head_execution": true
+  },
+  "open_findings": [],
+  "resolved_findings": [
+    {
+      "id": "IPC-REVIEW-1",
+      "priority": 2,
+      "problem": "Ordinary post-bind O_PATH EMFILE left owned socket names and prevented later startup.",
+      "reproduction": "Independent bounded RLIMIT_NOFILE=32 fixture observed events.sock with3 free FDs and control.sock with5 free FDs after failed bind.",
+      "correction": "Acquire statat inode proof and initialize listener cleanup ownership before O_PATH allocation. Unrelated replacements remain protected. Metadata failure without identity remains conservative fail-closed.",
+      "fix_revision": "69b01d6",
+      "validation": "Independent same reviewer FD-pressure regression PASS on integrated source; author16 IPC cases PASS."
+    },
+    {
+      "id": "IPC-REVIEW-2",
+      "priority": 1,
+      "problem": "Kernel SO_PEERCRED PID0 across namespaces cannot inhabit rustix1.1.4 UCred NonZeroI32 representation.",
+      "reproduction": "Actual private nested-native Python raw credential fixture returned (0,1000,1000). Pinned source inspection identified invalid representation; reviewer did not execute that invalid-value path or claim exploitation.",
+      "correction": "Safe nix raw integer peer getter, reject nonpositive PID before own peer construction; rustix net feature disabled; no authored unsafe shim.",
+      "fix_revision": "a128d47 with dependency dd12f42",
+      "validation": "Integrated native Rust fixture1PASS. Removing only positive-PID filter on a disposable copy makes the exact native fixtureFAIL because it accepts an invisible-PID peer. Getter and all namespace options unchanged."
+    },
+    {
+      "id": "INGESTION-REVIEW-1",
+      "priority": 2,
+      "problem": "Previous reconcile API accepted caller-chosen generation, allowing trusted-caller A->B->A reuse and old session resurrection if its documented fresh-generation precondition was violated.",
+      "correction": "Nonblocking manager OS entropy chooses fresh generation before mutation, resets private scope identity; producer/control sessions are also bound to their creating authority. Initial registration/restoration remains explicitly trusted authoritative checkpoint input.",
+      "fix_revision": "d0dd50b",
+      "validation": "Ingestion23 cases PASS, including cross-authority refusal, generation retirement, duplicate/conflict/gap recovery, replay/queue/byte limits and no durable ACK semantics."
+    },
+    {
+      "id": "API-REVIEW-NOTE",
+      "priority": 3,
+      "problem": "Opaque sessions originally exposed no agreed negotiation data, encouraging callers to duplicate authority/intersection rules.",
+      "correction": "Narrow read-only negotiated_signals and negotiated_capabilities accessors; operation authorization still rechecks current grants, capability evidence and revisions.",
+      "validation": "Current negotiation/incomplete-evidence tests PASS."
+    },
+    {
+      "id": "LINT-REVIEW-1",
+      "priority": 2,
+      "problem": "Exact e39092d all-target Clippy failed on redundant field name in ingestion fixture.",
+      "correction": "Single shorthand correction b062509; no lint waiver.",
+      "validation": "Exact current-head all-target/all-feature frozen Clippy PASS."
+    }
+  ],
+  "correctness_security_disposition": {
+    "peer_and_channel": "Only real accepted connections construct private peer/channel evidence. Wrong channel/UID/scope refuses admission/control; same-UID hostile processes explicitly remain outside socket-token isolation.",
+    "ownership_and_cleanup": "Descriptor-relative no-follow ancestor validation; private700 directories,600 sockets, existing entry refusal, inode retention and identity-checked nonrecursive rollback. No unconditional unrelated-file deletion.",
+    "bounded_io": "64 internal connections across both listeners, independent handshake/partial/write deadlines, bounded incremental framing and unsent queue charge including partial writes, per-call nonblocking syscall/work limits. Caller fairly polls; no reactor/daemon activation claimed.",
+    "ordering": "Queue capacity precedes sequence advancement; bounded receipts reject conflicts/old sequences and freeze on exhaustion; fresh trusted reconciliation discards/counts backlog without durable acknowledgments. No storage or reducer implementation imported.",
+    "capabilities": "Explicit grants and requested operation plus fresh supported available evidence and required tested version; current revision checked before authorization. Native approval operations absent.",
+    "qualification_boundary": "Portable Docker protections and original mandatory native methods unchanged; new PID namespace fixture added only to required native/all inventories. This receipt is not Docker/native paired execution qualification or merge approval."
+  },
+  "maintainability": {
+    "production": "PASS: IPC/ingestion responsibilities, dependency direction and narrow private evidence types are cohesive; no duplicate domain/reducer rules or authored unsafe code. All reviewed production files/functions below thresholds; largest registry281 and connection239 nonblank.",
+    "accepted_triggers": [
+      {
+        "path": "crates/harbormaster/tests/ingestion.rs",
+        "nonblank_lines": 302,
+        "disposition": "Shared real socket/event fixture and admission/recovery cases form one target; distinct control and limits cases already factored into focused modules. No individual function crosses50."
+      },
+      {
+        "path": "crates/harbormaster/tests/ipc.rs",
+        "nonblank_lines": 453,
+        "disposition": "16 bounded independent cases share one disposable transport fixture; subprocess FD-pressure regression intentionally reuses this exact test executable. No individual function crosses50; splitting solely for a line quota would obscure fixture ownership."
+      },
+      {
+        "path": "crates/harbormaster/tests/ipc_namespace.rs",
+        "function": "server_process",
+        "nonblank_lines": 55,
+        "disposition": "One fixed sandbox argument vector and spawn, zero branches/nesting. Canonical lexical analyzer counts55 while Clippy counts51; narrow expect is justified because auditing all isolation flags together is clearer."
+      },
+      {
+        "path": "scripts/verification/checks.py",
+        "function": "plan",
+        "nonblank_lines": 51,
+        "disposition": "Declarative canonical check inventory with three scope branches; keeping the ordered gate commands together supports review and pairing consistency."
+      }
+    ],
+    "outside_scope_triggers": "protocol/control.rs303 and protocol tests361 require protocol reviewer disposition; historical verifier qualification tests429 unchanged."
+  },
+  "executed_counts": {
+    "library": 11,
+    "ingestion": 23,
+    "ipc": 16,
+    "native_namespace": 1,
+    "reviewer_fd_exhaustion": 1
+  },
+  "evidence": {
+    "/home/vhm/Work/harbormaster-m1-evidence/m1-8-ipc-ingestion-independent-execution.json": "17afe4dc465bdb46e7fbda499b868238bc873c803614ad7109c6501e2a3a33d3",
+    "/home/vhm/Work/harbormaster-m1-evidence/m1-8-ipc-ingestion-independent-clippy-b062509.json": "d00f34fb2c1c71d848364142d4b1894c33d1368a9b4091d882ee62605765ebb6",
+    "/home/vhm/Work/harbormaster-m1-evidence/m1-8-ipc-ingestion-reviewer-fd-test.rs": "f7aa267e79e178a0e5e01713b9d03b4c2e6c55f7a26de96a6837e2ca0659a1cb"
+  },
+  "limits": [
+    "No live harness/model calls, deployment, service startup outside disposable fixtures, or host-network access.",
+    "Same-UID concurrent hostile replacement is outside evidence integrity and private socket guarantees.",
+    "Full current-revision combined/native/hosted/paired qualification and explicit owner approval remain root-agent workflow requirements."
+  ]
+}

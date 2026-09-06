@@ -1,6 +1,6 @@
-# Protocol/domain v0 — M0 contract, not implementation
+# Protocol/domain v0 — contract and M1 wire boundary
 
-Issue [#6](https://github.com/vhmarquez/omarchy-harbormaster/issues/6). Stability: draft for M1 executable implementation and fuzz/property tests. Limits refer to PERFORMANCE.md. Wire examples and failure scenarios are synthetic specifications, never actual integration logs.
+Issue [#6](https://github.com/vhmarquez/omarchy-harbormaster/issues/6). M1 #8 implements the strict typed wire/admission library described in [M1-8-PROTOCOL.md](M1-8-PROTOCOL.md). Durable reducers, storage and live adapters remain later work. Limits refer to PERFORMANCE.md. Wire examples and failure scenarios are synthetic specifications, never actual integration logs.
 
 ## Identity types
 

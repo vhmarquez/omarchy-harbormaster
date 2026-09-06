@@ -1,0 +1,1 @@
+{"python": "3.14.7", "qmlformat": "6.11.2", "qmllint": "6.11.2"}

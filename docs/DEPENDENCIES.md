@@ -21,8 +21,8 @@ optional live Omarchy probes must not masquerade as generic Qt coverage.
 The workflow must not replicate the Rust/QML checks or suppress its exit code.
 
 - Rust: the separate pinned `cargo-deny` policy covers the actual workspace,
-  including private, build and development dependencies; #7 permits only the
-  authored MIT graph. Its advisory, license, source and bans gates are required,
+  including private, build and development dependencies. The #7 authored MIT
+  baseline is extended only by the reviewed #8 graph below. Its advisory, license, source and bans gates are required,
   with an explicitly prepared, pinned, freshness-checked RustSec database.
   Rust/tool/advisory pins belong to their dedicated lock/policy files, not this
   distro manifest. An absent database or new unreviewed license fails closed.
@@ -38,6 +38,59 @@ The workflow must not replicate the Rust/QML checks or suppress its exit code.
   updating the appropriate lock, this scope table and applicable positive and
   negative gate fixtures. A license exception requires explicit review, scope,
   rationale and a tracking issue; do not broaden policy just to obtain green.
+
+## #8 Cargo dependency scope
+
+Direct exact pins are `rustix=1.1.4` with `fs`, `process`, `rand` plus its
+default `std`; `nix=0.31.3` with default features disabled and only `socket`;
+`serde=1.0.229` with `derive`; and `serde_json=1.0.151` with default `std`.
+They provide safe OS wrappers, nonblocking generation entropy and typed JSON. No network listener,
+async runtime, database, UUID/randomness package or future milestone scaffold
+is added. The complete resolver graph has 23 registry packages; only 20 compile
+on the pinned Linux target. Cargo also locks the alternate-platform `errno`,
+`windows-sys` and `windows-link` sources; all 23 remain covered by the
+frozen license/advisory/source/bans gate rather than excluding unbuilt targets.
+
+`tools/dependencies.lock.json` records every exact version/checksum and immutable
+registry record hash; [TOOLCHAIN.md](TOOLCHAIN.md) documents explicit public
+preparation and the independent seven-day registry snapshot freshness rule.
+Cargo code executes only after archive and index inspection in the existing
+offline boundary. `--frozen --deny warnings`, yank denial and every existing
+license policy remain unchanged.
+
+Archive `Cargo.toml` license expressions were inspected for all 23 pins:
+
+| Packages | Declared expression and review |
+| --- | --- |
+| autocfg, bitflags, cfg-if, errno, itoa, libc, proc-macro2, quote, serde, serde_core, serde_derive, serde_json, syn, windows-link, windows-sys | `MIT OR Apache-2.0`; existing allowlist applies. |
+| rustix, linux-raw-sys | `Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT`; existing MIT/Apache alternatives suffice without a new exception. |
+| memchr | `Unlicense OR MIT`; existing MIT alternative suffices. |
+| unicode-ident | `(MIT OR Apache-2.0) AND Unicode-3.0`; existing Unicode-3.0 permission and notices remain necessary. |
+| cfg_aliases, memoffset, nix, zmij | `MIT`; existing allowlist applies. |
+
+The `nix` addition resolves a concrete peer-credential review finding. Linux
+returns PID zero when a Unix peer is outside the receiver's PID namespace; a
+same-UID disposable nested-native fixture observed `(0, 1000, 1000)`. Pinned
+rustix 1.1.4 reads `SO_PEERCRED` into `UCred.pid: Pid(NonZeroI32)` without validating
+that field first. A post-call zero check cannot repair this representation.
+The `rustix` `net` feature is therefore disabled. Nix 0.31.3 wraps `libc::ucred`
+with raw integer fields, so the IPC layer can reject nonpositive PID evidence
+before constructing its own peer record. This is a scoped reviewed API choice,
+not a claim of demonstrated exploitation or an existing upstream advisory.
+See [the Unix credential manual](https://www.man7.org/linux/man-pages/man7/unix.7.html),
+[PID namespaces](https://www.man7.org/linux/man-pages/man7/pid_namespaces.7.html),
+[rustix UCred](https://docs.rs/rustix/1.1.4/rustix/net/struct.UCred.html) and
+[nix UnixCredentials](https://docs.rs/nix/0.31.3/nix/sys/socket/struct.UnixCredentials.html).
+Exact archive/internal source hashes and the actual kernel fixture output are in
+`evidence/m1-8/peercred-dependencies/peercred-finding.json`. The corrective native
+Rust fixture and final integrated revision qualification are separate records.
+No authored unsafe code, nightly feature or namespace relaxation is introduced.
+
+Full source archives retain their upstream notices. A passing development gate
+does not authorize redistribution or replace the required distribution-specific
+notice/linking review. The full four-category actual offline cargo-deny result
+and hostile missing/corrupt/yanked cache probes are recorded in
+`evidence/m1-8/peercred-dependencies/nix-offline-policy.json`.
 
 ## Reproducible inputs, not a frozen host kernel
 
@@ -141,6 +194,7 @@ and explicit public-download consent:
 
 ```sh
 python3 scripts/prepare-tools.py --online --tools-root .tools
+python3 scripts/prepare-dependencies.py --online --tools-root .tools
 ```
 
 Only public distro/tool/advisory retrieval is allowed in preparation. Image

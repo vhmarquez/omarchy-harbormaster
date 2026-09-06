@@ -1,0 +1,18 @@
+{
+  "command": [
+    "/tools/rust/bin/cargo",
+    "clippy",
+    "--frozen",
+    "--all-targets",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "result": {
+    "exit_code": 101,
+    "output": "    Checking bitflags v2.13.1\n    Checking memchr v2.8.3\n    Checking linux-raw-sys v0.12.1\n    Checking itoa v1.0.18\n    Checking serde_core v1.0.229\n    Checking zmij v1.0.23\n    Checking rustix v1.1.4\n    Checking serde v1.0.229\n    Checking serde_json v1.0.151\n    Checking harbormaster v0.1.0 (/work/crates/harbormaster)\nerror: adding items after statements is confusing, since items exist from the start of the scope\n   --> crates/harbormaster/src/protocol/event.rs:203:9\n    |\n203 | /         struct Wire<'a> {\n204 | |             protocol: Version,\n205 | |             channel: EventChannel,\n206 | |             event_id: &'a EventId,\n...   |\n212 | |             event: &'a EventPayload,\n213 | |         }\n    | |_________^\n    |\n    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#items_after_statements\n    = note: `-D clippy::items-after-statements` implied by `-D warnings`\n    = help: to override `-D warnings` add `#[allow(clippy::items_after_statements)]`\n\nerror: adding items after statements is confusing, since items exist from the start of the scope\n  --> crates/harbormaster/src/protocol/response.rs:58:9\n   |\n58 | /         struct Wire<'a> {\n59 | |             protocol: Version,\n60 | |             request_id: &'a RequestId,\n61 | |             #[serde(flatten)]\n62 | |             response: &'a ResponseStatus,\n63 | |         }\n   | |_________^\n   |\n   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#items_after_statements\n\nerror: could not compile `harbormaster` (lib) due to 2 previous errors\nwarning: build failed, waiting for other jobs to finish...\nerror: could not compile `harbormaster` (lib test) due to 2 previous errors\n",
+    "timed_out": false,
+    "output_limited": false,
+    "elapsed_seconds": 1.809
+  }
+}

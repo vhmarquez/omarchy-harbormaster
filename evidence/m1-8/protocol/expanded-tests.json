@@ -1,0 +1,21 @@
+{
+  "command": [
+    "/tools/rust/bin/cargo",
+    "test",
+    "--frozen",
+    "--lib",
+    "--test",
+    "protocol",
+    "--test",
+    "protocol_fuzz",
+    "--",
+    "--nocapture"
+  ],
+  "result": {
+    "exit_code": 101,
+    "output": "   Compiling proc-macro2 v1.0.107\n   Compiling unicode-ident v1.0.24\n   Compiling quote v1.0.47\n   Compiling serde_core v1.0.229\n   Compiling zmij v1.0.23\n   Compiling serde_json v1.0.151\n   Compiling serde v1.0.229\n   Compiling rustix v1.1.4\n   Compiling memchr v2.8.3\n   Compiling bitflags v2.13.1\n   Compiling linux-raw-sys v0.12.1\n   Compiling itoa v1.0.18\n   Compiling syn v3.0.5\n   Compiling serde_derive v1.0.229\n   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.93s\n     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-e34b1e25470eb52c)\n\nrunning 10 tests\ntest protocol::strict::tests::bounded_writer_refuses_growth_before_copying_excess_input ... ok\ntest tests::excess_arity_is_checked_before_encoding ... ok\ntest tests::excess_arguments_have_a_typed_error ... ok\ntest tests::long_help_is_a_pure_help_request ... ok\ntest tests::non_unicode_is_a_typed_value_free_error ... ok\ntest tests::no_arguments_request_help_without_a_default_mode ... ok\ntest tests::short_help_requests_help ... ok\ntest protocol::strict::tests::container_depth_eight_accepts_and_nine_rejects ... ok\ntest tests::unsupported_modes_and_values_have_no_runtime_action ... ok\ntest tests::version_aliases_are_pure_version_requests ... ok\n\ntest result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n     Running tests/protocol.rs (/state/target/debug/deps/protocol-430067b1a8349d32)\n\nrunning 12 tests\ntest duplicate_decoded_keys_fail_before_typed_decoding ... ok\ntest unknown_versions_and_errors_do_not_echo_private_input ... ok\ntest uuid_and_decimal_newtypes_are_strict_at_their_boundaries ... ok\ntest malformed_frame_never_returns_a_typed_event ... ok\ntest accepted_m0_example_is_typed_and_roundtrips ... ok\ntest framing_boundaries_include_lf_and_reject_embedded_lines ... ok\ntest metadata_limits_are_utf8_bytes_and_reject_control_characters ... ok\n\nthread 'responses_have_explicit_typed_status_without_arbitrary_exception_fields' (916) panicked at crates/harbormaster/tests/protocol.rs:233:9:\n\"accepted_pending\",\"committed_revision\":\"1\"}\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\ntest event_and_control_channels_never_cross_and_native_approval_is_absent ... ok\ntest capability_handshakes_are_bounded_claims_and_preserve_identity ... ok\ntest responses_have_explicit_typed_status_without_arbitrary_exception_fields ... FAILED\ntest stateful_requests_require_exact_guards_and_typed_arguments ... ok\ntest every_event_kind_has_a_distinct_allowlisted_payload ... ok\n\nfailures:\n\nfailures:\n    responses_have_explicit_typed_status_without_arbitrary_exception_fields\n\ntest result: FAILED. 11 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\nerror: test failed, to rerun pass `--test protocol`\n",
+    "timed_out": false,
+    "output_limited": false,
+    "elapsed_seconds": 2.945
+  }
+}

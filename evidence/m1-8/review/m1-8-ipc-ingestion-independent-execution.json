@@ -1,0 +1,5037 @@
+{
+  "preflight": {
+    "command": [
+      "/usr/bin/python3",
+      "-B",
+      "scripts/verification/preflight.py",
+      "--stage-cargo"
+    ],
+    "exit_code": 0,
+    "output": "{\n  \"tools_root\": \"/tools\",\n  \"versions\": {\n    \"rustc\": \"rustc 1.98.1 (48a229cea 2026-09-01)\",\n    \"cargo\": \"cargo 1.98.1 (797e8a9bc 2026-08-05)\",\n    \"rustfmt\": \"rustfmt 1.9.0-stable (48a229ceae 2026-09-01)\",\n    \"clippy-driver\": \"clippy 0.1.98 (48a229ceae 2026-09-01)\",\n    \"cargo-deny\": \"cargo-deny 0.20.2\",\n    \"node\": \"v26.8.1\"\n  },\n  \"verified_files\": {\n    \"bin/cargo-deny\": \"b329e25933d01c36dd7c47d84ea5716694f9b7caf53a5003d45674703a8ed54a\",\n    \"node/bin/node\": \"19235a9b678f84729464c52623f92de130a165452747c6826d3fdc13df3abcc3\",\n    \"rust/bin/cargo\": \"da77c8b33849312255ccde3179198ada4c8deb370488d050286146b1d1b27e14\",\n    \"rust/bin/cargo-clippy\": \"56478e37c2bc0a09b7442cb975bad0f00cd16a9c80463daca022756a12ef1b93\",\n    \"rust/bin/cargo-fmt\": \"565dd9620e543887d4b955f6985a903a9ef30ef85b9efeac6c233ccf7aee9b6c\",\n    \"rust/bin/clippy-driver\": \"ac4a71be2cb2df0f3947419e757a76dabb6110ce4196e1b0bde43296f702287b\",\n    \"rust/bin/rust-gdb\": \"557985ec5a31f5617d25d26bd6fe23c4b8d6f85b1498e1aae82831ca0d7f17fe\",\n    \"rust/bin/rust-gdbgui\": \"bc60613775a098e59b49fa4584cea73631697fe1456c44284c337d6700340315\",\n    \"rust/bin/rust-lldb\": \"a82c91ccb285aa4a1dbcf08cda68ba4e8c36082af0adfefdee514673113815da\",\n    \"rust/bin/rustc\": \"859254978c0a0402c32f949f6de0d99aee73be8d15f45aac00ae1448aac51e74\",\n    \"rust/bin/rustdoc\": \"3ff7fed6d1064d8d75d24ae8beff9fe1d68031d3d819966481d22c3c9002b709\",\n    \"rust/bin/rustfmt\": \"99e625e0640b50d773a0f54b93a7e66a0e89afd5351a4de9a17abe7087c11ac4\",\n    \"rust/lib/libLLVM-22-rust-1.98.1-stable.so\": \"24d5732dea500078b4e235a69833ccb20d03bf71659a49d58828af8f13f6726c\",\n    \"rust/lib/libLLVM.so.22.1-rust-1.98.1-stable\": \"0fdf31a62575a5e3e9ac3f3bae29a8ba3cc965158ec78005d3c49fe0da3c253e\",\n    \"rust/lib/librustc_driver-eaf3ed1d23ca5027.so\": \"96218b68a4a569c06c6fea5ee95b9052ce61c7316ac265a7963e7fea90e985d2\",\n    \"rust/lib/rustlib/uninstall.sh\": \"7691a613154ca5cc55e9ab3478ee73b75aecd574671a298e20f64dec5326b796\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/bin/gcc-ld/ld.lld\": \"cc32ac78081f4fffca0a2098d5b541382b298d603688f235d7144d615ff14ab6\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/bin/gcc-ld/ld64.lld\": \"cc32ac78081f4fffca0a2098d5b541382b298d603688f235d7144d615ff14ab6\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/bin/gcc-ld/lld-link\": \"cc32ac78081f4fffca0a2098d5b541382b298d603688f235d7144d615ff14ab6\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/bin/gcc-ld/wasm-ld\": \"cc32ac78081f4fffca0a2098d5b541382b298d603688f235d7144d615ff14ab6\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/bin/rust-lld\": \"8fdb035a0d8732dd47659e6e9a77ee75aacc1b7ab89ca822e97841176d58932b\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/bin/rust-objcopy\": \"12c91962ff1976ce5dcac2c45f88e9f0424c42d14c05686652ebd912e4a8b1e4\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/bin/wasm-component-ld\": \"4f29f11c80609e5a6d0fe050d9642a0d02d6fef0b34d766a330859a9cee9e2ab\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libaddr2line-09755979c57b7e64.rlib\": \"b7b2ddc6169ad7bb67cb085e770da3d71ecfa94d40fe532801bb993710fc2a0d\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libaddr2line-09755979c57b7e64.rmeta\": \"82f47369404e639a55eb105daef089b1a4c3e874c3dcb3bd01fe420dfb8769f3\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libadler2-dca52f01a59c33e7.rlib\": \"75baa52c1f030187625786027ac4030b27ff82c5a324dc31e064528185f3b737\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libadler2-dca52f01a59c33e7.rmeta\": \"7654d6670b95687fa287aa2dbc26d56dd3be9b3ea81512ba470153db872be11d\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/liballoc-1ad4f876c768bda9.rlib\": \"ea6eea65e99c8c64c146175a2e8eb0b5fdd0cadfb9cb13ade7d3d03fdd7a1e61\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/liballoc-1ad4f876c768bda9.rmeta\": \"2227c643549e1dbf7cab374e066e375c86192fbad7ea1973f4a2ffdab5962709\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libcfg_if-360da4ba13154744.rlib\": \"3056ab9b675fa0f293f4998b62bcd324923002a3f3638e40a30ae2d1681eb910\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libcfg_if-360da4ba13154744.rmeta\": \"0cde6977be726e5a3fe8c03950551798c78afc53b8e4ecd3e4b1e929d4bdfa05\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libcompiler_builtins-2d2ab9fb0fe1def5.rlib\": \"1c262a8222305bf9e5925183fe14f20144ddfb84cefee76ff6eff945f0dfaa05\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libcompiler_builtins-2d2ab9fb0fe1def5.rmeta\": \"a8d590efe36486cd55d413c046a344bb5dbaa4e378c5a6dae6a5b178a8f79593\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libcore-df1bddb45adbe94b.rlib\": \"c040da93caf73df2afaa5ea20ed90b0071e7ef71b53d6aed535c68d3e5fbdffd\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libcore-df1bddb45adbe94b.rmeta\": \"e1d3830e4dcadd046a4f4abcf4d8249a4bb4f7832902598f117fbe4c035f71eb\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libgetopts-3faf21cb4217a5c4.rlib\": \"571e9b27e76900c9be94977540553c77379396156aa966715897facce50df1b8\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libgetopts-3faf21cb4217a5c4.rmeta\": \"0488007b741ea68fc01fe5e2e375cb82a20763eb0f5aa4b69cb49d208c1a7558\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libgimli-9a1fede77fbbf2f0.rlib\": \"2a28d6b3b3ad2fb5c88ad53053846c51cbce7218f52289ab58256f8769982116\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libgimli-9a1fede77fbbf2f0.rmeta\": \"82704e45a991c12de6adf3e6107b751a82f19d65a5907b8d5440e96d8f522e02\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libhashbrown-143c77bb957d9940.rlib\": \"19cee31621ce0c4037472d286f45832ac7fa9bf62b5a7a7222392c71a42a2009\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libhashbrown-143c77bb957d9940.rmeta\": \"34a95cbdbb9c6cdd1c9d448fd790a7982f7e99b2366f69575fcbaf3c2422f790\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/liblibc-06449a08aaab5e30.rlib\": \"f0d2145c01473567f0c0235768352fe373c49c80b47e8fcf0c695f0281aeb6db\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/liblibc-06449a08aaab5e30.rmeta\": \"89ec5773a62128a7691b43f8f58bd907a3b23470617b78b8a07c077399ba583d\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libmemchr-0e3477fb2664a277.rlib\": \"b98c5cee91b2f30c87caf42d9fe975a0407fb0f9996d8c762d1738a826a892ef\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libmemchr-0e3477fb2664a277.rmeta\": \"2d4da067f66156aa780e989a34077c389238ae79179157f087f79d818b6070d5\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libminiz_oxide-e44eaef1807e5fc0.rlib\": \"68eb2a85c688cb8d910be4222ec37ca366bd7cdfbb05d9ff923b09a06aa57a3a\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libminiz_oxide-e44eaef1807e5fc0.rmeta\": \"9bd33cd6e75b4f4713783972dd0ce2d930e82a1793544de24808a704b3b1f1b4\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libobject-7ff85ea729a864ff.rlib\": \"0dbdcbf63016c82b39a198bff4a7ba83eea5d328e02160c3da0f2a912007083f\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libobject-7ff85ea729a864ff.rmeta\": \"edfabcfc08a89f34212414bc8138f3461463612a671d9734238147074244bba3\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libpanic_abort-c4dfdaf0b4399055.rlib\": \"ee3ef25a4507609475833ba95359daa74828fee265b6bbaa51e9de4e75a6a794\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libpanic_abort-c4dfdaf0b4399055.rmeta\": \"ff8a804f07c2145fb1a0c0c96add1b032bb816cfe8ccb701700033d6b49f4f8c\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libpanic_unwind-549498e8b2e4d924.rlib\": \"afccbbad6e2b80c3134f0e018a2629f3f08c0c8a9457df774f83ab7e6d73916f\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libpanic_unwind-549498e8b2e4d924.rmeta\": \"f2aee7121a3e066d30359e6b29df90b3fc728cb50181fa680f95f285b88fe997\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libproc_macro-90f1d29c414141c0.rlib\": \"0c732a6a7773a1dc84de4b110ff75d72b327c82597e08d0cc8106e85d03164eb\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libproc_macro-90f1d29c414141c0.rmeta\": \"b59d86deff1cba568a18c095d41a9f6645bbaab3faa38f1fc6cca44d1e5d720c\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libprofiler_builtins-c32d328e982fa0b5.rlib\": \"d45f3cda78a7c97c30d725291aa19bed5c6b685956c6893090455c926b232160\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libprofiler_builtins-c32d328e982fa0b5.rmeta\": \"1361a106f31f3904b746184d932035960908b03739d0f8989ddba8a5cedd249b\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc-stable_rt.asan.a\": \"282049582837a493253bcc4c61e8e923f8151a1bb26feb688acb2b5549ed591b\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc-stable_rt.dfsan.a\": \"af2c5cc016d855075045195d8e59bc830108d5f2bca60c9238749878254055b2\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc-stable_rt.lsan.a\": \"3cdc0c7d26d5fd2aa3917fd1ee34fac80bc8d569ae57ec92a049436af0836425\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc-stable_rt.msan.a\": \"0660a62b129e7bf22327b44e94b8ad67cc2178c303f13ab6dbd348bfd067d6ef\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc-stable_rt.rtsan.a\": \"f0ac0bd459f2298baed57f0bbcff64a25f40f9e71fc3073c5c25dc3cd58a1d9c\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc-stable_rt.safestack.a\": \"8e51ae0b8f75378ed0cb4bfdc730111ce1db72ddde68de0062014600033a8050\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc-stable_rt.tsan.a\": \"ff41a68be3139e7f199e59c2bf8bd9e37c02125761bac6ba3ca906171b34272c\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc_demangle-cfd0ab54bb33760e.rlib\": \"40a11efa12c9adba45094d6ff63f19d786ba54141392f06c0bc8716a070ab3f4\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc_demangle-cfd0ab54bb33760e.rmeta\": \"ac4a36c00afb3fa1d8e75111acc4f8c2a4bb0f7c61ba58ea1c198ceb560a1926\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc_literal_escaper-092f9360013d9ea8.rlib\": \"6282ff8e4f12520674b9ad5c57adc233ae380531ec1a9aa2dc2662c76a572a70\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc_literal_escaper-092f9360013d9ea8.rmeta\": \"650e82ccdaa1b942154e6db8198e1f48d5dc681baecfa05d5ea1cdf693fc829e\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc_std_workspace_alloc-145a318e0772276c.rlib\": \"ab8c10edf4f723c54915357ad7b41cd1269b5f8d49ef304bbd8a0cf21b030258\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc_std_workspace_alloc-145a318e0772276c.rmeta\": \"8fa4d65760374eecc76781188ab6e05d88371894eef007d7ab96663631604a94\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc_std_workspace_core-cb0d4d77988d81b5.rlib\": \"b4d99e606c6f45654c397c2754ef5e06b514085ffd9a8afec7bf3cd3ba5078aa\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc_std_workspace_core-cb0d4d77988d81b5.rmeta\": \"7bf5b192b2634563576b9d8969817babc04cbe21c959d9b70ce2cef0d7d31f07\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc_std_workspace_std-04ecf85ec5d31aba.rlib\": \"66a8125b7c18a57d0ca69b422e7b3019e060a9a32c5ef6c5aa5ae0c195391dd1\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/librustc_std_workspace_std-04ecf85ec5d31aba.rmeta\": \"861f965d5cbfbe4a087f87d9b61738f2b287c07cae08c8f03500390c91606e23\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libstd-64f5f36fb0927694.rlib\": \"bf156342c5f849f27d8f53003131bc7c0e675143389d84dd549b2ebbaccfaa2f\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libstd-64f5f36fb0927694.rmeta\": \"0e5683f313cff28797243affbed81afd4e9f722d24caf1420262913c3031059f\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libstd-64f5f36fb0927694.so\": \"2988c07760fd0baeab583e75dc23aa56a56c5d169d94bcaeceb1c933318e32bb\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libstd_detect-f99feda5ce9e492a.rlib\": \"cf0b708f1240644c0f5d0d672913a9998e9e8320184bc6073a4fbb8c07d55f3e\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libstd_detect-f99feda5ce9e492a.rmeta\": \"406ab55585760fd8ebc05ac90f0f6f02f92959184d1f9cd7b5aab3420bc3153a\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libsysroot-002faa2f1d166f98.rlib\": \"0c06de8c1ce571a587568d60b73cd599c483ddb66b0cdadf0873ee9def2f4442\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libsysroot-002faa2f1d166f98.rmeta\": \"10b1ed7dcb0b8b5dbf520507b9c7e498aa9608d6de05f3d4c90c19d18fcec6b7\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libtest-4052f37fcd02ccef.rlib\": \"18285161e0c3e2bf8bc9b74d609a49ff27d0676b0c00a40b3730110e1df942bc\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libtest-4052f37fcd02ccef.rmeta\": \"c0331cc120c407caa406efec35c2be6f406ef0ea4e4cded0bcc7fccee07226da\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libunwind-3ec41d3a5a80a4a4.rlib\": \"9bcb7ac2880f01055170c5c4d7f383a1174cd5e97e6c4f440a103fec521b6561\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libunwind-3ec41d3a5a80a4a4.rmeta\": \"ee2027babacb51106ae42e3f8d651c3ec763651365b74db35cc10b0961b4033f\"\n  },\n  \"rustsec\": {\n    \"url\": \"https://codeload.github.com/RustSec/advisory-db/tar.gz/5a0ebedfe8bdd2e295b171f4162f8c977bcad9a5\",\n    \"sha256\": \"b139452940da08da4428041130c80a30303a8b838901da7ab764972dc8350fe0\",\n    \"bytes\": 468664,\n    \"upstream_commit\": \"5a0ebedfe8bdd2e295b171f4162f8c977bcad9a5\",\n    \"commit_date\": \"2026-09-02T09:13:32Z\",\n    \"local_snapshot_commit\": \"e7570d7eccbe9863ea860676627c8e1002544494\",\n    \"representation\": \"local Git commit from hash-verified upstream archive, NOT upstream Git history\",\n    \"directory\": \"advisory-db-3157b0e258782691\",\n    \"maximum_age_days\": 7\n  },\n  \"scope\": \"pinned snapshot only, NOT a live audit; executable/library pins plus full advisory archive contents\",\n  \"rust_declarations\": {\n    \"channel\": \"1.98.1\",\n    \"workspace_rust_version\": \"1.98.1\",\n    \"lock_release\": \"1.98.1\",\n    \"checked_rustc_release\": \"1.98.1\"\n  },\n  \"dependencies\": {\n    \"packages\": 23,\n    \"index_commit\": \"9137a21173fbb8ae8536ae5b96cd1fa9da3ddfa3\",\n    \"commit_date\": \"2026-09-06T13:20:09Z\",\n    \"maximum_age_days\": 7,\n    \"scope\": \"hash-pinned Cargo sources and registry snapshot; NOT a live yank/advisory audit\"\n  }\n}\n",
+    "timed_out": false,
+    "output_limited": false,
+    "elapsed_seconds": 0.945
+  },
+  "clippy": {
+    "command": [
+      "/tools/rust/bin/cargo",
+      "clippy",
+      "--frozen",
+      "--workspace",
+      "--all-targets",
+      "--all-features",
+      "--",
+      "-D",
+      "warnings"
+    ],
+    "exit_code": 101,
+    "output": "   Compiling proc-macro2 v1.0.107\n   Compiling unicode-ident v1.0.24\n   Compiling quote v1.0.47\n   Compiling serde_core v1.0.229\n   Compiling autocfg v1.5.1\n   Compiling libc v0.2.189\n   Compiling zmij v1.0.23\n   Compiling cfg_aliases v0.2.2\n   Compiling rustix v1.1.4\n   Compiling serde v1.0.229\n    Checking bitflags v2.13.1\n   Compiling serde_json v1.0.151\n    Checking itoa v1.0.18\n    Checking linux-raw-sys v0.12.1\n    Checking memchr v2.8.3\n    Checking cfg-if v1.0.4\n   Compiling nix v0.31.3\n   Compiling memoffset v0.9.1\n   Compiling syn v3.0.5\n   Compiling serde_derive v1.0.229\n    Checking harbormaster v0.1.0 (/work/crates/harbormaster)\nerror: redundant field names in struct initialization\n  --> crates/harbormaster/tests/ingestion.rs:49:13\n   |\n49 |             client: client,\n   |             ^^^^^^^^^^^^^^ help: replace it with: `client`\n   |\n   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#redundant_field_names\n   = note: `-D clippy::redundant-field-names` implied by `-D warnings`\n   = help: to override `-D warnings` add `#[allow(clippy::redundant_field_names)]`\n\nerror: could not compile `harbormaster` (test \"ingestion\") due to 1 previous error\n",
+    "timed_out": false,
+    "output_limited": false,
+    "elapsed_seconds": 2.435
+  },
+  "rust-library": {
+    "command": [
+      "/tools/rust/bin/cargo",
+      "test",
+      "--frozen",
+      "--workspace",
+      "--lib",
+      "--all-features"
+    ],
+    "exit_code": 0,
+    "output": "   Compiling bitflags v2.13.1\n   Compiling itoa v1.0.18\n   Compiling memchr v2.8.3\n   Compiling linux-raw-sys v0.12.1\n   Compiling cfg-if v1.0.4\n   Compiling serde_core v1.0.229\n   Compiling libc v0.2.189\n   Compiling zmij v1.0.23\n   Compiling memoffset v0.9.1\n   Compiling rustix v1.1.4\n   Compiling nix v0.31.3\n   Compiling serde v1.0.229\n   Compiling serde_json v1.0.151\n   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.70s\n     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-ef0be7eab73275d4)\n\nrunning 11 tests\ntest ipc::peer::tests::raw_kernel_zero_or_negative_pid_is_rejected_before_peer_construction ... ok\ntest protocol::strict::tests::bounded_writer_refuses_growth_before_copying_excess_input ... ok\ntest tests::excess_arity_is_checked_before_encoding ... ok\ntest tests::long_help_is_a_pure_help_request ... ok\ntest tests::excess_arguments_have_a_typed_error ... ok\ntest tests::no_arguments_request_help_without_a_default_mode ... ok\ntest tests::non_unicode_is_a_typed_value_free_error ... ok\ntest protocol::strict::tests::container_depth_eight_accepts_and_nine_rejects ... ok\ntest tests::short_help_requests_help ... ok\ntest tests::unsupported_modes_and_values_have_no_runtime_action ... ok\ntest tests::version_aliases_are_pure_version_requests ... ok\n\ntest result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n",
+    "timed_out": false,
+    "output_limited": false,
+    "elapsed_seconds": 1.712
+  },
+  "ingestion": {
+    "command": [
+      "/tools/rust/bin/cargo",
+      "test",
+      "--frozen",
+      "--test",
+      "ingestion"
+    ],
+    "exit_code": 0,
+    "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.13s\n     Running tests/ingestion.rs (/state/target/debug/deps/ingestion-f74b4e95900d96db)\n\nrunning 23 tests\ntest control::control_session_cannot_be_reused_with_another_authorizer ... ok\ntest control::current_capabilities_and_expected_revision_are_rechecked_without_side_effects ... ok\ntest control::event_credentials_cannot_negotiate_control_even_with_matching_uid ... ok\ntest control::duplicate_negotiation_and_missing_requested_operation_fail_closed ... ok\ntest control::negotiation_reports_actual_grants_and_incomplete_evidence_cannot_authorize ... ok\ntest a_retired_generation_cannot_be_reactivated ... ok\ntest control::peer_identity_and_requested_operation_alone_do_not_grant_permission ... ok\ntest admission_is_bounded_and_duplicates_never_count_as_durable_acknowledgment ... ok\ntest fresh_generation_discards_backlog_and_invalidates_old_session ... ok\ntest limits::global_queue_is_bounded_and_healthy_producers_get_fair_dequeue ... ok\ntest limits::bounded_receipts_freeze_generation_instead_of_forgetting_replay_defenses ... ok\ntest malformed_content_is_not_retained_or_admitted ... ok\ntest limits::maximum_sequence_does_not_wrap_and_checkpoint_replay_is_refused ... ok\ntest unknown_generation_cannot_reconnect_or_reset_sequence ... ok\ntest sessions_cannot_cross_registry_instances ... ok\ntest negotiation_narrows_signals_and_duplicate_registration_cannot_overwrite_scope ... ok\ntest real_socket_frames_negotiate_then_enter_only_the_event_queue ... ok\ntest sequence_gap_and_conflict_require_trusted_reconciliation ... ok\ntest wrong_channel_generation_producer_run_and_signal_cannot_queue ... ok\ntest per_producer_backpressure_does_not_advance_sequence ... ok\ntest limits::replay_frame_bytes_have_an_independent_hard_ceiling ... ok\ntest limits::active_registry_has_a_hard_ceiling_and_duplicate_registration_does_not_replace ... ok\ntest limits::global_replay_records_have_an_independent_hard_ceiling ... ok\n\ntest result: ok. 23 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.11s\n\n",
+    "timed_out": false,
+    "output_limited": false,
+    "elapsed_seconds": 1.259
+  },
+  "ipc": {
+    "command": [
+      "/tools/rust/bin/cargo",
+      "test",
+      "--frozen",
+      "--test",
+      "ipc"
+    ],
+    "exit_code": 0,
+    "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.18s\n     Running tests/ipc.rs (/state/target/debug/deps/ipc-97be3f31bedfd974)\n\nrunning 16 tests\ntest held_directory_survives_rename_without_touching_replacement_directory ... ok\ntest bind_failure_and_cleanup_never_delete_existing_or_replaced_files ... ok\ntest malformed_encoding_and_eof_reject_buffered_frame ... ok\ntest connection_cap_releases_on_drop_and_deadline_closes_connection ... ok\ntest framing_is_incremental_bounded_and_poisoned_after_failure ... ok\ntest nonblocking_io_preserves_fragmented_frames_and_separate_consumers ... ok\ntest unsafe_runtime_and_symlink_ancestors_are_rejected ... ok\ntest file_descriptor_exhaustion_cleans_only_created_socket_names ... ok\ntest outbound_enforces_both_caps_before_copying ... ok\ntest authenticated_slow_writer_expires_while_another_client_stays_responsive ... ok\ntest cross_process_peer_credentials_are_from_the_kernel ... ok\ntest private_socket_paths_are_owned_and_channels_are_listener_evidence ... ok\ntest partial_frame_deadline_does_not_extend_with_dripped_bytes ... ok\ntest queue_overflow_disconnects_so_a_client_must_resynchronize ... ok\ntest second_bind_failure_rolls_back_only_the_socket_created_by_this_call ... ok\ntest manager_connection_cap_cannot_be_bypassed_with_new_caller_budgets ... ok\n\ntest result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s\n\n",
+    "timed_out": false,
+    "output_limited": false,
+    "elapsed_seconds": 0.235
+  },
+  "ipc_namespace": {
+    "command": [
+      "/tools/rust/bin/cargo",
+      "test",
+      "--frozen",
+      "--test",
+      "ipc_namespace",
+      "--",
+      "--nocapture"
+    ],
+    "exit_code": 0,
+    "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.12s\n     Running tests/ipc_namespace.rs (/state/target/debug/deps/ipc_namespace-2eca1b0a6f639212)\n\nrunning 1 test\nnative peer credential fixture: outer same-UID client rejected by inner PID namespace server\ntest peer_without_visible_pid_is_rejected ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\n",
+    "timed_out": false,
+    "output_limited": false,
+    "elapsed_seconds": 0.14
+  },
+  "reviewer_emfile": {
+    "command": [
+      "/tools/rust/bin/cargo",
+      "test",
+      "--frozen",
+      "--test",
+      "review_ipc",
+      "--",
+      "--test-threads=1",
+      "--nocapture"
+    ],
+    "exit_code": 0,
+    "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.10s\n     Running tests/review_ipc.rs (/state/target/debug/deps/review_ipc-c13166256c2a5961)\n\nrunning 1 test\ntest no_created_socket_is_left_after_fd_exhaustion ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n",
+    "timed_out": false,
+    "output_limited": false,
+    "elapsed_seconds": 0.115,
+    "additional_test_sha256": "f7aa267e79e178a0e5e01713b9d03b4c2e6c55f7a26de96a6837e2ca0659a1cb"
+  },
+  "namespace_counterfactual": {
+    "command": [
+      "/tools/rust/bin/cargo",
+      "test",
+      "--frozen",
+      "--test",
+      "ipc_namespace",
+      "--",
+      "--nocapture"
+    ],
+    "exit_code": 101,
+    "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.30s\n     Running tests/ipc_namespace.rs (/state/target/debug/deps/ipc_namespace-2eca1b0a6f639212)\n\nrunning 1 test\n\nthread 'peer_without_visible_pid_is_rejected' (313) panicked at crates/harbormaster/tests/ipc_namespace.rs:138:5:\n\nrunning 1 test\ntest peer_without_visible_pid_is_rejected ... FAILED\n\nfailures:\n\nfailures:\n    peer_without_visible_pid_is_rejected\n\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\n\n \nthread 'peer_without_visible_pid_is_rejected' (3) panicked at crates/harbormaster/tests/ipc_namespace.rs:39:28:\naccepted a peer whose PID is invisible in this namespace\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\ntest peer_without_visible_pid_is_rejected ... FAILED\n\nfailures:\n\nfailures:\n    peer_without_visible_pid_is_rejected\n\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s\n\nerror: test failed, to rerun pass `--test ipc_namespace`\n",
+    "timed_out": false,
+    "output_limited": false,
+    "elapsed_seconds": 0.325,
+    "mutation": "remove only `.filter(|value| *value > 0)` from raw PID conversion; nix raw integer getter and all namespace options unchanged",
+    "original_peer_sha256": "692ede5dc68aae4fd9bb4ffa6ef88f906c3426974ded32e44233ebaa90e1f9c4",
+    "mutated_peer_sha256": "b616293d2949e00ef456269a0e8273b25adb57e67d264bb46bad5777a0811353"
+  },
+  "maintainability": {
+    "coverage": {
+      "by_language": {
+        "python": 48,
+        "qml": 1,
+        "rust": 29
+      },
+      "complete": true,
+      "errors": [],
+      "excluded_directory_names": [
+        ".git",
+        ".tools",
+        "__pycache__",
+        "design",
+        "frozen",
+        "generated",
+        "spikes",
+        "target",
+        "vendor"
+      ],
+      "exclusions": [
+        {
+          "path": ".github",
+          "reason": "outside new-code scope"
+        },
+        {
+          "path": "Cargo.lock",
+          "reason": "outside new-code scope"
+        },
+        {
+          "path": "Cargo.toml",
+          "reason": "outside new-code scope"
+        },
+        {
+          "path": "LICENSE",
+          "reason": "outside new-code scope"
+        },
+        {
+          "path": "README.md",
+          "reason": "outside new-code scope"
+        },
+        {
+          "path": "clippy.toml",
+          "reason": "outside new-code scope"
+        },
+        {
+          "path": "contracts",
+          "reason": "outside new-code scope"
+        },
+        {
+          "path": "crates/harbormaster/Cargo.toml",
+          "reason": "outside new-code scope"
+        },
+        {
+          "path": "crates/harbormaster/README.md",
+          "reason": "outside new-code scope"
+        },
+        {
+          "path": "docs",
+          "reason": "outside new-code scope"
+        },
+        {
+          "path": "qml/README.md",
+          "reason": "outside new-code scope"
+        },
+        {
+          "path": "rust-toolchain.toml",
+          "reason": "outside new-code scope"
+        },
+        {
+          "path": "scripts/verify-m0.py",
+          "reason": "outside new-code scope"
+        },
+        {
+          "path": "spikes",
+          "reason": "excluded tree"
+        },
+        {
+          "path": "tests/test_m0_contracts.py",
+          "reason": "outside new-code scope"
+        },
+        {
+          "path": "tools",
+          "reason": "outside new-code scope"
+        }
+      ],
+      "files_analyzed": 78,
+      "files_listed": 78,
+      "legacy_excluded_files": [
+        "scripts/verify-m0.py",
+        "tests/test_m0_contracts.py"
+      ],
+      "limitations": [
+        "Path-level test partition: inline Rust test modules remain in production totals (conservative).",
+        "Rust/QML lexical approximations cover named fn/function bodies, not full grammar or validity.",
+        "No macro expansion, cfg evaluation, closures, arrow functions, QML handlers/bindings, or anonymous functions.",
+        "Lexical names start with ASCII letters/underscore; Rust raw identifiers are supported; module/impl names are not qualified.",
+        "Exotic const-generic signature braces and QML regex literals may distort lexical spans; template literals are opaque, including interpolation.",
+        "Python AST-exact spans/node counts use the executing Python grammar; lambdas are not listed separately.",
+        "Generated detection is directory-based plus recognized comment headers in the first five lines; unmarked generated files may be included.",
+        "UTF-8 source only; POSIX no-follow directory-descriptor traversal rejects root ancestor symlinks. No concurrent-tree snapshot guarantee.",
+        "Size/control counts are review signals, not cyclomatic complexity, coupling, duplication, API, or dead-code analysis."
+      ],
+      "metric_definitions": {
+        "branches": "Python: If/For/AsyncFor/While/ExceptHandler/IfExp/match_case/comprehension nodes plus BoolOp operands minus one. Lexical: if/for/while/loop/match/switch/case/catch and &&/||/? tokens. Nested function bodies excluded.",
+        "nesting": "Python: maximum selected branch-node plus Try/TryStar/With/AsyncWith/Match depth. Lexical: maximum brace depth inside function (object literals count). Nested function bodies excluded.",
+        "nonblank_lines": "Physical nonblank source lines, including comments/docstrings. Function spans include nested definitions; Python decorators included, Rust attributes excluded."
+      },
+      "scope": "crates/**/src/**/*.rs; qml/**/*.qml; scripts/**/*.py; tests/**/*.py and Rust test files. Legacy M0 excluded; no git-diff dependency."
+    },
+    "production": {
+      "files": [
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 38,
+              "line": 31,
+              "name": "new",
+              "nesting": 1,
+              "nonblank_lines": 8
+            },
+            {
+              "branches": 0,
+              "end_line": 43,
+              "line": 41,
+              "name": "set_capability",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 4,
+              "end_line": 78,
+              "line": 48,
+              "name": "negotiated_capabilities",
+              "nesting": 3,
+              "nonblank_lines": 31
+            },
+            {
+              "branches": 4,
+              "end_line": 102,
+              "line": 83,
+              "name": "connect",
+              "nesting": 1,
+              "nonblank_lines": 20
+            },
+            {
+              "branches": 7,
+              "end_line": 136,
+              "line": 108,
+              "name": "authorize",
+              "nesting": 1,
+              "nonblank_lines": 29
+            },
+            {
+              "branches": 4,
+              "end_line": 144,
+              "line": 139,
+              "name": "usable",
+              "nesting": 0,
+              "nonblank_lines": 6
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 136,
+          "path": "crates/harbormaster/src/ingestion/control.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 4,
+              "end_line": 30,
+              "line": 7,
+              "name": "fresh",
+              "nesting": 1,
+              "nonblank_lines": 24
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 29,
+          "path": "crates/harbormaster/src/ingestion/generation.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 1,
+              "end_line": 63,
+              "line": 47,
+              "name": "fmt",
+              "nesting": 1,
+              "nonblank_lines": 17
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 59,
+          "path": "crates/harbormaster/src/ingestion/mod.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 16,
+              "line": 14,
+              "name": "count",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 1,
+              "end_line": 21,
+              "line": 18,
+              "name": "has_room",
+              "nesting": 0,
+              "nonblank_lines": 4
+            },
+            {
+              "branches": 1,
+              "end_line": 32,
+              "line": 24,
+              "name": "push",
+              "nesting": 1,
+              "nonblank_lines": 9
+            },
+            {
+              "branches": 4,
+              "end_line": 45,
+              "line": 34,
+              "name": "pop",
+              "nesting": 1,
+              "nonblank_lines": 12
+            },
+            {
+              "branches": 0,
+              "end_line": 55,
+              "line": 47,
+              "name": "discard",
+              "nesting": 0,
+              "nonblank_lines": 9
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 50,
+          "path": "crates/harbormaster/src/ingestion/queue.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 41,
+              "line": 39,
+              "name": "negotiated_signals",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 65,
+              "line": 55,
+              "name": "new",
+              "nesting": 1,
+              "nonblank_lines": 11
+            },
+            {
+              "branches": 6,
+              "end_line": 93,
+              "line": 67,
+              "name": "sequence",
+              "nesting": 2,
+              "nonblank_lines": 27
+            },
+            {
+              "branches": 0,
+              "end_line": 112,
+              "line": 110,
+              "name": "new",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 3,
+              "end_line": 130,
+              "line": 117,
+              "name": "register",
+              "nesting": 1,
+              "nonblank_lines": 14
+            },
+            {
+              "branches": 9,
+              "end_line": 170,
+              "line": 135,
+              "name": "connect",
+              "nesting": 1,
+              "nonblank_lines": 36
+            },
+            {
+              "branches": 2,
+              "end_line": 190,
+              "line": 175,
+              "name": "admit",
+              "nesting": 1,
+              "nonblank_lines": 16
+            },
+            {
+              "branches": 13,
+              "end_line": 235,
+              "line": 192,
+              "name": "reserve",
+              "nesting": 1,
+              "nonblank_lines": 44
+            },
+            {
+              "branches": 3,
+              "end_line": 270,
+              "line": 243,
+              "name": "reconcile",
+              "nesting": 1,
+              "nonblank_lines": 28
+            },
+            {
+              "branches": 0,
+              "end_line": 275,
+              "line": 273,
+              "name": "pop",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 279,
+              "line": 277,
+              "name": "queued",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 283,
+              "line": 281,
+              "name": "discarded",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 287,
+              "line": 285,
+              "name": "rejected",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 2,
+              "end_line": 296,
+              "line": 290,
+              "name": "unique_signals",
+              "nesting": 1,
+              "nonblank_lines": 7
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 281,
+          "path": "crates/harbormaster/src/ingestion/registry.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 1,
+              "end_line": 30,
+              "line": 22,
+              "name": "new",
+              "nesting": 1,
+              "nonblank_lines": 9
+            },
+            {
+              "branches": 0,
+              "end_line": 35,
+              "line": 33,
+              "name": "active",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 1,
+              "end_line": 43,
+              "line": 37,
+              "name": "acquire",
+              "nesting": 1,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 0,
+              "end_line": 51,
+              "line": 49,
+              "name": "drop",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 6,
+              "end_line": 109,
+              "line": 76,
+              "name": "accept",
+              "nesting": 1,
+              "nonblank_lines": 34
+            },
+            {
+              "branches": 0,
+              "end_line": 114,
+              "line": 112,
+              "name": "channel",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 119,
+              "line": 117,
+              "name": "peer",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 1,
+              "end_line": 130,
+              "line": 126,
+              "name": "complete_handshake",
+              "nesting": 0,
+              "nonblank_lines": 5
+            },
+            {
+              "branches": 8,
+              "end_line": 178,
+              "line": 136,
+              "name": "read_frame",
+              "nesting": 3,
+              "nonblank_lines": 43
+            },
+            {
+              "branches": 4,
+              "end_line": 197,
+              "line": 184,
+              "name": "queue_frame",
+              "nesting": 2,
+              "nonblank_lines": 14
+            },
+            {
+              "branches": 4,
+              "end_line": 230,
+              "line": 204,
+              "name": "flush",
+              "nesting": 2,
+              "nonblank_lines": 27
+            },
+            {
+              "branches": 2,
+              "end_line": 249,
+              "line": 232,
+              "name": "check_deadlines",
+              "nesting": 1,
+              "nonblank_lines": 18
+            },
+            {
+              "branches": 0,
+              "end_line": 255,
+              "line": 251,
+              "name": "close",
+              "nesting": 0,
+              "nonblank_lines": 5
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 239,
+          "path": "crates/harbormaster/src/ipc/connection.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 4,
+              "end_line": 41,
+              "line": 20,
+              "name": "feed",
+              "nesting": 2,
+              "nonblank_lines": 22
+            },
+            {
+              "branches": 1,
+              "end_line": 55,
+              "line": 47,
+              "name": "finish",
+              "nesting": 1,
+              "nonblank_lines": 9
+            },
+            {
+              "branches": 0,
+              "end_line": 59,
+              "line": 57,
+              "name": "has_partial",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 64,
+              "line": 61,
+              "name": "close",
+              "nesting": 0,
+              "nonblank_lines": 4
+            },
+            {
+              "branches": 3,
+              "end_line": 74,
+              "line": 67,
+              "name": "valid_frame",
+              "nesting": 0,
+              "nonblank_lines": 8
+            },
+            {
+              "branches": 4,
+              "end_line": 102,
+              "line": 89,
+              "name": "push",
+              "nesting": 1,
+              "nonblank_lines": 14
+            },
+            {
+              "branches": 0,
+              "end_line": 107,
+              "line": 105,
+              "name": "frames",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 112,
+              "line": 110,
+              "name": "bytes",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 116,
+              "line": 114,
+              "name": "front",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 1,
+              "end_line": 124,
+              "line": 118,
+              "name": "advance",
+              "nesting": 1,
+              "nonblank_lines": 7
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 112,
+          "path": "crates/harbormaster/src/ipc/framing.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 1,
+              "end_line": 52,
+              "line": 40,
+              "name": "fmt",
+              "nesting": 1,
+              "nonblank_lines": 13
+            },
+            {
+              "branches": 0,
+              "end_line": 60,
+              "line": 58,
+              "name": "from",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 66,
+              "line": 64,
+              "name": "from",
+              "nesting": 0,
+              "nonblank_lines": 3
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 58,
+          "path": "crates/harbormaster/src/ipc/mod.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 5,
+              "end_line": 46,
+              "line": 27,
+              "name": "open",
+              "nesting": 1,
+              "nonblank_lines": 20
+            },
+            {
+              "branches": 2,
+              "end_line": 55,
+              "line": 50,
+              "name": "drop",
+              "nesting": 1,
+              "nonblank_lines": 6
+            },
+            {
+              "branches": 12,
+              "end_line": 77,
+              "line": 58,
+              "name": "open_runtime",
+              "nesting": 3,
+              "nonblank_lines": 20
+            },
+            {
+              "branches": 6,
+              "end_line": 91,
+              "line": 79,
+              "name": "validate_directory",
+              "nesting": 1,
+              "nonblank_lines": 13
+            },
+            {
+              "branches": 3,
+              "end_line": 100,
+              "line": 93,
+              "name": "same_entry",
+              "nesting": 1,
+              "nonblank_lines": 8
+            },
+            {
+              "branches": 11,
+              "end_line": 152,
+              "line": 111,
+              "name": "bind",
+              "nesting": 1,
+              "nonblank_lines": 42
+            },
+            {
+              "branches": 1,
+              "end_line": 162,
+              "line": 156,
+              "name": "drop",
+              "nesting": 1,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 4,
+              "end_line": 190,
+              "line": 181,
+              "name": "bind",
+              "nesting": 1,
+              "nonblank_lines": 10
+            },
+            {
+              "branches": 3,
+              "end_line": 225,
+              "line": 198,
+              "name": "accept",
+              "nesting": 2,
+              "nonblank_lines": 28
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 213,
+          "path": "crates/harbormaster/src/ipc/paths.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 1,
+              "end_line": 20,
+              "line": 13,
+              "name": "read",
+              "nesting": 0,
+              "nonblank_lines": 8
+            },
+            {
+              "branches": 1,
+              "end_line": 28,
+              "line": 22,
+              "name": "checked",
+              "nesting": 1,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 0,
+              "end_line": 33,
+              "line": 31,
+              "name": "uid",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 38,
+              "line": 36,
+              "name": "gid",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 43,
+              "line": 41,
+              "name": "pid",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 1,
+              "end_line": 55,
+              "line": 49,
+              "name": "require_uid",
+              "nesting": 1,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 1,
+              "end_line": 74,
+              "line": 63,
+              "name": "raw_kernel_zero_or_negative_pid_is_rejected_before_peer_construction",
+              "nesting": 1,
+              "nonblank_lines": 12
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 66,
+          "path": "crates/harbormaster/src/ipc/peer.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 1,
+              "end_line": 35,
+              "line": 25,
+              "name": "fmt",
+              "nesting": 2,
+              "nonblank_lines": 11
+            },
+            {
+              "branches": 3,
+              "end_line": 64,
+              "line": 51,
+              "name": "interpret",
+              "nesting": 1,
+              "nonblank_lines": 14
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 59,
+          "path": "crates/harbormaster/src/lib.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 3,
+              "end_line": 26,
+              "line": 6,
+              "name": "main",
+              "nesting": 3,
+              "nonblank_lines": 21
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 24,
+          "path": "crates/harbormaster/src/main.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 1,
+              "end_line": 85,
+              "line": 75,
+              "name": "serialize",
+              "nesting": 1,
+              "nonblank_lines": 11
+            },
+            {
+              "branches": 3,
+              "end_line": 97,
+              "line": 91,
+              "name": "parse_control_handshake",
+              "nesting": 1,
+              "nonblank_lines": 7
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 89,
+          "path": "crates/harbormaster/src/protocol/capability.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 56,
+              "line": 54,
+              "name": "is_stateful",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 1,
+              "end_line": 71,
+              "line": 65,
+              "name": "try_from",
+              "nesting": 1,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 0,
+              "end_line": 76,
+              "line": 74,
+              "name": "from",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 82,
+              "line": 80,
+              "name": "value",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 1,
+              "end_line": 209,
+              "line": 194,
+              "name": "operation",
+              "nesting": 2,
+              "nonblank_lines": 16
+            },
+            {
+              "branches": 1,
+              "end_line": 245,
+              "line": 211,
+              "name": "expected_revision",
+              "nesting": 2,
+              "nonblank_lines": 35
+            },
+            {
+              "branches": 0,
+              "end_line": 263,
+              "line": 261,
+              "name": "operation",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 267,
+              "line": 265,
+              "name": "expected_revision",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 287,
+              "line": 271,
+              "name": "serialize",
+              "nesting": 1,
+              "nonblank_lines": 17
+            },
+            {
+              "branches": 9,
+              "end_line": 315,
+              "line": 293,
+              "name": "parse_control",
+              "nesting": 1,
+              "nonblank_lines": 23
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 303,
+          "path": "crates/harbormaster/src/protocol/control.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 1,
+              "end_line": 145,
+              "line": 133,
+              "name": "kind",
+              "nesting": 1,
+              "nonblank_lines": 13
+            },
+            {
+              "branches": 11,
+              "end_line": 162,
+              "line": 146,
+              "name": "decode",
+              "nesting": 2,
+              "nonblank_lines": 17
+            },
+            {
+              "branches": 2,
+              "end_line": 225,
+              "line": 197,
+              "name": "serialize",
+              "nesting": 1,
+              "nonblank_lines": 29
+            },
+            {
+              "branches": 3,
+              "end_line": 242,
+              "line": 231,
+              "name": "parse_event",
+              "nesting": 1,
+              "nonblank_lines": 12
+            },
+            {
+              "branches": 2,
+              "end_line": 256,
+              "line": 244,
+              "name": "unique_bounded",
+              "nesting": 1,
+              "nonblank_lines": 13
+            },
+            {
+              "branches": 1,
+              "end_line": 302,
+              "line": 288,
+              "name": "serialize",
+              "nesting": 1,
+              "nonblank_lines": 15
+            },
+            {
+              "branches": 3,
+              "end_line": 318,
+              "line": 308,
+              "name": "parse_event_handshake",
+              "nesting": 1,
+              "nonblank_lines": 11
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 293,
+          "path": "crates/harbormaster/src/protocol/event.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 3,
+              "end_line": 18,
+              "line": 9,
+              "name": "canonical_uuid",
+              "nesting": 2,
+              "nonblank_lines": 10
+            },
+            {
+              "branches": 0,
+              "end_line": 30,
+              "line": 28,
+              "name": "as_str",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 1,
+              "end_line": 41,
+              "line": 35,
+              "name": "from_str",
+              "nesting": 1,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 0,
+              "end_line": 47,
+              "line": 45,
+              "name": "fmt",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 53,
+              "line": 51,
+              "name": "serialize",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 1,
+              "end_line": 61,
+              "line": 57,
+              "name": "deserialize",
+              "nesting": 0,
+              "nonblank_lines": 5
+            },
+            {
+              "branches": 2,
+              "end_line": 96,
+              "line": 94,
+              "name": "opaque",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 139,
+              "line": 137,
+              "name": "new",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 143,
+              "line": 141,
+              "name": "value",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 147,
+              "line": 145,
+              "name": "checked_next",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 4,
+              "end_line": 163,
+              "line": 152,
+              "name": "from_str",
+              "nesting": 1,
+              "nonblank_lines": 12
+            },
+            {
+              "branches": 0,
+              "end_line": 169,
+              "line": 167,
+              "name": "fmt",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 175,
+              "line": 173,
+              "name": "serialize",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 1,
+              "end_line": 183,
+              "line": 179,
+              "name": "deserialize",
+              "nesting": 0,
+              "nonblank_lines": 5
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 175,
+          "path": "crates/harbormaster/src/protocol/identity.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 1,
+              "end_line": 54,
+              "line": 40,
+              "name": "fmt",
+              "nesting": 1,
+              "nonblank_lines": 15
+            },
+            {
+              "branches": 1,
+              "end_line": 71,
+              "line": 65,
+              "name": "try_from",
+              "nesting": 1,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 0,
+              "end_line": 76,
+              "line": 74,
+              "name": "from",
+              "nesting": 0,
+              "nonblank_lines": 3
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 70,
+          "path": "crates/harbormaster/src/protocol/mod.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 2,
+              "end_line": 51,
+              "line": 38,
+              "name": "validate",
+              "nesting": 2,
+              "nonblank_lines": 14
+            },
+            {
+              "branches": 1,
+              "end_line": 70,
+              "line": 55,
+              "name": "serialize",
+              "nesting": 1,
+              "nonblank_lines": 16
+            },
+            {
+              "branches": 8,
+              "end_line": 95,
+              "line": 76,
+              "name": "parse_response",
+              "nesting": 1,
+              "nonblank_lines": 20
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 87,
+          "path": "crates/harbormaster/src/protocol/response.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 25,
+              "line": 23,
+              "name": "deserialize",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 32,
+              "line": 30,
+              "name": "expecting",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 35,
+              "line": 33,
+              "name": "visit_bool",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 38,
+              "line": 36,
+              "name": "visit_i64",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 41,
+              "line": 39,
+              "name": "visit_u64",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 1,
+              "end_line": 46,
+              "line": 42,
+              "name": "visit_f64",
+              "nesting": 0,
+              "nonblank_lines": 5
+            },
+            {
+              "branches": 0,
+              "end_line": 49,
+              "line": 47,
+              "name": "visit_str",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 52,
+              "line": 50,
+              "name": "visit_string",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 55,
+              "line": 53,
+              "name": "visit_unit",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 58,
+              "line": 56,
+              "name": "visit_none",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 3,
+              "end_line": 70,
+              "line": 59,
+              "name": "visit_seq",
+              "nesting": 1,
+              "nonblank_lines": 12
+            },
+            {
+              "branches": 5,
+              "end_line": 87,
+              "line": 71,
+              "name": "visit_map",
+              "nesting": 2,
+              "nonblank_lines": 17
+            },
+            {
+              "branches": 7,
+              "end_line": 113,
+              "line": 90,
+              "name": "decode",
+              "nesting": 1,
+              "nonblank_lines": 24
+            },
+            {
+              "branches": 0,
+              "end_line": 117,
+              "line": 115,
+              "name": "typed",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 2,
+              "end_line": 131,
+              "line": 124,
+              "name": "encode_frame",
+              "nesting": 0,
+              "nonblank_lines": 8
+            },
+            {
+              "branches": 1,
+              "end_line": 141,
+              "line": 135,
+              "name": "write",
+              "nesting": 1,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 0,
+              "end_line": 144,
+              "line": 142,
+              "name": "flush",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 1,
+              "end_line": 161,
+              "line": 152,
+              "name": "container_depth_eight_accepts_and_nine_rejects",
+              "nesting": 1,
+              "nonblank_lines": 10
+            },
+            {
+              "branches": 0,
+              "end_line": 169,
+              "line": 164,
+              "name": "bounded_writer_refuses_growth_before_copying_excess_input",
+              "nesting": 0,
+              "nonblank_lines": 6
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 157,
+          "path": "crates/harbormaster/src/protocol/strict.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 2,
+              "end_line": 28,
+              "line": 14,
+              "name": "main",
+              "nesting": 2,
+              "nonblank_lines": 15
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 27,
+          "path": "scripts/prepare-dependencies.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 2,
+              "end_line": 30,
+              "line": 13,
+              "name": "main",
+              "nesting": 2,
+              "nonblank_lines": 18
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 29,
+          "path": "scripts/prepare-tools.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 3,
+              "end_line": 25,
+              "line": 18,
+              "name": "index_path",
+              "nesting": 1,
+              "nonblank_lines": 8
+            },
+            {
+              "branches": 5,
+              "end_line": 38,
+              "line": 28,
+              "name": "records",
+              "nesting": 2,
+              "nonblank_lines": 11
+            },
+            {
+              "branches": 1,
+              "end_line": 46,
+              "line": 41,
+              "name": "cache_record",
+              "nesting": 1,
+              "nonblank_lines": 6
+            },
+            {
+              "branches": 17,
+              "end_line": 83,
+              "line": 49,
+              "name": "read_pins",
+              "nesting": 3,
+              "nonblank_lines": 35
+            },
+            {
+              "branches": 3,
+              "end_line": 101,
+              "line": 86,
+              "name": "verify_package",
+              "nesting": 1,
+              "nonblank_lines": 16
+            },
+            {
+              "branches": 6,
+              "end_line": 127,
+              "line": 104,
+              "name": "verify_dependencies",
+              "nesting": 3,
+              "nonblank_lines": 24
+            },
+            {
+              "branches": 2,
+              "end_line": 138,
+              "line": 130,
+              "name": "stage_cargo",
+              "nesting": 1,
+              "nonblank_lines": 9
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 122,
+          "path": "scripts/tooling/dependencies.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 1,
+              "end_line": 38,
+              "line": 9,
+              "name": "prepare_dependencies",
+              "nesting": 2,
+              "nonblank_lines": 30
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 35,
+          "path": "scripts/tooling/dependency_prepare.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 4,
+              "end_line": 17,
+              "line": 13,
+              "name": "public_https",
+              "nesting": 1,
+              "nonblank_lines": 5
+            },
+            {
+              "branches": 0,
+              "end_line": 23,
+              "line": 21,
+              "name": "PublicRedirect.redirect_request",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 7,
+              "end_line": 53,
+              "line": 26,
+              "name": "download",
+              "nesting": 5,
+              "nonblank_lines": 28
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 45,
+          "path": "scripts/tooling/download.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 3,
+              "end_line": 16,
+              "line": 12,
+              "name": "validate_snapshot_age",
+              "nesting": 1,
+              "nonblank_lines": 5
+            },
+            {
+              "branches": 2,
+              "end_line": 23,
+              "line": 19,
+              "name": "check_rust_version",
+              "nesting": 1,
+              "nonblank_lines": 5
+            },
+            {
+              "branches": 2,
+              "end_line": 34,
+              "line": 26,
+              "name": "verify_file",
+              "nesting": 1,
+              "nonblank_lines": 9
+            },
+            {
+              "branches": 9,
+              "end_line": 71,
+              "line": 37,
+              "name": "verify_database",
+              "nesting": 3,
+              "nonblank_lines": 35
+            },
+            {
+              "branches": 8,
+              "end_line": 101,
+              "line": 74,
+              "name": "verify_existing",
+              "nesting": 4,
+              "nonblank_lines": 28
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 90,
+          "path": "scripts/tooling/inspection.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 8,
+              "end_line": 35,
+              "line": 18,
+              "name": "private_root",
+              "nesting": 2,
+              "nonblank_lines": 18
+            },
+            {
+              "branches": 3,
+              "end_line": 52,
+              "line": 38,
+              "name": "owned_stage",
+              "nesting": 2,
+              "nonblank_lines": 15
+            },
+            {
+              "branches": 0,
+              "end_line": 63,
+              "line": 55,
+              "name": "clean_env",
+              "nesting": 0,
+              "nonblank_lines": 9
+            },
+            {
+              "branches": 5,
+              "end_line": 85,
+              "line": 66,
+              "name": "run",
+              "nesting": 4,
+              "nonblank_lines": 20
+            },
+            {
+              "branches": 3,
+              "end_line": 94,
+              "line": 88,
+              "name": "no_symlinks",
+              "nesting": 2,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 11,
+              "end_line": 121,
+              "line": 97,
+              "name": "extract",
+              "nesting": 5,
+              "nonblank_lines": 25
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 108,
+          "path": "scripts/tooling/install.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 3,
+              "end_line": 22,
+              "line": 15,
+              "name": "artifact",
+              "nesting": 1,
+              "nonblank_lines": 8
+            },
+            {
+              "branches": 0,
+              "end_line": 27,
+              "line": 25,
+              "name": "write_receipt",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 2,
+              "end_line": 49,
+              "line": 30,
+              "name": "install_rust",
+              "nesting": 3,
+              "nonblank_lines": 20
+            },
+            {
+              "branches": 1,
+              "end_line": 66,
+              "line": 52,
+              "name": "install_deny",
+              "nesting": 2,
+              "nonblank_lines": 15
+            },
+            {
+              "branches": 0,
+              "end_line": 94,
+              "line": 69,
+              "name": "install_rustsec",
+              "nesting": 1,
+              "nonblank_lines": 26
+            },
+            {
+              "branches": 1,
+              "end_line": 109,
+              "line": 97,
+              "name": "install_node",
+              "nesting": 2,
+              "nonblank_lines": 13
+            },
+            {
+              "branches": 5,
+              "end_line": 121,
+              "line": 112,
+              "name": "prepare",
+              "nesting": 2,
+              "nonblank_lines": 10
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 106,
+          "path": "scripts/tooling/prepare.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 3,
+              "end_line": 63,
+              "line": 13,
+              "name": "plan",
+              "nesting": 1,
+              "nonblank_lines": 51
+            },
+            {
+              "branches": 3,
+              "end_line": 68,
+              "line": 66,
+              "name": "passed",
+              "nesting": 1,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 1,
+              "end_line": 81,
+              "line": 71,
+              "name": "_native_passed",
+              "nesting": 1,
+              "nonblank_lines": 11
+            },
+            {
+              "branches": 23,
+              "end_line": 112,
+              "line": 84,
+              "name": "validate",
+              "nesting": 3,
+              "nonblank_lines": 29
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 101,
+          "path": "scripts/verification/checks.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 6,
+              "end_line": 24,
+              "line": 7,
+              "name": "command",
+              "nesting": 2,
+              "nonblank_lines": 18
+            },
+            {
+              "branches": 2,
+              "end_line": 33,
+              "line": 27,
+              "name": "cleanup",
+              "nesting": 1,
+              "nonblank_lines": 7
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 29,
+          "path": "scripts/verification/container.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 25,
+              "line": 19,
+              "name": "directory",
+              "nesting": 1,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 2,
+              "end_line": 42,
+              "line": 28,
+              "name": "repository",
+              "nesting": 2,
+              "nonblank_lines": 15
+            },
+            {
+              "branches": 14,
+              "end_line": 107,
+              "line": 91,
+              "name": "classification",
+              "nesting": 2,
+              "nonblank_lines": 17
+            },
+            {
+              "branches": 1,
+              "end_line": 115,
+              "line": 110,
+              "name": "source",
+              "nesting": 2,
+              "nonblank_lines": 6
+            },
+            {
+              "branches": 1,
+              "end_line": 119,
+              "line": 118,
+              "name": "nonblank",
+              "nesting": 1,
+              "nonblank_lines": 2
+            },
+            {
+              "branches": 3,
+              "end_line": 143,
+              "line": 131,
+              "name": "python_control",
+              "nesting": 1,
+              "nonblank_lines": 13
+            },
+            {
+              "branches": 0,
+              "end_line": 167,
+              "line": 146,
+              "name": "python_functions",
+              "nesting": 0,
+              "nonblank_lines": 20
+            },
+            {
+              "branches": 7,
+              "end_line": 164,
+              "line": 150,
+              "name": "python_functions.visit",
+              "nesting": 2,
+              "nonblank_lines": 15
+            },
+            {
+              "branches": 3,
+              "end_line": 185,
+              "line": 170,
+              "name": "file_metrics",
+              "nesting": 2,
+              "nonblank_lines": 16
+            },
+            {
+              "branches": 3,
+              "end_line": 201,
+              "line": 188,
+              "name": "hotspots",
+              "nesting": 2,
+              "nonblank_lines": 14
+            },
+            {
+              "branches": 3,
+              "end_line": 210,
+              "line": 204,
+              "name": "issue",
+              "nesting": 1,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 0,
+              "end_line": 216,
+              "line": 213,
+              "name": "generated_header",
+              "nesting": 0,
+              "nonblank_lines": 4
+            },
+            {
+              "branches": 12,
+              "end_line": 251,
+              "line": 219,
+              "name": "collect",
+              "nesting": 8,
+              "nonblank_lines": 33
+            },
+            {
+              "branches": 5,
+              "end_line": 295,
+              "line": 254,
+              "name": "report",
+              "nesting": 3,
+              "nonblank_lines": 42
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 266,
+          "path": "scripts/verification/maintainability.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 3,
+              "end_line": 15,
+              "line": 9,
+              "name": "comment_end",
+              "nesting": 2,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 8,
+              "end_line": 48,
+              "line": 18,
+              "name": "mask_literals",
+              "nesting": 5,
+              "nonblank_lines": 31
+            },
+            {
+              "branches": 4,
+              "end_line": 62,
+              "line": 51,
+              "name": "brace_pairs",
+              "nesting": 3,
+              "nonblank_lines": 12
+            },
+            {
+              "branches": 5,
+              "end_line": 75,
+              "line": 65,
+              "name": "body_opening",
+              "nesting": 5,
+              "nonblank_lines": 11
+            },
+            {
+              "branches": 10,
+              "end_line": 109,
+              "line": 78,
+              "name": "lexical_functions",
+              "nesting": 3,
+              "nonblank_lines": 32
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 98,
+          "path": "scripts/verification/metrics_lexical.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 10,
+              "end_line": 27,
+              "line": 10,
+              "name": "verify",
+              "nesting": 2,
+              "nonblank_lines": 18
+            },
+            {
+              "branches": 3,
+              "end_line": 38,
+              "line": 30,
+              "name": "versions",
+              "nesting": 1,
+              "nonblank_lines": 9
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 44,
+          "path": "scripts/verification/native.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 2,
+              "end_line": 30,
+              "line": 13,
+              "name": "verify",
+              "nesting": 2,
+              "nonblank_lines": 18
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 39,
+          "path": "scripts/verification/preflight.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 14,
+              "end_line": 42,
+              "line": 12,
+              "name": "inspect",
+              "nesting": 4,
+              "nonblank_lines": 31
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 41,
+          "path": "scripts/verification/probe.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 3,
+              "end_line": 25,
+              "line": 16,
+              "name": "read_bytes",
+              "nesting": 2,
+              "nonblank_lines": 10
+            },
+            {
+              "branches": 0,
+              "end_line": 29,
+              "line": 28,
+              "name": "read_json",
+              "nesting": 0,
+              "nonblank_lines": 2
+            },
+            {
+              "branches": 1,
+              "end_line": 42,
+              "line": 32,
+              "name": "_git",
+              "nesting": 1,
+              "nonblank_lines": 11
+            },
+            {
+              "branches": 10,
+              "end_line": 63,
+              "line": 45,
+              "name": "_commit_blobs",
+              "nesting": 3,
+              "nonblank_lines": 19
+            },
+            {
+              "branches": 5,
+              "end_line": 84,
+              "line": 66,
+              "name": "source_at_revision",
+              "nesting": 3,
+              "nonblank_lines": 19
+            },
+            {
+              "branches": 9,
+              "end_line": 100,
+              "line": 87,
+              "name": "summarize",
+              "nesting": 2,
+              "nonblank_lines": 14
+            },
+            {
+              "branches": 12,
+              "end_line": 125,
+              "line": 103,
+              "name": "_inventory",
+              "nesting": 2,
+              "nonblank_lines": 23
+            },
+            {
+              "branches": 19,
+              "end_line": 150,
+              "line": 128,
+              "name": "_check",
+              "nesting": 2,
+              "nonblank_lines": 23
+            },
+            {
+              "branches": 13,
+              "end_line": 169,
+              "line": 153,
+              "name": "_report",
+              "nesting": 1,
+              "nonblank_lines": 17
+            },
+            {
+              "branches": 3,
+              "end_line": 179,
+              "line": 172,
+              "name": "_directory",
+              "nesting": 2,
+              "nonblank_lines": 8
+            },
+            {
+              "branches": 4,
+              "end_line": 199,
+              "line": 182,
+              "name": "qualify",
+              "nesting": 2,
+              "nonblank_lines": 17
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 175,
+          "path": "scripts/verification/qualification.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 9,
+              "end_line": 29,
+              "line": 5,
+              "name": "execute_checks",
+              "nesting": 3,
+              "nonblank_lines": 25
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 27,
+          "path": "scripts/verification/runner.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 3,
+              "end_line": 34,
+              "line": 24,
+              "name": "snapshot",
+              "nesting": 2,
+              "nonblank_lines": 10
+            },
+            {
+              "branches": 7,
+              "end_line": 52,
+              "line": 37,
+              "name": "_copy_source",
+              "nesting": 3,
+              "nonblank_lines": 16
+            },
+            {
+              "branches": 6,
+              "end_line": 72,
+              "line": 55,
+              "name": "_bubblewrap",
+              "nesting": 3,
+              "nonblank_lines": 18
+            },
+            {
+              "branches": 0,
+              "end_line": 79,
+              "line": 75,
+              "name": "_limits",
+              "nesting": 0,
+              "nonblank_lines": 5
+            },
+            {
+              "branches": 10,
+              "end_line": 117,
+              "line": 82,
+              "name": "_collect",
+              "nesting": 3,
+              "nonblank_lines": 36
+            },
+            {
+              "branches": 0,
+              "end_line": 125,
+              "line": 120,
+              "name": "_execute",
+              "nesting": 0,
+              "nonblank_lines": 6
+            },
+            {
+              "branches": 4,
+              "end_line": 146,
+              "line": 128,
+              "name": "run",
+              "nesting": 2,
+              "nonblank_lines": 19
+            },
+            {
+              "branches": 0,
+              "end_line": 181,
+              "line": 149,
+              "name": "environment",
+              "nesting": 0,
+              "nonblank_lines": 33
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 162,
+          "path": "scripts/verification/sandbox.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 2,
+              "end_line": 12,
+              "line": 6,
+              "name": "_unique",
+              "nesting": 2,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 12,
+              "end_line": 37,
+              "line": 15,
+              "name": "loads",
+              "nesting": 5,
+              "nonblank_lines": 23
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 33,
+          "path": "scripts/verification/strict_json.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 9,
+              "end_line": 44,
+              "line": 22,
+              "name": "arguments",
+              "nesting": 3,
+              "nonblank_lines": 23
+            },
+            {
+              "branches": 4,
+              "end_line": 58,
+              "line": 47,
+              "name": "output_directory",
+              "nesting": 1,
+              "nonblank_lines": 12
+            },
+            {
+              "branches": 4,
+              "end_line": 83,
+              "line": 61,
+              "name": "verification",
+              "nesting": 2,
+              "nonblank_lines": 21
+            },
+            {
+              "branches": 0,
+              "end_line": 81,
+              "line": 79,
+              "name": "verification.executor",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 1,
+              "end_line": 98,
+              "line": 86,
+              "name": "finish_execution_report",
+              "nesting": 0,
+              "nonblank_lines": 13
+            },
+            {
+              "branches": 6,
+              "end_line": 118,
+              "line": 101,
+              "name": "build_report",
+              "nesting": 3,
+              "nonblank_lines": 18
+            },
+            {
+              "branches": 3,
+              "end_line": 133,
+              "line": 121,
+              "name": "main",
+              "nesting": 2,
+              "nonblank_lines": 13
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 119,
+          "path": "scripts/verify.py"
+        }
+      ],
+      "hotspots": [
+        {
+          "disposition": "review required",
+          "kind": "file",
+          "nonblank_lines": 303,
+          "path": "crates/harbormaster/src/protocol/control.rs"
+        },
+        {
+          "branches": 3,
+          "disposition": "review required",
+          "end_line": 63,
+          "kind": "function",
+          "line": 13,
+          "name": "plan",
+          "nesting": 1,
+          "nonblank_lines": 51,
+          "path": "scripts/verification/checks.py"
+        }
+      ]
+    },
+    "schema_version": 1,
+    "tests": {
+      "files": [
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 12,
+              "line": 7,
+              "name": "non_unicode_is_a_typed_value_free_error",
+              "nesting": 0,
+              "nonblank_lines": 5
+            },
+            {
+              "branches": 0,
+              "end_line": 24,
+              "line": 16,
+              "name": "excess_arity_is_checked_before_encoding",
+              "nesting": 0,
+              "nonblank_lines": 8
+            },
+            {
+              "branches": 1,
+              "end_line": 34,
+              "line": 27,
+              "name": "excess_arguments_have_a_typed_error",
+              "nesting": 1,
+              "nonblank_lines": 8
+            },
+            {
+              "branches": 1,
+              "end_line": 52,
+              "line": 37,
+              "name": "unsupported_modes_and_values_have_no_runtime_action",
+              "nesting": 1,
+              "nonblank_lines": 16
+            },
+            {
+              "branches": 1,
+              "end_line": 59,
+              "line": 55,
+              "name": "version_aliases_are_pure_version_requests",
+              "nesting": 1,
+              "nonblank_lines": 5
+            },
+            {
+              "branches": 0,
+              "end_line": 64,
+              "line": 62,
+              "name": "no_arguments_request_help_without_a_default_mode",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 69,
+              "line": 67,
+              "name": "short_help_requests_help",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 74,
+              "line": 72,
+              "name": "long_help_is_a_pure_help_request",
+              "nesting": 0,
+              "nonblank_lines": 3
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 63,
+          "path": "crates/harbormaster/src/tests.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 1,
+              "end_line": 20,
+              "line": 5,
+              "name": "failed_stdout_is_reported_without_os_error_details",
+              "nesting": 1,
+              "nonblank_lines": 15
+            },
+            {
+              "branches": 0,
+              "end_line": 36,
+              "line": 24,
+              "name": "failed_stderr_returns_an_output_failure_status",
+              "nesting": 0,
+              "nonblank_lines": 12
+            },
+            {
+              "branches": 0,
+              "end_line": 51,
+              "line": 40,
+              "name": "non_unicode_arguments_get_an_encoding_error_without_echo",
+              "nesting": 0,
+              "nonblank_lines": 11
+            },
+            {
+              "branches": 1,
+              "end_line": 73,
+              "line": 55,
+              "name": "argument_count_takes_precedence_over_invalid_encoding",
+              "nesting": 1,
+              "nonblank_lines": 18
+            },
+            {
+              "branches": 1,
+              "end_line": 94,
+              "line": 76,
+              "name": "excess_arguments_never_short_circuit_to_help_or_version",
+              "nesting": 1,
+              "nonblank_lines": 19
+            },
+            {
+              "branches": 1,
+              "end_line": 118,
+              "line": 97,
+              "name": "unsupported_arguments_get_a_fixed_private_diagnostic",
+              "nesting": 1,
+              "nonblank_lines": 22
+            },
+            {
+              "branches": 1,
+              "end_line": 132,
+              "line": 121,
+              "name": "version_flags_report_the_cargo_package_version",
+              "nesting": 1,
+              "nonblank_lines": 12
+            },
+            {
+              "branches": 1,
+              "end_line": 144,
+              "line": 135,
+              "name": "short_help_and_no_arguments_match_long_help",
+              "nesting": 1,
+              "nonblank_lines": 10
+            },
+            {
+              "branches": 0,
+              "end_line": 156,
+              "line": 147,
+              "name": "help_describes_the_foundation_without_starting_a_mode",
+              "nesting": 0,
+              "nonblank_lines": 9
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 142,
+          "path": "crates/harbormaster/tests/cli.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 1,
+              "end_line": 54,
+              "line": 29,
+              "name": "new",
+              "nesting": 1,
+              "nonblank_lines": 26
+            },
+            {
+              "branches": 0,
+              "end_line": 61,
+              "line": 58,
+              "name": "drop",
+              "nesting": 0,
+              "nonblank_lines": 4
+            },
+            {
+              "branches": 0,
+              "end_line": 67,
+              "line": 64,
+              "name": "handshake",
+              "nesting": 0,
+              "nonblank_lines": 4
+            },
+            {
+              "branches": 0,
+              "end_line": 84,
+              "line": 69,
+              "name": "registered",
+              "nesting": 1,
+              "nonblank_lines": 16
+            },
+            {
+              "branches": 0,
+              "end_line": 89,
+              "line": 86,
+              "name": "event",
+              "nesting": 0,
+              "nonblank_lines": 4
+            },
+            {
+              "branches": 0,
+              "end_line": 109,
+              "line": 92,
+              "name": "admission_is_bounded_and_duplicates_never_count_as_durable_acknowledgment",
+              "nesting": 0,
+              "nonblank_lines": 18
+            },
+            {
+              "branches": 1,
+              "end_line": 134,
+              "line": 112,
+              "name": "wrong_channel_generation_producer_run_and_signal_cannot_queue",
+              "nesting": 1,
+              "nonblank_lines": 23
+            },
+            {
+              "branches": 0,
+              "end_line": 151,
+              "line": 137,
+              "name": "unknown_generation_cannot_reconnect_or_reset_sequence",
+              "nesting": 0,
+              "nonblank_lines": 15
+            },
+            {
+              "branches": 1,
+              "end_line": 171,
+              "line": 154,
+              "name": "sequence_gap_and_conflict_require_trusted_reconciliation",
+              "nesting": 1,
+              "nonblank_lines": 18
+            },
+            {
+              "branches": 1,
+              "end_line": 191,
+              "line": 174,
+              "name": "per_producer_backpressure_does_not_advance_sequence",
+              "nesting": 1,
+              "nonblank_lines": 18
+            },
+            {
+              "branches": 0,
+              "end_line": 215,
+              "line": 194,
+              "name": "fresh_generation_discards_backlog_and_invalidates_old_session",
+              "nesting": 0,
+              "nonblank_lines": 22
+            },
+            {
+              "branches": 0,
+              "end_line": 233,
+              "line": 218,
+              "name": "malformed_content_is_not_retained_or_admitted",
+              "nesting": 0,
+              "nonblank_lines": 16
+            },
+            {
+              "branches": 0,
+              "end_line": 245,
+              "line": 236,
+              "name": "sessions_cannot_cross_registry_instances",
+              "nesting": 0,
+              "nonblank_lines": 10
+            },
+            {
+              "branches": 0,
+              "end_line": 266,
+              "line": 248,
+              "name": "a_retired_generation_cannot_be_reactivated",
+              "nesting": 0,
+              "nonblank_lines": 19
+            },
+            {
+              "branches": 0,
+              "end_line": 290,
+              "line": 269,
+              "name": "real_socket_frames_negotiate_then_enter_only_the_event_queue",
+              "nesting": 0,
+              "nonblank_lines": 22
+            },
+            {
+              "branches": 0,
+              "end_line": 320,
+              "line": 293,
+              "name": "negotiation_narrows_signals_and_duplicate_registration_cannot_overwrite_scope",
+              "nesting": 1,
+              "nonblank_lines": 28
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 302,
+          "path": "crates/harbormaster/tests/ingestion.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 18,
+              "line": 9,
+              "name": "capability",
+              "nesting": 1,
+              "nonblank_lines": 10
+            },
+            {
+              "branches": 0,
+              "end_line": 31,
+              "line": 21,
+              "name": "event_credentials_cannot_negotiate_control_even_with_matching_uid",
+              "nesting": 1,
+              "nonblank_lines": 11
+            },
+            {
+              "branches": 0,
+              "end_line": 53,
+              "line": 34,
+              "name": "peer_identity_and_requested_operation_alone_do_not_grant_permission",
+              "nesting": 1,
+              "nonblank_lines": 20
+            },
+            {
+              "branches": 3,
+              "end_line": 98,
+              "line": 56,
+              "name": "current_capabilities_and_expected_revision_are_rechecked_without_side_effects",
+              "nesting": 1,
+              "nonblank_lines": 43
+            },
+            {
+              "branches": 0,
+              "end_line": 125,
+              "line": 101,
+              "name": "duplicate_negotiation_and_missing_requested_operation_fail_closed",
+              "nesting": 1,
+              "nonblank_lines": 25
+            },
+            {
+              "branches": 0,
+              "end_line": 142,
+              "line": 128,
+              "name": "control_session_cannot_be_reused_with_another_authorizer",
+              "nesting": 1,
+              "nonblank_lines": 15
+            },
+            {
+              "branches": 2,
+              "end_line": 192,
+              "line": 145,
+              "name": "negotiation_reports_actual_grants_and_incomplete_evidence_cannot_authorize",
+              "nesting": 1,
+              "nonblank_lines": 48
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 185,
+          "path": "crates/harbormaster/tests/ingestion/control.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 26,
+              "line": 9,
+              "name": "add_producer",
+              "nesting": 1,
+              "nonblank_lines": 18
+            },
+            {
+              "branches": 0,
+              "end_line": 33,
+              "line": 28,
+              "name": "scoped_event",
+              "nesting": 0,
+              "nonblank_lines": 6
+            },
+            {
+              "branches": 4,
+              "end_line": 61,
+              "line": 36,
+              "name": "global_queue_is_bounded_and_healthy_producers_get_fair_dequeue",
+              "nesting": 2,
+              "nonblank_lines": 26
+            },
+            {
+              "branches": 1,
+              "end_line": 91,
+              "line": 64,
+              "name": "bounded_receipts_freeze_generation_instead_of_forgetting_replay_defenses",
+              "nesting": 1,
+              "nonblank_lines": 28
+            },
+            {
+              "branches": 2,
+              "end_line": 111,
+              "line": 94,
+              "name": "global_replay_records_have_an_independent_hard_ceiling",
+              "nesting": 2,
+              "nonblank_lines": 18
+            },
+            {
+              "branches": 1,
+              "end_line": 133,
+              "line": 114,
+              "name": "active_registry_has_a_hard_ceiling_and_duplicate_registration_does_not_replace",
+              "nesting": 1,
+              "nonblank_lines": 20
+            },
+            {
+              "branches": 0,
+              "end_line": 164,
+              "line": 136,
+              "name": "maximum_sequence_does_not_wrap_and_checkpoint_replay_is_refused",
+              "nesting": 1,
+              "nonblank_lines": 29
+            },
+            {
+              "branches": 1,
+              "end_line": 186,
+              "line": 167,
+              "name": "replay_frame_bytes_have_an_independent_hard_ceiling",
+              "nesting": 1,
+              "nonblank_lines": 20
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 178,
+          "path": "crates/harbormaster/tests/ingestion/limits.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 29,
+              "line": 19,
+              "name": "new",
+              "nesting": 0,
+              "nonblank_lines": 11
+            },
+            {
+              "branches": 1,
+              "end_line": 36,
+              "line": 31,
+              "name": "path",
+              "nesting": 1,
+              "nonblank_lines": 6
+            },
+            {
+              "branches": 0,
+              "end_line": 42,
+              "line": 40,
+              "name": "drop",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 47,
+              "line": 45,
+              "name": "deadline",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 65,
+              "line": 50,
+              "name": "framing_is_incremental_bounded_and_poisoned_after_failure",
+              "nesting": 0,
+              "nonblank_lines": 16
+            },
+            {
+              "branches": 0,
+              "end_line": 75,
+              "line": 68,
+              "name": "malformed_encoding_and_eof_reject_buffered_frame",
+              "nesting": 0,
+              "nonblank_lines": 8
+            },
+            {
+              "branches": 2,
+              "end_line": 98,
+              "line": 78,
+              "name": "outbound_enforces_both_caps_before_copying",
+              "nesting": 1,
+              "nonblank_lines": 21
+            },
+            {
+              "branches": 1,
+              "end_line": 138,
+              "line": 101,
+              "name": "private_socket_paths_are_owned_and_channels_are_listener_evidence",
+              "nesting": 1,
+              "nonblank_lines": 38
+            },
+            {
+              "branches": 0,
+              "end_line": 155,
+              "line": 141,
+              "name": "unsafe_runtime_and_symlink_ancestors_are_rejected",
+              "nesting": 0,
+              "nonblank_lines": 15
+            },
+            {
+              "branches": 0,
+              "end_line": 170,
+              "line": 158,
+              "name": "bind_failure_and_cleanup_never_delete_existing_or_replaced_files",
+              "nesting": 0,
+              "nonblank_lines": 13
+            },
+            {
+              "branches": 0,
+              "end_line": 188,
+              "line": 173,
+              "name": "held_directory_survives_rename_without_touching_replacement_directory",
+              "nesting": 0,
+              "nonblank_lines": 16
+            },
+            {
+              "branches": 1,
+              "end_line": 226,
+              "line": 191,
+              "name": "nonblocking_io_preserves_fragmented_frames_and_separate_consumers",
+              "nesting": 1,
+              "nonblank_lines": 36
+            },
+            {
+              "branches": 0,
+              "end_line": 257,
+              "line": 229,
+              "name": "connection_cap_releases_on_drop_and_deadline_closes_connection",
+              "nesting": 0,
+              "nonblank_lines": 29
+            },
+            {
+              "branches": 0,
+              "end_line": 285,
+              "line": 260,
+              "name": "cross_process_peer_credentials_are_from_the_kernel",
+              "nesting": 0,
+              "nonblank_lines": 26
+            },
+            {
+              "branches": 1,
+              "end_line": 306,
+              "line": 288,
+              "name": "queue_overflow_disconnects_so_a_client_must_resynchronize",
+              "nesting": 1,
+              "nonblank_lines": 19
+            },
+            {
+              "branches": 0,
+              "end_line": 331,
+              "line": 309,
+              "name": "partial_frame_deadline_does_not_extend_with_dripped_bytes",
+              "nesting": 0,
+              "nonblank_lines": 23
+            },
+            {
+              "branches": 2,
+              "end_line": 367,
+              "line": 334,
+              "name": "authenticated_slow_writer_expires_while_another_client_stays_responsive",
+              "nesting": 1,
+              "nonblank_lines": 34
+            },
+            {
+              "branches": 2,
+              "end_line": 398,
+              "line": 370,
+              "name": "manager_connection_cap_cannot_be_bypassed_with_new_caller_budgets",
+              "nesting": 2,
+              "nonblank_lines": 29
+            },
+            {
+              "branches": 0,
+              "end_line": 414,
+              "line": 401,
+              "name": "second_bind_failure_rolls_back_only_the_socket_created_by_this_call",
+              "nesting": 0,
+              "nonblank_lines": 14
+            },
+            {
+              "branches": 1,
+              "end_line": 438,
+              "line": 417,
+              "name": "file_descriptor_exhaustion_cleans_only_created_socket_names",
+              "nesting": 1,
+              "nonblank_lines": 22
+            },
+            {
+              "branches": 6,
+              "end_line": 476,
+              "line": 440,
+              "name": "check_cleanup_under_descriptor_pressure",
+              "nesting": 3,
+              "nonblank_lines": 37
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 453,
+          "path": "crates/harbormaster/tests/ipc.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 18,
+              "line": 16,
+              "name": "drop",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 1,
+              "end_line": 28,
+              "line": 23,
+              "name": "drop",
+              "nesting": 1,
+              "nonblank_lines": 6
+            },
+            {
+              "branches": 3,
+              "end_line": 43,
+              "line": 31,
+              "name": "child_server",
+              "nesting": 2,
+              "nonblank_lines": 13
+            },
+            {
+              "branches": 0,
+              "end_line": 103,
+              "line": 49,
+              "name": "server_process",
+              "nesting": 0,
+              "nonblank_lines": 55
+            },
+            {
+              "branches": 3,
+              "end_line": 148,
+              "line": 106,
+              "name": "peer_without_visible_pid_is_rejected",
+              "nesting": 1,
+              "nonblank_lines": 43
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 142,
+          "path": "crates/harbormaster/tests/ipc_namespace.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 17,
+              "line": 11,
+              "name": "accepted_m0_example_is_typed_and_roundtrips",
+              "nesting": 0,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 1,
+              "end_line": 31,
+              "line": 20,
+              "name": "duplicate_decoded_keys_fail_before_typed_decoding",
+              "nesting": 1,
+              "nonblank_lines": 12
+            },
+            {
+              "branches": 1,
+              "end_line": 53,
+              "line": 34,
+              "name": "malformed_frame_never_returns_a_typed_event",
+              "nesting": 1,
+              "nonblank_lines": 20
+            },
+            {
+              "branches": 1,
+              "end_line": 77,
+              "line": 56,
+              "name": "framing_boundaries_include_lf_and_reject_embedded_lines",
+              "nesting": 1,
+              "nonblank_lines": 22
+            },
+            {
+              "branches": 3,
+              "end_line": 114,
+              "line": 80,
+              "name": "uuid_and_decimal_newtypes_are_strict_at_their_boundaries",
+              "nesting": 1,
+              "nonblank_lines": 35
+            },
+            {
+              "branches": 0,
+              "end_line": 128,
+              "line": 117,
+              "name": "unknown_versions_and_errors_do_not_echo_private_input",
+              "nesting": 0,
+              "nonblank_lines": 12
+            },
+            {
+              "branches": 0,
+              "end_line": 134,
+              "line": 130,
+              "name": "event_kind",
+              "nesting": 0,
+              "nonblank_lines": 5
+            },
+            {
+              "branches": 1,
+              "end_line": 162,
+              "line": 137,
+              "name": "every_event_kind_has_a_distinct_allowlisted_payload",
+              "nesting": 1,
+              "nonblank_lines": 26
+            },
+            {
+              "branches": 1,
+              "end_line": 194,
+              "line": 165,
+              "name": "mismatched_event_payloads_and_unknown_metadata_are_rejected",
+              "nesting": 1,
+              "nonblank_lines": 30
+            },
+            {
+              "branches": 1,
+              "end_line": 221,
+              "line": 197,
+              "name": "metadata_limits_are_utf8_bytes_and_reject_control_characters",
+              "nesting": 1,
+              "nonblank_lines": 25
+            },
+            {
+              "branches": 0,
+              "end_line": 227,
+              "line": 223,
+              "name": "control",
+              "nesting": 0,
+              "nonblank_lines": 5
+            },
+            {
+              "branches": 3,
+              "end_line": 274,
+              "line": 230,
+              "name": "stateful_requests_require_exact_guards_and_typed_arguments",
+              "nesting": 2,
+              "nonblank_lines": 45
+            },
+            {
+              "branches": 1,
+              "end_line": 293,
+              "line": 277,
+              "name": "read_only_operations_reject_guards_and_enforce_snapshot_limits",
+              "nesting": 1,
+              "nonblank_lines": 17
+            },
+            {
+              "branches": 1,
+              "end_line": 312,
+              "line": 296,
+              "name": "event_and_control_channels_never_cross_and_native_approval_is_absent",
+              "nesting": 1,
+              "nonblank_lines": 17
+            },
+            {
+              "branches": 0,
+              "end_line": 348,
+              "line": 315,
+              "name": "capability_handshakes_are_bounded_claims_and_preserve_identity",
+              "nesting": 1,
+              "nonblank_lines": 34
+            },
+            {
+              "branches": 2,
+              "end_line": 378,
+              "line": 351,
+              "name": "responses_have_explicit_typed_status_without_arbitrary_exception_fields",
+              "nesting": 1,
+              "nonblank_lines": 28
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 361,
+          "path": "crates/harbormaster/tests/protocol.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 18,
+              "line": 10,
+              "name": "corpus",
+              "nesting": 0,
+              "nonblank_lines": 9
+            },
+            {
+              "branches": 6,
+              "end_line": 29,
+              "line": 20,
+              "name": "canonical",
+              "nesting": 1,
+              "nonblank_lines": 10
+            },
+            {
+              "branches": 0,
+              "end_line": 36,
+              "line": 31,
+              "name": "next",
+              "nesting": 0,
+              "nonblank_lines": 6
+            },
+            {
+              "branches": 0,
+              "end_line": 40,
+              "line": 38,
+              "name": "index",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 1,
+              "end_line": 68,
+              "line": 42,
+              "name": "mutate",
+              "nesting": 2,
+              "nonblank_lines": 27
+            },
+            {
+              "branches": 2,
+              "end_line": 102,
+              "line": 71,
+              "name": "deterministic_seeded_malformed_input_and_roundtrip_properties",
+              "nesting": 3,
+              "nonblank_lines": 32
+            },
+            {
+              "branches": 2,
+              "end_line": 144,
+              "line": 105,
+              "name": "structured_hostile_families_are_rejected_on_every_wire_entry_point",
+              "nesting": 2,
+              "nonblank_lines": 40
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 136,
+          "path": "crates/harbormaster/tests/protocol_fuzz.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 2,
+              "end_line": 48,
+              "line": 14,
+              "name": "new",
+              "nesting": 1,
+              "nonblank_lines": 35
+            },
+            {
+              "branches": 0,
+              "end_line": 52,
+              "line": 50,
+              "name": "run",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 78,
+              "line": 54,
+              "name": "run_with_output",
+              "nesting": 0,
+              "nonblank_lines": 25
+            },
+            {
+              "branches": 0,
+              "end_line": 84,
+              "line": 82,
+              "name": "drop",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 2,
+              "end_line": 119,
+              "line": 95,
+              "name": "snapshot",
+              "nesting": 2,
+              "nonblank_lines": 25
+            }
+          ],
+          "language": "rust",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 111,
+          "path": "crates/harbormaster/tests/support/mod.rs"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 14,
+              "line": 12,
+              "name": "init",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 18,
+              "line": 15,
+              "name": "test_native_fixture_dimensions",
+              "nesting": 0,
+              "nonblank_lines": 4
+            }
+          ],
+          "language": "qml",
+          "metric_kind": "lexical-approximate",
+          "nonblank_lines": 19,
+          "path": "qml/tests/tst_toolchain.qml"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 17,
+              "line": 15,
+              "name": "execute",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 14,
+              "end_line": 60,
+              "line": 20,
+              "name": "probe",
+              "nesting": 8,
+              "nonblank_lines": 41
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 61,
+          "path": "tests/tooling/probe_dependencies.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 35,
+              "line": 24,
+              "name": "sandbox",
+              "nesting": 0,
+              "nonblank_lines": 12
+            },
+            {
+              "branches": 1,
+              "end_line": 47,
+              "line": 38,
+              "name": "project",
+              "nesting": 1,
+              "nonblank_lines": 10
+            },
+            {
+              "branches": 1,
+              "end_line": 59,
+              "line": 50,
+              "name": "vendor",
+              "nesting": 1,
+              "nonblank_lines": 10
+            },
+            {
+              "branches": 2,
+              "end_line": 69,
+              "line": 62,
+              "name": "rejection",
+              "nesting": 3,
+              "nonblank_lines": 8
+            },
+            {
+              "branches": 3,
+              "end_line": 100,
+              "line": 72,
+              "name": "probe",
+              "nesting": 2,
+              "nonblank_lines": 29
+            },
+            {
+              "branches": 0,
+              "end_line": 81,
+              "line": 80,
+              "name": "probe.execute",
+              "nesting": 0,
+              "nonblank_lines": 2
+            },
+            {
+              "branches": 3,
+              "end_line": 122,
+              "line": 103,
+              "name": "main",
+              "nesting": 3,
+              "nonblank_lines": 20
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 109,
+          "path": "tests/tooling/probe_policy.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 1,
+              "end_line": 50,
+              "line": 19,
+              "name": "DependencyInputs.setUp",
+              "nesting": 1,
+              "nonblank_lines": 32
+            },
+            {
+              "branches": 0,
+              "end_line": 53,
+              "line": 52,
+              "name": "DependencyInputs.save_pins",
+              "nesting": 0,
+              "nonblank_lines": 2
+            },
+            {
+              "branches": 1,
+              "end_line": 56,
+              "line": 55,
+              "name": "DependencyInputs.verify",
+              "nesting": 0,
+              "nonblank_lines": 2
+            },
+            {
+              "branches": 2,
+              "end_line": 61,
+              "line": 58,
+              "name": "DependencyInputs.test_complete_inputs_pass_without_writes",
+              "nesting": 1,
+              "nonblank_lines": 4
+            },
+            {
+              "branches": 1,
+              "end_line": 70,
+              "line": 63,
+              "name": "DependencyInputs.test_missing_source_and_registry_inputs_fail",
+              "nesting": 3,
+              "nonblank_lines": 8
+            },
+            {
+              "branches": 1,
+              "end_line": 79,
+              "line": 72,
+              "name": "DependencyInputs.test_corrupt_source_and_registry_inputs_fail",
+              "nesting": 3,
+              "nonblank_lines": 8
+            },
+            {
+              "branches": 0,
+              "end_line": 89,
+              "line": 81,
+              "name": "DependencyInputs.test_yanked_locked_release_rejected_even_with_matching_pins",
+              "nesting": 1,
+              "nonblank_lines": 9
+            },
+            {
+              "branches": 1,
+              "end_line": 95,
+              "line": 91,
+              "name": "DependencyInputs.test_stale_and_future_index_rejected",
+              "nesting": 2,
+              "nonblank_lines": 5
+            },
+            {
+              "branches": 0,
+              "end_line": 105,
+              "line": 97,
+              "name": "DependencyInputs.test_unexpected_and_symlink_files_rejected",
+              "nesting": 1,
+              "nonblank_lines": 9
+            },
+            {
+              "branches": 0,
+              "end_line": 111,
+              "line": 107,
+              "name": "DependencyInputs.test_cargo_lock_and_registry_checksum_must_match",
+              "nesting": 1,
+              "nonblank_lines": 5
+            },
+            {
+              "branches": 1,
+              "end_line": 116,
+              "line": 113,
+              "name": "DependencyInputs.test_duplicate_or_malformed_records_rejected",
+              "nesting": 2,
+              "nonblank_lines": 4
+            },
+            {
+              "branches": 0,
+              "end_line": 126,
+              "line": 118,
+              "name": "DependencyInputs.test_staging_uses_fresh_private_home_and_copies_inputs",
+              "nesting": 1,
+              "nonblank_lines": 9
+            },
+            {
+              "branches": 0,
+              "end_line": 133,
+              "line": 128,
+              "name": "DependencyInputs.test_failed_integrity_never_stages_inputs",
+              "nesting": 1,
+              "nonblank_lines": 6
+            },
+            {
+              "branches": 0,
+              "end_line": 140,
+              "line": 135,
+              "name": "DependencyInputs.test_online_preparation_never_overwrites_existing_group",
+              "nesting": 2,
+              "nonblank_lines": 6
+            },
+            {
+              "branches": 1,
+              "end_line": 152,
+              "line": 142,
+              "name": "DependencyInputs.test_failed_online_group_preserves_other_installed_groups",
+              "nesting": 2,
+              "nonblank_lines": 11
+            },
+            {
+              "branches": 0,
+              "end_line": 163,
+              "line": 154,
+              "name": "DependencyInputs.test_duplicate_dependency_name_and_unsafe_version_rejected",
+              "nesting": 1,
+              "nonblank_lines": 10
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 147,
+          "path": "tests/tooling/test_dependencies.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 1,
+              "end_line": 22,
+              "line": 16,
+              "name": "DownloadTests.test_credential_urls_and_insecure_redirects_are_refused",
+              "nesting": 2,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 0,
+              "end_line": 32,
+              "line": 24,
+              "name": "DownloadTests.test_wrong_hash_refuses_artifact_and_cleans_partial_download",
+              "nesting": 3,
+              "nonblank_lines": 9
+            },
+            {
+              "branches": 2,
+              "end_line": 44,
+              "line": 34,
+              "name": "DownloadTests.test_timeout_and_oversize_leave_no_partial_file",
+              "nesting": 5,
+              "nonblank_lines": 11
+            },
+            {
+              "branches": 0,
+              "end_line": 56,
+              "line": 46,
+              "name": "DownloadTests.test_refuses_symlink_parent_before_network_or_write",
+              "nesting": 3,
+              "nonblank_lines": 11
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 52,
+          "path": "tests/tooling/test_download.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 25,
+              "line": 16,
+              "name": "InspectionTests.test_file_hash_and_symlink_rejected",
+              "nesting": 2,
+              "nonblank_lines": 10
+            },
+            {
+              "branches": 0,
+              "end_line": 47,
+              "line": 27,
+              "name": "InspectionTests.test_git_metadata_symlink_is_not_trusted",
+              "nesting": 2,
+              "nonblank_lines": 21
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 45,
+          "path": "tests/tooling/test_inspection.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 1,
+              "end_line": 32,
+              "line": 14,
+              "name": "ExtractionTests.test_tar_traversal_and_link_escape_leave_no_files",
+              "nesting": 4,
+              "nonblank_lines": 19
+            },
+            {
+              "branches": 1,
+              "end_line": 51,
+              "line": 34,
+              "name": "ExtractionTests.test_owned_stage_failure_cleans_only_its_files",
+              "nesting": 3,
+              "nonblank_lines": 18
+            },
+            {
+              "branches": 1,
+              "end_line": 63,
+              "line": 53,
+              "name": "ExtractionTests.test_unowned_or_insecure_root_is_refused",
+              "nesting": 4,
+              "nonblank_lines": 11
+            },
+            {
+              "branches": 0,
+              "end_line": 77,
+              "line": 65,
+              "name": "ExtractionTests.test_subprocess_clears_credentials_and_timeout_kills_child",
+              "nesting": 2,
+              "nonblank_lines": 13
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 73,
+          "path": "tests/tooling/test_install.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 21,
+              "line": 14,
+              "name": "PreparationTests.test_readonly_check_rejects_missing_tools_without_creating_them",
+              "nesting": 2,
+              "nonblank_lines": 8
+            },
+            {
+              "branches": 0,
+              "end_line": 29,
+              "line": 23,
+              "name": "PreparationTests.test_node_is_pinned_for_preserved_design_regressions",
+              "nesting": 0,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 0,
+              "end_line": 34,
+              "line": 31,
+              "name": "PreparationTests.test_lock_requires_weekly_snapshot_refresh",
+              "nesting": 0,
+              "nonblank_lines": 4
+            },
+            {
+              "branches": 0,
+              "end_line": 45,
+              "line": 36,
+              "name": "PreparationTests.test_network_requires_explicit_online_and_root",
+              "nesting": 1,
+              "nonblank_lines": 10
+            },
+            {
+              "branches": 0,
+              "end_line": 54,
+              "line": 47,
+              "name": "PreparationTests.test_component_versions_are_not_all_rust_release_numbers",
+              "nesting": 1,
+              "nonblank_lines": 8
+            },
+            {
+              "branches": 1,
+              "end_line": 64,
+              "line": 56,
+              "name": "PreparationTests.test_stale_and_future_snapshot_dates_fail_closed",
+              "nesting": 2,
+              "nonblank_lines": 9
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 58,
+          "path": "tests/tooling/test_prepare.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 32,
+              "line": 19,
+              "name": "GitFixture.__init__",
+              "nesting": 0,
+              "nonblank_lines": 14
+            },
+            {
+              "branches": 0,
+              "end_line": 37,
+              "line": 34,
+              "name": "GitFixture.git",
+              "nesting": 0,
+              "nonblank_lines": 4
+            },
+            {
+              "branches": 5,
+              "end_line": 82,
+              "line": 58,
+              "name": "SyntheticPair.__init__",
+              "nesting": 2,
+              "nonblank_lines": 25
+            },
+            {
+              "branches": 1,
+              "end_line": 86,
+              "line": 84,
+              "name": "SyntheticPair.write_reports",
+              "nesting": 1,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 91,
+              "line": 88,
+              "name": "SyntheticPair.qualify",
+              "nesting": 0,
+              "nonblank_lines": 4
+            },
+            {
+              "branches": 1,
+              "end_line": 111,
+              "line": 96,
+              "name": "CliSyntheticPair.__init__",
+              "nesting": 1,
+              "nonblank_lines": 16
+            },
+            {
+              "branches": 0,
+              "end_line": 123,
+              "line": 113,
+              "name": "CliSyntheticPair.cli",
+              "nesting": 0,
+              "nonblank_lines": 11
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 108,
+          "path": "tests/verification/qualification_fixtures.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 2,
+              "end_line": 25,
+              "line": 19,
+              "name": "unique_object",
+              "nesting": 2,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 0,
+              "end_line": 29,
+              "line": 28,
+              "name": "load_json",
+              "nesting": 0,
+              "nonblank_lines": 2
+            },
+            {
+              "branches": 1,
+              "end_line": 73,
+              "line": 33,
+              "name": "CIContractTests.test_workflow_uses_pinned_least_privilege_single_entrypoint",
+              "nesting": 1,
+              "nonblank_lines": 41
+            },
+            {
+              "branches": 0,
+              "end_line": 88,
+              "line": 75,
+              "name": "CIContractTests.test_report_upload_is_pinned_and_scoped_even_after_failure",
+              "nesting": 0,
+              "nonblank_lines": 14
+            },
+            {
+              "branches": 4,
+              "end_line": 135,
+              "line": 90,
+              "name": "CIContractTests.test_container_pins_public_snapshot_and_nonroot_runtime",
+              "nesting": 1,
+              "nonblank_lines": 46
+            },
+            {
+              "branches": 3,
+              "end_line": 147,
+              "line": 137,
+              "name": "CIContractTests.test_portable_image_does_not_add_a_nested_sandbox_dependency",
+              "nesting": 2,
+              "nonblank_lines": 10
+            },
+            {
+              "branches": 0,
+              "end_line": 153,
+              "line": 149,
+              "name": "CIContractTests.test_bootstrap_requires_explicit_online_consent_and_private_root",
+              "nesting": 0,
+              "nonblank_lines": 5
+            },
+            {
+              "branches": 4,
+              "end_line": 183,
+              "line": 155,
+              "name": "CIContractTests.test_license_baseline_distinguishes_tools_and_preserves_assets",
+              "nesting": 1,
+              "nonblank_lines": 29
+            },
+            {
+              "branches": 0,
+              "end_line": 188,
+              "line": 185,
+              "name": "CIContractTests.test_duplicate_configuration_keys_are_rejected",
+              "nesting": 1,
+              "nonblank_lines": 4
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 174,
+          "path": "tests/verification/test_ci_contract.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 16,
+              "line": 11,
+              "name": "ContainerPolicyTests.test_unpinned_image_is_rejected",
+              "nesting": 1,
+              "nonblank_lines": 6
+            },
+            {
+              "branches": 3,
+              "end_line": 27,
+              "line": 18,
+              "name": "ContainerPolicyTests.test_runtime_directory_is_private_bounded_and_read_only",
+              "nesting": 1,
+              "nonblank_lines": 10
+            },
+            {
+              "branches": 3,
+              "end_line": 42,
+              "line": 29,
+              "name": "ContainerPolicyTests.test_container_has_no_network_privileges_or_host_home",
+              "nesting": 1,
+              "nonblank_lines": 14
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 39,
+          "path": "tests/verification/test_container.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 7,
+              "end_line": 45,
+              "line": 15,
+              "name": "IntegrationGateTests.test_library_tests_cannot_satisfy_missing_or_empty_integration_target",
+              "nesting": 5,
+              "nonblank_lines": 31
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 44,
+          "path": "tests/verification/test_integration_gate.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 2,
+              "end_line": 20,
+              "line": 11,
+              "name": "IpcInventoryTests.test_real_unmapped_peer_pid_is_mandatory_native_and_absent_from_docker",
+              "nesting": 1,
+              "nonblank_lines": 10
+            },
+            {
+              "branches": 2,
+              "end_line": 35,
+              "line": 22,
+              "name": "IpcInventoryTests.test_each_ipc_family_is_a_separate_required_portable_target",
+              "nesting": 2,
+              "nonblank_lines": 14
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 33,
+          "path": "tests/verification/test_m1_8_plan.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 25,
+              "line": 21,
+              "name": "MaintainabilityTests.setUp",
+              "nesting": 0,
+              "nonblank_lines": 5
+            },
+            {
+              "branches": 0,
+              "end_line": 31,
+              "line": 27,
+              "name": "MaintainabilityTests.write",
+              "nesting": 0,
+              "nonblank_lines": 5
+            },
+            {
+              "branches": 2,
+              "end_line": 39,
+              "line": 33,
+              "name": "MaintainabilityTests.report",
+              "nesting": 1,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 0,
+              "end_line": 51,
+              "line": 41,
+              "name": "MaintainabilityTests.test_empty_report_has_stable_public_contract",
+              "nesting": 0,
+              "nonblank_lines": 11
+            },
+            {
+              "branches": 7,
+              "end_line": 86,
+              "line": 53,
+              "name": "MaintainabilityTests.test_scope_separates_languages_tests_and_exclusions",
+              "nesting": 2,
+              "nonblank_lines": 34
+            },
+            {
+              "branches": 2,
+              "end_line": 102,
+              "line": 88,
+              "name": "MaintainabilityTests.test_symlinks_are_reported_without_following_targets",
+              "nesting": 1,
+              "nonblank_lines": 15
+            },
+            {
+              "branches": 1,
+              "end_line": 113,
+              "line": 104,
+              "name": "MaintainabilityTests.test_symlink_root_and_ancestor_are_rejected",
+              "nesting": 2,
+              "nonblank_lines": 10
+            },
+            {
+              "branches": 2,
+              "end_line": 127,
+              "line": 115,
+              "name": "MaintainabilityTests.test_file_threshold_is_strict_nonblank_and_advisory",
+              "nesting": 1,
+              "nonblank_lines": 13
+            },
+            {
+              "branches": 1,
+              "end_line": 146,
+              "line": 129,
+              "name": "MaintainabilityTests.test_python_ast_spans_nested_functions_and_control_counts",
+              "nesting": 1,
+              "nonblank_lines": 18
+            },
+            {
+              "branches": 1,
+              "end_line": 158,
+              "line": 148,
+              "name": "MaintainabilityTests.test_python_function_threshold_is_strict_nonblank",
+              "nesting": 1,
+              "nonblank_lines": 11
+            },
+            {
+              "branches": 3,
+              "end_line": 177,
+              "line": 160,
+              "name": "MaintainabilityTests.test_lexical_multiline_and_nested_functions",
+              "nesting": 3,
+              "nonblank_lines": 18
+            },
+            {
+              "branches": 3,
+              "end_line": 208,
+              "line": 179,
+              "name": "MaintainabilityTests.test_lexical_ignores_quotes_raw_strings_and_nested_comments",
+              "nesting": 3,
+              "nonblank_lines": 30
+            },
+            {
+              "branches": 1,
+              "end_line": 219,
+              "line": 210,
+              "name": "MaintainabilityTests.test_lexical_signatures_skip_declarations_and_parameter_braces",
+              "nesting": 1,
+              "nonblank_lines": 10
+            },
+            {
+              "branches": 4,
+              "end_line": 243,
+              "line": 221,
+              "name": "MaintainabilityTests.test_invalid_sources_are_explicit_partial_coverage",
+              "nesting": 2,
+              "nonblank_lines": 23
+            },
+            {
+              "branches": 3,
+              "end_line": 255,
+              "line": 245,
+              "name": "MaintainabilityTests.test_generated_headers_and_test_file_names_are_partitioned",
+              "nesting": 1,
+              "nonblank_lines": 11
+            },
+            {
+              "branches": 0,
+              "end_line": 275,
+              "line": 258,
+              "name": "MaintainabilityTests.test_cli_is_json_advisory_and_documents_metric_limits",
+              "nesting": 0,
+              "nonblank_lines": 18
+            },
+            {
+              "branches": 0,
+              "end_line": 284,
+              "line": 278,
+              "name": "MaintainabilityTests.test_special_files_are_reported_without_reading",
+              "nesting": 0,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 0,
+              "end_line": 292,
+              "line": 286,
+              "name": "MaintainabilityTests.test_analysis_totals_exclude_failed_files",
+              "nesting": 0,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 3,
+              "end_line": 302,
+              "line": 294,
+              "name": "MaintainabilityTests.test_lexical_function_thresholds_with_generated_fixtures",
+              "nesting": 2,
+              "nonblank_lines": 9
+            },
+            {
+              "branches": 0,
+              "end_line": 311,
+              "line": 304,
+              "name": "MaintainabilityTests.test_cli_module_invocation",
+              "nesting": 0,
+              "nonblank_lines": 8
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 287,
+          "path": "tests/verification/test_maintainability.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 16,
+              "line": 12,
+              "name": "NativeTests.test_empty_qml_inventory_fails",
+              "nesting": 1,
+              "nonblank_lines": 5
+            },
+            {
+              "branches": 0,
+              "end_line": 24,
+              "line": 18,
+              "name": "NativeTests.test_format_gate_detects_noncanonical_qml",
+              "nesting": 1,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 0,
+              "end_line": 30,
+              "line": 27,
+              "name": "NativeTests.test_wrong_native_version_cannot_pass",
+              "nesting": 0,
+              "nonblank_lines": 4
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 26,
+          "path": "tests/verification/test_native.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 3,
+              "end_line": 24,
+              "line": 11,
+              "name": "PlanTests.test_plan_contains_explicit_required_tool_and_test_gates",
+              "nesting": 1,
+              "nonblank_lines": 14
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 23,
+          "path": "tests/verification/test_plan.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 19,
+              "line": 12,
+              "name": "ProbeTests.test_visible_outside_canary_rejects_boundary",
+              "nesting": 2,
+              "nonblank_lines": 8
+            },
+            {
+              "branches": 1,
+              "end_line": 23,
+              "line": 21,
+              "name": "ProbeTests.test_probe_is_required_in_common_plan",
+              "nesting": 1,
+              "nonblank_lines": 3
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 21,
+          "path": "tests/verification/test_probe.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 25,
+              "line": 24,
+              "name": "QmlReportTests.test_multiple_empty_testcases_do_not_count_as_test_execution",
+              "nesting": 0,
+              "nonblank_lines": 2
+            },
+            {
+              "branches": 0,
+              "end_line": 28,
+              "line": 27,
+              "name": "QmlReportTests.test_aggregate_totals_without_executed_function_cannot_pass",
+              "nesting": 0,
+              "nonblank_lines": 2
+            },
+            {
+              "branches": 1,
+              "end_line": 38,
+              "line": 30,
+              "name": "QmlReportTests.test_empty_failed_skipped_and_blacklisted_qml_suites_fail",
+              "nesting": 2,
+              "nonblank_lines": 9
+            },
+            {
+              "branches": 1,
+              "end_line": 45,
+              "line": 40,
+              "name": "QmlReportTests.test_executed_test_function_including_data_rows_passes",
+              "nesting": 2,
+              "nonblank_lines": 6
+            },
+            {
+              "branches": 1,
+              "end_line": 52,
+              "line": 47,
+              "name": "QmlReportTests.test_lifecycle_names_or_logged_pass_text_cannot_supply_execution",
+              "nesting": 2,
+              "nonblank_lines": 6
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 46,
+          "path": "tests/verification/test_qml_reporting.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 20,
+              "line": 12,
+              "name": "RecordTests.test_duplicate_json_keys_are_rejected",
+              "nesting": 2,
+              "nonblank_lines": 9
+            },
+            {
+              "branches": 1,
+              "end_line": 35,
+              "line": 21,
+              "name": "RecordTests.test_only_bounded_regular_records_are_read",
+              "nesting": 4,
+              "nonblank_lines": 15
+            },
+            {
+              "branches": 1,
+              "end_line": 53,
+              "line": 37,
+              "name": "RecordTests.test_fifo_is_rejected_without_blocking",
+              "nesting": 3,
+              "nonblank_lines": 17
+            },
+            {
+              "branches": 0,
+              "end_line": 61,
+              "line": 55,
+              "name": "RecordTests.test_deeply_nested_json_fails_cleanly",
+              "nesting": 2,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 1,
+              "end_line": 71,
+              "line": 63,
+              "name": "RecordTests.test_nonfinite_json_numbers_are_not_valid_evidence",
+              "nesting": 4,
+              "nonblank_lines": 9
+            },
+            {
+              "branches": 1,
+              "end_line": 81,
+              "line": 75,
+              "name": "ScopeReports.test_portable_pass_does_not_qualify_native",
+              "nesting": 1,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 2,
+              "end_line": 94,
+              "line": 83,
+              "name": "ScopeReports.test_missing_duplicate_or_optional_native_cannot_qualify",
+              "nesting": 2,
+              "nonblank_lines": 12
+            },
+            {
+              "branches": 0,
+              "end_line": 100,
+              "line": 98,
+              "name": "PairedQualificationTests.setUp",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 109,
+              "line": 102,
+              "name": "PairedQualificationTests.test_complete_synthetic_pair_is_consistent_with_exact_commit",
+              "nesting": 0,
+              "nonblank_lines": 8
+            },
+            {
+              "branches": 2,
+              "end_line": 122,
+              "line": 111,
+              "name": "PairedQualificationTests.test_pair_requires_exact_source_maps_from_both_lanes",
+              "nesting": 4,
+              "nonblank_lines": 12
+            },
+            {
+              "branches": 8,
+              "end_line": 146,
+              "line": 124,
+              "name": "PairedQualificationTests.test_each_report_requires_explicit_successful_single_scope_schema",
+              "nesting": 4,
+              "nonblank_lines": 23
+            },
+            {
+              "branches": 4,
+              "end_line": 175,
+              "line": 148,
+              "name": "PairedQualificationTests.test_scoped_inventory_rejects_missing_duplicate_unknown_or_optional_required_rows",
+              "nesting": 4,
+              "nonblank_lines": 28
+            },
+            {
+              "branches": 4,
+              "end_line": 203,
+              "line": 177,
+              "name": "PairedQualificationTests.test_required_execution_metadata_must_be_explicit_success",
+              "nesting": 5,
+              "nonblank_lines": 27
+            },
+            {
+              "branches": 7,
+              "end_line": 230,
+              "line": 205,
+              "name": "PairedQualificationTests.test_each_required_command_matches_current_scoped_plan",
+              "nesting": 5,
+              "nonblank_lines": 26
+            },
+            {
+              "branches": 2,
+              "end_line": 247,
+              "line": 232,
+              "name": "PairedQualificationTests.test_required_logs_use_only_plan_filenames",
+              "nesting": 4,
+              "nonblank_lines": 16
+            },
+            {
+              "branches": 3,
+              "end_line": 268,
+              "line": 249,
+              "name": "PairedQualificationTests.test_actual_logs_are_revalidated_instead_of_trusting_pass_metadata",
+              "nesting": 5,
+              "nonblank_lines": 20
+            },
+            {
+              "branches": 5,
+              "end_line": 281,
+              "line": 270,
+              "name": "PairedQualificationTests.test_evidence_directories_reject_symlinks_including_ancestors",
+              "nesting": 4,
+              "nonblank_lines": 12
+            },
+            {
+              "branches": 2,
+              "end_line": 293,
+              "line": 283,
+              "name": "PairedQualificationTests.test_api_accepts_path_strings_but_rejects_malformed_path_arguments",
+              "nesting": 4,
+              "nonblank_lines": 11
+            },
+            {
+              "branches": 10,
+              "end_line": 336,
+              "line": 295,
+              "name": "PairedQualificationTests.test_required_file_reads_reject_symlinks_directories_fifo_and_oversize",
+              "nesting": 8,
+              "nonblank_lines": 42
+            },
+            {
+              "branches": 3,
+              "end_line": 349,
+              "line": 338,
+              "name": "PairedQualificationTests.test_json_files_reject_duplicate_keys_and_invalid_encoding",
+              "nesting": 5,
+              "nonblank_lines": 12
+            },
+            {
+              "branches": 1,
+              "end_line": 365,
+              "line": 351,
+              "name": "PairedQualificationTests.test_pair_binds_literal_commit_and_rejects_changed_source",
+              "nesting": 3,
+              "nonblank_lines": 15
+            },
+            {
+              "branches": 1,
+              "end_line": 374,
+              "line": 367,
+              "name": "PairedQualificationTests.test_canary_path_is_syntactic_and_never_read",
+              "nesting": 1,
+              "nonblank_lines": 8
+            },
+            {
+              "branches": 3,
+              "end_line": 382,
+              "line": 376,
+              "name": "PairedQualificationTests.test_optional_rows_cannot_change_scoped_qualification",
+              "nesting": 2,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 2,
+              "end_line": 392,
+              "line": 384,
+              "name": "PairedQualificationTests.test_exact_file_size_limits_are_allowed",
+              "nesting": 2,
+              "nonblank_lines": 9
+            },
+            {
+              "branches": 2,
+              "end_line": 405,
+              "line": 394,
+              "name": "PairedQualificationTests.test_declared_report_revision_cannot_contradict_requested_commit",
+              "nesting": 4,
+              "nonblank_lines": 12
+            },
+            {
+              "branches": 2,
+              "end_line": 416,
+              "line": 407,
+              "name": "PairedQualificationTests.test_deep_json_reports_fail_cleanly_at_pair_boundary",
+              "nesting": 4,
+              "nonblank_lines": 10
+            },
+            {
+              "branches": 4,
+              "end_line": 436,
+              "line": 418,
+              "name": "PairedQualificationTests.test_every_required_row_is_mandatory_in_its_scope",
+              "nesting": 5,
+              "nonblank_lines": 19
+            },
+            {
+              "branches": 2,
+              "end_line": 452,
+              "line": 438,
+              "name": "PairedQualificationTests.test_optional_rows_still_require_well_formed_status",
+              "nesting": 4,
+              "nonblank_lines": 15
+            },
+            {
+              "branches": 0,
+              "end_line": 459,
+              "line": 454,
+              "name": "PairedQualificationTests.test_metric_log_recursion_is_a_clean_evidence_failure",
+              "nesting": 1,
+              "nonblank_lines": 6
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 429,
+          "path": "tests/verification/test_qualification.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 19,
+              "line": 11,
+              "name": "ReportingTests.test_required_skips_and_missing_results_cannot_pass",
+              "nesting": 0,
+              "nonblank_lines": 9
+            },
+            {
+              "branches": 1,
+              "end_line": 30,
+              "line": 21,
+              "name": "ReportingTests.test_empty_or_skipped_suite_fails_even_when_exit_is_zero",
+              "nesting": 1,
+              "nonblank_lines": 10
+            },
+            {
+              "branches": 0,
+              "end_line": 37,
+              "line": 33,
+              "name": "ReportingTests.test_node_skips_and_empty_suites_fail",
+              "nesting": 0,
+              "nonblank_lines": 5
+            },
+            {
+              "branches": 0,
+              "end_line": 44,
+              "line": 40,
+              "name": "ReportingTests.test_incomplete_metrics_report_fails_but_size_hotspots_do_not",
+              "nesting": 0,
+              "nonblank_lines": 5
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 38,
+          "path": "tests/verification/test_reporting.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 36,
+              "line": 15,
+              "name": "native_log_mutations",
+              "nesting": 0,
+              "nonblank_lines": 22
+            },
+            {
+              "branches": 2,
+              "end_line": 56,
+              "line": 40,
+              "name": "NativeResultValidationTests.test_native_gate_requires_exact_successful_method_results",
+              "nesting": 4,
+              "nonblank_lines": 17
+            },
+            {
+              "branches": 0,
+              "end_line": 53,
+              "line": 51,
+              "name": "NativeResultValidationTests.test_native_gate_requires_exact_successful_method_results.executor",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 1,
+              "end_line": 72,
+              "line": 58,
+              "name": "NativeResultValidationTests.test_paired_cli_rejects_incomplete_or_ambiguous_native_logs",
+              "nesting": 2,
+              "nonblank_lines": 15
+            },
+            {
+              "branches": 3,
+              "end_line": 103,
+              "line": 76,
+              "name": "MetricsResultValidationTests.test_paired_cli_requires_strict_metrics_and_positive_integer_coverage",
+              "nesting": 3,
+              "nonblank_lines": 28
+            },
+            {
+              "branches": 2,
+              "end_line": 125,
+              "line": 105,
+              "name": "MetricsResultValidationTests.test_records_and_metrics_share_json_structure_and_unicode_rejection",
+              "nesting": 3,
+              "nonblank_lines": 21
+            },
+            {
+              "branches": 0,
+              "end_line": 140,
+              "line": 127,
+              "name": "MetricsResultValidationTests.test_metrics_log_keeps_its_four_mib_limit_not_the_record_limit",
+              "nesting": 1,
+              "nonblank_lines": 14
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 132,
+          "path": "tests/verification/test_result_validation.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 20,
+              "line": 11,
+              "name": "RevisionBindingTests.setUp",
+              "nesting": 0,
+              "nonblank_lines": 10
+            },
+            {
+              "branches": 0,
+              "end_line": 24,
+              "line": 22,
+              "name": "RevisionBindingTests.test_exact_commit_bytes_bind",
+              "nesting": 0,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 34,
+              "line": 26,
+              "name": "RevisionBindingTests.test_changed_tracked_and_extra_untracked_source_fail",
+              "nesting": 1,
+              "nonblank_lines": 9
+            },
+            {
+              "branches": 0,
+              "end_line": 39,
+              "line": 36,
+              "name": "RevisionBindingTests.test_non_source_evidence_does_not_change_identity",
+              "nesting": 0,
+              "nonblank_lines": 4
+            },
+            {
+              "branches": 0,
+              "end_line": 46,
+              "line": 41,
+              "name": "RevisionBindingTests.test_source_symlink_is_rejected",
+              "nesting": 1,
+              "nonblank_lines": 6
+            },
+            {
+              "branches": 1,
+              "end_line": 55,
+              "line": 48,
+              "name": "RevisionBindingTests.test_literal_revision_format_and_commit_type_are_required",
+              "nesting": 3,
+              "nonblank_lines": 8
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 49,
+          "path": "tests/verification/test_revision_binding.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 2,
+              "end_line": 27,
+              "line": 12,
+              "name": "OrchestrationTests.test_failure_does_not_hide_remaining_required_checks",
+              "nesting": 1,
+              "nonblank_lines": 14
+            },
+            {
+              "branches": 1,
+              "end_line": 20,
+              "line": 18,
+              "name": "OrchestrationTests.test_failure_does_not_hide_remaining_required_checks.executor",
+              "nesting": 1,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 40,
+              "line": 29,
+              "name": "OrchestrationTests.test_missing_executable_becomes_failed_check",
+              "nesting": 1,
+              "nonblank_lines": 10
+            },
+            {
+              "branches": 0,
+              "end_line": 35,
+              "line": 34,
+              "name": "OrchestrationTests.test_missing_executable_becomes_failed_check.executor",
+              "nesting": 0,
+              "nonblank_lines": 2
+            },
+            {
+              "branches": 0,
+              "end_line": 56,
+              "line": 43,
+              "name": "OrchestrationTests.test_failed_trust_preflight_blocks_execution_but_reports_inventory",
+              "nesting": 1,
+              "nonblank_lines": 12
+            },
+            {
+              "branches": 0,
+              "end_line": 49,
+              "line": 47,
+              "name": "OrchestrationTests.test_failed_trust_preflight_blocks_execution_but_reports_inventory.executor",
+              "nesting": 0,
+              "nonblank_lines": 3
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 46,
+          "path": "tests/verification/test_runner.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 2,
+              "end_line": 22,
+              "line": 17,
+              "name": "RustPinTests.fixture",
+              "nesting": 1,
+              "nonblank_lines": 6
+            },
+            {
+              "branches": 1,
+              "end_line": 38,
+              "line": 24,
+              "name": "RustPinTests.preflight",
+              "nesting": 1,
+              "nonblank_lines": 13
+            },
+            {
+              "branches": 1,
+              "end_line": 36,
+              "line": 30,
+              "name": "RustPinTests.preflight.executor",
+              "nesting": 1,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 5,
+              "end_line": 57,
+              "line": 40,
+              "name": "RustPinTests.test_each_rust_declaration_must_equal_the_checked_compiler_release",
+              "nesting": 3,
+              "nonblank_lines": 18
+            },
+            {
+              "branches": 1,
+              "end_line": 63,
+              "line": 59,
+              "name": "RustPinTests.test_matching_declarations_and_checked_compiler_pass",
+              "nesting": 2,
+              "nonblank_lines": 5
+            },
+            {
+              "branches": 4,
+              "end_line": 84,
+              "line": 65,
+              "name": "RustPinTests.test_dependency_pin_failures_block_following_execution",
+              "nesting": 4,
+              "nonblank_lines": 20
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 77,
+          "path": "tests/verification/test_rust_pins.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 25,
+              "line": 14,
+              "name": "EnvironmentTests.test_only_allowlisted_environment_reaches_children",
+              "nesting": 1,
+              "nonblank_lines": 12
+            },
+            {
+              "branches": 0,
+              "end_line": 45,
+              "line": 29,
+              "name": "SnapshotTests.test_snapshot_copies_only_allowed_sources_without_private_files",
+              "nesting": 1,
+              "nonblank_lines": 17
+            },
+            {
+              "branches": 0,
+              "end_line": 55,
+              "line": 47,
+              "name": "SnapshotTests.test_snapshot_rejects_symlinks_in_allowed_sources",
+              "nesting": 2,
+              "nonblank_lines": 9
+            },
+            {
+              "branches": 1,
+              "end_line": 70,
+              "line": 61,
+              "name": "BoundaryTests.test_bubblewrap_policy_unshares_network_and_excludes_host_homes",
+              "nesting": 1,
+              "nonblank_lines": 10
+            },
+            {
+              "branches": 0,
+              "end_line": 76,
+              "line": 72,
+              "name": "BoundaryTests.test_timeout_is_failure_not_an_exception_or_leaked_child",
+              "nesting": 0,
+              "nonblank_lines": 5
+            },
+            {
+              "branches": 0,
+              "end_line": 84,
+              "line": 78,
+              "name": "BoundaryTests.test_excessive_output_is_bounded_and_fails",
+              "nesting": 0,
+              "nonblank_lines": 7
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 76,
+          "path": "tests/verification/test_sandbox.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 18,
+              "line": 16,
+              "name": "ScopeArgumentsTests.options",
+              "nesting": 1,
+              "nonblank_lines": 3
+            },
+            {
+              "branches": 0,
+              "end_line": 23,
+              "line": 20,
+              "name": "ScopeArgumentsTests.test_local_defaults_require_all_qualifications",
+              "nesting": 0,
+              "nonblank_lines": 4
+            },
+            {
+              "branches": 0,
+              "end_line": 28,
+              "line": 25,
+              "name": "ScopeArgumentsTests.test_portable_and_native_are_explicit",
+              "nesting": 0,
+              "nonblank_lines": 4
+            },
+            {
+              "branches": 1,
+              "end_line": 37,
+              "line": 30,
+              "name": "ScopeArgumentsTests.test_docker_cannot_claim_native_or_default_full_qualification",
+              "nesting": 3,
+              "nonblank_lines": 8
+            },
+            {
+              "branches": 1,
+              "end_line": 53,
+              "line": 39,
+              "name": "ScopeArgumentsTests.test_paired_qualification_requires_revision_and_rejects_run_options",
+              "nesting": 3,
+              "nonblank_lines": 15
+            },
+            {
+              "branches": 1,
+              "end_line": 72,
+              "line": 55,
+              "name": "ScopeArgumentsTests.test_empty_revision_cli_rejects_before_creating_execution_evidence",
+              "nesting": 3,
+              "nonblank_lines": 18
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 66,
+          "path": "tests/verification/test_scope_cli.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 2,
+              "end_line": 50,
+              "line": 39,
+              "name": "ScopePlanTests.test_portable_preserves_unique_common_inventory_without_native_target",
+              "nesting": 1,
+              "nonblank_lines": 12
+            },
+            {
+              "branches": 1,
+              "end_line": 56,
+              "line": 52,
+              "name": "ScopePlanTests.test_native_contains_only_shared_preflights_and_explicit_sandbox_target",
+              "nesting": 1,
+              "nonblank_lines": 5
+            },
+            {
+              "branches": 1,
+              "end_line": 61,
+              "line": 58,
+              "name": "ScopePlanTests.test_unknown_scope_is_rejected_instead_of_becoming_all",
+              "nesting": 2,
+              "nonblank_lines": 4
+            },
+            {
+              "branches": 4,
+              "end_line": 74,
+              "line": 63,
+              "name": "ScopePlanTests.test_all_is_the_unique_union_with_shared_preflights_once",
+              "nesting": 1,
+              "nonblank_lines": 12
+            },
+            {
+              "branches": 1,
+              "end_line": 82,
+              "line": 76,
+              "name": "ScopePlanTests.test_custom_canary_is_preserved_in_each_scope",
+              "nesting": 2,
+              "nonblank_lines": 7
+            },
+            {
+              "branches": 4,
+              "end_line": 105,
+              "line": 86,
+              "name": "HarnessPartitionTests.test_harness_files_partition_four_portable_tests_and_two_native_tests",
+              "nesting": 3,
+              "nonblank_lines": 20
+            },
+            {
+              "branches": 1,
+              "end_line": 138,
+              "line": 109,
+              "name": "NativeTargetTests.run_fixture",
+              "nesting": 2,
+              "nonblank_lines": 28
+            },
+            {
+              "branches": 0,
+              "end_line": 126,
+              "line": 119,
+              "name": "NativeTargetTests.run_fixture.executor",
+              "nesting": 0,
+              "nonblank_lines": 8
+            },
+            {
+              "branches": 2,
+              "end_line": 160,
+              "line": 140,
+              "name": "NativeTargetTests.test_missing_empty_or_renamed_native_target_fails_required_check",
+              "nesting": 3,
+              "nonblank_lines": 21
+            },
+            {
+              "branches": 0,
+              "end_line": 174,
+              "line": 162,
+              "name": "NativeTargetTests.test_missing_namespace_method_fails_when_original_target_exists",
+              "nesting": 0,
+              "nonblank_lines": 13
+            },
+            {
+              "branches": 3,
+              "end_line": 191,
+              "line": 176,
+              "name": "NativeTargetTests.test_either_skipped_native_method_cannot_become_optional_success",
+              "nesting": 4,
+              "nonblank_lines": 16
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 176,
+          "path": "tests/verification/test_scope_plan.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 26,
+              "line": 18,
+              "name": "ScopeReporting.test_empty_revision_never_reaches_output_or_execution_boundary",
+              "nesting": 3,
+              "nonblank_lines": 9
+            },
+            {
+              "branches": 2,
+              "end_line": 38,
+              "line": 28,
+              "name": "ScopeReporting.test_native_scope_reaches_the_inventory_boundary",
+              "nesting": 2,
+              "nonblank_lines": 11
+            },
+            {
+              "branches": 4,
+              "end_line": 57,
+              "line": 40,
+              "name": "ScopeReporting.test_scoped_reports_distinguish_selected_pass_from_completion",
+              "nesting": 4,
+              "nonblank_lines": 18
+            },
+            {
+              "branches": 3,
+              "end_line": 81,
+              "line": 60,
+              "name": "ScopeReporting.test_paired_mode_calls_only_the_evidence_boundary_and_fails_closed",
+              "nesting": 5,
+              "nonblank_lines": 22
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 76,
+          "path": "tests/verification/test_scope_reporting.py"
+        },
+        {
+          "analysis_error": null,
+          "functions": [
+            {
+              "branches": 0,
+              "end_line": 25,
+              "line": 13,
+              "name": "VerifierCliTests.test_missing_tools_is_failed_report_not_success_or_optional_skip",
+              "nesting": 1,
+              "nonblank_lines": 13
+            }
+          ],
+          "language": "python",
+          "metric_kind": "python-ast-exact",
+          "nonblank_lines": 24,
+          "path": "tests/verification/test_verifier_cli.py"
+        }
+      ],
+      "hotspots": [
+        {
+          "disposition": "review required",
+          "kind": "file",
+          "nonblank_lines": 302,
+          "path": "crates/harbormaster/tests/ingestion.rs"
+        },
+        {
+          "disposition": "review required",
+          "kind": "file",
+          "nonblank_lines": 453,
+          "path": "crates/harbormaster/tests/ipc.rs"
+        },
+        {
+          "branches": 0,
+          "disposition": "review required",
+          "end_line": 103,
+          "kind": "function",
+          "line": 49,
+          "name": "server_process",
+          "nesting": 0,
+          "nonblank_lines": 55,
+          "path": "crates/harbormaster/tests/ipc_namespace.rs"
+        },
+        {
+          "disposition": "review required",
+          "kind": "file",
+          "nonblank_lines": 361,
+          "path": "crates/harbormaster/tests/protocol.rs"
+        },
+        {
+          "disposition": "review required",
+          "kind": "file",
+          "nonblank_lines": 429,
+          "path": "tests/verification/test_qualification.py"
+        }
+      ],
+      "rationale": "Tests are separate; large tests/fixtures need reviewer rationale."
+    },
+    "thresholds": {
+      "file_nonblank": 300,
+      "function_nonblank": 50,
+      "policy": "review only; strictly greater than threshold"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.18s
+     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-fbe23c9c86ebfb87)
+
+running 8 tests
+test tests::excess_arguments_have_a_typed_error ... ok
+test tests::excess_arity_is_checked_before_encoding ... ok
+test tests::long_help_is_a_pure_help_request ... ok
+test tests::no_arguments_request_help_without_a_default_mode ... ok
+test tests::non_unicode_is_a_typed_value_free_error ... ok
+test tests::short_help_requests_help ... ok
+test tests::unsupported_modes_and_values_have_no_runtime_action ... ok
+test tests::version_aliases_are_pure_version_requests ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

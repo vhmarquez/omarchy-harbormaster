@@ -1,0 +1,68 @@
+{
+  "revision": "70a671bf5bf93aaed7a3acbc1ad26df76fd60187",
+  "pr_49": {
+    "state": "MERGED",
+    "owner": "vhmarquez",
+    "merged_at": "2026-09-06T00:20:16Z"
+  },
+  "issue_7": "CLOSED",
+  "milestone_2": "OPEN",
+  "open_dependencies": [
+    8,
+    9,
+    10
+  ],
+  "github_run": 34001018813,
+  "github_artifact": 9979529198,
+  "github_url": "https://github.com/vhmarquez/omarchy-harbormaster/actions/runs/34001018813",
+  "lanes": {
+    "portable": {
+      "passed": true,
+      "qualification_complete": false,
+      "required": {
+        "PASS": 21
+      },
+      "optional": {
+        "SKIP": 3
+      },
+      "report_sha256": "a01bf81e71f67d19735641d2671a0ad72b907f5d5c1a06b047b6ad69ee7e9df3",
+      "source_count": 140
+    },
+    "combined": {
+      "passed": true,
+      "qualification_complete": false,
+      "required": {
+        "PASS": 22
+      },
+      "optional": {
+        "SKIP": 3
+      },
+      "report_sha256": "4fdb619c31f86c59be7e71bd2a492c7c6acc43879c1f141161bdbabd47b65827",
+      "source_count": 140
+    },
+    "native": {
+      "passed": true,
+      "qualification_complete": false,
+      "required": {
+        "PASS": 3
+      },
+      "optional": {
+        "SKIP": 3
+      },
+      "report_sha256": "357d2302cb6505a27ec84c0e49b40b68a3325e8230853d8af732885c260bdbf4",
+      "source_count": 140
+    },
+    "paired": {
+      "passed": true,
+      "qualification_complete": true,
+      "required": {},
+      "optional": {},
+      "report_sha256": "22a224490cf109e9c7ebc513f5df02b046b125c32d2c0cb32539ccc08121a5c4"
+    }
+  },
+  "limits": [
+    "Three explicitly optional live/future probes skipped in each execution; native integration not skipped.",
+    "Paired PASS validates consistency of actual trusted reports and 140 selected source files, not cryptographic execution attestation.",
+    "Historical snapshot policy is time sensitive; no new advisory freshness is implied beyond the real run."
+  ]
+}

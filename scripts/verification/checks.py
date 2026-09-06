@@ -20,7 +20,7 @@ def plan(outside_canary="/outside-canary", scope="all"):
     native = python + ["scripts/verification/native.py"]
     preflights = [
         ("isolation-probe", python + ["scripts/verification/probe.py", outside_canary], "exit"),
-        ("tool-pins", python + ["scripts/verification/preflight.py"], "exit"),
+        ("tool-pins", python + ["scripts/verification/preflight.py", "--stage-cargo"], "exit"),
     ]
     portable = preflights + [
         ("native-tool-pins", native + ["versions"], "exit"),
@@ -28,6 +28,10 @@ def plan(outside_canary="/outside-canary", scope="all"):
         ("rust-clippy", cargo + ["clippy", "--locked", "--offline", "--workspace", "--all-targets", "--all-features", "--", "-D", "warnings"], "exit"),
         ("rust-unit", cargo + ["test", "--locked", "--offline", "--workspace", "--lib", "--all-features"], "rust"),
         ("rust-integration", cargo + ["test", "--locked", "--offline", "--workspace", "--test", "cli", "--all-features"], "rust"),
+        ("rust-protocol", cargo + ["test", "--locked", "--offline", "--workspace", "--test", "protocol", "--all-features"], "rust"),
+        ("rust-protocol-fuzz", cargo + ["test", "--locked", "--offline", "--workspace", "--test", "protocol_fuzz", "--all-features"], "rust"),
+        ("rust-ipc", cargo + ["test", "--locked", "--offline", "--workspace", "--test", "ipc", "--all-features"], "rust"),
+        ("rust-ingestion", cargo + ["test", "--locked", "--offline", "--workspace", "--test", "ingestion", "--all-features"], "rust"),
         ("qml-lint", native + ["lint"], "exit"),
         ("qml-format", native + ["format"], "exit"),
         ("qml-native", ["/usr/lib/qt6/bin/qmltestrunner", "-input", "qml/tests", "-maxwarnings", "0"], "qml"),
@@ -48,9 +52,15 @@ def plan(outside_canary="/outside-canary", scope="all"):
         python + ["spikes/harnesses/test_sandbox.py", *NATIVE_METHODS, "-v"],
         "native",
     )
+    native_peer = (
+        "rust-ipc-namespace",
+        cargo + ["test", "--locked", "--offline", "--workspace", "--test", "ipc_namespace",
+                 "--all-features", "--", "--exact", "peer_without_visible_pid_is_rejected", "--nocapture"],
+        "rust",
+    )
     if scope == "native":
-        return preflights + [native_sandbox]
-    return portable if scope == "portable" else portable + [native_sandbox]
+        return preflights + [native_peer, native_sandbox]
+    return portable if scope == "portable" else portable + [native_peer, native_sandbox]
 
 
 def passed(results):

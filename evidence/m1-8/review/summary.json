@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "scope": "Final independent review composition and current selected-source identity",
+  "verdict": "PASS",
+  "scopes": [
+    {
+      "component": "protocol and ingestion",
+      "receipt": "m1-8-independent-protocol-ingestion-review.json",
+      "supplement": "m1-8-independent-protocol-ingestion-supplement-b062509.json"
+    },
+    {
+      "component": "IPC and ingestion",
+      "receipt": "m1-8-ipc-ingestion-independent-review.json"
+    },
+    {
+      "component": "dependency preparation and raw peer getter",
+      "receipt": "m1-8-final-dependency-peer-review.json"
+    }
+  ],
+  "open_findings": [],
+  "limits": "Scoped authors do not self-review. Exact executable hash bindings and harmless shorthand supplement are preserved; selected docs are covered by final combined/native manifests. This does not authorize merge or replace current-head Docker/paired qualification."
+}

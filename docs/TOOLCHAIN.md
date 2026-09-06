@@ -157,11 +157,82 @@ Inside the verifier sandbox, invoke the real pinned binary:
 `--frozen` means locked plus offline; do not use the removed
 `--disable-fetch` option. **`--deny warnings` is essential:** real 0.20.2 probes
 showed missing cached registry yank metadata produces `warning[index-failure]`
-even with `yanked="deny"`. Promoting warnings closes that gap. The current
-zero-dependency workspace needs no registry cache. Future dependencies require
-explicit, separately reviewed offline source/index preparation; an absent cache
-must fail, not trigger a verifier fetch. No dependency-preparation framework is
-introduced by #7.
+even with `yanked="deny"`. Promoting warnings closes that gap. The #7 zero-dependency baseline needed no registry cache. The #8 reviewed
+source/index preparation below supplies the newly locked graph; an absent cache
+must fail, never trigger a verifier fetch.
+
+## #8 public dependency preparation and offline state
+
+`tools/dependencies.lock.json` binds the exact 23 registry packages in
+`Cargo.lock` to their crates.io archive checksums and full registry entry bytes
+from crates.io-index commit `9137a21173fbb8ae8536ae5b96cd1fa9da3ddfa3`
+(`2026-09-06T13:20:09Z`). The index config is separately hash-pinned. Registry
+files use immutable raw GitHub commit URLs; archives use public static.crates.io
+URLs. These HTTPS observations are the reviewed integrity baseline, not an
+independent signature or live registry audit. The existing RustSec snapshot and
+seven-day policy remain independently required.
+
+Explicitly prepare the missing group in the already-owned root, separately from
+verification:
+
+```sh
+env -i PATH=/usr/bin HOME=/nonexistent /usr/bin/python3 -I \
+  scripts/prepare-dependencies.py --online --tools-root "$PWD/.tools"
+env -i PATH=/usr/bin HOME=/nonexistent /usr/bin/python3 -I \
+  scripts/prepare-dependencies.py --check --tools-root "$PWD/.tools"
+```
+
+Preparation downloads data only and executes no crate/build script. It reuses
+the existing private root, nonblocking ownership lock, atomic staging and
+credential-free bounded HTTPS downloader. Source archives are capped at 25 MB
+each and raw registry entries at 10 MB. Existing installed groups cannot be
+overwritten; a failure removes only this operation's temporary staging tree.
+Upgrades require a new explicitly prepared tools root; no in-place cache refresh
+or package update is implied.
+
+For the reviewed peer-credential correction, the fresh local root is
+`/home/vhm/Work/omarchy-harbormaster/.tools-m1-8-final`. Existing public groups
+`rust`, `node`, `bin` and `advisory-db` were copied by those exact names only
+from the independently inspected original `.tools` root, retaining timestamps
+and license files; the read-only inspection API reverified their binaries,
+libraries and snapshot before use. New dependency preparation populated only
+the missing `dependencies` group. The original root was neither overwritten nor
+removed. Local execution passes this fresh root via `scripts/verify.py --tools`;
+CI still prepares a completely fresh `.tools` using the same reviewed locks.
+
+The installed `.tools/dependencies` contains source `.crate` archives, full raw
+registry entries and deterministic Cargo sparse-cache records. It contains no
+Cargo configuration overrides or expanded/executable source tree. Cargo 1.98.1's
+cache version 3 / index version 2 representation is a pinned compatibility
+input; real frozen Cargo and cargo-deny probes verify that both consume it.
+
+The canonical `tool-pins` preflight verifies every archive, raw index record,
+generated cache byte and index config; compares the exact registry graph with
+`Cargo.lock`; rejects missing, extra, symlinked or corrupt files; and rejects
+locked versions with absent/true yank status. Its independent index freshness
+rule is `0 <= age < 7 days` using the pinned upstream commit timestamp. Touching
+cache files cannot refresh it. Review and repin the index at least weekly and
+when a relevant yank warrants it. No live yank status is claimed after the
+snapshot. A reviewed new yank must fail, rather than receive an exception.
+
+After all pin checks pass, `preflight.py --stage-cargo` copies only those verified
+inputs from read-only `/tools/dependencies/cargo` into initially empty private
+`/state/cargo`. Ordinary preflight invocation and the `--check` preparation mode
+remain read-only. Cargo expands source only in disposable, network-disabled
+state; dependency build scripts and procedural macros execute within the existing
+sandbox. No host Cargo cache, user configuration, credentials or writable tool
+mount is supplied. The Docker and mandatory separate native qualification
+protections remain unchanged; native qualification also requires current pins.
+
+`tests/tooling/test_dependencies.py` covers integrity, freshness, yank semantics,
+lock equality, malformed records, private copies and failed atomic preparation.
+Run `python3 -B tests/tooling/probe_dependencies.py --tools-root "$PWD/.tools"`
+for real frozen offline build/policy probes and negative missing/corrupt source,
+missing registry and yanked-version fixtures. Add `--crate nix` to target the
+peer-credential dependency; default `serde` retains the original graph probes. These probes use disposable state
+and do not mutate prepared inputs or start a service. Scoped observed results
+are in `evidence/m1-8/dependencies/`; final integrated revision qualification is
+separate evidence.
 
 ## License and dependency policy
 

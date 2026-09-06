@@ -1,0 +1,11 @@
+    Checking linux-raw-sys v0.12.1
+    Checking bitflags v2.13.1
+    Checking memchr v2.8.3
+    Checking itoa v1.0.18
+    Checking serde_core v1.0.229
+    Checking zmij v1.0.23
+    Checking rustix v1.1.4
+    Checking serde_json v1.0.151
+    Checking serde v1.0.229
+    Checking harbormaster v0.1.0 (/work/crates/harbormaster)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.82s

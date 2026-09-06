@@ -1,4 +1,45 @@
-# Verification — M1 #7
+# M1 #8 candidate verification
+
+The #8 integration adds four separately required portable Rust targets, taking
+portable to 25 and local combined to 27 required checks. Native has four required
+entries: the original two preflights and both real M0 integration methods, plus
+the separately required unmapped-peer-PID namespace target. The mandatory paired
+contract and locked-down Docker policy below still apply without exception.
+[The #8 protocol/IPC scope](M1-8-PROTOCOL.md) describes executable coverage and
+limits; [the evidence index](../evidence/m1-8/README.md) and the issue-linked PR identify actual candidate reports,
+source revision and independent review. Component passes and historical #7
+receipts cannot replace current candidate qualification or owner approval.
+
+Current preparation includes the explicit public dependency command, followed
+by offline execution. Use a newly prepared private tools root as described in
+[TOOLCHAIN.md](TOOLCHAIN.md); this machine's reviewed 23-package graph is in
+`.tools-m1-8-final`, leaving the older `.tools` inputs intact:
+
+    env -i PATH=/usr/bin python3 -B scripts/verify.py --tools /home/vhm/Work/omarchy-harbormaster/.tools-m1-8-final
+    env -i PATH=/usr/bin python3 -B scripts/verify.py --tools /home/vhm/Work/omarchy-harbormaster/.tools-m1-8-final --scope native
+    env -i PATH=/usr/bin python3 -B scripts/verify.py --qualify PORTABLE_REPORT_DIRECTORY NATIVE_REPORT_DIRECTORY --revision FULL_COMMIT_SHA
+
+Pair actual report directories, not JSON paths. Paired mode takes no tools
+option. The PR's current-head hosted artifact must be portable Docker evidence;
+local combined execution alone cannot complete qualification. All source-bearing
+docs are included in the selected hashes. Receipts under `evidence/` are excluded
+to avoid recursive hashes; recording receipts does not permit changed selected
+source bytes to reuse an old execution.
+
+# Current post-merge verification
+
+Owner-merged #49 / closed #7 main `70a671bf5bf93aaed7a3acbc1ad26df76fd60187`
+passed fresh post-merge verification on 2026-09-06: actual hosted portable 21
+required PASS; fresh local combined 22 required PASS; dedicated native 3 required
+PASS including both real integration methods; paired qualification PASS for all
+140 selected source files. Each execution explicitly skipped only the 3 optional
+live/future probes. [Actual reports and logs](../evidence/m1-8/post-merge-main/summary.json)
+preserve the downloaded main artifact (run 34001018813, artifact 9979529198),
+fresh local executions, and actual paired report. Historical PR-head records
+below remain unchanged; their former approval blockers are superseded by the
+owner merge. #8 requires new source-bound verification and its own approval.
+
+# Historical verification — M1 #7
 
 ## Commands and supported scope
 

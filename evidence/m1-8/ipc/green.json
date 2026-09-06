@@ -1,0 +1,48 @@
+{
+  "scope": "Focused IPC component checks; not full or paired qualification",
+  "boundary": "existing verification.sandbox.run bwrap, empty allowlisted environment, private runtime, network unshared, caps dropped",
+  "dependency_input": "dependency agent prepared Cargo.lock/Cargo.toml and .tools/dependencies/cargo copied into isolated state",
+  "composition_limitation": "Protocol implementation was still in flight: this component snapshot appended only pub mod protocol { pub const MAX_FRAME_BYTES: usize = 16_384; }. Parent must rerun actual integrated source. IPC itself was not stubbed.",
+  "source_sha256": {
+    "crates/harbormaster/src/ipc/connection.rs": "da7d51e07dd4cc1891ce057bde22ec0b7d3fde27a6cb3d64932dc524bb2b71da",
+    "crates/harbormaster/src/ipc/framing.rs": "0a9fe64cb95c15d1a157255fcf496e3a66165cddc5bce6b0773f9c5903ce2014",
+    "crates/harbormaster/src/ipc/mod.rs": "8ebfca9f68a36bda0b75acd1e24768a46ded3e06e7f05eac8a323a37b6222af3",
+    "crates/harbormaster/src/ipc/paths.rs": "358ac17598be75d8d336719b19f64d3dd8ddd0bff6afe89dad363b8cdca463e6",
+    "crates/harbormaster/src/ipc/peer.rs": "cbae0cef88e3ce9364ed4659a732b7f876f003d66714ce29998dffac0821a1ec",
+    "crates/harbormaster/tests/ipc.rs": "8a4e29b57b1e9071e8011af092f2e2bd51edf2b3ecfe5d4ff5e864071ed3852f"
+  },
+  "checks": [
+    {
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--test",
+        "ipc"
+      ],
+      "exit_code": 0,
+      "output": "   Compiling proc-macro2 v1.0.107\n   Compiling quote v1.0.47\n   Compiling unicode-ident v1.0.24\n   Compiling serde_core v1.0.229\n   Compiling zmij v1.0.23\n   Compiling serde_json v1.0.151\n   Compiling rustix v1.1.4\n   Compiling serde v1.0.229\n   Compiling itoa v1.0.18\n   Compiling memchr v2.8.3\n   Compiling bitflags v2.13.1\n   Compiling linux-raw-sys v0.12.1\n   Compiling syn v3.0.5\n   Compiling serde_derive v1.0.229\n   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.26s\n     Running tests/ipc.rs (/state/target/debug/deps/ipc-10066333484f67fa)\n\nrunning 15 tests\ntest malformed_encoding_and_eof_reject_buffered_frame ... ok\ntest bind_failure_and_cleanup_never_delete_existing_or_replaced_files ... ok\ntest connection_cap_releases_on_drop_and_deadline_closes_connection ... ok\ntest framing_is_incremental_bounded_and_poisoned_after_failure ... ok\ntest held_directory_survives_rename_without_touching_replacement_directory ... ok\ntest partial_frame_deadline_does_not_extend_with_dripped_bytes ... ok\ntest nonblocking_io_preserves_fragmented_frames_and_separate_consumers ... ok\ntest private_socket_paths_are_owned_and_channels_are_listener_evidence ... ok\ntest outbound_enforces_both_caps_before_copying ... ok\ntest authenticated_slow_writer_expires_while_another_client_stays_responsive ... ok\ntest cross_process_peer_credentials_are_from_the_kernel ... ok\ntest second_bind_failure_rolls_back_only_the_socket_created_by_this_call ... ok\ntest unsafe_runtime_and_symlink_ancestors_are_rejected ... ok\ntest queue_overflow_disconnects_so_a_client_must_resynchronize ... ok\ntest manager_connection_cap_cannot_be_bypassed_with_new_caller_budgets ... ok\n\ntest result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s\n\n",
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 2.31
+    },
+    {
+      "command": [
+        "/tools/rust/bin/cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "output": "    Checking memchr v2.8.3\n    Checking linux-raw-sys v0.12.1\n    Checking bitflags v2.13.1\n    Checking itoa v1.0.18\n    Checking serde_core v1.0.229\n    Checking zmij v1.0.23\n    Checking rustix v1.1.4\n    Checking serde_json v1.0.151\n    Checking serde v1.0.229\n    Checking harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.57s\n",
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.591
+    }
+  ]
+}

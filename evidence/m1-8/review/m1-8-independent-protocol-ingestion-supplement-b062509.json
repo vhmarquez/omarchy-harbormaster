@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "verdict": "PASS",
+  "scope": "Supplemental independent protocol/ingestion delta review; IPC remains excluded because reviewer authored it. No broad re-review or repeated test run.",
+  "base_review_receipt": "m1-8-independent-protocol-ingestion-review.json",
+  "base_review_receipt_sha256": "20e6ad28ebfa383679918cd548459df5cb37f9e514eb8d84bdc0fba44bed1d3b",
+  "base_review_revision": "e39092da48315893959b77ddbcba3649a89dcb17",
+  "accepted_revision": "b062509847cc2803b6c650603abef3266eab6fa3",
+  "delta_files": [
+    "crates/harbormaster/tests/ingestion.rs"
+  ],
+  "delta": {
+    "path": "crates/harbormaster/tests/ingestion.rs",
+    "before": "client: client,",
+    "after": "client,",
+    "assessment": "Rust struct field shorthand initializes the same client field with the identical local binding. No runtime behavior, assertions, fixture isolation or test coverage changed.",
+    "new_sha256": "cdd8c79b82028e5e0a4e77ef54a39bd64c967be8b4740b26e5656829eb643ada"
+  },
+  "reviewed_source_sha256": {
+    "crates/harbormaster/src/protocol/capability.rs": "4304007eafadcc7de436cd25c61e836e7c692acbe67dab721d19c35b8d707d93",
+    "crates/harbormaster/src/protocol/control.rs": "259a532bf0a9ada19106b4eb0e2e45945f969cd914df4e445b3f0d8122bfcb86",
+    "crates/harbormaster/src/protocol/event.rs": "fdd5b856ed561e3401364a5beb5abed525b6f29a568e5226e76eff93cca61118",
+    "crates/harbormaster/src/protocol/identity.rs": "f3c1bdf87751fa0d31e529a562cc58ac6c788abbb5cca0ec6a26578a74dcab17",
+    "crates/harbormaster/src/protocol/mod.rs": "6a248b7d018847c8eeed9d1065d7235b54cb398d372867fe885b56b32872c30b",
+    "crates/harbormaster/src/protocol/response.rs": "60392bc8fc0d59d3c280be649914487848c8fa3ba8f40b05eb4d6cb0ee406008",
+    "crates/harbormaster/src/protocol/strict.rs": "a0225e0313212087b0fe3490fac46db6e09a7e597d5923fe50c60b79d4c961c0",
+    "crates/harbormaster/src/ingestion/control.rs": "bdbcea1b54689b11f574cefdef2da114340e3859a6d3f4002cf0bed17f5648fe",
+    "crates/harbormaster/src/ingestion/generation.rs": "8af58fc8628f1a8064e470b1531f6ca60a56e1352315e2c20060aa96453d510c",
+    "crates/harbormaster/src/ingestion/mod.rs": "4ee6dbaf202f3825d839e48ce46e8eb73f5ccf23b58a9ac22a584ca1c45523be",
+    "crates/harbormaster/src/ingestion/queue.rs": "d18720c030e2beb5ec2400358a396e71e3658547184d76b64813ded2950f466b",
+    "crates/harbormaster/src/ingestion/registry.rs": "696d98e5fb3218b06f46c3368d2ead9c090daeb2bd89d1768f7694098f378e4a",
+    "crates/harbormaster/tests/ingestion/control.rs": "a650115d7b7d834007faee469b4d302e00aa0573af89e61a319fbb3f9421db9e",
+    "crates/harbormaster/tests/ingestion/limits.rs": "eb27a2458a280ef8d0f9208a879be7e6beb0f3b1ff230578046c9d57a39b2697",
+    "crates/harbormaster/tests/ingestion.rs": "cdd8c79b82028e5e0a4e77ef54a39bd64c967be8b4740b26e5656829eb643ada",
+    "crates/harbormaster/tests/protocol.rs": "1a2991253e41dbb97ee961ddbc412dc4e58d57d1a3157d7292c8844b385a3bad",
+    "crates/harbormaster/tests/protocol_fuzz.rs": "7eb40b223b256ab3aa470f54257fc8a3d698fe1a96c228b79f079f73ecbf6a2d",
+    "docs/M1-8-PROTOCOL.md": "cedb8c24f38db0a5fe5201ab980cde6c805cc98aa4d19bb426de2420174169e0",
+    "docs/M1-8-DEVELOPMENT.md": "2ac30dcbb8be0c01c1ac4608578e3c8a669206dd964c422ab8e8bc4761c18e43"
+  },
+  "other_previously_reviewed_source_bytes_unchanged": true,
+  "documentation_review": {
+    "path": "docs/M1-8-REVIEW.md",
+    "read_state": "uncommitted document in current checkout; this content binding is a file hash, not a claim it exists in accepted_revision",
+    "sha256": "9a9cc5364288791f9cd1a24c254d3407a584ff431e6ad7b5e00baeb82d32e477",
+    "verdict": "accurate for this reviewer scope",
+    "assessment": [
+      "Correctly attributes independent protocol/ingestion review to the IPC author and does not claim independent self-review of IPC.",
+      "Correctly summarizes executed duplicate/depth mutation sensitivity, 12,000 seeded fuzz cases and 60 structured hostile cases.",
+      "Correctly records accepted control.rs303, protocol.rs361 and ingestion.rs302 size triggers and preserves the owner approval/qualification gates.",
+      "Other reviewers own the independent IPC/native/dependency assertions; this supplemental verdict does not expand my prior scope."
+    ]
+  },
+  "tests": {
+    "executed_this_supplement": false,
+    "reason": "Exact field-shorthand-only delta has identical behavior. Parent separately runs actual Clippy and current-revision qualification; original41 passing protocol/ingestion tests remain in the base receipt."
+  },
+  "approval": "This review is not owner approval to merge or begin dependent implementation."
+}

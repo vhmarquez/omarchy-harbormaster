@@ -2,7 +2,7 @@
 
 An Omarchy-native, local-first agent manager for concurrent Hermes, Claude Code and Codex work.
 
-**Stage: M0 feasibility/design accepted; M1 #7 developer foundation is in progress on a feature branch. This repository does not yet contain an installable manager.** See [M1 status](docs/M1-STATUS.md), [development boundaries](docs/DEVELOPMENT.md) and [verification](docs/M1-VERIFICATION.md). The approved composition is option 02, Project manager: project navigation, session list and inspector, plus an attention-first bar popup, with the supplemental review/settings/recovery study approved. A finished agent turn is not proof the work is correct.
+**Stage: M0 feasibility/design accepted; M1 #7 is merged and post-merge qualified; #8 is a protocol/IPC library candidate requiring its own owner approval before merge. This repository does not yet contain an installable manager.** See [M1 status](docs/M1-STATUS.md), [development boundaries](docs/DEVELOPMENT.md) and [verification](docs/M1-VERIFICATION.md). The approved composition is option 02, Project manager: project navigation, session list and inspector, plus an attention-first bar popup, with the supplemental review/settings/recovery study approved. A finished agent turn is not proof the work is correct.
 
 ## Project tracking
 
@@ -34,7 +34,7 @@ Fixture-document checks (Python standard library, no credentials/network):
     python3 -B -m unittest discover -s tests -v
     python3 -B scripts/verify-m0.py
 
-The checker validates the failure-specification inventory. A green result is not proof the future Rust daemon passes these regressions or that all M0 acceptance gates are complete. Runtime/harness/design commands and dependencies are documented separately in their READMEs; actual desktop tests use disposable resources and briefly open their own terminal window. Review those scopes before running them. Rust/QML application setup and full CI begin in M1.
+The checker validates the failure-specification inventory. A green result is not proof the future Rust daemon passes these regressions or that all M0 acceptance gates are complete. Runtime/harness/design commands and dependencies are documented separately in their READMEs; actual desktop tests use disposable resources and briefly open their own terminal window. Review those scopes before running them. The current Rust/QML setup and canonical offline checks are documented in [M1 verification](docs/M1-VERIFICATION.md).
 
 ## Scope and safety
 

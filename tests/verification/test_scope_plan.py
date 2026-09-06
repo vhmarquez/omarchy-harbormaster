@@ -14,7 +14,8 @@ from verification.sandbox import _execute
 
 PORTABLE_NAMES = [
     "isolation-probe", "tool-pins", "native-tool-pins", "rust-format",
-    "rust-clippy", "rust-unit", "rust-integration", "qml-lint", "qml-format",
+    "rust-clippy", "rust-unit", "rust-integration", "rust-protocol", "rust-protocol-fuzz",
+    "rust-ipc", "rust-ingestion", "qml-lint", "qml-format",
     "qml-native", "python-verification", "python-tooling", "m0-contract-tests",
     "m0-fixture-contract", "m0-runtime-identity", "m0-runtime-cleanup",
     "m0-harness-helpers", "m0-design-model", "frozen-design-integrity",
@@ -25,6 +26,13 @@ NATIVE_TARGET = (
     ["/usr/bin/python3", "-B", "spikes/harnesses/test_sandbox.py", *NATIVE_METHODS, "-v"],
     "native",
 )
+NATIVE_PEER_TARGET = (
+    "rust-ipc-namespace",
+    ["/tools/rust/bin/cargo", "test", "--locked", "--offline", "--workspace", "--test",
+     "ipc_namespace", "--all-features", "--", "--exact",
+     "peer_without_visible_pid_is_rejected", "--nocapture"],
+    "rust",
+)
 
 
 class ScopePlanTests(unittest.TestCase):
@@ -34,7 +42,7 @@ class ScopePlanTests(unittest.TestCase):
         portable = plan(scope="portable")
         names = [name for name, _, _ in portable]
         self.assertEqual(names, PORTABLE_NAMES)
-        self.assertEqual(len(names), 21)
+        self.assertEqual(len(names), 25)
         self.assertEqual(len(names), len(set(names)))
         self.assertEqual(next(item for item in portable if item[0] == "m0-harness-helpers"),
                          ("m0-harness-helpers", ["/usr/bin/python3", "-B", "-m", "unittest",
@@ -44,8 +52,8 @@ class ScopePlanTests(unittest.TestCase):
     def test_native_contains_only_shared_preflights_and_explicit_sandbox_target(self):
         portable = plan(scope="portable")
         native = plan(scope="native")
-        self.assertEqual(native, portable[:2] + [NATIVE_TARGET])
-        self.assertEqual(len({name for name, _, _ in native}), 3)
+        self.assertEqual(native, portable[:2] + [NATIVE_PEER_TARGET, NATIVE_TARGET])
+        self.assertEqual(len({name for name, _, _ in native}), 4)
 
     def test_unknown_scope_is_rejected_instead_of_becoming_all(self):
         for scope in ("", "optional", "ALL", "native ", None, []):
@@ -57,9 +65,9 @@ class ScopePlanTests(unittest.TestCase):
         native = plan(scope="native")
         all_checks = plan(scope="all")
         self.assertEqual(plan(), all_checks)
-        self.assertEqual(all_checks, portable + [NATIVE_TARGET])
+        self.assertEqual(all_checks, portable + [NATIVE_PEER_TARGET, NATIVE_TARGET])
         names = [name for name, _, _ in all_checks]
-        self.assertEqual(len(names), 22)
+        self.assertEqual(len(names), 27)
         self.assertEqual(len(names), len(set(names)))
         self.assertEqual(set(names), {item[0] for item in portable + native})
         self.assertEqual({item[0] for item in portable} & {item[0] for item in native},

@@ -1,0 +1,91 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "reviewed_revision": "e39092da48315893959b77ddbcba3649a89dcb17",
+  "scope": [
+    "Independent correctness/security/maintainability review of dependency pin/preparation/offline gate and minimal nix getter dependency extension",
+    "Independent review of production IPC peer credential correction and separately mandatory native PID namespace test/inventory"
+  ],
+  "findings": [],
+  "reviewed_file_sha256": {
+    "Cargo.lock": "a6fb5198352fbc77d590a051e097fc73402d448ee31679f73212a00924942a21",
+    "crates/harbormaster/Cargo.toml": "a0922e268f3d3dc20badd9c8e72c2df17e7901cf91a320cd2c0df152617d64c1",
+    "tools/dependencies.lock.json": "32cf7c45db0761113dc965c4d8d1fd79f08b3a7653315f6225b1796d52eddebd",
+    "scripts/prepare-dependencies.py": "473e49f1a5b7af62827d61c42446fbb00aec024a55a5ff01a7e2a2801a85eae2",
+    "scripts/tooling/dependencies.py": "32b3890091f971cf193a706c0d98170435e6560e471c063b3419ba500794198a",
+    "scripts/tooling/dependency_prepare.py": "340b1517bd57d0f5f55e169f02169dd14732ea051ed9d033ec1d1b5d0bb259b6",
+    "scripts/tooling/download.py": "4092df37c07340ab8ffcfccf6d3cb569ba670063b1d0516d848089b8958174e9",
+    "scripts/tooling/install.py": "53987d199a75ee9a4ddfb68212bd2d1c7e97cf7cefa4864d356dee12dc534d31",
+    "scripts/verification/preflight.py": "310f212b6d510f4d321528490ec89d3526d14ad4e00a94ecc079c8319d8c9b80",
+    "scripts/verification/checks.py": "536955d6afd28c659813a4bf804a23f3d37cd12e2052a00b43516ce918076c4d",
+    "scripts/verification/sandbox.py": "7c312f16324313388c7e05426ff24e3c6408959042e1fef0ee5850accc5490e7",
+    "scripts/verification/container.py": "24a1632374d5979b901487eac68f1c0e89f45a8cd6e2dc8a38c53b6fc3511175",
+    "scripts/verification/native.py": "475ef4379713ec0a9712233816daf13675a60c2344558a5e39e2ff212a131e39",
+    "tests/tooling/probe_dependencies.py": "96eb866201931fcf573a83a7b8e4b401e75f7c75a111083a46cc886031788327",
+    "tests/tooling/test_dependencies.py": "bd149e496931e0e23ecffbc647aa07636fe1df2fcb803c06c4eb3463dd27d7e2",
+    "tests/verification/test_rust_pins.py": "ad080305d94dcdceffa21293c4383c204bb89210e8b9367a6fa8420917814184",
+    "tests/verification/test_m1_8_plan.py": "3b414fceac0ffa094db4fbf7e1a225cf7e695f1e7472efc30a97bfd6a5d5e98c",
+    "tests/verification/test_scope_plan.py": "c0e36bcefc731ec18220a9d6b4f17af5cff542c877d107df91c63bc43576e18b",
+    "crates/harbormaster/src/ipc/peer.rs": "692ede5dc68aae4fd9bb4ffa6ef88f906c3426974ded32e44233ebaa90e1f9c4",
+    "crates/harbormaster/src/ipc/connection.rs": "6870ea0e4eccb67d265731f3753e2d92222701771e6747a1ebef7c26f3fb5a33",
+    "crates/harbormaster/src/ipc/mod.rs": "8ebfca9f68a36bda0b75acd1e24768a46ded3e06e7f05eac8a323a37b6222af3",
+    "crates/harbormaster/tests/ipc_namespace.rs": "beb2fa72fef97c03fc90da0f06cd24d33b698b74839c755c2ec2fd24437decbf",
+    ".github/workflows/verify.yml": "09bf0698184f23629cac6e717232b3ddb8b35132b3731fc3b31711c9f991bda2",
+    "tools/deny.toml": "f3f056542762b7484a2955d583f9fe64a49431a763bbb43834f5df9a0b60c93c",
+    "docs/DEPENDENCIES.md": "00e4283ea5acdb2d1ccfd38e32735a15e99009f5b9720d901d428004f53c346a",
+    "docs/TOOLCHAIN.md": "07b87c699ed6c7e86cf74e09523905d2aa0c789142b1911a3dfb01a1137fd96c",
+    "docs/M1-VERIFICATION.md": "a3556f0316363d3725ac0898b019adea91855f6684d685bdf1c975c892aaa402"
+  },
+  "protected_baseline_files_identical": {
+    "scripts/verification/sandbox.py": true,
+    "scripts/verification/container.py": true,
+    "scripts/verification/native.py": true,
+    "spikes/harnesses/test_sandbox.py": true,
+    "tools/deny.toml": true,
+    "tools/ci.Dockerfile": true
+  },
+  "evidence": [
+    {
+      "file": "m1-8-final-dependency-peer-execution.json",
+      "sha256": "9d52d9da09741f496512de7051a3aa76fb668848bd773f2ba1070ef4bfb98d12"
+    },
+    {
+      "file": "m1-8-nix-independent-source.json"
+    },
+    {
+      "file": "m1-8-nix-independent-probe.json"
+    },
+    {
+      "file": "m1-8-nix-independent.json"
+    }
+  ],
+  "verification": {
+    "independent_integrated_preflight": "PASS: all current tools/advisory/23-package inputs verified, copied into empty disposable Cargo home",
+    "independent_integrated_dependency_input_tests": 13,
+    "independent_integrated_library_tests": 11,
+    "independent_integrated_native_peer_namespace_tests": 1,
+    "timeouts": 0,
+    "skips": 0,
+    "output_truncation": 0,
+    "prior_identical_dependency_source_real_probe": "37957511: actual frozen Cargo PASS, all four cargo-deny categories PASS, new nix missing/corrupt source/missing index/yanked fixtures reject. Reviewed dependency graph/preparation code unchanged on integrated revision.",
+    "causal_pid_filter_mutation": "Assigned to separate independent dependencies reviewer; not duplicated or claimed executed here."
+  },
+  "correctness_security_notes": [
+    "Strict shared JSON decoder and exact Cargo registry graph bind all23 archives/raw-index/cache/config bytes; stale/future registry snapshot, missing/extra/symlink/corrupt inputs and absent/true selected yank status fail closed before Cargo.",
+    "nix0.31.3 archive/source reviewed: transparent raw libc::ucred contains signed i32 pid_t; GetStruct checks returned length before assume_init, permitting zero without nonzero-representation violation. IPC rejects zero/negative raw PID before constructing public evidence.",
+    "No new project unsafe code or socket execution authority. Peer UID/PID are evidence only; event/control authorization remains separate.",
+    "Portable Docker inventory excludes nested PID namespace target, and native inventory mandates it alongside unchanged original native network denial/namespace identity methods. Kernel-backed isolated fixture passes independently.",
+    "Trusted/quiescent checked input scope is retained: checks are evidence consistency, not hostile same-UID execution attestation. No live harness, transcript, credential, external listener or deployment involved."
+  ],
+  "maintainability_notes": [
+    "Read-only dependency inspection, explicit online preparation, CLI entry, and disposable staging have separate focused responsibilities; no broad framework or cyclic domain/transport dependency introduced.",
+    "nix default features disabled and only socket enabled; rustix net removed while fs/process/rand remain. Five added packages are graph-required and license alternatives fit unchanged policy.",
+    "Production peer module is short and single-purpose; safe wrapper replaces unsafe representation without a local unsafe shim or enlarged public API.",
+    "Native fixture keeps fixed sandbox argv in one function; its explicit Clippy size exception has a focused rationale and does not relax production complexity gates."
+  ],
+  "limits": [
+    "This scoped independent review is not final combined/Docker/native paired qualification. Those records must match selected source bytes at the published revision.",
+    "Changes to reviewed executable/tool/test/workflow bytes require corresponding review update; documentation-only revisions can be related by unchanged reviewed executable hashes.",
+    "PASS does not authorize merge or dependent #9/M2 implementation."
+  ]
+}

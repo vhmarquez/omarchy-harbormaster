@@ -1,47 +1,45 @@
 # M1 status and handoff
 
-M1 is authorized by the owner's 2026-09-05 development goal. Work begins from
-M0 closure `ed68ec9dd954b9a54bc20bc14e39a088f99290b0`. The approval/workflow and
-pre-implementation responsibility record is [DEVELOPMENT.md](DEVELOPMENT.md).
+M1 is authorized by the owner. Live state checked 2026-09-06: owner-merged PR #49,
+closed #7, main `70a671bf5bf93aaed7a3acbc1ad26df76fd60187`, and open #8/#9/#10.
+Milestone 2 remains open (one closed, three open issues); roadmap #1 remains open.
 
 | Issue | Current scope | Gate |
 |---|---|---|
-| #7 | Cargo/QML foundation and owner-approved mandatory portable/native verification split | Exact-head Docker + native evidence, independent review, then explicit owner approval before merge |
-| #8 | Not started | Approved/merged #7 |
+| #7 | Merged by owner; post-merge main qualified | Completed foundation dependency |
+| #8 | Protocol/private IPC library candidate on `codex/m1-8-protocol-ipc` | Explicit owner PR/revision approval after current-head qualification; unmerged |
 | #9 | Not started | Approved/merged #8 |
 | #10 | Not started | Approved/merged dependencies |
 
-The initial hosted preflight and missing-binary failures were corrected without
-relaxing confinement. Run 33994133494 then demonstrated actual inner namespace
-permission denial. The owner approved keeping Docker locked down and making
-native bubblewrap integration separately mandatory. See the [verification
-contract and historical evidence](M1-VERIFICATION.md). A portable GitHub PASS is
-not complete qualification. The paired evidence checker must accept trusted
-Docker/native records against the exact current head, and independent review
-and explicit revision approval remain mandatory. No branch protection, automatic
-merge or live desktop/harness policy is changed.
-The owner explicitly permits free standard GitHub CI, not paid runners/services.
+[Post-merge evidence](../evidence/m1-8/post-merge-main/summary.json): actual main
+hosted Docker portable 21 required PASS, fresh combined 22 required PASS, dedicated
+native 3 required PASS, paired PASS for 140 selected source files. Only the three
+explicit optional live/future probes skipped. See [verification](M1-VERIFICATION.md)
+and [pre-implementation #8 responsibilities](M1-8-DEVELOPMENT.md).
 
-The issue-linked integration branch is `feat/m1-7-developer-foundation`.
-Retrieve its PR/current head with `gh pr view feat/m1-7-developer-foundation`;
-CI and owner approval must be read from that exact revision, not inferred from
-a local report. The current handoff is awaiting that PR acceptance gate.
-Concurrent CLI, tooling, CI and maintainability edits used separate worktrees;
-only scoped artifacts are integrated. No feature work is committed to main.
-A green test/reviewer verdict, this goal and M0 approval are not merge approval.
-The requested deliverable is a focused #7 PR; dependent implementation stops at
-its owner approval gate. M1 cannot be called complete while #7–#10 remain open.
+The [#8 evidence index](../evidence/m1-8/README.md) maps each acceptance criterion
+to executable tests and actual reports. [Independent review](M1-8-REVIEW.md)
+records corrected defects and maintainability dispositions. The issue-linked PR
+records the exact published revision, hosted artifact and actual paired result;
+read that record before approval. #8 remains open until its approved merge.
+
+Keep Docker locked down and native bubblewrap integration separately mandatory.
+A portable green run alone never completes qualification. Actual trusted receipts
+must pair against each exact candidate revision. Work uses dedicated branches;
+independent editing agents use separate worktrees, not security sandboxes.
+Only free standard public-repository GitHub CI is authorized. No new PR has owner
+merge approval, and no dependent #9/#10 implementation or M2 work is authorized yet.
 
 ## Scope now
 
-- One dependency-free Rust package supplies real help/version/error handling
-  and a minimal build/test foundation. Unsupported runtime/bridge/launch modes
+- One Rust package supplies help/version/error handling and the pinned typed
+  protocol/private IPC/admission library, qualified only with disposable fixtures. Unsupported runtime/bridge/launch modes
   fail explicitly; this is not an installable manager or a daemon stub.
 - The QML file is a real Qt Quick Test sentinel, not a production screen or
   claim of approved UI/native-accessibility implementation.
 - Verification uses private disposable homes and bounded offline subprocesses;
   live runtime/harness probes remain separate explicit opt-ins, not silent passes.
-- Performance budgets, hostile IPC, storage/crash/replay/retention and read-only
+- Measured performance budgets, durable storage/crash/replay/retention and read-only
   product diagnostics are still owed by their corresponding M1/later issues.
 
 ## Outstanding decisions before cleanup implementation
