@@ -35,6 +35,7 @@ pub struct DiagnosticSnapshot {
     storage: StorageCounts,
     cleanup: CleanupCounts,
     recovery: RecoveryStatus,
+    commit: Option<crate::coordinator::CommitStatus>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, serde::Serialize)]
@@ -68,13 +69,16 @@ impl From<MaintenanceResult> for CleanupCounts {
 
 /// Project already-owned immutable snapshots; no collection, policy or storage
 /// action is performed. Recovery counters are independent volatile observations,
-/// not an assertion of a cross-filesystem atomic storage revision.
+/// not an assertion of a cross-filesystem atomic storage revision. The optional
+/// job snapshot is a separate volatile lower bound, potentially overlapping the
+/// durable count; it is never summed as unique loss. None means unavailable.
 /// # Errors
 /// Reject storage status and policy that describe different committed revisions.
 pub fn project(
     status: &StorageStatus,
     policy: &StoragePolicy,
     recovery: &RecoveryStatus,
+    commit: Option<&crate::coordinator::CommitStatus>,
 ) -> Result<DiagnosticSnapshot, DiagnosticError> {
     if status.revision != policy.revision {
         return Err(DiagnosticError::MismatchedRevision);
@@ -92,5 +96,6 @@ pub fn project(
         },
         cleanup: status.cleanup.into(),
         recovery: *recovery,
+        commit: commit.copied(),
     })
 }

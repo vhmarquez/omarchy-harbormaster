@@ -142,15 +142,13 @@ impl<'a> CommitJob<'a> {
         self.progress
     }
 
-    /// Volatile lower bound, separate from whether a storage counter committed.
+    /// Read this job's fixed counters without changing admission or storage.
     #[must_use]
-    pub const fn known_discarded(&self) -> u64 {
-        self.discarded
-    }
-
-    #[must_use]
-    pub const fn unknown_gap(&self) -> bool {
-        self.unknown_gap
+    pub const fn status(&self) -> super::CommitStatus {
+        super::CommitStatus {
+            known_queued_discards: self.discarded,
+            unknown_gap: self.unknown_gap,
+        }
     }
 
     /// Move the receipt and owned entry once; no spool deletion happens here.

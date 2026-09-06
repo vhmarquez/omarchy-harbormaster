@@ -95,7 +95,7 @@ fn discarded_actual_worker_reply_is_unknown_until_the_same_intent_proves_commit(
         std::thread::sleep(Duration::from_millis(1));
     }
     assert_eq!(job.poll(), CommitProgress::UnknownOutcome);
-    assert!(job.unknown_gap());
+    assert!(job.status().unknown_gap);
     assert!(job.take_committed().is_none());
     let original = job.operation.request().clone();
     let pending = job.into_pending().unwrap();

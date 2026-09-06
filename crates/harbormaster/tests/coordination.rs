@@ -43,7 +43,7 @@ fn mismatched_status_and_policy_revisions_reject_before_projection() {
     let (status, mut policy, recovery) = snapshots();
     policy.revision = Revision::new(5);
     assert_eq!(
-        project(&status, &policy, &recovery),
+        project(&status, &policy, &recovery, None),
         Err(DiagnosticError::MismatchedRevision)
     );
 }
@@ -52,16 +52,21 @@ fn mismatched_status_and_policy_revisions_reject_before_projection() {
 fn projection_preserves_policy_counter_units_and_unknown_gap() {
     let (status, policy, recovery) = snapshots();
     let before = (status.clone(), policy.clone(), recovery);
-    let expected = serde_json::to_vec(&project(&status, &policy, &recovery).unwrap()).unwrap();
+    let expected =
+        serde_json::to_vec(&project(&status, &policy, &recovery, None).unwrap()).unwrap();
     for _ in 0..100 {
         assert_eq!(
-            serde_json::to_vec(&project(&status, &policy, &recovery).unwrap()).unwrap(),
+            serde_json::to_vec(&project(&status, &policy, &recovery, None).unwrap()).unwrap(),
             expected
         );
     }
     assert_eq!((status, policy, recovery), before);
     let value: serde_json::Value = serde_json::from_slice(&expected).unwrap();
     assert_eq!(value["scope"], "manager_metadata");
+    assert!(
+        value["commit"].is_null(),
+        "no job snapshot is not zero loss"
+    );
     assert_eq!(value["history_days"], 30);
     assert_eq!(value["recovery"]["rejected_attempts"], 7);
     assert_eq!(value["recovery"]["discarded_artifacts"], 8);
@@ -77,6 +82,7 @@ fn projection_preserves_policy_counter_units_and_unknown_gap() {
         keys,
         [
             "cleanup",
+            "commit",
             "history_days",
             "recovery",
             "revision",
@@ -117,7 +123,12 @@ fn maximum_numeric_projection_has_fixed_bounded_output() {
         discarded_artifacts: u64::MAX,
         unknown_gap: true,
     };
-    let bytes = serde_json::to_vec(&project(&status, &policy, &recovery).unwrap()).unwrap();
+    let commit = harbormaster::coordinator::CommitStatus {
+        known_queued_discards: u64::MAX,
+        unknown_gap: true,
+    };
+    let bytes =
+        serde_json::to_vec(&project(&status, &policy, &recovery, Some(&commit)).unwrap()).unwrap();
     assert!(bytes.len() < MAX_DIAGNOSTIC_BYTES);
     let value: serde_json::Value = serde_json::from_slice(&bytes).unwrap();
     assert_eq!(value["history_days"], 7);
@@ -129,9 +140,11 @@ fn actual_snapshots_format_repeatedly_without_files_policy_or_canary_collection(
     let fixture = fixture::Fixture::new();
     let (status, policy, recovery) = fixture.snapshots();
     let before_files = fixture.file_state();
-    let baseline = serde_json::to_vec(&project(&status, &policy, &recovery).unwrap()).unwrap();
+    let baseline =
+        serde_json::to_vec(&project(&status, &policy, &recovery, None).unwrap()).unwrap();
     for _ in 0..100 {
-        let bytes = serde_json::to_vec(&project(&status, &policy, &recovery).unwrap()).unwrap();
+        let bytes =
+            serde_json::to_vec(&project(&status, &policy, &recovery, None).unwrap()).unwrap();
         assert_eq!(bytes, baseline);
         for canary in fixture::CANARIES {
             assert!(
@@ -144,9 +157,24 @@ fn actual_snapshots_format_repeatedly_without_files_policy_or_canary_collection(
     let mut mismatched = policy.clone();
     mismatched.revision = mismatched.revision.checked_next().unwrap();
     assert_eq!(
-        project(&status, &mismatched, &recovery),
+        project(&status, &mismatched, &recovery, None),
         Err(DiagnosticError::MismatchedRevision)
     );
     assert_eq!(fixture.file_state(), before_files);
     assert_eq!(fixture.snapshots(), (status, policy, recovery));
+}
+
+#[test]
+fn current_job_loss_is_separate_from_durable_and_artifact_counters() {
+    let (status, policy, recovery) = snapshots();
+    let commit = harbormaster::coordinator::CommitStatus {
+        known_queued_discards: 9,
+        unknown_gap: true,
+    };
+    let value =
+        serde_json::to_value(project(&status, &policy, &recovery, Some(&commit)).unwrap()).unwrap();
+    assert_eq!(value["commit"]["known_queued_discards"], 9);
+    assert_eq!(value["commit"]["unknown_gap"], true);
+    assert_eq!(value["storage"]["discarded_events"], 5);
+    assert_eq!(value["recovery"]["discarded_artifacts"], 8);
 }

@@ -42,19 +42,19 @@ impl CommitJob<'_> {
     }
 
     fn context(&mut self, context: &ReducerContext) -> CommitProgress {
-        if let EventReceipt::Exact { revision } = context.receipt {
-            return self.accept(revision);
-        }
         let Some(producer) = &context.producer else {
             return self.reject(CommitFailure::Unreconciled);
         };
         let event = self.event();
-        if producer.generation != event.generation
-            || producer.run_id != event.run_id
+        if producer.run_id != event.run_id
             || producer.harness != self.entry.as_ref().expect("owned entry").harness()
-            || !producer.active
-            || !producer.reconciled
         {
+            return self.reject(CommitFailure::Unreconciled);
+        }
+        if let EventReceipt::Exact { revision } = context.receipt {
+            return self.accept(revision);
+        }
+        if producer.generation != event.generation || !producer.active || !producer.reconciled {
             return self.reject(CommitFailure::Unreconciled);
         }
         let failure = match context.receipt {
@@ -105,6 +105,7 @@ impl CommitJob<'_> {
     fn accept(&mut self, revision: crate::protocol::Revision) -> CommitProgress {
         self.receipt = Some(DurableReceipt {
             event: self.event().clone(),
+            harness: self.entry.as_ref().expect("owned entry").harness(),
             revision,
         });
         self.done = true;

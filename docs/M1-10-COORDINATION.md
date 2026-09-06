@@ -7,7 +7,7 @@ private source eligibility gate. Arbitrary typed wire input cannot construct it.
 
 A commit job borrows one database worker and exclusively borrows the volatile
 registry through its nonblocking state transitions. It first reads a durable
-context. An exact event receipt is sufficient to recover the original commit,
+context and checks immutable producer run/harness scope. An exact event receipt is sufficient to recover the original commit,
 even after startup retired that generation; a checkpoint alone is insufficient.
 Missing events require matching active/reconciled producer scope, harness and
 next sequence before pure reduction. Invalid evidence, conflicts and gaps retire
@@ -25,7 +25,7 @@ polls. Neither volatile admission nor `AlreadyAdmitted` creates a durable receip
 
 Only exact durable lookup or actual atomic commit constructs `DurableReceipt`.
 The receipt and owned spool entry can be taken once. Explicit spool confirmation
-checks event equality and owned artifact identity before unlink; unlink failure
+checks source harness, event equality and owned artifact identity before unlink; unlink failure
 does not undo a committed outcome. Replaying after a lost receipt or crash at
 that boundary recovers the original revision without another outcome/outbox row.
 
@@ -46,7 +46,11 @@ callbacks are not proof of supplied approval or input. Current attention comes
 from the verified current projection; historical unresolved obligations remain
 protected without being relabeled current native approval.
 
-Known volatile discards and possible unknown gaps remain separately observable.
+Known volatile discards and possible unknown gaps remain separately observable
+through an immutable `CommitStatus` for that job, including when queue discards
+occur after a request was submitted. Diagnostics accept this optional snapshot
+separately; absent data is null, and potentially overlapping counters are never
+summed as a distinct-event loss total.
 When a reducer decision requires retirement, volatile invalidation precedes
 submission and its newly discarded count is part of that exact atomic write.
 Explicit retirement/reconciliation use the same checked durable accounting.
