@@ -1,0 +1,29 @@
+{
+  "classification": "observed native test host prerequisites, not a transitive platform audit",
+  "commands": [
+    {
+      "command": "env -i PATH=/usr/bin uname -srmo",
+      "output": "Linux 7.1.9-arch1-2 x86_64 GNU/Linux",
+      "exit_code": 0,
+      "error": null
+    },
+    {
+      "command": "env -i PATH=/usr/bin /usr/bin/bwrap --version",
+      "output": "bubblewrap 0.11.2",
+      "exit_code": 0,
+      "error": null
+    },
+    {
+      "command": "sha256sum /usr/bin/bwrap",
+      "output": "6ad2138a73d592acb43525432965e3c66f6fad8a2f3d610c6ca0b6855e993cbe  /usr/bin/bwrap",
+      "exit_code": 0,
+      "error": null
+    },
+    {
+      "command": "env -i PATH=/usr/bin /usr/bin/python3 --version",
+      "output": "Python 3.14.7",
+      "exit_code": 0,
+      "error": null
+    }
+  ]
+}

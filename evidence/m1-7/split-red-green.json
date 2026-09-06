@@ -1,0 +1,717 @@
+{
+  "schema": 1,
+  "classification": "Observed RED/GREEN excerpts and real native namespace mutation; synthetic report/suite fixtures are not executed hosted CI",
+  "excerpt_policy": "Full-output SHA256 and bounded tail excerpts; complete intermediate records remain in the task workspace/session, not all embedded here.",
+  "parent_cycles": [
+    {
+      "artifact": "split-all-incomplete-red-green.json",
+      "note": null,
+      "red": {
+        "exit_code": 1,
+        "output_sha256": "e455f52d760ccac250a47607765b64dd1862d8d950601cd5de9350d88bc87a7a",
+        "output_excerpt": "----\nTraceback (most recent call last):\n  File \"/home/vhm/Work/omarchy-harbormaster/tests/verification/test_scope_reporting.py\", line 43, in test_scoped_reports_distinguish_selected_pass_from_completion\n    self.assertFalse(report[\"qualification_complete\"],\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n                     \"one backend cannot complete paired Docker/native qualification\")\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: True is not false : one backend cannot complete paired Docker/native qualification\n\n----------------------------------------------------------------------\nRan 3 tests in 0.003s\n\nFAILED (failures=1)",
+        "full_output_chars": 1696
+      },
+      "green": {
+        "exit_code": 0,
+        "output_sha256": "5e4cc7fa7fd14e170af07b49476d2edf18074a52e3e6c59d014b6ae6ff5c0486",
+        "output_excerpt": "test_native_scope_reaches_the_inventory_boundary (test_scope_reporting.ScopeReporting.test_native_scope_reaches_the_inventory_boundary) ... ok\ntest_paired_mode_calls_only_the_evidence_boundary_and_fails_closed (test_scope_reporting.ScopeReporting.test_paired_mode_calls_only_the_evidence_boundary_and_fails_closed) ... ok\ntest_scoped_reports_distinguish_selected_pass_from_completion (test_scope_reporting.ScopeReporting.test_scoped_reports_distinguish_selected_pass_from_completion) ... ok\n\n----------------------------------------------------------------------\nRan 3 tests in 0.003s\n\nOK",
+        "full_output_chars": 588
+      }
+    },
+    {
+      "artifact": "split-empty-image-red-green.json",
+      "note": null,
+      "red": {
+        "exit_code": 1,
+        "output_sha256": "beef87620a540481ab9f8784529c6cbe8e4f04f0cd53e99bc2da13de8336e359",
+        "output_excerpt": "tsTests.test_paired_qualification_requires_revision_and_rejects_run_options) (arguments=('--qualify', '/portable', '/native', '--revision', 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', '--image', ''))\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/omarchy-harbormaster/tests/verification/test_scope_cli.py\", line 50, in test_paired_qualification_requires_revision_and_rejects_run_options\n    with self.assertRaises(SystemExit):\n         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^\nAssertionError: SystemExit not raised\n\n----------------------------------------------------------------------\nRan 4 tests in 0.002s\n\nFAILED (failures=1)",
+        "full_output_chars": 1785
+      },
+      "green": {
+        "exit_code": 0,
+        "output_sha256": "c6d9d89d1b9648005925ec4b015415f3f75e49f8d3580b29fe1c86fe3f9c5cf3",
+        "output_excerpt": "t_docker_cannot_claim_native_or_default_full_qualification (test_scope_cli.ScopeArgumentsTests.test_docker_cannot_claim_native_or_default_full_qualification) ... ok\ntest_local_defaults_require_all_qualifications (test_scope_cli.ScopeArgumentsTests.test_local_defaults_require_all_qualifications) ... ok\ntest_paired_qualification_requires_revision_and_rejects_run_options (test_scope_cli.ScopeArgumentsTests.test_paired_qualification_requires_revision_and_rejects_run_options) ... ok\ntest_portable_and_native_are_explicit (test_scope_cli.ScopeArgumentsTests.test_portable_and_native_are_explicit) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.002s\n\nOK",
+        "full_output_chars": 703
+      }
+    },
+    {
+      "artifact": "split-paired-cli-red-green.json",
+      "note": null,
+      "red": {
+        "exit_code": 1,
+        "output_sha256": "47f703f10ed8664df3884f211695f609114a34ed301cd8a229e08a1088663c1e",
+        "output_excerpt": "--------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/omarchy-harbormaster/tests/verification/test_scope_reporting.py\", line 64, in test_paired_mode_calls_only_the_evidence_boundary_and_fails_closed\n    qualify.assert_called_once_with(verify.ROOT, portable, native, revision)\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/unittest/mock.py\", line 997, in assert_called_once_with\n    raise AssertionError(msg)\nAssertionError: Expected 'qualify' to be called once. Called 0 times.\n\n----------------------------------------------------------------------\nRan 3 tests in 0.004s\n\nFAILED (failures=2)",
+        "full_output_chars": 2755
+      },
+      "green": {
+        "exit_code": 0,
+        "output_sha256": "5e4cc7fa7fd14e170af07b49476d2edf18074a52e3e6c59d014b6ae6ff5c0486",
+        "output_excerpt": "test_native_scope_reaches_the_inventory_boundary (test_scope_reporting.ScopeReporting.test_native_scope_reaches_the_inventory_boundary) ... ok\ntest_paired_mode_calls_only_the_evidence_boundary_and_fails_closed (test_scope_reporting.ScopeReporting.test_paired_mode_calls_only_the_evidence_boundary_and_fails_closed) ... ok\ntest_scoped_reports_distinguish_selected_pass_from_completion (test_scope_reporting.ScopeReporting.test_scoped_reports_distinguish_selected_pass_from_completion) ... ok\n\n----------------------------------------------------------------------\nRan 3 tests in 0.003s\n\nOK",
+        "full_output_chars": 588
+      }
+    },
+    {
+      "artifact": "split-reporting-red-green.json",
+      "note": null,
+      "red": {
+        "exit_code": 1,
+        "output_sha256": "ba25ab8d6f68cb1a8e8c6a169eaad39c227e7f8fb82fc763743a5985a31328c3",
+        "output_excerpt": "===========================\nFAIL: test_scoped_reports_distinguish_selected_pass_from_completion (test_scope_reporting.ScopeReporting.test_scoped_reports_distinguish_selected_pass_from_completion) (scope='all')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/omarchy-harbormaster/tests/verification/test_scope_reporting.py\", line 41, in test_scoped_reports_distinguish_selected_pass_from_completion\n    self.assertEqual(report[\"schema\"], 2)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 1 != 2\n\n----------------------------------------------------------------------\nRan 2 tests in 0.003s\n\nFAILED (failures=4)",
+        "full_output_chars": 4343
+      },
+      "green": {
+        "exit_code": 0,
+        "output_sha256": "df3e66f7304e0de5e896d87070401ede97e2cf5217c1b37bd3d65ca6e855f7eb",
+        "output_excerpt": "test_native_scope_reaches_the_inventory_boundary (test_scope_reporting.ScopeReporting.test_native_scope_reaches_the_inventory_boundary) ... ok\ntest_scoped_reports_distinguish_selected_pass_from_completion (test_scope_reporting.ScopeReporting.test_scoped_reports_distinguish_selected_pass_from_completion) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 0.002s\n\nOK",
+        "full_output_chars": 409
+      }
+    },
+    {
+      "artifact": "split-summary-red-green.json",
+      "note": null,
+      "red": {
+        "exit_code": 1,
+        "output_sha256": "ab455dc2eaad47df2b9915888da8a0c67adbdd85e87e1c4d0ad15289f9c152dd",
+        "output_excerpt": "ication.ScopeReports.test_portable_pass_does_not_qualify_native)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/omarchy-harbormaster/tests/verification/test_qualification.py\", line 60, in test_portable_pass_does_not_qualify_native\n    self.assertTrue(hasattr(qualification, \"summarize\"), \"scoped qualification reporting missing\")\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true : scoped qualification reporting missing\n\n----------------------------------------------------------------------\nRan 5 tests in 0.055s\n\nFAILED (failures=2)",
+        "full_output_chars": 2240
+      },
+      "green": {
+        "exit_code": 0,
+        "output_sha256": "769ae1a990246a1cb7918e5579ca7b2836a73f26305edb8dc87d0003528f8407",
+        "output_excerpt": "test_qualification.RecordTests.test_duplicate_json_keys_are_rejected) ... ok\ntest_fifo_is_rejected_without_blocking (test_qualification.RecordTests.test_fifo_is_rejected_without_blocking) ... ok\ntest_only_bounded_regular_records_are_read (test_qualification.RecordTests.test_only_bounded_regular_records_are_read) ... ok\ntest_missing_duplicate_or_optional_native_cannot_qualify (test_qualification.ScopeReports.test_missing_duplicate_or_optional_native_cannot_qualify) ... ok\ntest_portable_pass_does_not_qualify_native (test_qualification.ScopeReports.test_portable_pass_does_not_qualify_native) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.044s\n\nOK",
+        "full_output_chars": 739
+      }
+    },
+    {
+      "artifact": "split-workflow-corrected-red-green.json",
+      "note": "Initial indentation error was not a valid RED. Owned configuration changes were discarded, corrected tests failed against original configuration, then scoped configuration was reapplied. Invalid initial run is retained in split-workflow-red.json.",
+      "red": {
+        "exit_code": 1,
+        "output_sha256": "c9a2e64f1da40f59d5fc81e92f11a203f365441af7e0552b77cab9f203298480",
+        "output_excerpt": "inned_least_privilege_single_entrypoint (test_ci_contract.CIContractTests.test_workflow_uses_pinned_least_privilege_single_entrypoint)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/omarchy-harbormaster/tests/verification/test_ci_contract.py\", line 45, in test_workflow_uses_pinned_least_privilege_single_entrypoint\n    self.assertEqual(job[\"name\"], \"verify (portable)\")\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'verify' != 'verify (portable)'\n- verify\n+ verify (portable)\n\n\n----------------------------------------------------------------------\nRan 7 tests in 0.001s\n\nFAILED (failures=3)",
+        "full_output_chars": 6408
+      },
+      "green": {
+        "exit_code": 0,
+        "output_sha256": "979dceb8c6225758e97ac3c73a7cff1b5f1229b5a176d6a24318f57d79ef264e",
+        "output_excerpt": "rves_assets (test_ci_contract.CIContractTests.test_license_baseline_distinguishes_tools_and_preserves_assets) ... ok\ntest_portable_image_does_not_add_a_nested_sandbox_dependency (test_ci_contract.CIContractTests.test_portable_image_does_not_add_a_nested_sandbox_dependency) ... ok\ntest_report_upload_is_pinned_and_scoped_even_after_failure (test_ci_contract.CIContractTests.test_report_upload_is_pinned_and_scoped_even_after_failure) ... ok\ntest_workflow_uses_pinned_least_privilege_single_entrypoint (test_ci_contract.CIContractTests.test_workflow_uses_pinned_least_privilege_single_entrypoint) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.004s\n\nOK",
+        "full_output_chars": 1213
+      }
+    }
+  ],
+  "early_red_records": [
+    {
+      "artifact": "split-parser-red.json",
+      "red": {
+        "exit_code": 1,
+        "output_sha256": "7d3fb2f54b485ce4437fb26b52aa15042d0ab155e05fa4da9978d284d0fd0203",
+        "output_excerpt": "ed)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/omarchy-harbormaster/tests/verification/test_qualification.py\", line 13, in test_duplicate_json_keys_are_rejected\n    self.assertTrue((SCRIPTS / \"verification/qualification.py\").is_file(),\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n                    \"paired qualification module missing\")\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true : paired qualification module missing\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (failures=1)",
+        "full_output_chars": 1001
+      },
+      "current_green": "Complete canonical all run in split-verification.json; immediate GREEN results remain in session history."
+    },
+    {
+      "artifact": "split-bounded-reader-red.json",
+      "red": {
+        "exit_code": 1,
+        "output_sha256": "27e474ba8f0238aefa51a781e7f1792b7d86203b97009646069a9ef19b574ea9",
+        "output_excerpt": "==================\nFAIL: test_only_bounded_regular_records_are_read (test_qualification.RecordTests.test_only_bounded_regular_records_are_read) (path='oversized.json')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/omarchy-harbormaster/tests/verification/test_qualification.py\", line 33, in test_only_bounded_regular_records_are_read\n    with self.assertRaises((OSError, ValueError)):\n         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: (<class 'OSError'>, <class 'ValueError'>) not raised\n\n----------------------------------------------------------------------\nRan 3 tests in 1.011s\n\nFAILED (failures=3)",
+        "full_output_chars": 4117
+      },
+      "current_green": "Complete canonical all run in split-verification.json; immediate GREEN results remain in session history."
+    },
+    {
+      "artifact": "split-revision-red.json",
+      "red": {
+        "exit_code": 1,
+        "output_sha256": "967ed8e8c4f1b894d28c76ea10083fc51d5997a18c2d458c05ded30f90952a58",
+        "output_excerpt": "binding.RevisionBindingTests.test_source_symlink_is_rejected)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/omarchy-harbormaster/tests/verification/test_revision_binding.py\", line 16, in setUp\n    self.assertTrue(hasattr(qualification, \"source_at_revision\"),\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n                    \"source revision binding missing\")\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true : source revision binding missing\n\n----------------------------------------------------------------------\nRan 5 tests in 0.002s\n\nFAILED (failures=5)",
+        "full_output_chars": 4507
+      },
+      "current_green": "Complete canonical all run in split-verification.json; immediate GREEN results remain in session history."
+    },
+    {
+      "artifact": "split-cli-red.json",
+      "red": {
+        "exit_code": 1,
+        "output_sha256": "32deffdd9f33e62671d31c45311b67effa3aaa2de20ba9ed4dc3d200a9ed7a82",
+        "output_excerpt": "scope_cli.ScopeArgumentsTests.test_local_defaults_require_all_qualifications)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/omarchy-harbormaster/tests/verification/test_scope_cli.py\", line 20, in test_local_defaults_require_all_qualifications\n    self.assertTrue(hasattr(options, \"scope\"), \"explicit qualification scopes missing\")\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true : explicit qualification scopes missing\n\n----------------------------------------------------------------------\nRan 4 tests in 0.003s\n\nFAILED (failures=2, errors=2)",
+        "full_output_chars": 5336
+      },
+      "current_green": "Complete canonical all run in split-verification.json; immediate GREEN results remain in session history."
+    }
+  ],
+  "paired_api_cycles": [
+    {
+      "red_label": "RED paired API absent",
+      "green_label": "GREEN paired result shape"
+    },
+    {
+      "red_label": "RED exact per-lane source maps",
+      "green_label": "GREEN exact per-lane source maps"
+    },
+    {
+      "red_label": "RED explicit scoped report envelope",
+      "green_label": "GREEN explicit scoped report envelope"
+    },
+    {
+      "red_label": "RED exact scoped inventory",
+      "green_label": "GREEN exact scoped inventory"
+    },
+    {
+      "red_label": "RED strict required execution metadata",
+      "green_label": "GREEN strict required execution metadata"
+    },
+    {
+      "red_label": "RED scoped argv binding",
+      "green_label": "GREEN scoped argv binding"
+    },
+    {
+      "red_label": "RED trusted log filename binding",
+      "green_label": "GREEN trusted log filename binding"
+    },
+    {
+      "red_label": "RED actual log validation",
+      "green_label": "GREEN actual log validation"
+    },
+    {
+      "red_label": "RED symlinked evidence directories",
+      "green_label": "GREEN symlinked evidence directories"
+    },
+    {
+      "red_label": "RED explicit path argument validation",
+      "green_label": "GREEN explicit path argument validation"
+    },
+    {
+      "red_label": "RED deeply nested JSON clean failure",
+      "green_label": "GREEN bounded JSON nesting preserves reader regressions"
+    },
+    {
+      "red_label": "RED reject nonfinite JSON numbers",
+      "green_label": "GREEN reject nonfinite JSON numbers"
+    },
+    {
+      "red_label": "RED conflicting declared revision",
+      "green_label": "GREEN conflicting declared revision"
+    },
+    {
+      "red_label": "RED optional row structure remains validated",
+      "green_label": "GREEN optional row structure remains validated"
+    },
+    {
+      "red_label": "RED metrics parser recursion escapes API",
+      "green_label": "GREEN metrics parser recursion becomes ValueError"
+    }
+  ],
+  "paired_api_runs": [
+    {
+      "label": "RED paired API absent",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 1,
+      "output_sha256": "03288ce46eef4a0e1dc2a6b600e0c5de4ee8fd0a03fcd65f9f89670abf8632c5",
+      "output_excerpt": "st_complete_synthetic_pair_is_consistent_with_exact_commit)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/harbormaster-m1-qualification/tests/verification/test_qualification.py\", line 86, in test_complete_synthetic_pair_is_consistent_with_exact_commit\n    self.assertTrue(hasattr(qualification, \"qualify\"), \"paired qualification API missing\")\n    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: False is not true : paired qualification API missing\n\n----------------------------------------------------------------------\nRan 6 tests in 0.052s\n\nFAILED (failures=1)",
+      "full_output_chars": 1705
+    },
+    {
+      "label": "GREEN paired result shape",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 0,
+      "output_sha256": "e5e33f5fd58de1503dddb224063c9b1427359184b26a16c72f9fa0d14019720d",
+      "output_excerpt": "test_qualification.RecordTests.test_duplicate_json_keys_are_rejected) ... ok\ntest_fifo_is_rejected_without_blocking (test_qualification.RecordTests.test_fifo_is_rejected_without_blocking) ... ok\ntest_only_bounded_regular_records_are_read (test_qualification.RecordTests.test_only_bounded_regular_records_are_read) ... ok\ntest_missing_duplicate_or_optional_native_cannot_qualify (test_qualification.ScopeReports.test_missing_duplicate_or_optional_native_cannot_qualify) ... ok\ntest_portable_pass_does_not_qualify_native (test_qualification.ScopeReports.test_portable_pass_does_not_qualify_native) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.054s\n\nOK",
+      "full_output_chars": 914
+    },
+    {
+      "label": "RED exact per-lane source maps",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 1,
+      "output_sha256": "198181708c29b95b05178982941338df25197153713bfdf09e481202c86aa5a2",
+      "output_excerpt": "fb9aa217c81555befc729d7fa5d70dbc83bfe20d91eaac7e8af9aee481432', 'unexpected': '0000000000000000000000000000000000000000000000000000000000000000'})\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/harbormaster-m1-qualification/tests/verification/test_qualification.py\", line 102, in test_pair_requires_exact_source_maps_from_both_lanes\n    with self.assertRaises((OSError, ValueError)):\n         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: (<class 'OSError'>, <class 'ValueError'>) not raised\n\n----------------------------------------------------------------------\nRan 7 tests in 0.061s\n\nFAILED (failures=10)",
+      "full_output_chars": 10887
+    },
+    {
+      "label": "GREEN exact per-lane source maps",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 0,
+      "output_sha256": "2425816bbda88cd24bed7bf451c28e5a2ec3038a4c1daa0734c16e34e91f20f4",
+      "output_excerpt": "test_qualification.RecordTests.test_duplicate_json_keys_are_rejected) ... ok\ntest_fifo_is_rejected_without_blocking (test_qualification.RecordTests.test_fifo_is_rejected_without_blocking) ... ok\ntest_only_bounded_regular_records_are_read (test_qualification.RecordTests.test_only_bounded_regular_records_are_read) ... ok\ntest_missing_duplicate_or_optional_native_cannot_qualify (test_qualification.ScopeReports.test_missing_duplicate_or_optional_native_cannot_qualify) ... ok\ntest_portable_pass_does_not_qualify_native (test_qualification.ScopeReports.test_portable_pass_does_not_qualify_native) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.107s\n\nOK",
+      "full_output_chars": 1073
+    },
+    {
+      "label": "RED explicit scoped report envelope",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 1,
+      "output_sha256": "9db5fd31ccae9d0d8447be5234092f9002d7d4ac94fccacd72e083396ec9a593",
+      "output_excerpt": ", 'required': False, 'status': 'SKIP', 'reason': 'synthetic optional unit input'}], 'passed': True, 'qualification_complete': False})\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/harbormaster-m1-qualification/tests/verification/test_qualification.py\", line 125, in test_each_report_requires_explicit_successful_single_scope_schema\n    with self.assertRaises((OSError, ValueError)):\n         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: (<class 'OSError'>, <class 'ValueError'>) not raised\n\n----------------------------------------------------------------------\nRan 8 tests in 0.265s\n\nFAILED (failures=64)",
+      "full_output_chars": 49899
+    },
+    {
+      "label": "GREEN explicit scoped report envelope",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 0,
+      "output_sha256": "aef2d2eb49955a1930ff6f54d8406c8766d12b2df7f08e070cb7f016219d5d6d",
+      "output_excerpt": "test_qualification.RecordTests.test_duplicate_json_keys_are_rejected) ... ok\ntest_fifo_is_rejected_without_blocking (test_qualification.RecordTests.test_fifo_is_rejected_without_blocking) ... ok\ntest_only_bounded_regular_records_are_read (test_qualification.RecordTests.test_only_bounded_regular_records_are_read) ... ok\ntest_missing_duplicate_or_optional_native_cannot_qualify (test_qualification.ScopeReports.test_missing_duplicate_or_optional_native_cannot_qualify) ... ok\ntest_portable_pass_does_not_qualify_native (test_qualification.ScopeReports.test_portable_pass_does_not_qualify_native) ... ok\n\n----------------------------------------------------------------------\nRan 8 tests in 0.245s\n\nOK",
+      "full_output_chars": 1258
+    },
+    {
+      "label": "RED exact scoped inventory",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 1,
+      "output_sha256": "a83fd006651a646fd775419a8dfb65c60b2f92973c0a8bd682c0697fb5dac326",
+      "output_excerpt": "ification.PairedQualificationTests.test_scoped_inventory_rejects_missing_duplicate_unknown_or_optional_required_rows)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/harbormaster-m1-qualification/tests/verification/test_qualification.py\", line 154, in test_scoped_inventory_rejects_missing_duplicate_unknown_or_optional_required_rows\n    with self.assertRaises((OSError, ValueError)):\n         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: (<class 'OSError'>, <class 'ValueError'>) not raised\n\n----------------------------------------------------------------------\nRan 9 tests in 0.303s\n\nFAILED (failures=20)",
+      "full_output_chars": 22205
+    },
+    {
+      "label": "GREEN exact scoped inventory",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 0,
+      "output_sha256": "806f03c4bd7b07f098293ed01afccc29490e6650c4521cdd12d8eb84c64864f2",
+      "output_excerpt": "test_qualification.RecordTests.test_duplicate_json_keys_are_rejected) ... ok\ntest_fifo_is_rejected_without_blocking (test_qualification.RecordTests.test_fifo_is_rejected_without_blocking) ... ok\ntest_only_bounded_regular_records_are_read (test_qualification.RecordTests.test_only_bounded_regular_records_are_read) ... ok\ntest_missing_duplicate_or_optional_native_cannot_qualify (test_qualification.ScopeReports.test_missing_duplicate_or_optional_native_cannot_qualify) ... ok\ntest_portable_pass_does_not_qualify_native (test_qualification.ScopeReports.test_portable_pass_does_not_qualify_native) ... ok\n\n----------------------------------------------------------------------\nRan 9 tests in 0.350s\n\nOK",
+      "full_output_chars": 1475
+    },
+    {
+      "label": "RED strict required execution metadata",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 1,
+      "output_sha256": "918c1417a514bf1637de19497d634c6b94ecbc85261bac289a248a01c672a9b0",
+      "output_excerpt": "ualification.PairedQualificationTests.test_required_execution_metadata_must_be_explicit_success) (scope='native', missing='elapsed_seconds')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/harbormaster-m1-qualification/tests/verification/test_qualification.py\", line 182, in test_required_execution_metadata_must_be_explicit_success\n    with self.assertRaises((OSError, ValueError)):\n         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: (<class 'OSError'>, <class 'ValueError'>) not raised\n\n----------------------------------------------------------------------\nRan 10 tests in 0.546s\n\nFAILED (failures=62)",
+      "full_output_chars": 49899
+    },
+    {
+      "label": "GREEN strict required execution metadata",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 0,
+      "output_sha256": "a617a48661152599b134c2e22a8b155a26f0365db2e06f345c3ce1d522bdb236",
+      "output_excerpt": "est_qualification.RecordTests.test_duplicate_json_keys_are_rejected) ... ok\ntest_fifo_is_rejected_without_blocking (test_qualification.RecordTests.test_fifo_is_rejected_without_blocking) ... ok\ntest_only_bounded_regular_records_are_read (test_qualification.RecordTests.test_only_bounded_regular_records_are_read) ... ok\ntest_missing_duplicate_or_optional_native_cannot_qualify (test_qualification.ScopeReports.test_missing_duplicate_or_optional_native_cannot_qualify) ... ok\ntest_portable_pass_does_not_qualify_native (test_qualification.ScopeReports.test_portable_pass_does_not_qualify_native) ... ok\n\n----------------------------------------------------------------------\nRan 10 tests in 0.551s\n\nOK",
+      "full_output_chars": 1645
+    },
+    {
+      "label": "RED scoped argv binding",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 1,
+      "output_sha256": "654fbedefad6432530a30d365ab99c77e7cc9142e280c4fb3837b10e082114c5",
+      "output_excerpt": "airedQualificationTests.test_each_required_command_matches_current_scoped_plan) (scope='native', name='m0-harness-sandbox', missing='command')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/harbormaster-m1-qualification/tests/verification/test_qualification.py\", line 209, in test_each_required_command_matches_current_scoped_plan\n    with self.assertRaises((OSError, ValueError)):\n         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: (<class 'OSError'>, <class 'ValueError'>) not raised\n\n----------------------------------------------------------------------\nRan 11 tests in 1.134s\n\nFAILED (failures=204)",
+      "full_output_chars": 49899
+    },
+    {
+      "label": "GREEN scoped argv binding",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 0,
+      "output_sha256": "cf168cc924ebc3cee76112cf4568c878b44d149cfd5c7a6c58bc579257df1591",
+      "output_excerpt": "est_qualification.RecordTests.test_duplicate_json_keys_are_rejected) ... ok\ntest_fifo_is_rejected_without_blocking (test_qualification.RecordTests.test_fifo_is_rejected_without_blocking) ... ok\ntest_only_bounded_regular_records_are_read (test_qualification.RecordTests.test_only_bounded_regular_records_are_read) ... ok\ntest_missing_duplicate_or_optional_native_cannot_qualify (test_qualification.ScopeReports.test_missing_duplicate_or_optional_native_cannot_qualify) ... ok\ntest_portable_pass_does_not_qualify_native (test_qualification.ScopeReports.test_portable_pass_does_not_qualify_native) ... ok\n\n----------------------------------------------------------------------\nRan 11 tests in 1.040s\n\nOK",
+      "full_output_chars": 1808
+    },
+    {
+      "label": "RED trusted log filename binding",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 1,
+      "output_sha256": "d40e38911af35db7a0c343fd2c55a62d150b1050f1ce3c6439ac02f7efc58ae8",
+      "output_excerpt": "==================\nFAIL: test_required_logs_use_only_plan_filenames (test_qualification.PairedQualificationTests.test_required_logs_use_only_plan_filenames)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/harbormaster-m1-qualification/tests/verification/test_qualification.py\", line 226, in test_required_logs_use_only_plan_filenames\n    with self.assertRaises((OSError, ValueError)):\n         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: (<class 'OSError'>, <class 'ValueError'>) not raised\n\n----------------------------------------------------------------------\nRan 12 tests in 1.080s\n\nFAILED (failures=7)",
+      "full_output_chars": 7831
+    },
+    {
+      "label": "GREEN trusted log filename binding",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 0,
+      "output_sha256": "52a303a47cd3f443dd266ac01d6e23dc1a59354d20e7ca3c0a0d919f6bd03a71",
+      "output_excerpt": "est_qualification.RecordTests.test_duplicate_json_keys_are_rejected) ... ok\ntest_fifo_is_rejected_without_blocking (test_qualification.RecordTests.test_fifo_is_rejected_without_blocking) ... ok\ntest_only_bounded_regular_records_are_read (test_qualification.RecordTests.test_only_bounded_regular_records_are_read) ... ok\ntest_missing_duplicate_or_optional_native_cannot_qualify (test_qualification.ScopeReports.test_missing_duplicate_or_optional_native_cannot_qualify) ... ok\ntest_portable_pass_does_not_qualify_native (test_qualification.ScopeReports.test_portable_pass_does_not_qualify_native) ... ok\n\n----------------------------------------------------------------------\nRan 12 tests in 1.079s\n\nOK",
+      "full_output_chars": 1947
+    },
+    {
+      "label": "RED actual log validation",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 1,
+      "output_sha256": "e7a814781b4586b1162a7bdf3f6d33f23ea6f8887a7f5d64a7e0941c77636a1d",
+      "output_excerpt": "test_actual_logs_are_revalidated_instead_of_trusting_pass_metadata) (scope='native', name='m0-harness-sandbox', content='non-utf8')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/harbormaster-m1-qualification/tests/verification/test_qualification.py\", line 248, in test_actual_logs_are_revalidated_instead_of_trusting_pass_metadata\n    with self.assertRaises((OSError, ValueError)):\n         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: (<class 'OSError'>, <class 'ValueError'>) not raised\n\n----------------------------------------------------------------------\nRan 13 tests in 1.237s\n\nFAILED (failures=60)",
+      "full_output_chars": 49899
+    },
+    {
+      "label": "GREEN actual log validation",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 0,
+      "output_sha256": "486e01907178e208ddad98efa66ca1416ed704d0e77f46fa9ba61beb7e0864e8",
+      "output_excerpt": "est_qualification.RecordTests.test_duplicate_json_keys_are_rejected) ... ok\ntest_fifo_is_rejected_without_blocking (test_qualification.RecordTests.test_fifo_is_rejected_without_blocking) ... ok\ntest_only_bounded_regular_records_are_read (test_qualification.RecordTests.test_only_bounded_regular_records_are_read) ... ok\ntest_missing_duplicate_or_optional_native_cannot_qualify (test_qualification.ScopeReports.test_missing_duplicate_or_optional_native_cannot_qualify) ... ok\ntest_portable_pass_does_not_qualify_native (test_qualification.ScopeReports.test_portable_pass_does_not_qualify_native) ... ok\n\n----------------------------------------------------------------------\nRan 13 tests in 1.388s\n\nOK",
+      "full_output_chars": 2134
+    },
+    {
+      "label": "GREEN shared Git fixture preserves binding regression",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_revision_binding.py' -v",
+      "exit_code": 0,
+      "output_sha256": "0d2446349044c5ccadcf5d3c7bf7ffeae7de56ceab78a706214d1a6a0c839c14",
+      "output_excerpt": "_changed_tracked_and_extra_untracked_source_fail) ... ok\ntest_exact_commit_bytes_bind (test_revision_binding.RevisionBindingTests.test_exact_commit_bytes_bind) ... ok\ntest_literal_revision_format_and_commit_type_are_required (test_revision_binding.RevisionBindingTests.test_literal_revision_format_and_commit_type_are_required) ... ok\ntest_non_source_evidence_does_not_change_identity (test_revision_binding.RevisionBindingTests.test_non_source_evidence_does_not_change_identity) ... ok\ntest_source_symlink_is_rejected (test_revision_binding.RevisionBindingTests.test_source_symlink_is_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.046s\n\nOK",
+      "full_output_chars": 801
+    },
+    {
+      "label": "RED symlinked evidence directories",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 1,
+      "output_sha256": "15424ab87383c2c6d04fb3f14bffe3868731aec1e5c9a9b0d9e1e043bb7ce4e8",
+      "output_excerpt": "est_qualification.PairedQualificationTests.test_evidence_directories_reject_symlinks_including_ancestors) (scope='native', ancestor=True)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/harbormaster-m1-qualification/tests/verification/test_qualification.py\", line 262, in test_evidence_directories_reject_symlinks_including_ancestors\n    with self.assertRaises((OSError, ValueError)):\n         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: (<class 'OSError'>, <class 'ValueError'>) not raised\n\n----------------------------------------------------------------------\nRan 14 tests in 1.435s\n\nFAILED (failures=4)",
+      "full_output_chars": 6098
+    },
+    {
+      "label": "GREEN symlinked evidence directories",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 0,
+      "output_sha256": "d59bfb2f5579ad5294576c7bea68d9f02816c27ad4a0adc08501870072b333e3",
+      "output_excerpt": "est_qualification.RecordTests.test_duplicate_json_keys_are_rejected) ... ok\ntest_fifo_is_rejected_without_blocking (test_qualification.RecordTests.test_fifo_is_rejected_without_blocking) ... ok\ntest_only_bounded_regular_records_are_read (test_qualification.RecordTests.test_only_bounded_regular_records_are_read) ... ok\ntest_missing_duplicate_or_optional_native_cannot_qualify (test_qualification.ScopeReports.test_missing_duplicate_or_optional_native_cannot_qualify) ... ok\ntest_portable_pass_does_not_qualify_native (test_qualification.ScopeReports.test_portable_pass_does_not_qualify_native) ... ok\n\n----------------------------------------------------------------------\nRan 14 tests in 1.440s\n\nOK",
+      "full_output_chars": 2311
+    },
+    {
+      "label": "RED explicit path argument validation",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 1,
+      "output_sha256": "b3137756906f414b13fcb6ba70d698b03c343abc6f542e81bd3ed81aaa1681ee",
+      "output_excerpt": "^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/vhm/Work/harbormaster-m1-qualification/scripts/verification/qualification.py\", line 187, in qualify\n    hashes = source_at_revision(root, revision)\n  File \"/home/vhm/Work/harbormaster-m1-qualification/scripts/verification/qualification.py\", line 81, in source_at_revision\n    snapshot(root, source)\n    ~~~~~~~~^^^^^^^^^^^^^^\n  File \"/home/vhm/Work/harbormaster-m1-qualification/scripts/verification/sandbox.py\", line 32, in snapshot\n    source = root / name\n             ~~~~~^~~~~~\nTypeError: unsupported operand type(s) for /: 'str' and 'str'\n\n----------------------------------------------------------------------\nRan 15 tests in 1.456s\n\nFAILED (errors=1)",
+      "full_output_chars": 3760
+    },
+    {
+      "label": "GREEN explicit path argument validation",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 0,
+      "output_sha256": "d0e1f6777d7a72c8f16ff0e41fec769a53ece9203b6ee8282219d2b9213cc928",
+      "output_excerpt": "est_qualification.RecordTests.test_duplicate_json_keys_are_rejected) ... ok\ntest_fifo_is_rejected_without_blocking (test_qualification.RecordTests.test_fifo_is_rejected_without_blocking) ... ok\ntest_only_bounded_regular_records_are_read (test_qualification.RecordTests.test_only_bounded_regular_records_are_read) ... ok\ntest_missing_duplicate_or_optional_native_cannot_qualify (test_qualification.ScopeReports.test_missing_duplicate_or_optional_native_cannot_qualify) ... ok\ntest_portable_pass_does_not_qualify_native (test_qualification.ScopeReports.test_portable_pass_does_not_qualify_native) ... ok\n\n----------------------------------------------------------------------\nRan 15 tests in 1.468s\n\nOK",
+      "full_output_chars": 2498
+    },
+    {
+      "label": "RED deeply nested JSON clean failure",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 1,
+      "output_sha256": "8939b412fdafb765d78bca72067307e25de6b21a089e9e627ccfe2ffd4ab4ddc",
+      "output_excerpt": "s_not_qualify_native) ... ok\n\n======================================================================\nFAIL: test_deeply_nested_json_fails_cleanly (test_qualification.RecordTests.test_deeply_nested_json_fails_cleanly)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/harbormaster-m1-qualification/tests/verification/test_qualification.py\", line 60, in test_deeply_nested_json_fails_cleanly\n    with self.assertRaises(ValueError):\n         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^\nAssertionError: ValueError not raised\n\n----------------------------------------------------------------------\nRan 18 tests in 1.827s\n\nFAILED (failures=1)",
+      "full_output_chars": 3555
+    },
+    {
+      "label": "GREEN bounded JSON nesting preserves reader regressions",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 0,
+      "output_sha256": "e165a2b3c9b9ac7553fc8916d215a843b1eac828be45f566f55158f962342f31",
+      "output_excerpt": "est_qualification.RecordTests.test_duplicate_json_keys_are_rejected) ... ok\ntest_fifo_is_rejected_without_blocking (test_qualification.RecordTests.test_fifo_is_rejected_without_blocking) ... ok\ntest_only_bounded_regular_records_are_read (test_qualification.RecordTests.test_only_bounded_regular_records_are_read) ... ok\ntest_missing_duplicate_or_optional_native_cannot_qualify (test_qualification.ScopeReports.test_missing_duplicate_or_optional_native_cannot_qualify) ... ok\ntest_portable_pass_does_not_qualify_native (test_qualification.ScopeReports.test_portable_pass_does_not_qualify_native) ... ok\n\n----------------------------------------------------------------------\nRan 18 tests in 1.911s\n\nOK",
+      "full_output_chars": 2980
+    },
+    {
+      "label": "RED reject nonfinite JSON numbers",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 1,
+      "output_sha256": "37e69fe5f89132d31e5e007b2311b27bd4bf4f346631a791da30e5fa9fb7847d",
+      "output_excerpt": "===========================================\nFAIL: test_nonfinite_json_numbers_are_not_valid_evidence (test_qualification.RecordTests.test_nonfinite_json_numbers_are_not_valid_evidence) (value='1e10000')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/harbormaster-m1-qualification/tests/verification/test_qualification.py\", line 70, in test_nonfinite_json_numbers_are_not_valid_evidence\n    with self.assertRaises(ValueError):\n         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^\nAssertionError: ValueError not raised\n\n----------------------------------------------------------------------\nRan 19 tests in 1.892s\n\nFAILED (failures=4)",
+      "full_output_chars": 6243
+    },
+    {
+      "label": "GREEN reject nonfinite JSON numbers",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 0,
+      "output_sha256": "23aec4bb7c67c13553c763393559794a1f15f12bfd335d83b5c6d6735cd92590",
+      "output_excerpt": "ests.test_fifo_is_rejected_without_blocking) ... ok\ntest_nonfinite_json_numbers_are_not_valid_evidence (test_qualification.RecordTests.test_nonfinite_json_numbers_are_not_valid_evidence) ... ok\ntest_only_bounded_regular_records_are_read (test_qualification.RecordTests.test_only_bounded_regular_records_are_read) ... ok\ntest_missing_duplicate_or_optional_native_cannot_qualify (test_qualification.ScopeReports.test_missing_duplicate_or_optional_native_cannot_qualify) ... ok\ntest_portable_pass_does_not_qualify_native (test_qualification.ScopeReports.test_portable_pass_does_not_qualify_native) ... ok\n\n----------------------------------------------------------------------\nRan 19 tests in 1.865s\n\nOK",
+      "full_output_chars": 3122
+    },
+    {
+      "label": "RED conflicting declared revision",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 1,
+      "output_sha256": "4fca251a5e38f00f4e08a87d50f31249947ba9dc8f00de446a088ad5cf8dd726",
+      "output_excerpt": "ommit (test_qualification.PairedQualificationTests.test_declared_report_revision_cannot_contradict_requested_commit) (scope='native', revision='0000000000000000000000000000000000000000')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/harbormaster-m1-qualification/tests/verification/test_qualification.py\", line 401, in test_declared_report_revision_cannot_contradict_requested_commit\n    with self.assertRaises(ValueError):\n         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^\nAssertionError: ValueError not raised\n\n----------------------------------------------------------------------\nRan 24 tests in 1.962s\n\nFAILED (failures=12)",
+      "full_output_chars": 15083
+    },
+    {
+      "label": "GREEN conflicting declared revision",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 0,
+      "output_sha256": "6d7a4309842810ad236d12ef92510f8e03dc2bd434548c3bf8d538c67164188d",
+      "output_excerpt": "ests.test_fifo_is_rejected_without_blocking) ... ok\ntest_nonfinite_json_numbers_are_not_valid_evidence (test_qualification.RecordTests.test_nonfinite_json_numbers_are_not_valid_evidence) ... ok\ntest_only_bounded_regular_records_are_read (test_qualification.RecordTests.test_only_bounded_regular_records_are_read) ... ok\ntest_missing_duplicate_or_optional_native_cannot_qualify (test_qualification.ScopeReports.test_missing_duplicate_or_optional_native_cannot_qualify) ... ok\ntest_portable_pass_does_not_qualify_native (test_qualification.ScopeReports.test_portable_pass_does_not_qualify_native) ... ok\n\n----------------------------------------------------------------------\nRan 24 tests in 2.022s\n\nOK",
+      "full_output_chars": 3911
+    },
+    {
+      "label": "RED optional row structure remains validated",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 1,
+      "output_sha256": "89b07a0e468a662f68034bdf93d61ef373b073c50a468e908ed595207974b341",
+      "output_excerpt": "============================================\nFAIL: test_optional_rows_still_require_well_formed_status (test_qualification.PairedQualificationTests.test_optional_rows_still_require_well_formed_status)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/harbormaster-m1-qualification/tests/verification/test_qualification.py\", line 449, in test_optional_rows_still_require_well_formed_status\n    with self.assertRaises(ValueError):\n         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^\nAssertionError: ValueError not raised\n\n----------------------------------------------------------------------\nRan 27 tests in 2.290s\n\nFAILED (failures=6)",
+      "full_output_chars": 9353
+    },
+    {
+      "label": "GREEN optional row structure remains validated",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 0,
+      "output_sha256": "47c41d260bf5b3a7c73e2e64af674610286edf097d6ae8dc8d4ca688095d3c13",
+      "output_excerpt": "ests.test_fifo_is_rejected_without_blocking) ... ok\ntest_nonfinite_json_numbers_are_not_valid_evidence (test_qualification.RecordTests.test_nonfinite_json_numbers_are_not_valid_evidence) ... ok\ntest_only_bounded_regular_records_are_read (test_qualification.RecordTests.test_only_bounded_regular_records_are_read) ... ok\ntest_missing_duplicate_or_optional_native_cannot_qualify (test_qualification.ScopeReports.test_missing_duplicate_or_optional_native_cannot_qualify) ... ok\ntest_portable_pass_does_not_qualify_native (test_qualification.ScopeReports.test_portable_pass_does_not_qualify_native) ... ok\n\n----------------------------------------------------------------------\nRan 27 tests in 2.313s\n\nOK",
+      "full_output_chars": 4380
+    },
+    {
+      "label": "FINAL revision binding tests",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_revision_binding.py' -v",
+      "exit_code": 0,
+      "output_sha256": "0d2446349044c5ccadcf5d3c7bf7ffeae7de56ceab78a706214d1a6a0c839c14",
+      "output_excerpt": "_changed_tracked_and_extra_untracked_source_fail) ... ok\ntest_exact_commit_bytes_bind (test_revision_binding.RevisionBindingTests.test_exact_commit_bytes_bind) ... ok\ntest_literal_revision_format_and_commit_type_are_required (test_revision_binding.RevisionBindingTests.test_literal_revision_format_and_commit_type_are_required) ... ok\ntest_non_source_evidence_does_not_change_identity (test_revision_binding.RevisionBindingTests.test_non_source_evidence_does_not_change_identity) ... ok\ntest_source_symlink_is_rejected (test_revision_binding.RevisionBindingTests.test_source_symlink_is_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.046s\n\nOK",
+      "full_output_chars": 801
+    },
+    {
+      "label": "RED metrics parser recursion escapes API",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 1,
+      "output_sha256": "554ea5df9e93bc601259d87ed33d516aebfd986edecfe5ceb8749c27ecdca9f1",
+      "output_excerpt": "          ~~~~~~~~~~^^^^^^^^\n  File \"/usr/lib/python3.14/json/__init__.py\", line 352, in loads\n    return _default_decoder.decode(s)\n           ~~~~~~~~~~~~~~~~~~~~~~~^^^\n  File \"/usr/lib/python3.14/json/decoder.py\", line 345, in decode\n    obj, end = self.raw_decode(s, idx=_w(s, 0).end())\n               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/json/decoder.py\", line 361, in raw_decode\n    obj, end = self.scan_once(s, idx)\n               ~~~~~~~~~~~~~~^^^^^^^^\nRecursionError: Stack overflow (used 8156 kB) while decoding a JSON array from a unicode string\n\n----------------------------------------------------------------------\nRan 28 tests in 2.274s\n\nFAILED (errors=1)",
+      "full_output_chars": 6640
+    },
+    {
+      "label": "GREEN metrics parser recursion becomes ValueError",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_qualification.py' -v",
+      "exit_code": 0,
+      "output_sha256": "9c87523ce2c69e49c65ae6f7fad85f579245b3952b0a4743210ad7ed4cbcdc52",
+      "output_excerpt": "ests.test_fifo_is_rejected_without_blocking) ... ok\ntest_nonfinite_json_numbers_are_not_valid_evidence (test_qualification.RecordTests.test_nonfinite_json_numbers_are_not_valid_evidence) ... ok\ntest_only_bounded_regular_records_are_read (test_qualification.RecordTests.test_only_bounded_regular_records_are_read) ... ok\ntest_missing_duplicate_or_optional_native_cannot_qualify (test_qualification.ScopeReports.test_missing_duplicate_or_optional_native_cannot_qualify) ... ok\ntest_portable_pass_does_not_qualify_native (test_qualification.ScopeReports.test_portable_pass_does_not_qualify_native) ... ok\n\n----------------------------------------------------------------------\nRan 28 tests in 2.228s\n\nOK",
+      "full_output_chars": 4541
+    },
+    {
+      "label": "FINAL revision binding after recursion fix",
+      "command": "env -i PATH=/usr/bin LANG=C.UTF-8 PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s tests/verification -p 'test_revision_binding.py' -v",
+      "exit_code": 0,
+      "output_sha256": "0bc728da0e2f0d589d36f6b3785133142dda56dc231210e5d59a731549ca44b3",
+      "output_excerpt": "_changed_tracked_and_extra_untracked_source_fail) ... ok\ntest_exact_commit_bytes_bind (test_revision_binding.RevisionBindingTests.test_exact_commit_bytes_bind) ... ok\ntest_literal_revision_format_and_commit_type_are_required (test_revision_binding.RevisionBindingTests.test_literal_revision_format_and_commit_type_are_required) ... ok\ntest_non_source_evidence_does_not_change_identity (test_revision_binding.RevisionBindingTests.test_non_source_evidence_does_not_change_identity) ... ok\ntest_source_symlink_is_rejected (test_revision_binding.RevisionBindingTests.test_source_symlink_is_rejected) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.049s\n\nOK",
+      "full_output_chars": 801
+    }
+  ],
+  "native_namespace_runs": [
+    {
+      "label": "RED 1 native gate missing namespace method in explicit argv",
+      "classification": "real isolated execution",
+      "outer_backend": "bwrap",
+      "outer_sandbox_sha256": "7c312f16324313388c7e05426ff24e3c6408959042e1fef0ee5850accc5490e7",
+      "results": [
+        {
+          "exit_code": 0,
+          "output_sha256": "60d69569dcc3e699d7351fa806365ee1ec2633648c257bc44151a7e38660c7fa",
+          "output_excerpt": "PASS outside canary, allowlisted environment, read-only inputs, offline network probe\n",
+          "full_output_chars": 86
+        },
+        {
+          "exit_code": 1,
+          "output_sha256": "6ee5b655301af08b52ab10d00dfa7d7f005c6a33c020f33278746d8203a4f5c0",
+          "output_excerpt": "_explicit_sandbox_target (__main__.ScopePlanTests.test_native_contains_only_shared_preflights_and_explicit_sandbox_target)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/work/tests/verification/test_scope_plan.py\", line 49, in test_native_contains_only_shared_preflights_and_explicit_sandbox_target\n    self.assertEqual(native, portable[:2] + [NATIVE_TARGET])\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Lists differ: [('is[340 chars]s', '-v'], 'python')] != [('is[340 chars]s', 'NetworkNamespace.test_sandbox_uses_distin[35 chars]on')]\n\nFirst differing element 2:\n('m0-[142 chars]s', '-v'], 'python')\n('m0-[142 chars]s', 'NetworkNamespace.test_sandbox_uses_distin[34 chars]hon')\n\n  [('isolation-probe',\n    ['/usr/bin/python3',\n     '-B',\n     'scripts/verification/probe.py',\n     '/outside-canary'],\n    'exit'),\n   ('tool-pins',\n    ['/usr/bin/python3', '-B', 'scripts/verification/preflight.py'],\n    'exit'),\n   ('m0-harness-sandbox',\n    ['/usr/bin/python3',\n     '-B',\n     'spikes/harnesses/test_sandbox.py',\n     'Helpers.test_sandbox_denies_network_and_inherited_credentials',\n+    'NetworkNamespace.test_sandbox_uses_distinct_network_namespace',\n     '-v'],\n    'python')]\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (failures=1)\n",
+          "full_output_chars": 1704
+        }
+      ]
+    },
+    {
+      "label": "GREEN 1 explicit native argv selects both method IDs",
+      "classification": "real isolated execution",
+      "outer_backend": "bwrap",
+      "outer_sandbox_sha256": "7c312f16324313388c7e05426ff24e3c6408959042e1fef0ee5850accc5490e7",
+      "results": [
+        {
+          "exit_code": 0,
+          "output_sha256": "66447963db661981ae058717e7aff6d68e52d3f446a8ee9d3c03b8457cb7b922",
+          "output_excerpt": "test_all_is_the_unique_union_with_shared_preflights_once (__main__.ScopePlanTests.test_all_is_the_unique_union_with_shared_preflights_once) ... ok\ntest_custom_canary_is_preserved_in_each_scope (__main__.ScopePlanTests.test_custom_canary_is_preserved_in_each_scope) ... ok\ntest_native_contains_only_shared_preflights_and_explicit_sandbox_target (__main__.ScopePlanTests.test_native_contains_only_shared_preflights_and_explicit_sandbox_target) ... ok\ntest_portable_preserves_unique_common_inventory_without_native_target (__main__.ScopePlanTests.test_portable_preserves_unique_common_inventory_without_native_target) ... ok\ntest_unknown_scope_is_rejected_instead_of_becoming_all (__main__.ScopePlanTests.test_unknown_scope_is_rejected_instead_of_becoming_all) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.000s\n\nOK\n",
+          "full_output_chars": 863
+        }
+      ]
+    },
+    {
+      "label": "RED 2 native file partition missing namespace assertion test",
+      "classification": "real isolated execution",
+      "outer_backend": "bwrap",
+      "outer_sandbox_sha256": "7c312f16324313388c7e05426ff24e3c6408959042e1fef0ee5850accc5490e7",
+      "results": [
+        {
+          "exit_code": 1,
+          "output_sha256": "7cb7882a09acc0c892403700477a3ec04e542958526a9ea5fb85e4e7520676a8",
+          "output_excerpt": "test_harness_files_partition_four_portable_tests_and_two_native_tests (__main__.HarnessPartitionTests.test_harness_files_partition_four_portable_tests_and_two_native_tests) ... \n  test_harness_files_partition_four_portable_tests_and_two_native_tests (__main__.HarnessPartitionTests.test_harness_files_partition_four_portable_tests_and_two_native_tests) (filename='test_sandbox.py') ... FAIL\n\n======================================================================\nFAIL: test_harness_files_partition_four_portable_tests_and_two_native_tests (__main__.HarnessPartitionTests.test_harness_files_partition_four_portable_tests_and_two_native_tests) (filename='test_sandbox.py')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/work/tests/verification/test_scope_plan.py\", line 98, in test_harness_files_partition_four_portable_tests_and_two_native_tests\n    self.assertEqual(set(actual), names)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^\nAssertionError: Items in the second set but not the first:\n'NetworkNamespace.test_sandbox_uses_distinct_network_namespace'\n\n----------------------------------------------------------------------\nRan 1 test in 0.002s\n\nFAILED (failures=1)\n",
+          "full_output_chars": 1232
+        }
+      ]
+    },
+    {
+      "label": "RED 3 inner-only --unshare-net removal under unchanged outer bwrap",
+      "classification": "synthetic inner-only mutation negative; real nested bwrap execution, not passing CI",
+      "outer_backend": "bwrap",
+      "outer_sandbox_sha256": "7c312f16324313388c7e05426ff24e3c6408959042e1fef0ee5850accc5490e7",
+      "results": [
+        {
+          "exit_code": 0,
+          "output_sha256": "60d69569dcc3e699d7351fa806365ee1ec2633648c257bc44151a7e38660c7fa",
+          "output_excerpt": "PASS outside canary, allowlisted environment, read-only inputs, offline network probe\n",
+          "full_output_chars": 86
+        },
+        {
+          "exit_code": 0,
+          "output_sha256": "e654a8835db1d5d5f62a3a1e0699bc7b863e841bb84ed478d2a0fbb7580a4a96",
+          "output_excerpt": "85161e0c3e2bf8bc9b74d609a49ff27d0676b0c00a40b3730110e1df942bc\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libtest-4052f37fcd02ccef.rmeta\": \"c0331cc120c407caa406efec35c2be6f406ef0ea4e4cded0bcc7fccee07226da\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libunwind-3ec41d3a5a80a4a4.rlib\": \"9bcb7ac2880f01055170c5c4d7f383a1174cd5e97e6c4f440a103fec521b6561\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libunwind-3ec41d3a5a80a4a4.rmeta\": \"ee2027babacb51106ae42e3f8d651c3ec763651365b74db35cc10b0961b4033f\"\n  },\n  \"rustsec\": {\n    \"url\": \"https://codeload.github.com/RustSec/advisory-db/tar.gz/5a0ebedfe8bdd2e295b171f4162f8c977bcad9a5\",\n    \"sha256\": \"b139452940da08da4428041130c80a30303a8b838901da7ab764972dc8350fe0\",\n    \"bytes\": 468664,\n    \"upstream_commit\": \"5a0ebedfe8bdd2e295b171f4162f8c977bcad9a5\",\n    \"commit_date\": \"2026-09-02T09:13:32Z\",\n    \"local_snapshot_commit\": \"e7570d7eccbe9863ea860676627c8e1002544494\",\n    \"representation\": \"local Git commit from hash-verified upstream archive, NOT upstream Git history\",\n    \"directory\": \"advisory-db-3157b0e258782691\",\n    \"maximum_age_days\": 7\n  },\n  \"scope\": \"pinned snapshot only, NOT a live audit; executable/library pins plus full advisory archive contents\",\n  \"rust_declarations\": {\n    \"channel\": \"1.98.1\",\n    \"workspace_rust_version\": \"1.98.1\",\n    \"lock_release\": \"1.98.1\",\n    \"checked_rustc_release\": \"1.98.1\"\n  }\n}\n",
+          "full_output_chars": 13475
+        },
+        {
+          "exit_code": 1,
+          "output_sha256": "d7f83200f820ac3c438504d5c4995bd6102dc68399e7914ca2e2ea364bd89deb",
+          "output_excerpt": "test_sandbox_denies_network_and_inherited_credentials (__main__.Helpers.test_sandbox_denies_network_and_inherited_credentials) ... ok\ntest_sandbox_uses_distinct_network_namespace (__main__.NetworkNamespace.test_sandbox_uses_distinct_network_namespace) ... network namespace identity: {\"inner\": {\"readlink\": \"net:[4026533476]\", \"stat\": [5, 4026533476]}, \"outer\": {\"readlink\": \"net:[4026533476]\", \"stat\": [5, 4026533476]}}\nFAIL\n\n======================================================================\nFAIL: test_sandbox_uses_distinct_network_namespace (__main__.NetworkNamespace.test_sandbox_uses_distinct_network_namespace)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/work/spikes/harnesses/test_sandbox.py\", line 60, in test_sandbox_uses_distinct_network_namespace\n    self.assertNotEqual(outer[\"readlink\"], inner[\"readlink\"],\n    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n                        \"inner sandbox shares outer network namespace readlink\")\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'net:[4026533476]' == 'net:[4026533476]' : inner sandbox shares outer network namespace readlink\n\n----------------------------------------------------------------------\nRan 2 tests in 0.036s\n\nFAILED (failures=1)\n",
+          "full_output_chars": 1348
+        }
+      ]
+    },
+    {
+      "label": "GREEN 2 and 3 real native plan and complete verification regressions",
+      "classification": "real isolated execution",
+      "outer_backend": "bwrap",
+      "outer_sandbox_sha256": "7c312f16324313388c7e05426ff24e3c6408959042e1fef0ee5850accc5490e7",
+      "results": [
+        {
+          "exit_code": 0,
+          "output_sha256": "60d69569dcc3e699d7351fa806365ee1ec2633648c257bc44151a7e38660c7fa",
+          "output_excerpt": "PASS outside canary, allowlisted environment, read-only inputs, offline network probe\n",
+          "full_output_chars": 86
+        },
+        {
+          "exit_code": 0,
+          "output_sha256": "e654a8835db1d5d5f62a3a1e0699bc7b863e841bb84ed478d2a0fbb7580a4a96",
+          "output_excerpt": "85161e0c3e2bf8bc9b74d609a49ff27d0676b0c00a40b3730110e1df942bc\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libtest-4052f37fcd02ccef.rmeta\": \"c0331cc120c407caa406efec35c2be6f406ef0ea4e4cded0bcc7fccee07226da\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libunwind-3ec41d3a5a80a4a4.rlib\": \"9bcb7ac2880f01055170c5c4d7f383a1174cd5e97e6c4f440a103fec521b6561\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libunwind-3ec41d3a5a80a4a4.rmeta\": \"ee2027babacb51106ae42e3f8d651c3ec763651365b74db35cc10b0961b4033f\"\n  },\n  \"rustsec\": {\n    \"url\": \"https://codeload.github.com/RustSec/advisory-db/tar.gz/5a0ebedfe8bdd2e295b171f4162f8c977bcad9a5\",\n    \"sha256\": \"b139452940da08da4428041130c80a30303a8b838901da7ab764972dc8350fe0\",\n    \"bytes\": 468664,\n    \"upstream_commit\": \"5a0ebedfe8bdd2e295b171f4162f8c977bcad9a5\",\n    \"commit_date\": \"2026-09-02T09:13:32Z\",\n    \"local_snapshot_commit\": \"e7570d7eccbe9863ea860676627c8e1002544494\",\n    \"representation\": \"local Git commit from hash-verified upstream archive, NOT upstream Git history\",\n    \"directory\": \"advisory-db-3157b0e258782691\",\n    \"maximum_age_days\": 7\n  },\n  \"scope\": \"pinned snapshot only, NOT a live audit; executable/library pins plus full advisory archive contents\",\n  \"rust_declarations\": {\n    \"channel\": \"1.98.1\",\n    \"workspace_rust_version\": \"1.98.1\",\n    \"lock_release\": \"1.98.1\",\n    \"checked_rustc_release\": \"1.98.1\"\n  }\n}\n",
+          "full_output_chars": 13475
+        },
+        {
+          "exit_code": 0,
+          "output_sha256": "46c6eb849ccc5e1f8753b3de76841f515555144643bae8aad0e889417fd5ba5d",
+          "output_excerpt": "test_sandbox_denies_network_and_inherited_credentials (__main__.Helpers.test_sandbox_denies_network_and_inherited_credentials) ... ok\ntest_sandbox_uses_distinct_network_namespace (__main__.NetworkNamespace.test_sandbox_uses_distinct_network_namespace) ... network namespace identity: {\"inner\": {\"readlink\": \"net:[4026533590]\", \"stat\": [5, 4026533590]}, \"outer\": {\"readlink\": \"net:[4026533475]\", \"stat\": [5, 4026533475]}}\nok\n\n----------------------------------------------------------------------\nRan 2 tests in 0.031s\n\nOK\n",
+          "full_output_chars": 522
+        },
+        {
+          "exit_code": 0,
+          "output_sha256": "edb77209bc5dc8a023b379a652674102795c1077b6f561f0b2d9393e57a723f3",
+          "output_excerpt": "empty_or_renamed_native_target_fails_required_check) ... FAIL m0-harness-sandbox\nFAIL m0-harness-sandbox\nFAIL m0-harness-sandbox\nok\ntest_missing_namespace_method_fails_when_original_target_exists (test_scope_plan.NativeTargetTests.test_missing_namespace_method_fails_when_original_target_exists) ... FAIL m0-harness-sandbox\nok\ntest_all_is_the_unique_union_with_shared_preflights_once (test_scope_plan.ScopePlanTests.test_all_is_the_unique_union_with_shared_preflights_once) ... ok\ntest_custom_canary_is_preserved_in_each_scope (test_scope_plan.ScopePlanTests.test_custom_canary_is_preserved_in_each_scope) ... ok\ntest_native_contains_only_shared_preflights_and_explicit_sandbox_target (test_scope_plan.ScopePlanTests.test_native_contains_only_shared_preflights_and_explicit_sandbox_target) ... ok\ntest_portable_preserves_unique_common_inventory_without_native_target (test_scope_plan.ScopePlanTests.test_portable_preserves_unique_common_inventory_without_native_target) ... ok\ntest_unknown_scope_is_rejected_instead_of_becoming_all (test_scope_plan.ScopePlanTests.test_unknown_scope_is_rejected_instead_of_becoming_all) ... ok\ntest_missing_tools_is_failed_report_not_success_or_optional_skip (test_verifier_cli.VerifierCliTests.test_missing_tools_is_failed_report_not_success_or_optional_skip) ... ok\n\n----------------------------------------------------------------------\nRan 64 tests in 3.543s\n\nOK\n",
+          "full_output_chars": 10202
+        },
+        {
+          "exit_code": 0,
+          "output_sha256": "426f64dcb6923b912f264e5e04e86df844015031f8b331167b435fe4fa6f6968",
+          "output_excerpt": "test_command_hook_emits_only_allowlisted_metadata_without_stdout (test_probe.EventProjection.test_command_hook_emits_only_allowlisted_metadata_without_stdout) ... ok\ntest_invalid_oversized_and_unwritable_payloads_fail_open_silently (test_probe.EventProjection.test_invalid_oversized_and_unwritable_payloads_fail_open_silently) ... ok\ntest_overlay_refuses_symlink_and_concurrent_edits (test_probe.Install.test_overlay_refuses_symlink_and_concurrent_edits) ... ok\ntest_reversible_overlay_preserves_unrelated_hooks_and_exact_original_bytes (test_probe.Install.test_reversible_overlay_preserves_unrelated_hooks_and_exact_original_bytes) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.144s\n\nOK\n",
+          "full_output_chars": 738
+        }
+      ]
+    },
+    {
+      "label": "NEGATIVE missing inner binary fails closed without skip",
+      "classification": "synthetic unavailable inner binary negative; real outer bwrap, not passing CI",
+      "outer_backend": "bwrap",
+      "outer_sandbox_sha256": "7c312f16324313388c7e05426ff24e3c6408959042e1fef0ee5850accc5490e7",
+      "results": [
+        {
+          "exit_code": 0,
+          "output_sha256": "60d69569dcc3e699d7351fa806365ee1ec2633648c257bc44151a7e38660c7fa",
+          "output_excerpt": "PASS outside canary, allowlisted environment, read-only inputs, offline network probe\n",
+          "full_output_chars": 86
+        },
+        {
+          "exit_code": 0,
+          "output_sha256": "e654a8835db1d5d5f62a3a1e0699bc7b863e841bb84ed478d2a0fbb7580a4a96",
+          "output_excerpt": "85161e0c3e2bf8bc9b74d609a49ff27d0676b0c00a40b3730110e1df942bc\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libtest-4052f37fcd02ccef.rmeta\": \"c0331cc120c407caa406efec35c2be6f406ef0ea4e4cded0bcc7fccee07226da\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libunwind-3ec41d3a5a80a4a4.rlib\": \"9bcb7ac2880f01055170c5c4d7f383a1174cd5e97e6c4f440a103fec521b6561\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libunwind-3ec41d3a5a80a4a4.rmeta\": \"ee2027babacb51106ae42e3f8d651c3ec763651365b74db35cc10b0961b4033f\"\n  },\n  \"rustsec\": {\n    \"url\": \"https://codeload.github.com/RustSec/advisory-db/tar.gz/5a0ebedfe8bdd2e295b171f4162f8c977bcad9a5\",\n    \"sha256\": \"b139452940da08da4428041130c80a30303a8b838901da7ab764972dc8350fe0\",\n    \"bytes\": 468664,\n    \"upstream_commit\": \"5a0ebedfe8bdd2e295b171f4162f8c977bcad9a5\",\n    \"commit_date\": \"2026-09-02T09:13:32Z\",\n    \"local_snapshot_commit\": \"e7570d7eccbe9863ea860676627c8e1002544494\",\n    \"representation\": \"local Git commit from hash-verified upstream archive, NOT upstream Git history\",\n    \"directory\": \"advisory-db-3157b0e258782691\",\n    \"maximum_age_days\": 7\n  },\n  \"scope\": \"pinned snapshot only, NOT a live audit; executable/library pins plus full advisory archive contents\",\n  \"rust_declarations\": {\n    \"channel\": \"1.98.1\",\n    \"workspace_rust_version\": \"1.98.1\",\n    \"lock_release\": \"1.98.1\",\n    \"checked_rustc_release\": \"1.98.1\"\n  }\n}\n",
+          "full_output_chars": 13475
+        },
+        {
+          "exit_code": 1,
+          "output_sha256": "0f4cf265a9c0c0cbd642bf573117a61cb82aea572719c4afdfc0569ab39574ac",
+          "output_excerpt": "~~~~^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/subprocess.py\", line 1039, in __init__\n    self._execute_child(args, executable, preexec_fn, close_fds,\n    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n                        pass_fds, cwd, env,\n                        ^^^^^^^^^^^^^^^^^^^\n    ...<5 lines>...\n                        gid, gids, uid, umask,\n                        ^^^^^^^^^^^^^^^^^^^^^^\n                        start_new_session, process_group)\n                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/subprocess.py\", line 1875, in _execute_child\n    self._posix_spawn(args, executable, env, restore_signals, close_fds,\n    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n                      p2cread, p2cwrite,\n                      ^^^^^^^^^^^^^^^^^^\n                      c2pread, c2pwrite,\n                      ^^^^^^^^^^^^^^^^^^\n                      errread, errwrite)\n                      ^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/subprocess.py\", line 1819, in _posix_spawn\n    self.pid = os.posix_spawn(executable, args, env, **kwargs)\n               ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/synthetic-missing-bwrap'\n\n----------------------------------------------------------------------\nRan 2 tests in 0.003s\n\nFAILED (errors=2)\n",
+          "full_output_chars": 4433
+        }
+      ]
+    },
+    {
+      "label": "NEGATIVE missing namespace path fails closed without skip",
+      "classification": "synthetic unavailable namespace path negative; real nested bwrap, not passing CI",
+      "outer_backend": "bwrap",
+      "outer_sandbox_sha256": "7c312f16324313388c7e05426ff24e3c6408959042e1fef0ee5850accc5490e7",
+      "results": [
+        {
+          "exit_code": 0,
+          "output_sha256": "60d69569dcc3e699d7351fa806365ee1ec2633648c257bc44151a7e38660c7fa",
+          "output_excerpt": "PASS outside canary, allowlisted environment, read-only inputs, offline network probe\n",
+          "full_output_chars": 86
+        },
+        {
+          "exit_code": 0,
+          "output_sha256": "e654a8835db1d5d5f62a3a1e0699bc7b863e841bb84ed478d2a0fbb7580a4a96",
+          "output_excerpt": "85161e0c3e2bf8bc9b74d609a49ff27d0676b0c00a40b3730110e1df942bc\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libtest-4052f37fcd02ccef.rmeta\": \"c0331cc120c407caa406efec35c2be6f406ef0ea4e4cded0bcc7fccee07226da\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libunwind-3ec41d3a5a80a4a4.rlib\": \"9bcb7ac2880f01055170c5c4d7f383a1174cd5e97e6c4f440a103fec521b6561\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libunwind-3ec41d3a5a80a4a4.rmeta\": \"ee2027babacb51106ae42e3f8d651c3ec763651365b74db35cc10b0961b4033f\"\n  },\n  \"rustsec\": {\n    \"url\": \"https://codeload.github.com/RustSec/advisory-db/tar.gz/5a0ebedfe8bdd2e295b171f4162f8c977bcad9a5\",\n    \"sha256\": \"b139452940da08da4428041130c80a30303a8b838901da7ab764972dc8350fe0\",\n    \"bytes\": 468664,\n    \"upstream_commit\": \"5a0ebedfe8bdd2e295b171f4162f8c977bcad9a5\",\n    \"commit_date\": \"2026-09-02T09:13:32Z\",\n    \"local_snapshot_commit\": \"e7570d7eccbe9863ea860676627c8e1002544494\",\n    \"representation\": \"local Git commit from hash-verified upstream archive, NOT upstream Git history\",\n    \"directory\": \"advisory-db-3157b0e258782691\",\n    \"maximum_age_days\": 7\n  },\n  \"scope\": \"pinned snapshot only, NOT a live audit; executable/library pins plus full advisory archive contents\",\n  \"rust_declarations\": {\n    \"channel\": \"1.98.1\",\n    \"workspace_rust_version\": \"1.98.1\",\n    \"lock_release\": \"1.98.1\",\n    \"checked_rustc_release\": \"1.98.1\"\n  }\n}\n",
+          "full_output_chars": 13475
+        },
+        {
+          "exit_code": 1,
+          "output_sha256": "4f644a01ddaac8f238fd1368c0da48ba3126a9f8b20204c5e4d61860cdc4b49f",
+          "output_excerpt": "test_sandbox_denies_network_and_inherited_credentials (__main__.Helpers.test_sandbox_denies_network_and_inherited_credentials) ... ok\ntest_sandbox_uses_distinct_network_namespace (__main__.NetworkNamespace.test_sandbox_uses_distinct_network_namespace) ... ERROR\n\n======================================================================\nERROR: test_sandbox_uses_distinct_network_namespace (__main__.NetworkNamespace.test_sandbox_uses_distinct_network_namespace)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/work/spikes/harnesses/test_sandbox.py\", line 38, in test_sandbox_uses_distinct_network_namespace\n    outer_stat = os.stat(namespace)\nFileNotFoundError: [Errno 2] No such file or directory: '/proc/self/ns/synthetic-missing-net'\n\n----------------------------------------------------------------------\nRan 2 tests in 0.017s\n\nFAILED (errors=1)\n",
+          "full_output_chars": 914
+        }
+      ]
+    },
+    {
+      "label": "FINAL real native scope after disposable negative fixtures",
+      "classification": "real isolated execution",
+      "outer_backend": "bwrap",
+      "outer_sandbox_sha256": "7c312f16324313388c7e05426ff24e3c6408959042e1fef0ee5850accc5490e7",
+      "results": [
+        {
+          "exit_code": 0,
+          "output_sha256": "60d69569dcc3e699d7351fa806365ee1ec2633648c257bc44151a7e38660c7fa",
+          "output_excerpt": "PASS outside canary, allowlisted environment, read-only inputs, offline network probe\n",
+          "full_output_chars": 86
+        },
+        {
+          "exit_code": 0,
+          "output_sha256": "e654a8835db1d5d5f62a3a1e0699bc7b863e841bb84ed478d2a0fbb7580a4a96",
+          "output_excerpt": "85161e0c3e2bf8bc9b74d609a49ff27d0676b0c00a40b3730110e1df942bc\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libtest-4052f37fcd02ccef.rmeta\": \"c0331cc120c407caa406efec35c2be6f406ef0ea4e4cded0bcc7fccee07226da\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libunwind-3ec41d3a5a80a4a4.rlib\": \"9bcb7ac2880f01055170c5c4d7f383a1174cd5e97e6c4f440a103fec521b6561\",\n    \"rust/lib/rustlib/x86_64-unknown-linux-gnu/lib/libunwind-3ec41d3a5a80a4a4.rmeta\": \"ee2027babacb51106ae42e3f8d651c3ec763651365b74db35cc10b0961b4033f\"\n  },\n  \"rustsec\": {\n    \"url\": \"https://codeload.github.com/RustSec/advisory-db/tar.gz/5a0ebedfe8bdd2e295b171f4162f8c977bcad9a5\",\n    \"sha256\": \"b139452940da08da4428041130c80a30303a8b838901da7ab764972dc8350fe0\",\n    \"bytes\": 468664,\n    \"upstream_commit\": \"5a0ebedfe8bdd2e295b171f4162f8c977bcad9a5\",\n    \"commit_date\": \"2026-09-02T09:13:32Z\",\n    \"local_snapshot_commit\": \"e7570d7eccbe9863ea860676627c8e1002544494\",\n    \"representation\": \"local Git commit from hash-verified upstream archive, NOT upstream Git history\",\n    \"directory\": \"advisory-db-3157b0e258782691\",\n    \"maximum_age_days\": 7\n  },\n  \"scope\": \"pinned snapshot only, NOT a live audit; executable/library pins plus full advisory archive contents\",\n  \"rust_declarations\": {\n    \"channel\": \"1.98.1\",\n    \"workspace_rust_version\": \"1.98.1\",\n    \"lock_release\": \"1.98.1\",\n    \"checked_rustc_release\": \"1.98.1\"\n  }\n}\n",
+          "full_output_chars": 13475
+        },
+        {
+          "exit_code": 0,
+          "output_sha256": "5a96876f4b292f5d61802137ffb0a4886019754ef74f3a9076405c953b755f31",
+          "output_excerpt": "test_sandbox_denies_network_and_inherited_credentials (__main__.Helpers.test_sandbox_denies_network_and_inherited_credentials) ... ok\ntest_sandbox_uses_distinct_network_namespace (__main__.NetworkNamespace.test_sandbox_uses_distinct_network_namespace) ... network namespace identity: {\"inner\": {\"readlink\": \"net:[4026533588]\", \"stat\": [5, 4026533588]}, \"outer\": {\"readlink\": \"net:[4026533475]\", \"stat\": [5, 4026533475]}}\nok\n\n----------------------------------------------------------------------\nRan 2 tests in 0.034s\n\nOK\n",
+          "full_output_chars": 522
+        }
+      ]
+    }
+  ],
+  "native_namespace_proof": {
+    "original_m0_method_exactly_unchanged": true,
+    "portable_four_methods_exactly_unchanged": true,
+    "inner_sandbox_production_command_exactly_unchanged_with_unshare_net_retained": true,
+    "outer_bwrap_exactly_unchanged_with_unshare_all_retained": true,
+    "inner_only_mutation_old_test_passed_new_test_failed": true,
+    "inner_only_mutation_network_namespace_identity": {
+      "inner": {
+        "readlink": "net:[4026533476]",
+        "stat": [
+          5,
+          4026533476
+        ]
+      },
+      "outer": {
+        "readlink": "net:[4026533476]",
+        "stat": [
+          5,
+          4026533476
+        ]
+      }
+    },
+    "real_source_network_namespace_identity": {
+      "inner": {
+        "readlink": "net:[4026533588]",
+        "stat": [
+          5,
+          4026533588
+        ]
+      },
+      "outer": {
+        "readlink": "net:[4026533475]",
+        "stat": [
+          5,
+          4026533475
+        ]
+      }
+    }
+  },
+  "initial_workflow_test_setup_error": {
+    "artifact": "split-workflow-red.json",
+    "valid_red": false,
+    "explanation": "Indentation error in the test setup. Owned config edits were discarded; corrected tests were rerun against original config before reapplying the scoped config."
+  },
+  "child_unqualified_full_invocation": {
+    "passed": false,
+    "tests_run_at_attempt": 85,
+    "failures": 5,
+    "errors": 2,
+    "reason": "Missing /tools and /tools/rust/bin/cargo in isolated host invocation. Full run output retained below. No tool installation or lane substitution performed."
+  },
+  "resolution": "The parent subsequently ran the complete canonical all inventory with real /tools mounts; no required suite exclusion is carried into the delivered verifier."
+}

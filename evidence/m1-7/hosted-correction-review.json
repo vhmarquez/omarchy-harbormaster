@@ -1,0 +1,670 @@
+{
+  "schema": 1,
+  "recording": "Complete initial and delta review records; private checkout/evidence paths normalized for publication. Raw input digests retain their original meaning. This publication record is not self-included in the reviewed source manifest.",
+  "initial_review": {
+    "passed": true,
+    "scope": "Independent pre-commit review of ONLY the frozen 11-file staged PR #49 hosted-CI correction against 0c22db038c274ced937c8d66926e313afa2cd846 plus necessary integration context. Source was treated as data. No source/index edits.",
+    "summary": "No blocking defect in the exact frozen correction. Canonical local verification and targeted fail-closed mutations verified. Two nonblocking coverage limitations disclosed. This approves scoped review only, not hosted qualification or merge.",
+    "security_concerns": [],
+    "logic_errors": [],
+    "maintainability": {
+      "assessment": "Acceptable: DRY/KISS/YAGNI, high cohesion, low coupling; no god objects, speculative abstractions, new product responsibilities or dependencies.",
+      "responsibility": "scripts/verification/container.py:7-24 owns container launch policy; .github/workflows/verify.yml:3-8 owns trigger selection. Focused tests validate each contract. The standalone evidence script demonstrates a synthetic runtime-layout hypothesis. The common probe is unchanged.",
+      "coupling": "Direction remains runner -> sandbox -> container; no product dependency on verification tooling. evidence/m1-7/reproduce-runtime-layout.py:36-42 couples this bounded one-off reproduction to private sandbox argv/execution helpers; acceptable here, not a proposed reusable public interface.",
+      "public_api": "No production/public interface added or widened; container.command arguments and argv return contract, and cleanup, remain unchanged. One standalone evidence entry point is added.",
+      "duplication": "Test independently repeats the exact mount expectation intentionally; sharing implementation constants would weaken its oracle. State-directory/overlay setup duplicated in one-off evidence is small and justified, not a second production policy layer. Avoid extracting a catch-all helper.",
+      "complexity": "No production branching or nesting added. Changed container file is 29 nonblank lines, command 18. Reproduction is 47 nonblank lines, reproduce 34. Reviewed code functions remain below 50 and files below 300; triggers are advisory, not caps. Cohesive fixture setup and four-scenario loop do not warrant metric-driven splitting.",
+      "metrics": {
+        "scripts/verification/container.py": {
+          "nonblank_lines": 29,
+          "functions": {
+            "command": 18,
+            "cleanup": 7
+          }
+        },
+        "tests/verification/test_container.py": {
+          "nonblank_lines": 38,
+          "functions": {
+            "test_unpinned_image_is_rejected": 6,
+            "test_runtime_directory_is_private_bounded_and_read_only": 9,
+            "test_container_has_no_network_privileges_or_host_home": 14
+          }
+        },
+        "tests/verification/test_ci_contract.py": {
+          "nonblank_lines": 163,
+          "functions": {
+            "unique_object": 7,
+            "load_json": 2,
+            "test_workflow_uses_pinned_least_privilege_single_entrypoint": 40,
+            "test_report_upload_is_pinned_and_scoped_even_after_failure": 14,
+            "test_container_pins_public_snapshot_and_nonroot_runtime": 46,
+            "test_bootstrap_requires_explicit_online_consent_and_private_root": 5,
+            "test_license_baseline_distinguishes_tools_and_preserves_assets": 29,
+            "test_duplicate_configuration_keys_are_rejected": 4
+          }
+        },
+        "evidence/m1-7/reproduce-runtime-layout.py": {
+          "nonblank_lines": 47,
+          "functions": {
+            "reproduce": 34
+          }
+        }
+      }
+    },
+    "suggestions": [
+      {
+        "blocking": false,
+        "severity": "low",
+        "location": "tests/verification/test_container.py:22-26",
+        "finding": "The safe /run mount is asserted by membership, not uniqueness. Appending a second --tmpfs /run:rw,exec,size=32m in the disposable snapshot still passes all 3 policy tests. No conflicting mount exists in the reviewed command: its full tmpfs/bind lists were independently asserted. Docker duplicate-option behavior was not executed and is not inferred.",
+        "recommendation": "Assert the complete tmpfs list or reject duplicate mount destinations to improve future-regression coverage.",
+        "evidence": "<private-evidence>/ci-correction-review/duplicate-run-test-blindspot.log"
+      },
+      {
+        "blocking": false,
+        "severity": "low",
+        "location": "evidence/m1-7/reproduce-runtime-layout.py:36-40",
+        "finding": "Synthetic reproduction builds a bubblewrap overlay independently of container.command. It still passes after removing the Docker /run mount in a snapshot. This is correctly labeled hypothesis/probe evidence, not Docker wiring validation. The actual canonical gate fails that mutation through python-verification.",
+        "recommendation": "Preserve explicit synthetic labeling and require actual exact-head hosted execution; never treat this reproduction alone as container qualification.",
+        "evidence": "<private-evidence>/ci-correction-review/missing-run-repro-independence.log"
+      }
+    ],
+    "verification": [
+      {
+        "command": "git diff --cached; git diff --cached --check; git status --short; git rev-parse HEAD; staged-blob and raw-diff SHA-256 comparison before/after",
+        "result": "All 11 staged hashes and diff hash match frozen scope before and after; HEAD matches base; no unstaged tracked changes; whitespace check exit 0.",
+        "scope": "Read-only reviewed checkout/index."
+      },
+      {
+        "command": "Added-line regex static security scan plus manual staged-diff review",
+        "result": {
+          "secret_assignment": [],
+          "shell_execution": [],
+          "dynamic_eval": [],
+          "pickle": [],
+          "sql_interpolation": []
+        },
+        "scope": "Secret assignment, unsafe shell execution, eval/exec, pickle, interpolated SQL."
+      },
+      {
+        "command": "env -i PATH=/usr/bin python3 -B scripts/verify.py",
+        "result": {
+          "exit_code": 0,
+          "required_pass": 21,
+          "optional_skip": 3,
+          "python_verification": "54 tests OK",
+          "python_tooling": "16 tests OK",
+          "rust_unit": "8 passed",
+          "rust_integration": "9 passed",
+          "qml_native": "3 passed including framework lifecycle, 0 failed/skipped/blacklisted",
+          "report": "<checkout>/.verify/run-1_hhebpp/report.json",
+          "source_manifest_sha256": "e7bbc85b8592a2a3a5f918f86a0a1d64321a21e61a87ec3f5c3f4e43e39a081b"
+        },
+        "scope": "Actual canonical local bubblewrap runner using existing private .tools; no Docker. Manifest hashes of included reviewed paths matched."
+      },
+      {
+        "command": "python3 -B evidence/m1-7/reproduce-runtime-layout.py",
+        "result": "Exit 0. Four actual cases: baseline 0; synthetic visible /run/user 1; private read-only overlay 0; synthetic .git exposure with overlay 1. Both negative cases emit expected exposure rejection. Parsed output exactly matches staged runtime-layout-cases.json.",
+        "scope": "Synthetic namespaces and host Python, not Docker or pinned image."
+      },
+      {
+        "command": "Exact container.command argv assertions in ci-correction-review/exercise.py",
+        "result": {
+          "status": "PASS",
+          "tmpfs": [
+            "/tmp:rw,nosuid,nodev,size=256m",
+            "/run:ro,nosuid,nodev,noexec,size=16m,mode=755"
+          ],
+          "binds": [
+            "type=bind,src=/synthetic-source,dst=/work,readonly",
+            "type=bind,src=/synthetic-tools,dst=/tools,readonly",
+            "type=bind,src=/synthetic-state,dst=/state"
+          ]
+        },
+        "scope": "Configuration only. Exactly /run:ro,nosuid,nodev,noexec,size=16m,mode=755, no host /run binding. Existing immutable image, read-only rootfs/source/tools, private writable state, no-network, cap-drop, no-new-privileges and resource bounds retained."
+      },
+      {
+        "command": "Disposable snapshot focused fault injections in exercise.py",
+        "result": "Seven mount variants (removed, writable, missing noexec/size/nosuid/nodev, changed mode) each fail new policy assertion. Removed PR, removed main push, and re-added feature push each fail workflow contract. Removed /run also causes canonical gate exit 1 at python-verification. Positive suites: container 3 tests, CI 6 tests.",
+        "scope": "Only disposable snapshot mutated, not reviewed checkout/index."
+      },
+      {
+        "command": "Manual trigger coverage review .github/workflows/verify.yml:3-8 and test_ci_contract.py:38-40",
+        "result": "Unfiltered pull_request retained; main push retained; feature push duplication removed. Standard ubuntu-24.04 runner, job/check inventory, permissions, SHA pins and bounded artifact retention unchanged.",
+        "scope": "Configuration coverage only, not proof of GitHub event delivery."
+      },
+      {
+        "command": "Initial temporary-write redirection wrapper, followed by corrected wrapper",
+        "result": "Initial outer --bind / / wrapper did not preserve device access; /dev/null open raised EACCES and canonical preflight failed closed. Added --dev-bind /dev /dev only to disposable reviewer invocation wrapper; both required commands then passed. Not a source failure; initial logs retained in executions.json.",
+        "scope": "No device permission changes or daemon changes."
+      },
+      {
+        "name": "canonical-corrected-wrapper",
+        "command": [
+          "env",
+          "-i",
+          "PATH=/usr/bin",
+          "python3",
+          "-B",
+          "scripts/verify.py"
+        ],
+        "cwd": "<checkout>",
+        "exit_code": 0,
+        "expected_exit": 0,
+        "matched": true,
+        "log": "<private-evidence>/ci-correction-review/canonical-corrected-wrapper.log"
+      },
+      {
+        "name": "runtime-layout-corrected-wrapper",
+        "command": [
+          "python3",
+          "-B",
+          "evidence/m1-7/reproduce-runtime-layout.py"
+        ],
+        "cwd": "<checkout>",
+        "exit_code": 0,
+        "expected_exit": 0,
+        "matched": true,
+        "log": "<private-evidence>/ci-correction-review/runtime-layout-corrected-wrapper.log"
+      },
+      {
+        "name": "container-positive",
+        "command": [
+          "env",
+          "-i",
+          "PATH=/usr/bin",
+          "python3",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests/verification",
+          "-p",
+          "test_container.py",
+          "-v"
+        ],
+        "cwd": "<private-evidence>/ci-correction-review/snapshot",
+        "exit_code": 0,
+        "expected_exit": 0,
+        "matched": true,
+        "log": "<private-evidence>/ci-correction-review/container-positive.log"
+      },
+      {
+        "name": "ci-positive",
+        "command": [
+          "env",
+          "-i",
+          "PATH=/usr/bin",
+          "python3",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests/verification",
+          "-p",
+          "test_ci_contract.py",
+          "-v"
+        ],
+        "cwd": "<private-evidence>/ci-correction-review/snapshot",
+        "exit_code": 0,
+        "expected_exit": 0,
+        "matched": true,
+        "log": "<private-evidence>/ci-correction-review/ci-positive.log"
+      },
+      {
+        "name": "missing-run",
+        "command": [
+          "env",
+          "-i",
+          "PATH=/usr/bin",
+          "python3",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests/verification",
+          "-p",
+          "test_container.py",
+          "-v"
+        ],
+        "cwd": "<private-evidence>/ci-correction-review/snapshot",
+        "exit_code": 1,
+        "expected_exit": 1,
+        "matched": true,
+        "log": "<private-evidence>/ci-correction-review/missing-run.log"
+      },
+      {
+        "name": "writable-run",
+        "command": [
+          "env",
+          "-i",
+          "PATH=/usr/bin",
+          "python3",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests/verification",
+          "-p",
+          "test_container.py",
+          "-v"
+        ],
+        "cwd": "<private-evidence>/ci-correction-review/snapshot",
+        "exit_code": 1,
+        "expected_exit": 1,
+        "matched": true,
+        "log": "<private-evidence>/ci-correction-review/writable-run.log"
+      },
+      {
+        "name": "exec-run",
+        "command": [
+          "env",
+          "-i",
+          "PATH=/usr/bin",
+          "python3",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests/verification",
+          "-p",
+          "test_container.py",
+          "-v"
+        ],
+        "cwd": "<private-evidence>/ci-correction-review/snapshot",
+        "exit_code": 1,
+        "expected_exit": 1,
+        "matched": true,
+        "log": "<private-evidence>/ci-correction-review/exec-run.log"
+      },
+      {
+        "name": "unbounded-run",
+        "command": [
+          "env",
+          "-i",
+          "PATH=/usr/bin",
+          "python3",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests/verification",
+          "-p",
+          "test_container.py",
+          "-v"
+        ],
+        "cwd": "<private-evidence>/ci-correction-review/snapshot",
+        "exit_code": 1,
+        "expected_exit": 1,
+        "matched": true,
+        "log": "<private-evidence>/ci-correction-review/unbounded-run.log"
+      },
+      {
+        "name": "suid-run",
+        "command": [
+          "env",
+          "-i",
+          "PATH=/usr/bin",
+          "python3",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests/verification",
+          "-p",
+          "test_container.py",
+          "-v"
+        ],
+        "cwd": "<private-evidence>/ci-correction-review/snapshot",
+        "exit_code": 1,
+        "expected_exit": 1,
+        "matched": true,
+        "log": "<private-evidence>/ci-correction-review/suid-run.log"
+      },
+      {
+        "name": "device-run",
+        "command": [
+          "env",
+          "-i",
+          "PATH=/usr/bin",
+          "python3",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests/verification",
+          "-p",
+          "test_container.py",
+          "-v"
+        ],
+        "cwd": "<private-evidence>/ci-correction-review/snapshot",
+        "exit_code": 1,
+        "expected_exit": 1,
+        "matched": true,
+        "log": "<private-evidence>/ci-correction-review/device-run.log"
+      },
+      {
+        "name": "mode-run",
+        "command": [
+          "env",
+          "-i",
+          "PATH=/usr/bin",
+          "python3",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests/verification",
+          "-p",
+          "test_container.py",
+          "-v"
+        ],
+        "cwd": "<private-evidence>/ci-correction-review/snapshot",
+        "exit_code": 1,
+        "expected_exit": 1,
+        "matched": true,
+        "log": "<private-evidence>/ci-correction-review/mode-run.log"
+      },
+      {
+        "name": "no-pr",
+        "command": [
+          "env",
+          "-i",
+          "PATH=/usr/bin",
+          "python3",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests/verification",
+          "-p",
+          "test_ci_contract.py",
+          "-v"
+        ],
+        "cwd": "<private-evidence>/ci-correction-review/snapshot",
+        "exit_code": 1,
+        "expected_exit": 1,
+        "matched": true,
+        "log": "<private-evidence>/ci-correction-review/no-pr.log"
+      },
+      {
+        "name": "no-main",
+        "command": [
+          "env",
+          "-i",
+          "PATH=/usr/bin",
+          "python3",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests/verification",
+          "-p",
+          "test_ci_contract.py",
+          "-v"
+        ],
+        "cwd": "<private-evidence>/ci-correction-review/snapshot",
+        "exit_code": 1,
+        "expected_exit": 1,
+        "matched": true,
+        "log": "<private-evidence>/ci-correction-review/no-main.log"
+      },
+      {
+        "name": "duplicate-feature-push",
+        "command": [
+          "env",
+          "-i",
+          "PATH=/usr/bin",
+          "python3",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests/verification",
+          "-p",
+          "test_ci_contract.py",
+          "-v"
+        ],
+        "cwd": "<private-evidence>/ci-correction-review/snapshot",
+        "exit_code": 1,
+        "expected_exit": 1,
+        "matched": true,
+        "log": "<private-evidence>/ci-correction-review/duplicate-feature-push.log"
+      },
+      {
+        "name": "missing-run-canonical",
+        "command": [
+          "env",
+          "-i",
+          "PATH=/usr/bin",
+          "python3",
+          "-B",
+          "scripts/verify.py",
+          "--tools",
+          "<checkout>/.tools"
+        ],
+        "cwd": "<private-evidence>/ci-correction-review/snapshot",
+        "exit_code": 1,
+        "expected_exit": 1,
+        "matched": true,
+        "log": "<private-evidence>/ci-correction-review/missing-run-canonical.log"
+      },
+      {
+        "name": "missing-run-repro-independence",
+        "command": [
+          "python3",
+          "-B",
+          "evidence/m1-7/reproduce-runtime-layout.py"
+        ],
+        "cwd": "<private-evidence>/ci-correction-review/snapshot",
+        "exit_code": 0,
+        "expected_exit": 0,
+        "matched": true,
+        "log": "<private-evidence>/ci-correction-review/missing-run-repro-independence.log"
+      },
+      {
+        "name": "duplicate-run-test-blindspot",
+        "command": [
+          "env",
+          "-i",
+          "PATH=/usr/bin",
+          "python3",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests/verification",
+          "-p",
+          "test_container.py",
+          "-v"
+        ],
+        "cwd": "<private-evidence>/ci-correction-review/snapshot",
+        "exit_code": 0,
+        "expected_exit": 0,
+        "matched": true,
+        "log": "<private-evidence>/ci-correction-review/duplicate-run-test-blindspot.log"
+      }
+    ],
+    "execution_wrapper": {
+      "purpose": "Keep temporary fixture writes in allowed review/tmp while invoking requested commands unchanged. Outer wrapper is not isolation qualification; canonical inner bubblewrap is the tested local boundary.",
+      "argv_prefix": [
+        "/usr/bin/bwrap",
+        "--die-with-parent",
+        "--bind",
+        "/",
+        "/",
+        "--dev-bind",
+        "/dev",
+        "/dev",
+        "--bind",
+        "<private-evidence>/ci-correction-review/tmp",
+        "/tmp",
+        "--"
+      ]
+    },
+    "reviewed_hashes": {
+      "base": "0c22db038c274ced937c8d66926e313afa2cd846",
+      "diff_sha256": "5061967e9570876d113ed48dc803060e9f5842c195d4e5fffd4b1b8d943b01f4",
+      "files": {
+        ".github/workflows/verify.yml": "42ad2a39eb32d2d27f6e0ef220f113dbb89b80a744804d2a5736dce6451a6698",
+        "docs/DEVELOPMENT.md": "4c57c1b8bb6c0751eb974457b04d3224308f841fade6467ee86317ee2630a833",
+        "docs/M1-STATUS.md": "461ba6f67a7dbfa789383d781e2bb7d3873defa210b9d72e2b6476ea146eacd3",
+        "docs/M1-VERIFICATION.md": "7306a50a1b3a878e677763711c4311f70e8317b69a88145367431b4b346631b6",
+        "evidence/m1-7/hosted-correction-local.json": "af008c264ff2f3fc2789ce5d2c36a21a0af9c909ec8115bb07eca22683081244",
+        "evidence/m1-7/hosted-correction-red-green.json": "bf977e58c25e43387c05002220c104f166287b93a8d561bfa95bfea01dd9318b",
+        "evidence/m1-7/reproduce-runtime-layout.py": "1630908e975105e92b774b1d301c3b1f151c2d9ec5eb06bb26e28b3bbc869cae",
+        "evidence/m1-7/runtime-layout-cases.json": "eba18cfceac0340251185cb67260f8e315dda34c74f1ae76bd856cec4fa2e4c3",
+        "scripts/verification/container.py": "24a1632374d5979b901487eac68f1c0e89f45a8cd6e2dc8a38c53b6fc3511175",
+        "tests/verification/test_ci_contract.py": "20695691f9569203133d786fdddb65afad2706c9c7d2fed699dd11422cf0f38c",
+        "tests/verification/test_container.py": "6a544c72c8622780ba645e81fa493b99bb1151a67496fdde6a13d539f1cc2830"
+      },
+      "working_matches_index": true,
+      "unstaged_diff": ""
+    },
+    "limitations": [
+      "Docker execution expressly denied and not attempted. Structural flag checks and bubblewrap do not prove pinned-image behavior or actual Docker mount semantics.",
+      "Current-head hosted execution is pending publication after this review. Parent must independently read this complete artifact, then verify actual checks and artifacts for the resulting exact PR revision.",
+      "Owner approval of exact revision and passing current-head hosted checks remain mandatory before merge or dependent #8. passed=true is scoped pre-commit review acceptance only, not permission to commit/push/merge.",
+      "No full foundation re-research or full baseline worktree sweep; bounded correction review with canonical run and focused negative snapshots.",
+      "Supplemental reproduction does not validate Docker nosuid/nodev/noexec/size or production command wiring. Membership-only policy test blind spot is a nonblocking future-regression coverage issue because exact frozen argv independently satisfies all checked invariants.",
+      "Only allowed disposable review reports/fixtures and canonical-generated .verify artifacts written. No real credentials, harness, Watcher or desktop access; no listeners, installs, daemon/permission changes, source/index edits, commits, pushes, merges or remote writes.",
+      "First JSON assembly attempt failed parsing a tool-rendered long-line read before writing the verdict. Retried with full raw local JSON artifacts; final payload parsed and required fields/hash count asserted before verified write."
+    ],
+    "merge_authorized": false,
+    "files_created_or_modified": [
+      "<private-evidence>/ci-correction-review/** (disposable exercise script, snapshot, logs, hash/metric reports, temporary fixtures)",
+      "<checkout>/.verify/run-wf25p5_x/** (review-wrapper preflight failure)",
+      "<checkout>/.verify/run-1_hhebpp/** (canonical success)",
+      "<private-evidence>/ci-correction-review.json"
+    ]
+  },
+  "final_review": {
+    "passed": true,
+    "scope": "Independent bounded delta re-review after the complete initial PASS; exact current 12-file staged correction against 0c22db038c274ced937c8d66926e313afa2cd846. No source or index changes.",
+    "summary": "PASS: complete tmpfs-list equality closes the reproduced duplicate-/run assertion hole. Production, probe, workflow and other code remain unchanged from the original review; required local verification passes. Scoped review acceptance only, not hosted qualification or merge approval.",
+    "security_concerns": [],
+    "logic_errors": [],
+    "suggestions": [],
+    "maintainability": {
+      "summary": "Minimal cohesive test-only change: membership becomes equality against the complete two-entry tmpfs list. Independent expected values preserve a meaningful oracle and reject extra mounts. No production behavior, dependencies, interfaces or abstractions added. Six-line documentation note and refreshed/new evidence accurately preserve the synthetic-versus-Docker distinction. No maintainability blocker."
+    },
+    "delta": {
+      "changed_since_initial_pass": [
+        "tests/verification/test_container.py",
+        "docs/M1-VERIFICATION.md",
+        "evidence/m1-7/hosted-correction-local.json"
+      ],
+      "added_since_initial_pass": [
+        "evidence/m1-7/duplicate-runtime-policy.json"
+      ],
+      "remaining_initial_staged_hashes_match": true,
+      "all_other_tracked_paths_match_initial_snapshot": true,
+      "probe_sha256": "23d9d604777e2fe649562061276f6717a22da101c57d092da95d0aebe3677ad1"
+    },
+    "verification": [
+      {
+        "command": "git status --short; git rev-parse HEAD; git diff --cached --check; SHA-256 comparisons of staged blobs, working files, raw staged diff, initial scope/snapshot and authenticated original source manifest",
+        "result": "Expected base and 12 staged paths; only the four declared delta paths differ. Remaining reviewed hashes match, including production/workflow; probe matches authenticated original manifest and HEAD. Working files equal index, no unstaged tracked changes, whitespace check exit 0; diff hash unchanged before/after. Full initial PASS JSON parsed, including all verification rows. Delta added-line security scan and manual review found no concerns.",
+        "scope": "Read-only checkout/index and original review artifacts; no repeat foundational review."
+      },
+      {
+        "command": "env -i PATH=/usr/bin python3 -B <private-evidence>/check-duplicate-runtime-policy.py",
+        "result": "Harness exit 0. Inner mutated suite exit 1: 3 tests, exactly 1 assertion failure and no errors; test_runtime_directory_is_private_bounded_and_read_only rejects the extra /run:rw,exec,size=32m entry at line 23.",
+        "scope": "Script inspected before execution: owned TemporaryDirectory, copied source/test, one synthetic command mutation, bounded unittest subprocess, cleanup. No Docker execution."
+      },
+      {
+        "command": "env -i PATH=/usr/bin python3 -B -m unittest discover -s tests/verification -p test_container.py -v",
+        "result": "Exit 0; all 3 unmutated container policy tests pass.",
+        "scope": "Current reviewed checkout; command construction only."
+      },
+      {
+        "command": "env -i PATH=/usr/bin python3 -B scripts/verify.py",
+        "result": "Exit 0; bwrap backend; 21 required PASS and 3 explicitly optional SKIP. Python verification 54 tests, Python tooling 16 tests, Rust unit 8 and integration 9 passed; QML reports 3 passed including lifecycle, no failures/skips/blacklisting.",
+        "report": "<checkout>/.verify/run-7_e0garb/report.json",
+        "source_manifest_sha256": "f8194faf0c6a601c94d6fd0b2dd39ed88c7ed021ae4f5d9041dbf591c1c9e2e2",
+        "scope": "Exact canonical local command, clean environment, no outer bind wrapper; no live harness, desktop or real-session probes."
+      },
+      {
+        "command": "Programmatic JSON comparison of staged duplicate-runtime-policy.json and hosted-correction-local.json against the new execution logs/report and source hashes",
+        "result": "New mutation and positive outputs match staged evidence after elapsed-time normalization. Staged RED records the old missing rejection; staged GREEN correctly distinguishes harness success from inner test failure. Local check inventory and current source hashes match; canonical source-manifest hash exactly matches refreshed staged evidence.",
+        "scope": "Evidence validation only; historical RED was inspected and inherited from the complete original PASS, not re-executed."
+      }
+    ],
+    "reviewed_hashes": {
+      "base": "0c22db038c274ced937c8d66926e313afa2cd846",
+      "diff_sha256": "1862294dcc1f38b80f2cc32d14da21f3df864f50b30a3ff10127ad983bbc5a43",
+      "files": {
+        ".github/workflows/verify.yml": "42ad2a39eb32d2d27f6e0ef220f113dbb89b80a744804d2a5736dce6451a6698",
+        "docs/DEVELOPMENT.md": "4c57c1b8bb6c0751eb974457b04d3224308f841fade6467ee86317ee2630a833",
+        "docs/M1-STATUS.md": "461ba6f67a7dbfa789383d781e2bb7d3873defa210b9d72e2b6476ea146eacd3",
+        "docs/M1-VERIFICATION.md": "f4bde9dc7fdfe5fb51a362673663d4ba011a44dbc4019ab63fff3e928a323d38",
+        "evidence/m1-7/duplicate-runtime-policy.json": "ba91fd625eec135d5a0dee83532ee143d76e3a2b234f324ac21dc89554860b94",
+        "evidence/m1-7/hosted-correction-local.json": "6c472d7f7773e45e9b4062cb502151d6595d825d973b61f2d0196bd957d4309c",
+        "evidence/m1-7/hosted-correction-red-green.json": "bf977e58c25e43387c05002220c104f166287b93a8d561bfa95bfea01dd9318b",
+        "evidence/m1-7/reproduce-runtime-layout.py": "1630908e975105e92b774b1d301c3b1f151c2d9ec5eb06bb26e28b3bbc869cae",
+        "evidence/m1-7/runtime-layout-cases.json": "eba18cfceac0340251185cb67260f8e315dda34c74f1ae76bd856cec4fa2e4c3",
+        "scripts/verification/container.py": "24a1632374d5979b901487eac68f1c0e89f45a8cd6e2dc8a38c53b6fc3511175",
+        "tests/verification/test_ci_contract.py": "20695691f9569203133d786fdddb65afad2706c9c7d2fed699dd11422cf0f38c",
+        "tests/verification/test_container.py": "bd50613b681a2f4916d31a29fe64e870ff3725bb1038e2e41b8f2d7fdae2a676"
+      },
+      "working_matches_index": true,
+      "unstaged_diff": ""
+    },
+    "original_review": {
+      "path": "<private-evidence>/ci-correction-review.json",
+      "sha256": "2e97dc4fdfe21918cf641e348b90de2e0dfa6c80c0e9ee5b81376a26028dbb6e",
+      "scope_path": "<private-evidence>/ci-correction-review-scope.json",
+      "scope_sha256": "655adb394267f180dbdf170970ef4da09d68f18dd82d8e135e0d108c89c4cd1a"
+    },
+    "limitations": [
+      "Actual exact-head hosted checks and artifacts remain required after publication. Local bubblewrap and synthetic policy mutations do not establish Docker mount semantics, pinned-image execution or GitHub event delivery; the original synthetic-reproduction limitation remains.",
+      "Explicit owner approval of the exact revision remains mandatory before merge or dependent #8. This verdict does not authorize merge or remote writes.",
+      "No Docker permission/daemon changes, credentials, real sessions, harness/desktop inspection, listeners, global configuration changes, source/index edits, commits, pushes or remote writes."
+    ],
+    "execution_notes": "A review-helper comparison initially included raw report command/log fields absent from the compact staged inventory. Corrected field projection verified the already-recorded successful executions; no test reruns or product changes were needed.",
+    "merge_authorized": false,
+    "files_created_or_modified": [
+      "<private-evidence>/ci-correction-delta-review/{exercise.py,delta.diff,executions.json,summary.json,tightened-duplicate-mutation.log,unmutated-container-suite.log,canonical.log}",
+      "<checkout>/.verify/run-7_e0garb/**",
+      "<private-evidence>/ci-correction-final-review.json"
+    ]
+  },
+  "runtime_provenance": {
+    "scope": "Parent rechecked package hash/config bytes and replayed the public tmpfiles rule in a disposable namespace, not Docker. Exact original per-path failing predicate was not logged.",
+    "execution": {
+      "public_package_sha256": "88ed13de43e53e6b8ba6039e7e58c1bc2a15c47234b05f48e68319c93b661cd7",
+      "public_configuration_path": "usr/lib/tmpfiles.d/systemd.conf",
+      "rule": "d /run/user 0755 root root -",
+      "command_in_namespace": [
+        "/tmpfiles",
+        "--create",
+        "--prefix=/run/user",
+        "/fixture.conf"
+      ],
+      "scope_note": "Pinned public binary/config with local read-only /usr shared libraries, isolated namespaces, only synthetic evidence runtime writable; not a Docker rebuild or full pacman transaction.",
+      "before_runtime_entries": [],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "/fixture.conf:24: Failed to resolve specifier: uninitialized /etc/ detected, skipping.\nAll rules containing unresolvable specifiers will be skipped.\nFailed to parse ACL \"d:group::r-x,d:group:adm:r-x,d:group:wheel:r-x,group::r-x,group:adm:r-x,group:wheel:r-x\", ignoring: No such file or directory\nFailed to parse ACL \"d:group::r-x,d:group:adm:r-x,d:group:wheel:r-x,group::r-x,group:adm:r-x,group:wheel:r-x\", ignoring: No such file or directory\n",
+      "run_user_created": true,
+      "run_user_empty": true,
+      "run_user_mode": "0o755"
+    },
+    "hosted_build_log_excerpt": [
+      "verify\tUNKNOWN STEP\t2026-09-05T19:13:45.1394116Z #7 143.2 ( 2/12) Creating temporary files..."
+    ]
+  }
+}

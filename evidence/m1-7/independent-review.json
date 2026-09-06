@@ -1,0 +1,224 @@
+{
+  "scope": "Independent code/maintainability reviews; NOT owner merge approval or hosted CI acceptance",
+  "tools_ci": {
+    "passed": true,
+    "security_concerns": [],
+    "logic_errors": [],
+    "maintainability": {
+      "disposition": "Accepted. Preparation is separated into CLI consent, credential-free downloads, private filesystem/process boundaries, per-tool installers, and read-only inspection. The verifier reuses the inspection API rather than duplicating its integrity/freshness rules. Shared staging and archive helpers serve concrete repeated behavior; per-tool installation remains explicit without an unnecessary plugin framework. Workflow checks intentionally freeze reviewed trust-boundary settings, while tool/platform locks and the Cargo license policy retain distinct responsibilities. Independent AST/nonblank measurements found no 300-line file or 50-line function triggers in the owned Python scope: the largest production file is scripts/tooling/install.py at 108 nonblank lines, the largest production function is verify_database at 35, and the largest test function is the container contract at 46. No scope-expanding abstractions, god files, or required refactoring identified.",
+      "hotspots": [],
+      "exceptions": []
+    },
+    "reviewed_files": [
+      ".github/workflows/verify.yml",
+      "docs/DEPENDENCIES.md",
+      "docs/TOOLCHAIN.md",
+      "scripts/prepare-tools.py",
+      "scripts/tooling/download.py",
+      "scripts/tooling/inspection.py",
+      "scripts/tooling/install.py",
+      "scripts/tooling/prepare.py",
+      "tests/tooling/probe_policy.py",
+      "tests/tooling/test_download.py",
+      "tests/tooling/test_inspection.py",
+      "tests/tooling/test_install.py",
+      "tests/tooling/test_prepare.py",
+      "tests/verification/test_ci_contract.py",
+      "tools/ci.Dockerfile",
+      "tools/deny.toml",
+      "tools/platform-lock.json",
+      "tools/toolchain.lock.json",
+      "scripts/verify.py",
+      "scripts/verification/checks.py",
+      "scripts/verification/sandbox.py",
+      "scripts/verification/container.py"
+    ],
+    "scope_sha256": "6aa6da7c1514c5bad46841d4d97c5d2cdaafb8e31371aa53b91167845fc8e35f"
+  },
+  "core_initial_findings": [
+    {
+      "id": "CORE-1",
+      "title": "The required Rust integration gate passes when the integration suite is absent"
+    },
+    {
+      "id": "CORE-2",
+      "title": "QML lifecycle hooks can make an entirely empty native suite pass"
+    },
+    {
+      "id": "CORE-3",
+      "title": "Standalone Rust verification does not detect drift in the advertised Rust version declarations"
+    }
+  ],
+  "core_architecture_disposition": {
+    "disposition": "Accepted after the three logic-gate corrections passed independent re-review; the prior responsibility/maintainability assessment required no size-driven restructuring.",
+    "hotspots": [
+      {
+        "path": "scripts/verification/maintainability.py",
+        "kind": "reviewed qualitative hotspot, not a threshold violation",
+        "nonblank_lines": 266,
+        "function": "collect",
+        "function_nonblank_lines": 33,
+        "branches": 12,
+        "nesting": 8,
+        "disposition": "Accepted: the nesting is concentrated in descriptor-relative filesystem classification, exclusion/error accounting and language dispatch. Lexical parsing is already separated into metrics_lexical.py. These responsibilities share the coverage contract; further splitting is not justified merely to lower a metric."
+      },
+      {
+        "path": "scripts/verification/sandbox.py",
+        "kind": "reviewed security-sensitive execution boundary",
+        "nonblank_lines": 162,
+        "function": "_collect",
+        "function_nonblank_lines": 36,
+        "branches": 10,
+        "nesting": 3,
+        "disposition": "Accepted: snapshotting, the environment allowlist and bounded child execution belong to the verification boundary, with Docker-specific construction/cleanup extracted separately. Timeout/output-overflow tests actually execute subprocesses inside the canonical outer boundary."
+      },
+      {
+        "path": "tests/verification/test_maintainability.py",
+        "kind": "reviewed test-suite size",
+        "nonblank_lines": 287,
+        "disposition": "Accepted: related public-report, parser, scope, threshold and no-follow traversal cases use compact generated fixtures. The suite contains a rationale and does not exceed the 300-nonblank-line trigger."
+      }
+    ],
+    "exceptions": [],
+    "metrics": {
+      "coverage_complete": true,
+      "files_analyzed": 36,
+      "files_listed": 36,
+      "by_language": {
+        "python": 30,
+        "rust": 5,
+        "qml": 1
+      },
+      "production_threshold_hotspots": [],
+      "test_threshold_hotspots": [],
+      "largest_production_function": {
+        "path": "scripts/verification/maintainability.py",
+        "name": "report",
+        "nonblank_lines": 42
+      },
+      "qualification": "These are the repository reporter's defined nonblank/control metrics, not independent cyclomatic complexity, coupling, duplication or API measurements. Python uses AST spans; Rust/QML are explicitly lexical approximations. Generated, frozen and legacy exclusions and test partitioning are disclosed."
+    },
+    "architectural_review": [
+      "Rust exposes a narrow pure interpret function, two small enums and static help; the executable alone owns argument collection, output and exit status. Typed value-free diagnostics, forbidden unsafe code, bounded argument collection and explicit unsupported modes keep #8-#10 responsibilities out of this foundation.",
+      "Rust integration fixtures centralize environment clearing, private synthetic tree setup, before/after comparisons and RAII cleanup. They do not pretend to detect arbitrary host writes; the documentation correctly assigns that protection to the outer verifier.",
+      "QML contains only a native toolchain sentinel, no durable business state, daemon/app model or speculative bridge. The dependency-free package and absence of future scaffolding are appropriate to #7.",
+      "Verification direction is entrypoint -> check inventory/runner -> isolated subprocess boundary; Docker construction and native QML adaptation are separate. Online preparation is not imported as a runtime dependency of the product CLI.",
+      "Metrics file traversal/report policy and lexical parsing are separated on a substantive responsibility boundary. Approximation limits are unusually explicit, and regression tests exercise malformed source, no-follow handling, scope partitioning and strict advisory thresholds.",
+      "The cross-file Rust pin relationship and suite-specific execution evidence are duplicated assumptions rather than enforced shared rules; address these narrowly through CORE-1 through CORE-3 instead of adding broad abstractions or unrelated refactoring."
+    ]
+  },
+  "fix_recheck": {
+    "passed": true,
+    "security_concerns": [],
+    "logic_errors": [],
+    "maintainability": {
+      "disposition": "Accepted scoped fixes. Existing broader maintainability and tools/CI reviews remain applicable to unchanged code; no unrelated refactor or scope extension is required.",
+      "observations": [
+        "checks.py retains a single shared inventory and result validator; explicit cli integration-target selection is appropriately narrow for the current single-package workspace.",
+        "The QML change adds positive native test-function evidence while preserving zero-failure, zero-skip and zero-blacklist requirements; it does not infer execution from lifecycle-inclusive totals.",
+        "preflight.py is a small cohesive adapter that reuses tooling.inspection.verify_existing rather than duplicating executable integrity, version or advisory inspection. It adds only the declared exact Rust-version relationship.",
+        "The regression fixtures are focused, use private temporary copies, and run real Cargo and tool inspection inside the canonical offline boundary. TOOLCHAIN.md accurately distinguishes the pinned workspace release from a separately qualified lower MSRV."
+      ],
+      "changed_file_metrics": {
+        "scripts/verification/checks.py": {
+          "nonblank_lines": 61,
+          "max_function_nonblank_lines": 29
+        },
+        "scripts/verification/preflight.py": {
+          "nonblank_lines": 30,
+          "max_function_nonblank_lines": 17
+        },
+        "tests/verification/test_integration_gate.py": {
+          "nonblank_lines": 32,
+          "max_function_nonblank_lines": 18
+        },
+        "tests/verification/test_qml_reporting.py": {
+          "nonblank_lines": 46,
+          "max_function_nonblank_lines": 9
+        },
+        "tests/verification/test_rust_pins.py": {
+          "nonblank_lines": 54,
+          "max_function_nonblank_lines": 18
+        }
+      },
+      "new_hotspots": []
+    },
+    "summary": "PASS: independent bounded re-review and actual isolated execution confirm CORE-1, CORE-2 and CORE-3 are fixed; the canonical gate passes, absent/empty integration and lifecycle-only/skipped/failed QML suites fail closed, and Rust declaration or compiler-pin drift fails preflight and blocks subsequent required checks.",
+    "reviewed_file_sha256": {
+      "docs/TOOLCHAIN.md": "ed880a7dbffcae45103b7f5c2084044aa7b7a49aaeebc88e2fa888cbef1aec0a",
+      "scripts/verification/checks.py": "684ee8016fd1883ca23501de844987134342d53316c83de53e83589c4cac022d",
+      "scripts/verification/preflight.py": "3b14ae211350389852543d41729f9b1f50d5e883ba4986303cb4d1e6ea98af25",
+      "tests/verification/test_integration_gate.py": "6ed30ee1c9f208f7f6e636345d2f2688c444f04189f515c712a200edeea162f5",
+      "tests/verification/test_qml_reporting.py": "4a0e6fa9cc2198e2c1817c483fabf78ff32394030208e704c8c952712b2981ff",
+      "tests/verification/test_rust_pins.py": "179b9f5709036156acc51105e7800d27d8b2b9e3f865ba7a96be99045c729768"
+    }
+  },
+  "independent_fault_results": [
+    {
+      "case": "drift-channel",
+      "canonical_exit_code": 1,
+      "failed_gate": "tool-pins",
+      "required_not_run": 19
+    },
+    {
+      "case": "drift-workspace",
+      "canonical_exit_code": 1,
+      "failed_gate": "tool-pins",
+      "required_not_run": 19
+    },
+    {
+      "case": "drift-lock-release",
+      "canonical_exit_code": 1,
+      "failed_gate": "tool-pins",
+      "required_not_run": 19
+    },
+    {
+      "case": "drift-all-declarations",
+      "canonical_exit_code": 1,
+      "failed_gate": "tool-pins",
+      "required_not_run": 19
+    },
+    {
+      "case": "drift-binary-pin",
+      "canonical_exit_code": 1,
+      "failed_gate": "tool-pins",
+      "required_not_run": 19
+    },
+    {
+      "case": "absent-integration",
+      "status": "FAIL",
+      "child_exit_code": 101,
+      "observed": "Cargo rejects the missing explicit cli target."
+    },
+    {
+      "case": "empty-integration",
+      "status": "FAIL",
+      "child_exit_code": 0,
+      "observed": "Cargo reports zero integration tests; successful library execution cannot satisfy this target."
+    },
+    {
+      "case": "empty-qml",
+      "status": "FAIL",
+      "child_exit_code": 0,
+      "observed": "Two empty native TestCases report four lifecycle passes and no test_* PASS; rejected."
+    },
+    {
+      "case": "skipped-qml",
+      "status": "FAIL",
+      "child_exit_code": 0,
+      "observed": "A real passing test_* function plus one skipped function is rejected."
+    },
+    {
+      "case": "failed-qml",
+      "status": "FAIL",
+      "child_exit_code": 1,
+      "observed": "A real passing test_* function plus one failed function is rejected."
+    },
+    {
+      "case": "blacklisted-qml-parser",
+      "status": "REJECTED",
+      "observed": "A PASS test_* line plus a nonzero blacklist total is rejected; this specific case is a parser fixture, not a native blacklist execution."
+    }
+  ],
+  "owner_approval": false
+}

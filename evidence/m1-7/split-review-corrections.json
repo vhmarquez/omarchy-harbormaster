@@ -1,0 +1,250 @@
+{
+  "classification": "Independent-review corrections and observed executions; synthetic pair controls are not hosted/native attestation",
+  "initial_review_findings": [
+    {
+      "id": "QUAL-1",
+      "severity": "P2",
+      "title": "Paired native qualification accepts a log that did not execute the mandatory namespace test",
+      "locations": [
+        "scripts/verification/qualification.py:171-177",
+        "scripts/verification/checks.py:39-44",
+        "scripts/verification/checks.py:57-60",
+        "tests/verification/qualification_fixtures.py:41"
+      ],
+      "finding": "The new paired boundary verifies that the report command names both native methods, but validates its log only as a generic positive-count Python suite. A log containing only Helpers.test_sandbox_denies_network_and_inherited_credentials and 'Ran 1 test ... OK' is accepted even though NetworkNamespace.test_sandbox_uses_distinct_network_namespace is mandatory in that very command. A contradictory log containing a successful summary followed by 'FAILED (failures=1)' also passes. These are detectable command/log inconsistencies, not a request for cryptographic execution attestation.",
+      "reproduction": "A disposable committed fixture using unchanged verifier modules and synthetic reports was invoked through the actual verify.py --qualify CLI. Replacing only native/m0-harness-sandbox.txt with the original-method-only log returned exit 0, passed=true, qualification_complete=true. Independently, after real isolation/tool preflights, the unchanged native test was actually run under the existing outer bwrap with only the original method selected; its genuine one-test log was substituted into the synthetic pair with the current two-method command, and qualify() again returned complete=true. The normal two-method canonical run passed separately.",
+      "observed_real_single_method_log": "test_sandbox_denies_network_and_inherited_credentials (__main__.Helpers.test_sandbox_denies_network_and_inherited_credentials) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.017s\n\nOK\n",
+      "recommendation": "Give the explicitly selected native target a validator that requires both planned method results, the expected executed count, and an unambiguous successful final unittest summary without failure or skips. Add stale single-method and contradictory-summary paired-CLI regressions. Keep synthetically valid records labeled as consistency fixtures, not execution proof."
+    },
+    {
+      "id": "QUAL-2",
+      "severity": "P2",
+      "title": "Required metrics JSON bypasses the paired reader's strict JSON and numeric checks",
+      "locations": [
+        "scripts/verification/qualification.py:37-52",
+        "scripts/verification/qualification.py:171-175",
+        "scripts/verification/checks.py:75-80",
+        "tests/verification/test_qualification.py:454-459"
+      ],
+      "finding": "report.json and source-sha256.json reject duplicate keys, nonfinite numbers and excessive nesting, but the required maintainability.txt JSON is delegated to permissive json.loads(). Its files_analyzed > 0 comparison coerces true to one and accepts Infinity or 0.5. Contradictory duplicate complete keys and depth-2000 extra arrays also pass. Catching only RecursionError does not enforce the declared structural policy. This lets malformed required coverage evidence complete the new paired gate.",
+      "reproduction": "Separate SyntheticPair probes accepted files_analyzed=true, files_analyzed=Infinity, files_analyzed=0.5, an extra NaN, duplicate complete=false/complete=true keys, and an extra array nested 2000 levels. The actual paired CLI over a disposable committed verifier fixture returned exit 0 and qualification_complete=true for maintainability.txt containing {\"coverage\":{\"complete\":false,\"complete\":true,\"files_analyzed\":Infinity}}. All other fixture records and source bytes were unchanged.",
+      "recommendation": "Apply shared strict JSON decoding to JSON-formatted required logs as well as report/manifests, preserving the separate byte caps and avoiding a checks/qualification import cycle. Require files_analyzed to be an actual positive integer, not a boolean, fraction or nonfinite float. Exercise these mutations through the paired CLI."
+    },
+    {
+      "id": "QUAL-3",
+      "severity": "P2",
+      "title": "Explicit empty --revision silently selects ordinary execution when --qualify is absent",
+      "locations": [
+        "scripts/verify.py:34-41",
+        "tests/verification/test_scope_cli.py:37-51"
+      ],
+      "finding": "The non-paired argument guard uses truthiness (elif options.revision), so an explicitly supplied empty string is treated like an omitted option. This contradicts the CLI rule that --revision requires paired --qualify reports and masks an empty revision variable by running ordinary verification instead. It does not set qualification_complete=true, but it does silently discard the requested revision option and can exit successfully.",
+      "reproduction": "verify.arguments() with argv ['verify.py', '--revision', ''] accepted scope='all', qualify=None, revision=''. The actual canonical command env -i PATH=/usr/bin python3 -B scripts/verify.py --revision '' --scope native executed all three native checks and exited 0 with passed=true, scope='native', qualification_complete=false. By contrast, a whitespace revision without --qualify and an empty revision with --qualify both exited 2 as expected.",
+      "recommendation": "In non-paired mode distinguish option presence from value truthiness (options.revision is not None), rejecting explicit empty values before execution/output creation. Add a real CLI negative test for --revision '' without --qualify, asserting exit 2 and no call to the execution boundary."
+    }
+  ],
+  "corrections": [
+    {
+      "id": "QUAL-1",
+      "status": "fixed",
+      "change": "One explicit NATIVE_METHODS inventory drives argv and specialized native validator. Full log match requires each exact successful verbose method result, exact executed count, and one final skip-free OK summary. The real inline namespace diagnostic is accepted without changing either native test.",
+      "verification": "Observed separate RED/GREEN tests cover required results with printed count 2, stale original-only, duplicate/extra methods, skips, expected failures, unexpected success, FAIL before/after OK, duplicate summaries, and missing summary through both runner and actual paired CLI. Replayed the reviewer-recorded genuine original-only log through actual paired CLI and rejected it. Genuine current two-method log passed native gate and paired report reader."
+    },
+    {
+      "id": "QUAL-2",
+      "status": "fixed",
+      "change": "New dependency-free strict_json decoder is shared by bounded report/manifest reads and metrics logs. Rejects duplicate keys, nonfinite floats including overflow, excessive depth, invalid UTF-8/unpaired surrogates and malformed syntax. Coverage count must have exact int type and be positive. Record/log limits remain 2 MiB/4 MiB.",
+      "verification": "Observed separate RED/GREEN covers duplicate complete, true, 0.5, Infinity, extra NaN and depth-2000 through actual paired CLI over disposable committed verifier source with explicitly synthetic receipts. Also tested depth boundary, Unicode keys/values, valid surrogate pair, counts, and 4 MiB acceptance / 4 MiB+1 rejection; pre-existing record-limit regressions stay green."
+    },
+    {
+      "id": "QUAL-3",
+      "status": "fixed",
+      "change": "Nonpaired revision guard uses presence (is not None), not truthiness.",
+      "verification": "Observed separate RED/GREEN actual CLI tests return exit 2 with no output/evidence for empty separated/equal-sign revision. Instrumented main test confirms output_directory and verification are not called. Post-fix direct default/native CLI probes with real tool path also return 2 and create no execution evidence."
+    }
+  ],
+  "sequential_red_green": [
+    {
+      "label": "QUAL-1-RED",
+      "started_at": "2026-09-05T23:27:30.982740+00:00",
+      "command": [
+        "env",
+        "-i",
+        "PATH=/usr/bin",
+        "python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/verification",
+        "-p",
+        "test_result_validation.py",
+        "-v"
+      ],
+      "exit_code": 1,
+      "elapsed_seconds": 0.856,
+      "unittest_summary": {
+        "tests_run": 2,
+        "elapsed_seconds": 0.811,
+        "summary": "FAILED (failures=28)"
+      },
+      "output_sha256": "549fd886b0b05c4d809b1efdd08d474f7dc4aa2b18bd3c10804a49d9af4118ff",
+      "output_excerpt": "ous_native_logs (test_result_validation.NativeResultValidationTests.test_paired_cli_rejects_incomplete_or_ambiguous_native_logs) (log='expected-failure')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/harbormaster-m1-split-review-fix/tests/verification/test_result_validation.py\", line 68, in test_paired_cli_rejects_incomplete_or_ambiguous_native_logs\n    self.assertEqual(result.returncode, 1, result.stdout + result.stderr)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 0 != 1 : PASS paired verification; qualifications={'portable': 'PASS', 'native': 'PASS'}; complete=True; report: /tmp/qualification-fixture-buhfy03g/evidence/paired-15/report.json\n\n\n======================================================================\nFAIL: test_paired_cli_rejects_incomplete_or_ambiguous_native_logs (test_result_validation.NativeResultValidationTests.test_paired_cli_rejects_incomplete_or_ambiguous_native_logs) (log='unexpected-success')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/harbormaster-m1-split-review-fix/tests/verification/test_result_validation.py\", line 68, in test_paired_cli_rejects_incomplete_or_ambiguous_native_logs\n    self.assertEqual(result.returncode, 1, result.stdout + result.stderr)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 0 != 1 : PASS paired verification; qualifications={'portable': 'PASS', 'native': 'PASS'}; complete=True; report: /tmp/qualification-fixture-buhfy03g/evidence/paired-16/report.json\n\n\n----------------------------------------------------------------------\nRan 2 tests in 0.811s\n\nFAILED (failures=28)\n",
+      "excerpt_limit_chars": 1800
+    },
+    {
+      "label": "QUAL-1-GREEN",
+      "started_at": "2026-09-05T23:28:12.964978+00:00",
+      "command": [
+        "env",
+        "-i",
+        "PATH=/usr/bin",
+        "python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/verification",
+        "-p",
+        "test_result_validation.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.863,
+      "unittest_summary": {
+        "tests_run": 2,
+        "elapsed_seconds": 0.82,
+        "summary": "OK"
+      },
+      "output_sha256": "6611228a468aed417329cc8447ce9ddb2b119b6f3bfe33f5c7cd2ece5b77ac1b",
+      "output_excerpt": "test_native_gate_requires_exact_successful_method_results (test_result_validation.NativeResultValidationTests.test_native_gate_requires_exact_successful_method_results) ... ok\ntest_paired_cli_rejects_incomplete_or_ambiguous_native_logs (test_result_validation.NativeResultValidationTests.test_paired_cli_rejects_incomplete_or_ambiguous_native_logs) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 0.820s\n\nOK\n",
+      "excerpt_limit_chars": 1800
+    },
+    {
+      "label": "QUAL-2-RED",
+      "started_at": "2026-09-05T23:29:21.909722+00:00",
+      "command": [
+        "env",
+        "-i",
+        "PATH=/usr/bin",
+        "python3",
+        "-B",
+        "-c",
+        "import sys,unittest;sys.path.insert(0,\"tests/verification\"); suite=unittest.defaultTestLoader.loadTestsFromName(\"test_result_validation.MetricsResultValidationTests\"); result=unittest.TextTestRunner(verbosity=2).run(suite);sys.exit(not result.wasSuccessful())"
+      ],
+      "exit_code": 1,
+      "elapsed_seconds": 1.0,
+      "unittest_summary": {
+        "tests_run": 3,
+        "elapsed_seconds": 0.963,
+        "summary": "FAILED (failures=20)"
+      },
+      "output_sha256": "07208dcd5ea8cad677825402ac64d5f64a44a833de26f4aa920f24291fc86dca",
+      "output_excerpt": "verification/test_result_validation.py\", line 120, in test_records_and_metrics_share_json_structure_and_unicode_rejection\n    self.assertFalse(validate(\"metrics\", text))\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: True is not false\n\n======================================================================\nFAIL: test_records_and_metrics_share_json_structure_and_unicode_rejection (test_result_validation.MetricsResultValidationTests.test_records_and_metrics_share_json_structure_and_unicode_rejection) (extra=6, reader='metrics')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/harbormaster-m1-split-review-fix/tests/verification/test_result_validation.py\", line 120, in test_records_and_metrics_share_json_structure_and_unicode_rejection\n    self.assertFalse(validate(\"metrics\", text))\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: True is not false\n\n======================================================================\nFAIL: test_records_and_metrics_share_json_structure_and_unicode_rejection (test_result_validation.MetricsResultValidationTests.test_records_and_metrics_share_json_structure_and_unicode_rejection) (extra=7, reader='metrics')\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/harbormaster-m1-split-review-fix/tests/verification/test_result_validation.py\", line 120, in test_records_and_metrics_share_json_structure_and_unicode_rejection\n    self.assertFalse(validate(\"metrics\", text))\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: True is not false\n\n----------------------------------------------------------------------\nRan 3 tests in 0.963s\n\nFAILED (failures=20)\n",
+      "excerpt_limit_chars": 1800
+    },
+    {
+      "label": "QUAL-2-GREEN",
+      "started_at": "2026-09-05T23:30:17.502262+00:00",
+      "command": [
+        "env",
+        "-i",
+        "PATH=/usr/bin",
+        "python3",
+        "-B",
+        "-c",
+        "import sys,unittest;sys.path.insert(0,\"tests/verification\"); suite=unittest.defaultTestLoader.loadTestsFromName(\"test_result_validation.MetricsResultValidationTests\"); result=unittest.TextTestRunner(verbosity=2).run(suite);sys.exit(not result.wasSuccessful())"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.019,
+      "unittest_summary": {
+        "tests_run": 3,
+        "elapsed_seconds": 0.968,
+        "summary": "OK"
+      },
+      "output_sha256": "dabdaf89a5497f7188d5be92bc36d6a7a4bbf694955977bd691da66e502cf915",
+      "output_excerpt": "test_metrics_log_keeps_its_four_mib_limit_not_the_record_limit (test_result_validation.MetricsResultValidationTests.test_metrics_log_keeps_its_four_mib_limit_not_the_record_limit) ... ok\ntest_paired_cli_requires_strict_metrics_and_positive_integer_coverage (test_result_validation.MetricsResultValidationTests.test_paired_cli_requires_strict_metrics_and_positive_integer_coverage) ... ok\ntest_records_and_metrics_share_json_structure_and_unicode_rejection (test_result_validation.MetricsResultValidationTests.test_records_and_metrics_share_json_structure_and_unicode_rejection) ... ok\n\n----------------------------------------------------------------------\nRan 3 tests in 0.968s\n\nOK\n",
+      "excerpt_limit_chars": 1800
+    },
+    {
+      "label": "QUAL-3-RED",
+      "started_at": "2026-09-05T23:31:13.351903+00:00",
+      "command": [
+        "env",
+        "-i",
+        "PATH=/usr/bin",
+        "python3",
+        "-B",
+        "-c",
+        "import sys,unittest;sys.path.insert(0,\"tests/verification\"); suite=unittest.defaultTestLoader.loadTestsFromNames([\"test_scope_cli.ScopeArgumentsTests.test_empty_revision_cli_rejects_before_creating_execution_evidence\", \"test_scope_reporting.ScopeReporting.test_empty_revision_never_reaches_output_or_execution_boundary\"]); result=unittest.TextTestRunner(verbosity=2).run(suite);sys.exit(not result.wasSuccessful())"
+      ],
+      "exit_code": 1,
+      "elapsed_seconds": 0.137,
+      "unittest_summary": {
+        "tests_run": 2,
+        "elapsed_seconds": 0.078,
+        "summary": "FAILED (failures=3)"
+      },
+      "output_sha256": "da091853def737baba9e0394efd9752419476d870a66ccf0a3b24fa1cc0e09f0",
+      "output_excerpt": "===========================================\nFAIL: test_empty_revision_cli_rejects_before_creating_execution_evidence (test_scope_cli.ScopeArgumentsTests.test_empty_revision_cli_rejects_before_creating_execution_evidence) (arguments=('--revision=', '--scope', 'native'))\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/harbormaster-m1-split-review-fix/tests/verification/test_scope_cli.py\", line 68, in test_empty_revision_cli_rejects_before_creating_execution_evidence\n    self.assertEqual(result.returncode, 2, result.stdout + result.stderr)\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 1 != 2 : FAIL native: pinned private tools missing; run scripts/prepare-tools.py first\nFAIL native verification; qualifications={'portable': 'NOT_RUN', 'native': 'FAIL'}; complete=False; report: /tmp/tmp6jnonprt/output-1/report.json\n\n\n======================================================================\nFAIL: test_empty_revision_never_reaches_output_or_execution_boundary (test_scope_reporting.ScopeReporting.test_empty_revision_never_reaches_output_or_execution_boundary)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/harbormaster-m1-split-review-fix/tests/verification/test_scope_reporting.py\", line 22, in test_empty_revision_never_reaches_output_or_execution_boundary\n    with contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit) as raised:\n                                                    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^\nAssertionError: SystemExit not raised\n\n----------------------------------------------------------------------\nRan 2 tests in 0.078s\n\nFAILED (failures=3)\n",
+      "excerpt_limit_chars": 1800
+    },
+    {
+      "label": "QUAL-3-GREEN",
+      "started_at": "2026-09-05T23:31:36.315004+00:00",
+      "command": [
+        "env",
+        "-i",
+        "PATH=/usr/bin",
+        "python3",
+        "-B",
+        "-c",
+        "import sys,unittest;sys.path.insert(0,\"tests/verification\"); suite=unittest.defaultTestLoader.loadTestsFromNames([\"test_scope_cli.ScopeArgumentsTests.test_empty_revision_cli_rejects_before_creating_execution_evidence\", \"test_scope_reporting.ScopeReporting.test_empty_revision_never_reaches_output_or_execution_boundary\"]); result=unittest.TextTestRunner(verbosity=2).run(suite);sys.exit(not result.wasSuccessful())"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.131,
+      "unittest_summary": {
+        "tests_run": 2,
+        "elapsed_seconds": 0.072,
+        "summary": "OK"
+      },
+      "output_sha256": "7eec5cc4b27e197cfe398f4ceeb0f0817eca3c5d77da52b9721850f3912d6bfe",
+      "output_excerpt": "test_empty_revision_cli_rejects_before_creating_execution_evidence (test_scope_cli.ScopeArgumentsTests.test_empty_revision_cli_rejects_before_creating_execution_evidence) ... ok\ntest_empty_revision_never_reaches_output_or_execution_boundary (test_scope_reporting.ScopeReporting.test_empty_revision_never_reaches_output_or_execution_boundary) ... ok\n\n----------------------------------------------------------------------\nRan 2 tests in 0.072s\n\nOK\n",
+      "excerpt_limit_chars": 1800
+    }
+  ],
+  "child_full_run_status": "Three findings fixed; full canonical suite blocked by one stale test outside write ownership",
+  "child_remaining_issue": {
+    "blocking": true,
+    "issue": "Canonical full inventory has one failing assertion outside the explicitly owned source list.",
+    "location": "tests/verification/test_plan.py:24",
+    "observed": "AssertionError: 'native' not found in ('exit', 'python', 'rust', 'qml', 'node', 'metrics')",
+    "result": "111 Python verification tests ran; one stale-kind assertion failed. Other 21 required full-inventory checks passed, including actual two-method native execution. Dedicated native passed all 3 required checks.",
+    "resolution_needed": "Parent or expanded authorization must add 'native' to the existing test's validator-kind tuple, then rerun the canonical all command. File was intentionally NOT modified; no compatibility trick or weakening of the native validator was used."
+  },
+  "parent_kind_contract_correction": {
+    "classification": "Required validator-kind contract follows the new specialized native validator; no test skipped",
+    "command": "env -i PATH=/usr/bin python3 -B -m unittest discover -s tests/verification -p test_plan.py -v",
+    "red": {
+      "output": "test_plan_contains_explicit_required_tool_and_test_gates (test_plan.PlanTests.test_plan_contains_explicit_required_tool_and_test_gates) ... FAIL\n\n======================================================================\nFAIL: test_plan_contains_explicit_required_tool_and_test_gates (test_plan.PlanTests.test_plan_contains_explicit_required_tool_and_test_gates)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/vhm/Work/omarchy-harbormaster/tests/verification/test_plan.py\", line 24, in test_plan_contains_explicit_required_tool_and_test_gates\n    self.assertIn(kind, (\"exit\", \"python\", \"rust\", \"qml\", \"node\", \"metrics\"))\n    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'native' not found in ('exit', 'python', 'rust', 'qml', 'node', 'metrics')\n\n----------------------------------------------------------------------\nRan 1 test in 0.002s\n\nFAILED (failures=1)",
+      "exit_code": 1,
+      "error": null
+    },
+    "green": {
+      "output": "test_plan_contains_explicit_required_tool_and_test_gates (test_plan.PlanTests.test_plan_contains_explicit_required_tool_and_test_gates) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.002s\n\nOK",
+      "exit_code": 0,
+      "error": null
+    }
+  },
+  "parent_final_canonical": {
+    "report": "split-verification.json",
+    "native_report": "split-native/report.json",
+    "python_verification_summaries": [
+      "Ran 111 tests in 7.406s",
+      "OK"
+    ]
+  },
+  "no_hosted_or_merge_claim": true
+}

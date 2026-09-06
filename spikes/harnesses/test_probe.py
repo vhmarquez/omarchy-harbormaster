@@ -1,33 +1,11 @@
-"""M0 helper tests. All filesystem fixtures are disposable, never profiles."""
-import importlib.util
+"""M0 portable helper tests. Filesystem fixtures are disposable, never profiles."""
 import json
-import os
 from pathlib import Path
 import subprocess
 import tempfile
 import unittest
 
 HERE = Path(__file__).resolve().parent
-
-
-class Helpers(unittest.TestCase):
-    def test_sandbox_denies_network_and_inherited_credentials(self):
-        spec = importlib.util.spec_from_file_location("probe", HERE / "probe.py")
-        self.assertTrue((HERE / "probe.py").exists(), "sandbox helper not implemented")
-        assert spec is not None and spec.loader is not None
-        probe = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(probe)
-        with tempfile.TemporaryDirectory() as tmp:
-            cmd = probe.sandbox(Path(tmp), {})
-            code = 'import os,socket,json; s=socket.socket(); s.settimeout(.1); print(json.dumps({"env":dict(os.environ),"network":s.connect_ex(("1.1.1.1",443)),"real_home_visible":os.path.exists("/home/vhm/.claude")}))'
-            r = subprocess.run(cmd + ["/usr/bin/python3", "-c", code], capture_output=True, text=True,
-                               env={"PATH": "/usr/bin:/bin", "ANTHROPIC_API_KEY": "synthetic-secret"}, timeout=5)
-            self.assertEqual(r.returncode, 0, r.stderr)
-            result = json.loads(r.stdout)
-            self.assertNotIn("ANTHROPIC_API_KEY", result["env"])
-            self.assertNotEqual(result["network"], 0)
-            self.assertFalse(result["real_home_visible"])
-            self.assertEqual(result["env"]["HERMES_HOME"], "/probe/home/.hermes")
 
 
 class Install(unittest.TestCase):

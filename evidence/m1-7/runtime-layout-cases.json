@@ -1,0 +1,37 @@
+{
+  "scope": "Synthetic namespace reproduction; NOT Docker execution",
+  "cases": [
+    {
+      "exit_code": 0,
+      "output": "PASS outside canary, allowlisted environment, read-only inputs, offline network probe\n",
+      "timed_out": false,
+      "output_limited": false,
+      "name": "empty-runtime-baseline",
+      "expected_exit": 0
+    },
+    {
+      "exit_code": 1,
+      "output": "Traceback (most recent call last):\n  File \"/work/scripts/verification/probe.py\", line 46, in <module>\n    inspect(Path(sys.argv[1]))\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/work/scripts/verification/probe.py\", line 21, in inspect\n    raise ValueError(\"host credentials or desktop paths are exposed\")\nValueError: host credentials or desktop paths are exposed\n",
+      "timed_out": false,
+      "output_limited": false,
+      "name": "image-runtime-directory",
+      "expected_exit": 1
+    },
+    {
+      "exit_code": 0,
+      "output": "PASS outside canary, allowlisted environment, read-only inputs, offline network probe\n",
+      "timed_out": false,
+      "output_limited": false,
+      "name": "private-runtime-overlay",
+      "expected_exit": 0
+    },
+    {
+      "exit_code": 1,
+      "output": "Traceback (most recent call last):\n  File \"/work/scripts/verification/probe.py\", line 46, in <module>\n    inspect(Path(sys.argv[1]))\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/work/scripts/verification/probe.py\", line 21, in inspect\n    raise ValueError(\"host credentials or desktop paths are exposed\")\nValueError: host credentials or desktop paths are exposed\n",
+      "timed_out": false,
+      "output_limited": false,
+      "name": "git-leak-still-rejected",
+      "expected_exit": 1
+    }
+  ]
+}
