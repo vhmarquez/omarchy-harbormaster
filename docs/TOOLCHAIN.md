@@ -163,7 +163,7 @@ must fail, never trigger a verifier fetch.
 
 ## #8 public dependency preparation and offline state
 
-`tools/dependencies.lock.json` binds the exact 18 registry packages in
+`tools/dependencies.lock.json` binds the exact 23 registry packages in
 `Cargo.lock` to their crates.io archive checksums and full registry entry bytes
 from crates.io-index commit `9137a21173fbb8ae8536ae5b96cd1fa9da3ddfa3`
 (`2026-09-06T13:20:09Z`). The index config is separately hash-pinned. Registry
@@ -189,6 +189,16 @@ each and raw registry entries at 10 MB. Existing installed groups cannot be
 overwritten; a failure removes only this operation's temporary staging tree.
 Upgrades require a new explicitly prepared tools root; no in-place cache refresh
 or package update is implied.
+
+For the reviewed peer-credential correction, the fresh local root is
+`/home/vhm/Work/omarchy-harbormaster/.tools-m1-8-final`. Existing public groups
+`rust`, `node`, `bin` and `advisory-db` were copied by those exact names only
+from the independently inspected original `.tools` root, retaining timestamps
+and license files; the read-only inspection API reverified their binaries,
+libraries and snapshot before use. New dependency preparation populated only
+the missing `dependencies` group. The original root was neither overwritten nor
+removed. Local execution passes this fresh root via `scripts/verify.py --tools`;
+CI still prepares a completely fresh `.tools` using the same reviewed locks.
 
 The installed `.tools/dependencies` contains source `.crate` archives, full raw
 registry entries and deterministic Cargo sparse-cache records. It contains no
@@ -218,7 +228,8 @@ protections remain unchanged; native qualification also requires current pins.
 lock equality, malformed records, private copies and failed atomic preparation.
 Run `python3 -B tests/tooling/probe_dependencies.py --tools-root "$PWD/.tools"`
 for real frozen offline build/policy probes and negative missing/corrupt source,
-missing registry and yanked-version fixtures. These probes use disposable state
+missing registry and yanked-version fixtures. Add `--crate nix` to target the
+peer-credential dependency; default `serde` retains the original graph probes. These probes use disposable state
 and do not mutate prepared inputs or start a service. Scoped observed results
 are in `evidence/m1-8/dependencies/`; final integrated revision qualification is
 separate evidence.

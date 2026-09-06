@@ -6,10 +6,28 @@
   "config_sha256": "5b943a2c6f7eb743f7308aba07bdbb47d9ae44aafecd832d7f15df186afbafb3",
   "packages": [
     {
+      "name": "autocfg",
+      "version": "1.5.1",
+      "checksum": "f2032f911046de80f0a198e0901378627c33f59ea0ac00e363d481118bd70a53",
+      "index_sha256": "60e52e9e0cf800ffcb1b365fc5e4ec9d35bbacea049fb8cff46453961e2f07f3"
+    },
+    {
       "name": "bitflags",
       "version": "2.13.1",
       "checksum": "b588b76d00fde79687d7646a9b5bdf3cc0f655e0bbd080335a95d7e96f3587da",
       "index_sha256": "da93d35974877208e07bffb86fd0515e7b72e7c68b1c6468712d6a8b475027b7"
+    },
+    {
+      "name": "cfg-if",
+      "version": "1.0.4",
+      "checksum": "9330f8b2ff13f34540b44e946ef35111825727b38d33286ef986142615121801",
+      "index_sha256": "bd5341a1264619563b9701e7b47c40d67107328ce7b8f6b91ae3fa4abd170de4"
+    },
+    {
+      "name": "cfg_aliases",
+      "version": "0.2.2",
+      "checksum": "f079e83a288787bcd14a6aea84cee5c87a67c5a3e660c30f557a3d24761b3527",
+      "index_sha256": "c980c93f3af1a63303f7e63c88ed5498cec27a699bafe9d77812f640f363a0bc"
     },
     {
       "name": "errno",
@@ -40,6 +58,18 @@
       "version": "2.8.3",
       "checksum": "cf8baf1c55e62ffcace7a9f06f4bd9cd3f0c4beb022d3b367256b91b87513d98",
       "index_sha256": "577209be17cbaaf1a862c0e01a84d515d91bcc229476fd34e67ffd44a5a84f27"
+    },
+    {
+      "name": "memoffset",
+      "version": "0.9.1",
+      "checksum": "488016bfae457b036d996092f6cb448677611ce4449e970ceaf42695203f218a",
+      "index_sha256": "ceda143d37fa45f6f3e67476b79440f88d502705952cf4e99192f09f8ae80405"
+    },
+    {
+      "name": "nix",
+      "version": "0.31.3",
+      "checksum": "cf20d2fde8ff38632c426f1165ed7436270b44f199fc55284c38276f9db47c3d",
+      "index_sha256": "f45cc3103c132980d01a1ed1e1969883b825a48aab6bc539919f3b2562e4bd9d"
     },
     {
       "name": "proc-macro2",

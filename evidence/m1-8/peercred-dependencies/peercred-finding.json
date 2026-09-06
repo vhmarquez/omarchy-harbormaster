@@ -1,0 +1,28 @@
+{
+  "observed_at": "2026-09-06T13:47:26.830020+00:00",
+  "finding": "Pinned rustix socket_peercred representation requires nonzero PID; kernel returns PID0 for sameUID peer outside server PID namespace",
+  "severity": "Review blocker until safe getter replaces this call; no exploitability or upstream advisory claim",
+  "archive_sha256": "b6fe4565b9518b83ef4f91bb47ce29620ca828bd32cb7e408f0062e9930ba190",
+  "upstream_source_sha256": {
+    "rustix-1.1.4/src/net/types.rs": "a2f5e62229fc3d38bae6bd29815a9a985a11b1a133616a3d52f936f24bc17adc",
+    "rustix-1.1.4/src/pid.rs": "9f167f9f9c73e63b3802db12a7b5ddb824adbb7c357de8b28396f469b8b788c3",
+    "rustix-1.1.4/src/backend/linux_raw/net/sockopt.rs": "e408b00e7e9819af77e9a4d3384d2b8203bb3351c7c653dc92f6f4d12b213a55"
+  },
+  "kernel_fixture_sha256": "677b1f63a711283ba5f96905ae5ce9e5eb9297f03ed659016701d4b807bbb8b5",
+  "kernel_fixture_result": {
+    "exit_code": 0,
+    "output": "inner: ready\nouter pid/uid: 2 1000\npeercred observed by child namespace: (0, 1000, 1000)\nexit 0 error \n",
+    "timed_out": false,
+    "output_limited": false,
+    "elapsed_seconds": 0.045
+  },
+  "primary_sources": [
+    "https://docs.rs/rustix/1.1.4/rustix/net/struct.UCred.html",
+    "https://docs.rs/rustix/1.1.4/rustix/net/sockopt/fn.socket_peercred.html",
+    "https://www.man7.org/linux/man-pages/man7/pid_namespaces.7.html",
+    "https://www.man7.org/linux/man-pages/man7/unix.7.html",
+    "https://doc.rust-lang.org/std/os/unix/net/struct.UnixStream.html#method.peer_cred",
+    "https://docs.rs/nix/0.31.3/nix/sys/socket/struct.UnixCredentials.html"
+  ],
+  "scope": "Only nested native bubblewrap with read-only user source/tools and disposable private state, no Internet sockets or host-network changes; inspected Rust invalid representation without executing UB-dependent code"
+}

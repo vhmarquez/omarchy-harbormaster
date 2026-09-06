@@ -8,7 +8,7 @@ import tempfile
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
-from tooling.dependencies import REGISTRY, cache_record, verify_dependencies
+from tooling.dependencies import REGISTRY, cache_record, index_path, read_pins, verify_dependencies
 from verification.sandbox import run
 
 
@@ -17,8 +17,9 @@ def execute(tools, state, command):
     return {"command": command, **result}
 
 
-def probe(tools):
+def probe(tools, crate="serde"):
     inspection = verify_dependencies(ROOT, tools)
+    version = next(p["version"] for p in read_pins(ROOT)["packages"] if p["name"] == crate)
     cargo = ["/tools/rust/bin/cargo", "test", "--frozen", "--workspace"]
     deny = ["/tools/bin/cargo-deny", "--config", "tools/deny.toml", "--frozen",
             "--workspace", "check", "--deny", "warnings", "all"]
@@ -28,8 +29,8 @@ def probe(tools):
             state = Path(temporary)
             shutil.copytree(tools / "dependencies/cargo", state / "cargo")
             shutil.copytree(tools / "advisory-db", state / "advisory-db")
-            archive = state / f"cargo/registry/cache/{REGISTRY}/serde-1.0.229.crate"
-            cached = state / f"cargo/registry/index/{REGISTRY}/.cache/se/rd/serde"
+            archive = state / f"cargo/registry/cache/{REGISTRY}/{crate}-{version}.crate"
+            cached = state / f"cargo/registry/index/{REGISTRY}/.cache/{index_path(crate)}"
             if case == "missing-source":
                 archive.unlink()
             elif case == "corrupt-source":
@@ -38,9 +39,9 @@ def probe(tools):
                 cached.unlink()
             elif case == "yanked":
                 rows = []
-                for line in (tools / "dependencies/indexes/serde").read_text().splitlines():
+                for line in (tools / "dependencies/indexes" / crate).read_text().splitlines():
                     entry = json.loads(line)
-                    if entry["vers"] == "1.0.229":
+                    if entry["vers"] == version:
                         entry["yanked"] = True
                     rows.append(json.dumps(entry))
                 cached.write_bytes(cache_record(("\n".join(rows) + "\n").encode()))
@@ -62,5 +63,6 @@ def probe(tools):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--tools-root", type=Path, required=True)
+    parser.add_argument("--crate", choices=("serde", "nix"), default="serde")
     args = parser.parse_args()
-    print(json.dumps(probe(args.tools_root), indent=2))
+    print(json.dumps(probe(args.tools_root, args.crate), indent=2))
