@@ -12,6 +12,7 @@ mod reducer;
 mod reducer_attention;
 mod reducer_migration;
 mod reducer_reconciliation;
+mod reducer_retirement;
 mod writes;
 
 static NEXT: AtomicUsize = AtomicUsize::new(0);

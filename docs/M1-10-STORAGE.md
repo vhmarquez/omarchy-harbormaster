@@ -17,6 +17,13 @@ Each run admits at most one active producer. A reconciliation request may name
 one explicitly verified old current turn whose transient reasons resolve; a
 generation change alone does not resolve them. Uncertainty effects atomically
 retire admission before the worker can execute another queued write.
+`RetireProducer` handles a scoped conflict/gap without persisting an invalid
+fact or issuing another generation. It preserves the independent process
+dimension, current turn identity, terminal outcomes and sequence checkpoint;
+observation becomes Stale and a nonterminal turn becomes Unknown. Revision and
+full-u64 known-loss overflow are checked before mutations. The exact ticket is
+retained through unknown completion, so callers must not retry loss accounting
+as a new operation merely because acknowledgment has not arrived.
 
 The V3 schema preserves V1/V2 receipt bytes and migrates only recognized layouts,
 with the existing verified pre-migration backup. Scoped current identity is not

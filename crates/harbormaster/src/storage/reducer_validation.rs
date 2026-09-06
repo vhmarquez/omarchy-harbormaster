@@ -1,4 +1,4 @@
-use super::{Reconciliation, ReconciliationBaseline, ReducerWrite, StorageError, context};
+use super::{Reconciliation, ReconciliationBaseline, ReducerWrite, StorageError};
 use crate::domain::{ObservationState, ProcessState, TurnKey, TurnState};
 use crate::protocol::{EventEnvelope, encode_frame};
 
@@ -14,6 +14,9 @@ pub(super) fn apply(set: &ReducerWrite) -> Result<(), StorageError> {
             .len()
             != effects.attention.len()
         || effects.projection.run_id != set.fact.run_id
+        || effects.projection.turn_id.as_ref()
+            != effects.current_turn.as_ref().map(|key| &key.turn_id)
+        || (effects.current_turn.is_none() && effects.projection.turn != TurnState::Unknown)
         || effects.current_turn.as_ref().is_some_and(|key| {
             !same_scope(key, &set.fact) || effects.projection.turn_id.as_ref() != Some(&key.turn_id)
         })
@@ -23,11 +26,9 @@ pub(super) fn apply(set: &ReducerWrite) -> Result<(), StorageError> {
             .is_some_and(|key| !same_scope(key, &set.fact))
         || effects.tombstone.as_ref().is_some_and(|item| {
             !same_scope(&item.key, &set.fact)
-                || context::turn_id(&set.fact) != Some(&item.key.turn_id)
+                || set.fact.event.turn_id() != Some(&item.key.turn_id)
                 || item.outcome_id != set.fact.event_id
-                || item
-                    .terminal
-                    .is_none_or(|state| !context::is_terminal(state))
+                || item.terminal.is_none_or(|state| !state.is_terminal())
                 || item.terminal != terminal(&set.fact)
         })
     {

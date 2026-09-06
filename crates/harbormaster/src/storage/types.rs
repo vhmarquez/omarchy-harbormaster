@@ -116,6 +116,7 @@ pub enum Request {
     Context(Box<EventEnvelope>),
     Apply(Box<super::ReducerWrite>),
     Reconcile(Box<super::Reconciliation>),
+    RetireProducer(super::ProducerRetirement),
     ReviewOutcome(super::OutcomeReview),
     Policy,
     Status,
@@ -178,6 +179,9 @@ pub struct MaintenanceResult {
 }
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Response {
+    Retired {
+        revision: Revision,
+    },
     Context(Box<super::ReducerContext>),
     Policy(super::StoragePolicy),
     Status(super::StorageStatus),

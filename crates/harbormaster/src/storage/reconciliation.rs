@@ -11,6 +11,8 @@ pub(super) fn reconcile(
     request: &Reconciliation,
 ) -> Result<Response, StorageError> {
     let tx = conn.transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
+    queries::require_revision(&tx, request.registration.expected_revision)?;
+    let discarded = discarded_next(&tx, request.discarded_events)?;
     let verified = matches!(request.baseline, ReconciliationBaseline::Verified { .. });
     resolve_old(&tx, request)?;
     let (generation, next) =
@@ -40,12 +42,6 @@ pub(super) fn reconcile(
         ),
     };
     reducer_transaction::projection(&tx, &projection, current.as_ref())?;
-    let discarded = tx
-        .query_row("SELECT discarded FROM metadata WHERE id=1", [], |row| {
-            decode_number(row.get(0)?)
-        })?
-        .checked_add(request.discarded_events)
-        .ok_or(StorageError::ResourceExhausted)?;
     tx.execute(
         "UPDATE metadata SET discarded=?1 WHERE id=1",
         [number(discarded).as_slice()],
@@ -56,6 +52,50 @@ pub(super) fn reconcile(
         generation,
         revision: next,
     })
+}
+
+pub(super) fn retire(
+    conn: &mut Connection,
+    request: &super::ProducerRetirement,
+) -> Result<Response, StorageError> {
+    let tx = conn.transaction_with_behavior(rusqlite::TransactionBehavior::Immediate)?;
+    let next = queries::require_revision(&tx, request.expected_revision)?;
+    let record =
+        queries::producer(&tx, &request.producer_id)?.ok_or(StorageError::UnknownProducer)?;
+    if record.generation != request.generation || !record.active {
+        return Err(StorageError::StaleGeneration);
+    }
+    let discarded = discarded_next(&tx, request.discarded_events)?;
+    let (mut projection, current) = super::context::projection(&tx, &record.run_id)?;
+    if current.as_ref().is_some_and(|key| {
+        key.producer_id != record.producer_id || key.generation != record.generation
+    }) {
+        return Err(StorageError::Conflict);
+    }
+    projection.observation = ObservationState::Stale;
+    if !projection.turn.is_terminal() {
+        projection.turn = TurnState::Unknown;
+    }
+    reducer_transaction::projection(&tx, &projection, current.as_ref())?;
+    tx.execute(
+        "UPDATE producers SET active=0,reconciled=0 WHERE producer=?1 AND generation=?2",
+        rusqlite::params![record.producer_id.as_str(), record.generation.as_str()],
+    )?;
+    tx.execute(
+        "UPDATE metadata SET discarded=?1 WHERE id=1",
+        [number(discarded).as_slice()],
+    )?;
+    queries::advance(&tx, next)?;
+    tx.commit()?;
+    Ok(Response::Retired { revision: next })
+}
+
+fn discarded_next(conn: &Connection, adding: u64) -> Result<u64, StorageError> {
+    conn.query_row("SELECT discarded FROM metadata WHERE id=1", [], |row| {
+        decode_number(row.get(0)?)
+    })?
+    .checked_add(adding)
+    .ok_or(StorageError::ResourceExhausted)
 }
 
 fn resolve_old(conn: &Connection, request: &Reconciliation) -> Result<(), StorageError> {

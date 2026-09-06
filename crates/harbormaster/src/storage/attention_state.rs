@@ -47,7 +47,11 @@ fn ensure(
     reason: AttentionReason,
     next: Revision,
 ) -> Result<bool, StorageError> {
-    let turn = super::context::turn_id(&set.fact).map(crate::protocol::TurnId::as_str);
+    let turn = set
+        .fact
+        .event
+        .turn_id()
+        .map(crate::protocol::TurnId::as_str);
     if matches!(
         reason,
         AttentionReason::Input

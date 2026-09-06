@@ -227,6 +227,7 @@ fn dispatch(
         }
         Request::Apply(set) => super::reducer_transaction::apply(conn, set),
         Request::Reconcile(request) => super::reconciliation::reconcile(conn, request),
+        Request::RetireProducer(request) => super::reconciliation::retire(conn, request),
         Request::ReviewOutcome(update) => super::attention_state::review(conn, update),
         Request::Policy => super::policy::policy(conn).map(Response::Policy),
         Request::Status => super::policy::status(conn).map(Response::Status),

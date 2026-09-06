@@ -50,6 +50,13 @@ pub struct Reconciliation {
     pub resolved_turn: Option<crate::domain::TurnKey>,
 }
 #[derive(Debug, Clone, PartialEq, Eq)]
+pub struct ProducerRetirement {
+    pub expected_revision: Revision,
+    pub producer_id: crate::protocol::ProducerId,
+    pub generation: crate::protocol::ProducerGeneration,
+    pub discarded_events: u64,
+}
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct OutcomeReview {
     pub expected_revision: Revision,
     pub outcome: OutcomeKey,

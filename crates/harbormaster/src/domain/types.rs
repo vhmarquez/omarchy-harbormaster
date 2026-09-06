@@ -26,6 +26,12 @@ pub enum TurnState {
     Failed,
     Interrupted,
 }
+impl TurnState {
+    #[must_use]
+    pub const fn is_terminal(self) -> bool {
+        matches!(self, Self::Completed | Self::Failed | Self::Interrupted)
+    }
+}
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
 pub enum AttentionReason {
     Input,

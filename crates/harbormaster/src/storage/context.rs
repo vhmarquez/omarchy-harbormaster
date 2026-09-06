@@ -18,7 +18,9 @@ pub(super) fn context(
     let producer = queries::producer(&tx, &fact.producer_id)?;
     let receipt = receipt(&tx, fact, producer.as_ref())?;
     let (projection, current_turn) = projection(&tx, &fact.run_id)?;
-    let tombstone = turn_id(fact)
+    let tombstone = fact
+        .event
+        .turn_id()
         .map(|turn_id| {
             tombstone(
                 &tx,
@@ -120,16 +122,7 @@ pub(super) fn tombstone(
 ) -> Result<Option<TombstoneEvidence>, StorageError> {
     Ok(conn.query_row("SELECT event,terminal FROM tombstones WHERE producer=?1 AND generation=?2 AND run=?3 AND turn_id=?4", params![key.producer_id.as_str(),key.generation.as_str(),key.run_id.as_str(),key.turn_id.as_str()], |row| {
         let terminal = row.get::<_,Option<u8>>(1)?.map(queries::turn).transpose()?;
-        if terminal.is_some_and(|state| !is_terminal(state)) { return Err(rusqlite::Error::InvalidQuery); }
+        if terminal.is_some_and(|state| !state.is_terminal()) { return Err(rusqlite::Error::InvalidQuery); }
         Ok(TombstoneEvidence { key: key.clone(), outcome_id: queries::parse(&row.get::<_,String>(0)?)?, terminal })
     }).optional()?)
-}
-pub(super) const fn is_terminal(state: TurnState) -> bool {
-    matches!(
-        state,
-        TurnState::Completed | TurnState::Failed | TurnState::Interrupted
-    )
-}
-pub(super) fn turn_id(fact: &EventEnvelope) -> Option<&TurnId> {
-    fact.event.turn_id()
 }
