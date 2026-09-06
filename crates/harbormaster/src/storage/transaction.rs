@@ -14,9 +14,9 @@ pub(super) fn register(
     let previous = queries::producer(&tx, &registration.producer_id)?;
     if previous.as_ref().map(|record| &record.generation)
         != registration.previous_generation.as_ref()
-        || previous
-            .as_ref()
-            .is_some_and(|record| record.run_id != registration.run_id)
+        || previous.as_ref().is_some_and(|record| {
+            record.run_id != registration.run_id || record.harness != registration.harness
+        })
     {
         return Err(StorageError::StaleGeneration);
     }

@@ -14,7 +14,7 @@ pub(super) const DATABASE: &str = "state.db";
 pub(super) const BACKUP: &str = "state.backup.db";
 pub(super) const STAGING: &str = "state.staging.db";
 pub(super) const ROLLBACK: &str = "state.rollback.db";
-const KNOWN: [&str; 9] = [
+const KNOWN: [&str; 17] = [
     DATABASE,
     "state.db-wal",
     "state.db-shm",
@@ -24,6 +24,14 @@ const KNOWN: [&str; 9] = [
     ROLLBACK,
     "state.staging.db-journal",
     "state.lock",
+    "state.backup.db-wal",
+    "state.backup.db-shm",
+    "state.backup.db-journal",
+    "state.staging.db-wal",
+    "state.staging.db-shm",
+    "state.rollback.db-wal",
+    "state.rollback.db-shm",
+    "state.rollback.db-journal",
 ];
 
 pub(super) struct Paths {
@@ -73,10 +81,29 @@ impl Paths {
             uid,
             owned: RefCell::new(owned),
         };
-        if paths.exists(STAGING)? || paths.exists(ROLLBACK)? {
-            return Err(StorageError::RecoveryRequired);
-        }
+        paths.reject_leftovers()?;
         Ok(paths)
+    }
+
+    fn reject_leftovers(&self) -> Result<(), StorageError> {
+        for name in [
+            STAGING,
+            ROLLBACK,
+            "state.staging.db-journal",
+            "state.staging.db-wal",
+            "state.staging.db-shm",
+            "state.rollback.db-wal",
+            "state.rollback.db-shm",
+            "state.rollback.db-journal",
+            "state.backup.db-wal",
+            "state.backup.db-shm",
+            "state.backup.db-journal",
+        ] {
+            if self.exists(name)? {
+                return Err(StorageError::RecoveryRequired);
+            }
+        }
+        Ok(())
     }
 
     pub(super) fn path(&self, name: &'static str) -> PathBuf {

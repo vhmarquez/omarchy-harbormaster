@@ -1,6 +1,27 @@
 use super::*;
 
 #[test]
+fn reconciliation_preserves_registered_harness_scope() {
+    let fixture = Fixture::new();
+    let mut engine = fixture.open();
+    let (generation, revision) = register(&mut engine, 1);
+    let request = Request::Register(Registration {
+        expected_revision: revision,
+        producer_id: id(1),
+        run_id: id(2),
+        harness: HarnessKind::Claude,
+        next_sequence: Seq::new(1),
+        previous_generation: Some(generation.clone()),
+    });
+    assert_eq!(engine.execute(&request), Err(StorageError::StaleGeneration));
+    let record = queries::producer(engine.connection.as_ref().unwrap(), &id(1))
+        .unwrap()
+        .unwrap();
+    assert_eq!(record.harness, HarnessKind::Hermes);
+    assert_eq!(record.generation, generation);
+}
+
+#[test]
 fn all_effects_roll_back_after_late_sql_failure() {
     let fixture = Fixture::new();
     let mut engine = fixture.open();

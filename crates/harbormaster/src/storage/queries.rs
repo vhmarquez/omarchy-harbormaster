@@ -37,12 +37,18 @@ pub(super) fn producer(
 ) -> Result<Option<ProducerRecord>, StorageError> {
     Ok(conn
         .query_row(
-            "SELECT generation,run,next_seq,active FROM producers WHERE producer=?1",
+            "SELECT generation,run,next_seq,active,harness FROM producers WHERE producer=?1",
             [id.as_str()],
             |row| {
                 let next: Option<Vec<u8>> = row.get(2)?;
                 Ok(ProducerRecord {
                     producer_id: id.clone(),
+                    harness: match row.get::<_, u8>(4)? {
+                        0 => crate::protocol::HarnessKind::Hermes,
+                        1 => crate::protocol::HarnessKind::Claude,
+                        2 => crate::protocol::HarnessKind::Codex,
+                        _ => return Err(rusqlite::Error::InvalidQuery),
+                    },
                     generation: parse(&row.get::<_, String>(0)?)?,
                     run_id: parse(&row.get::<_, String>(1)?)?,
                     next_sequence: next

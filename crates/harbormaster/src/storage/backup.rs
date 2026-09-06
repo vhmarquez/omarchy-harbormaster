@@ -15,10 +15,10 @@ pub(super) fn create(source: &Connection, paths: &Paths) -> Result<(), StorageEr
         return Err(StorageError::RecoveryRequired);
     }
     if paths.exists(BACKUP)? {
-        schema::read_only(&paths.path(BACKUP))?;
+        schema::standalone(&paths.path(BACKUP))?;
     }
     paths.create(STAGING)?;
-    let result = copy_to_stage(source, paths);
+    let result = copy_to_stage(source, paths, false);
     if result.is_err() {
         let _ = paths.remove(STAGING);
     }
@@ -28,7 +28,7 @@ pub(super) fn create(source: &Connection, paths: &Paths) -> Result<(), StorageEr
     Ok(())
 }
 
-fn copy_to_stage(source: &Connection, paths: &Paths) -> Result<(), StorageError> {
+fn copy_to_stage(source: &Connection, paths: &Paths, migrate: bool) -> Result<(), StorageError> {
     let deadline = Instant::now() + Duration::from_secs(2);
     let mut destination = Connection::open_with_flags(
         paths.path(STAGING),
@@ -52,6 +52,16 @@ fn copy_to_stage(source: &Connection, paths: &Paths) -> Result<(), StorageError>
     }
     // Validation visits at most MAX_PAGES. Deadline is checked after validation
     // too; a late result is refused rather than mislabeled timely completion.
+    if migrate && schema::inspect(&destination)? < schema::VERSION {
+        // The original verified backup remains intact while its fixed staged
+        // copy undergoes the recognized transaction migration.
+        schema::migrate(&mut destination)?;
+    }
+    let mode: String =
+        destination.pragma_update_and_check(None, "journal_mode", "DELETE", |row| row.get(0))?;
+    if mode != "delete" {
+        return Err(StorageError::PersistenceUnavailable);
+    }
     schema::inspect(&destination)?;
     if Instant::now() >= deadline {
         return Err(StorageError::Backpressure);
@@ -69,17 +79,14 @@ pub(super) fn stage_restore(
     if !paths.exists(BACKUP)? || paths.exists(STAGING)? || paths.exists(ROLLBACK)? {
         return Err(StorageError::RecoveryRequired);
     }
-    let backup = schema::read_only(&paths.path(BACKUP))?;
-    if schema::inspect(&backup)? != schema::VERSION {
-        return Err(StorageError::RecoveryRequired);
-    }
+    let backup = schema::standalone(&paths.path(BACKUP))?;
     let backup_revision = super::queries::revision(&backup)?;
     let next = live_revision
         .max(backup_revision)
         .checked_next()
         .ok_or(StorageError::ResourceExhausted)?;
     paths.create(STAGING)?;
-    let result = copy_to_stage(&backup, paths);
+    let result = copy_to_stage(&backup, paths, true);
     if result.is_err() {
         let _ = paths.remove(STAGING);
     }

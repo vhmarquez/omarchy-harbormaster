@@ -177,6 +177,7 @@ pub enum Request {
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct ProducerRecord {
     pub producer_id: ProducerId,
+    pub harness: HarnessKind,
     pub generation: ProducerGeneration,
     pub run_id: RunId,
     pub next_sequence: Option<Seq>,

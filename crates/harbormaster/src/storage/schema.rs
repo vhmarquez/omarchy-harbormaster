@@ -99,6 +99,22 @@ pub(super) fn read_only(path: &Path) -> Result<Connection, StorageError> {
     Ok(conn)
 }
 
+pub(super) fn standalone(path: &Path) -> Result<Connection, StorageError> {
+    header(path)?;
+    let fd = rustix::fs::open(
+        path,
+        rustix::fs::OFlags::RDONLY | rustix::fs::OFlags::NOFOLLOW | rustix::fs::OFlags::CLOEXEC,
+        rustix::fs::Mode::empty(),
+    )?;
+    let mut file = std::fs::File::from(fd);
+    let mut bytes = [0_u8; 20];
+    file.read_exact(&mut bytes)?;
+    if bytes[18] != 1 || bytes[19] != 1 {
+        return Err(StorageError::CorruptDatabase);
+    }
+    read_only(path)
+}
+
 pub(super) fn writable(paths: &Paths) -> Result<Connection, StorageError> {
     let path = paths.path(DATABASE);
     let conn = Connection::open_with_flags(

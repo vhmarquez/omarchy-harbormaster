@@ -1,6 +1,85 @@
 use super::*;
 
 #[test]
+fn all_backup_stage_and_rollback_sidecars_reject_external_hardlinks() {
+    for basename in ["state.backup.db", "state.staging.db", "state.rollback.db"] {
+        for suffix in ["-wal", "-shm", "-journal"] {
+            let fixture = Fixture::new();
+            let mut engine = fixture.open();
+            engine.execute(&Request::Backup).unwrap();
+            let sentinel = fixture.root.join("unrelated-sentinel");
+            let bytes = vec![0x5a; 32768];
+            std::fs::write(&sentinel, &bytes).unwrap();
+            std::fs::set_permissions(&sentinel, std::fs::Permissions::from_mode(0o600)).unwrap();
+            std::fs::hard_link(
+                &sentinel,
+                fixture
+                    .root
+                    .join("harbormaster")
+                    .join(format!("{basename}{suffix}")),
+            )
+            .unwrap();
+            assert_eq!(
+                engine.execute(&Request::Backup),
+                Err(StorageError::UnsafePath)
+            );
+            assert_eq!(
+                engine.execute(&Request::RestoreBackup),
+                Err(StorageError::UnsafePath)
+            );
+            assert_eq!(std::fs::read(&sentinel).unwrap(), bytes);
+        }
+    }
+}
+
+#[test]
+fn explicit_corrupt_page_recovery_uses_verified_backup_and_revision_floor() {
+    use std::io::{Seek, Write};
+    let fixture = Fixture::new();
+    let mut engine = fixture.open();
+    let (generation, revision) = register(&mut engine, 1);
+    let set = write(generation, revision, 1, 3);
+    commit(&mut engine, &set);
+    engine.execute(&Request::Backup).unwrap();
+    let page: u32 = engine
+        .connection
+        .as_ref()
+        .unwrap()
+        .query_row(
+            "SELECT rootpage FROM sqlite_schema WHERE name='facts'",
+            [],
+            |row| row.get(0),
+        )
+        .unwrap();
+    drop(engine);
+    let mut file = std::fs::OpenOptions::new()
+        .write(true)
+        .open(fixture.database())
+        .unwrap();
+    file.seek(std::io::SeekFrom::Start(u64::from(page - 1) * 4096))
+        .unwrap();
+    file.write_all(&[0xff; 32]).unwrap();
+    file.sync_all().unwrap();
+    drop(file);
+    assert!(matches!(
+        Engine::open(&fixture.root),
+        Err(StorageError::CorruptDatabase)
+    ));
+    let engine = Engine::recover_backup(&fixture.root, Revision::new(15)).unwrap();
+    assert_eq!(
+        queries::revision(engine.connection.as_ref().unwrap()).unwrap(),
+        Revision::new(16)
+    );
+    assert_eq!(count(&engine, "facts"), 1);
+    assert!(
+        !queries::producer(engine.connection.as_ref().unwrap(), &id(1))
+            .unwrap()
+            .unwrap()
+            .active
+    );
+}
+
+#[test]
 fn restore_never_reuses_a_pre_restore_revision() {
     let fixture = Fixture::new();
     let mut engine = fixture.open();
@@ -38,6 +117,12 @@ fn live_backup_and_restore_preserve_outcome_and_require_reconciliation() {
     let set = write(generation, revision, 1, 3);
     commit(&mut engine, &set);
     engine.execute(&Request::Backup).unwrap();
+    let backup_bytes = std::fs::read(fixture.root.join("harbormaster/state.backup.db")).unwrap();
+    assert_eq!(
+        &backup_bytes[18..20],
+        &[1, 1],
+        "published backup must need no WAL/SHM"
+    );
     engine
         .execute(&Request::MarkReviewed(ReviewUpdate {
             expected_revision: Revision::new(2),
@@ -112,6 +197,16 @@ fn migration_uses_verified_backup_and_future_schema_is_untouched() {
         .unwrap();
     drop(engine);
     let engine = fixture.open();
+    assert_eq!(
+        schema::inspect(engine.connection.as_ref().unwrap()).unwrap(),
+        2
+    );
+    assert_eq!(
+        schema::header(&fixture.root.join("harbormaster/state.backup.db")).unwrap(),
+        1
+    );
+    let mut engine = engine;
+    engine.execute(&Request::RestoreBackup).unwrap();
     assert_eq!(
         schema::inspect(engine.connection.as_ref().unwrap()).unwrap(),
         2

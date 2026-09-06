@@ -1,6 +1,35 @@
 use super::*;
 
 #[test]
+fn fact_capacity_can_be_released_by_bounded_maintenance_only() {
+    let fixture = Fixture::new();
+    let mut engine = fixture.open();
+    let (generation, revision) = register(&mut engine, 1);
+    engine.connection.as_ref().unwrap().execute_batch("WITH RECURSIVE n(x) AS(VALUES(1) UNION ALL SELECT x+1 FROM n WHERE x<20000) INSERT INTO facts SELECT printf('fixture-%d',x),'fixture','fixture',CAST(printf('%08d',x) AS BLOB),'fixture',100,X'7b7d',X'0000000000000000' FROM n").unwrap();
+    let mut set = write(generation, revision, 1, 3);
+    assert_eq!(
+        engine.execute(&Request::Commit(Box::new(set.clone()))),
+        Err(StorageError::ResourceExhausted)
+    );
+    let Response::Maintained { revision, result } = engine
+        .execute(&Request::Maintain {
+            expected_revision: revision,
+            now: 100,
+            history: HistoryRetention::ThirtyDays,
+        })
+        .unwrap()
+    else {
+        panic!()
+    };
+    assert_eq!(result.facts_removed, 100);
+    assert_eq!(count(&engine, "facts"), 19_900);
+    set.expected_revision = revision;
+    commit(&mut engine, &set);
+    assert_eq!(count(&engine, "facts"), 19_901);
+    assert_eq!(count(&engine, "attention"), 1);
+}
+
+#[test]
 fn tombstone_cap_requires_atomic_retirement_and_failed_retirement_preserves_rows() {
     let fixture = Fixture::new();
     let mut engine = fixture.open();

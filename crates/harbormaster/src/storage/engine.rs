@@ -15,6 +15,35 @@ pub(crate) struct Engine {
     paths: Paths,
 }
 impl Engine {
+    /// Explicit manager-only recovery. The caller supplies an authoritative
+    /// revision upper bound including possibly committed unknown outcomes.
+    /// A last acknowledgement is insufficient; an unknown bound must never be guessed.
+    pub(crate) fn recover_backup(
+        root: &Path,
+        revision_floor: crate::protocol::Revision,
+    ) -> Result<Self, StorageError> {
+        let paths = Paths::open(root)?;
+        schema::header(&paths.path(DATABASE))?;
+        // A corrupt main database with pending WAL cannot be safely classified
+        // or checkpointed here. Preserve it for explicit supported recovery.
+        if paths.length("state.db-wal")? != 0 {
+            return Err(StorageError::RecoveryRequired);
+        }
+        match schema::read_only(&paths.path(DATABASE)) {
+            Err(StorageError::CorruptDatabase) => (),
+            Err(error) => return Err(error),
+            Ok(_) => return Err(StorageError::InvalidRequest),
+        }
+        let next = backup::stage_restore(&paths, revision_floor)?;
+        backup::replace(&paths)?;
+        let mut engine = Self {
+            connection: None,
+            paths,
+        };
+        engine.install_restore(next)?;
+        Ok(engine)
+    }
+
     pub(crate) fn open(root: &Path) -> Result<Self, StorageError> {
         let paths = Paths::open(root)?;
         if paths.length("state.db-wal")? > schema::WAL_BOUND {
@@ -110,22 +139,35 @@ impl Engine {
         conn.close()
             .map_err(|(_, error)| StorageError::from(error))?;
         backup::replace(&self.paths)?;
-        let mut restored = schema::writable(&self.paths)?;
-        if schema::inspect(&restored)
-            .and_then(|_| schema::configure(&restored))
-            .is_err()
-        {
-            drop(restored);
+        self.install_restore(next)?;
+        Ok(Response::Restored { revision: next })
+    }
+
+    fn install_restore(&mut self, next: crate::protocol::Revision) -> Result<(), StorageError> {
+        let result = load_restored(&self.paths, next);
+        let Ok(restored) = result else {
+            if self.paths.length("state.db-wal")? != 0 || self.paths.exists("state.db-shm")? {
+                return Err(StorageError::RecoveryRequired);
+            }
             self.paths.rename(ROLLBACK, DATABASE)?;
-            self.connection = Some(schema::writable(&self.paths)?);
             return Err(StorageError::RecoveryRequired);
-        }
-        invalidate_generations(&mut restored, Some(next))?;
-        let revision = queries::revision(&restored)?;
+        };
         self.connection = Some(restored);
         self.paths.remove(ROLLBACK)?;
-        Ok(Response::Restored { revision })
+        Ok(())
     }
+}
+
+fn load_restored(
+    paths: &Paths,
+    next: crate::protocol::Revision,
+) -> Result<Connection, StorageError> {
+    let mut restored = schema::writable(paths)?;
+    schema::inspect(&restored)?;
+    schema::configure(&restored)?;
+    invalidate_generations(&mut restored, Some(next))?;
+    checkpoint(&restored)?;
+    Ok(restored)
 }
 
 fn pressure(conn: &Connection, paths: &Paths) -> Result<(), StorageError> {
