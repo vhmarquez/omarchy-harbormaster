@@ -1,0 +1,64 @@
+{
+  "verdict": "PASS_FOR_REVIEWED_CORE",
+  "observed_at": "2026-09-06T18:02:38.473351+00:00",
+  "author_engine_commit": "6dcdd242ab02d5fc28978c14dec6c0cbe3a286b9",
+  "author_worker_commit": "6c06d82e20eca365fc1e816dd05e9d3598eddddd",
+  "scope": "Independent transactional correctness, typed authority/replay scopes, worker ownership/bounds and maintainability review; later worker recovery wrapper/public crash tests pending final binding",
+  "blocking_findings": [],
+  "reviewed_core_sha256": {
+    "crates/harbormaster/src/storage/backup.rs": "303d58dc8363e67c4f34634395d5dd4e52cf8dd791a32ead7512a33af1b8df19",
+    "crates/harbormaster/src/storage/engine.rs": "c453236e33867b1394a2489c136409f45519d33cc04167394aff68afdab80557",
+    "crates/harbormaster/src/storage/maintenance.rs": "ea35fddc36f37293613631d6d43bcd6737f554aa0fd8cbaeeae35fd320fcc201",
+    "crates/harbormaster/src/storage/mod.rs": "02872e6fd6895647060d8dcd8098da81c00d0b4c61627885343c7ad5b0c4e5cb",
+    "crates/harbormaster/src/storage/paths.rs": "6183c564bcfa68b2be49edf61a7a821f11b339680d475782b933a9f1aa3164a8",
+    "crates/harbormaster/src/storage/queries.rs": "9b0cfe80dfe10c1ea6d19cd17f024b04c48e54a4ca4a17b62988e269e6202ffb",
+    "crates/harbormaster/src/storage/schema.rs": "8ef2d6ec4179c326da3b604b0dba5fbe86e63581120381256c896746d994f957",
+    "crates/harbormaster/src/storage/tests/bounds.rs": "6d9d9e653babc3dfe903fc9cd4a69b6a88529017546a6926902089d76269d882",
+    "crates/harbormaster/src/storage/tests/mod.rs": "745d3c605d87de3ab1c75975e3d6b5a9e3ac31969d042c0c517674199668878a",
+    "crates/harbormaster/src/storage/tests/recovery.rs": "f01c704604d2ab311bc50b5c5e032c46c4f94ec0ec3454ace1f72ea87455c80d",
+    "crates/harbormaster/src/storage/tests/writes.rs": "db89a38bad4398b039d51e5c25b3705ab2c6f70a7361d6eb448694d8f8350714",
+    "crates/harbormaster/src/storage/transaction.rs": "581aa3df1cde741ebcea59c6dfd8f7a8833daae5819879d11a5f64da072fa79c",
+    "crates/harbormaster/src/storage/types.rs": "61116e143cb83daf1bc4dfb23b204f7e020b40c2c787d72b5fc271d3711e2aed",
+    "crates/harbormaster/src/storage/validation.rs": "1913d9ab3543dfadd3daf1219e8174d81be29caf2c78628b271cba8a89d10a35",
+    "crates/harbormaster/src/storage/worker/pending.rs": "39363474df2d24fa347e0dea263cabd65ccb85710ef9975a8972c475f42c56cb",
+    "crates/harbormaster/src/storage/worker/tests.rs": "8bd3336983eb958b37aebd5bcb5bbb7a922dd447a4ed1d8d9db8709e697b3ecb",
+    "crates/harbormaster/src/storage/worker.rs": "16f78c33c77d69fe15441624cc9bf92212bfe0f65f2df272406004f2508c7141"
+  },
+  "actual_results": {
+    "latest": "latest-6dcdd24/results.json",
+    "latest_storage_tests": 28,
+    "composition": "20author engine +6worker +2independent",
+    "causal_mutations": "semantic-ef8e4a6/results.json",
+    "restore_floor_mutant": "removing live revision floor causes actual restore to reuse3 and independent test fails",
+    "worker_permit_mutant": "removing shared pending permit from queued envelope frees capacity when ticket dropped; actual test63vs64 fails",
+    "restored_after_mutations_storage_tests": 24,
+    "baseline_failure": "initial.json; both independent tests failed at first open under SQLite all-path NOFOLLOW; not misclassified as restore-specific RED",
+    "review_harness_error": "correction-mutations.json injected duplicate test module, compile failed; corrected by removing reviewer-only duplicate hook, not a product defect"
+  },
+  "resolved_findings": [
+    "Generation-scoped event/outcome keys replace global EventId alias",
+    "Explicit review update enables existing obligation review independently of delivery/history",
+    "Retained file inode checks and nofollow header; fixed sidecars protected (separate reviewer assessing filesystem coverage)",
+    "Actual SQLite all-path NOFOLLOW conflict fixed without dropping anchored directory validation",
+    "Live restore revision floor monotonically invalidates every prior cursor/control revision",
+    "Startup WAL pressure check precedes generation-retirement mutation",
+    "History cap maintenance frees bounded oldest facts",
+    "Reconciliation rejects mismatched harness and query restores stored harness",
+    "Known corrupt manager backup recovery requires authoritative possibly-committed revision upper bound and refuses pending WAL/future/foreign schema"
+  ],
+  "maintainability": {
+    "new_storage_production_hotspots": [],
+    "canonical_plan_function": "54nonblank,3branches,nesting1; accepted cohesive inventory declaration",
+    "responsibilities": "worker transport/permits; typed model/validation; fixed path identity; schema/build config; transaction writes; bounded queries; separate maintenance; supported backup/restore; pure protocol dependency unchanged"
+  },
+  "remaining_final_review": [
+    "Read committed worker explicit recovery wrapper and final public integration/crash targets",
+    "Bind final core hashes or recheck material changes",
+    "Final canonical combined/native/hosted/paired qualification remains root responsibility"
+  ],
+  "limits": [
+    "No live harness/database/adapter or reducer execution",
+    "Metadata schema/type cannot prove adapter provenance",
+    "The tested transaction faults/process behavior are not power-loss attestation or a physical-filesystem guarantee"
+  ]
+}

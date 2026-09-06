@@ -1,0 +1,51 @@
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.24
+   Compiling quote v1.0.47
+   Compiling serde_core v1.0.229
+   Compiling vcpkg v0.2.15
+   Compiling pkg-config v0.3.34
+   Compiling autocfg v1.5.1
+   Compiling bitflags v2.13.1
+   Compiling zmij v1.0.23
+   Compiling cfg_aliases v0.2.2
+   Compiling libc v0.2.189
+   Compiling serde v1.0.229
+   Compiling rustix v1.1.4
+   Compiling serde_json v1.0.151
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.18
+   Compiling smallvec v1.16.0
+   Compiling fallible-iterator v0.3.0
+   Compiling fallible-streaming-iterator v0.1.9
+   Compiling linux-raw-sys v0.12.1
+   Compiling cfg-if v1.0.4
+   Compiling nix v0.31.3
+   Compiling memoffset v0.9.1
+   Compiling libsqlite3-sys v0.38.2
+   Compiling rusqlite v0.40.2
+   Compiling syn v3.0.5
+   Compiling serde_derive v1.0.229
+   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.02s
+     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)
+
+running 2 tests
+
+thread 'storage::independent_review::independent_restore_never_reuses_a_pre_restore_snapshot_revision' (927) panicked at crates/harbormaster/src/storage/independent_review.rs:11:30:
+called `Result::unwrap()` on an `Err` value: PersistenceUnavailable
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'storage::independent_review::independent_fixed_descriptor_path_can_open_private_state' (926) panicked at crates/harbormaster/src/storage/independent_review.rs:11:30:
+called `Result::unwrap()` on an `Err` value: PersistenceUnavailable
+test storage::independent_review::independent_fixed_descriptor_path_can_open_private_state ... FAILED
+test storage::independent_review::independent_restore_never_reuses_a_pre_restore_snapshot_revision ... FAILED
+
+failures:
+
+failures:
+    storage::independent_review::independent_fixed_descriptor_path_can_open_private_state
+    storage::independent_review::independent_restore_never_reuses_a_pre_restore_snapshot_revision
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 11 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `--lib`

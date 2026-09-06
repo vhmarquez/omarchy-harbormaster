@@ -1,0 +1,52 @@
+{
+  "observed_at": "2026-09-06T17:55:23.986913+00:00",
+  "author_engine_revision": "c71eeda",
+  "author_worker_revision": "6c06d82",
+  "source_note": "Review-only independent2tests and cfgtest hook for author16tests added; each mutant changes only documented guard in private snapshot",
+  "results": [
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.009,
+      "name": "correction-preflight",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verification/preflight.py",
+        "--stage-cargo"
+      ],
+      "log": "correction-preflight.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 16.112,
+      "name": "correction-sqlite",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verification/sqlite.py"
+      ],
+      "log": "correction-sqlite.txt"
+    },
+    {
+      "exit_code": 101,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 2.843,
+      "name": "correction-all-unit",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--lib",
+        "--",
+        "--nocapture"
+      ],
+      "log": "correction-all-unit.txt"
+    }
+  ]
+}

@@ -4,6 +4,7 @@ mod pending;
 mod tests;
 
 use super::{Engine, Request, Response, StorageError};
+use crate::protocol::Revision;
 use pending::{Envelope, Pool};
 pub use pending::{ReceiptError, SubmitError, SubmitFailure, Ticket};
 use std::path::Path;
@@ -37,6 +38,32 @@ impl DatabaseWorker {
     /// startup fails/times out. A timed-out open may still be finishing OS I/O;
     /// it drops its connection when that I/O returns, without accepting work.
     pub fn open(state_home: &Path) -> Result<Self, StorageError> {
+        Self::start(state_home, None)
+    }
+
+    /// Explicitly recover an identifiable, corrupt manager database from its
+    /// verified fixed backup. No automatic recovery or revision guessing occurs.
+    ///
+    /// `revision_floor` must be a trusted upper bound on EVERY revision issued
+    /// or possibly committed before recovery, including unknown outcomes. The
+    /// last acknowledged revision alone is insufficient. If that bound is not
+    /// available, this recovery operation must not be used. The restored state
+    /// receives a greater revision and requires fresh producer reconciliation.
+    /// A startup timeout is an unknown recovery outcome: replacement may already
+    /// have committed or may finish after timeout. It does not cancel recovery
+    /// or guarantee unchanged state; reconcile before any subsequent operation.
+    ///
+    /// # Errors
+    /// Rejects unsafe paths, foreign/future/unidentifiable databases, pending
+    /// WAL data, invalid backups, revision overflow, or failed/timed-out startup.
+    pub fn recover_backup(
+        state_home: &Path,
+        revision_floor: Revision,
+    ) -> Result<Self, StorageError> {
+        Self::start(state_home, Some(revision_floor))
+    }
+
+    fn start(state_home: &Path, recovery_floor: Option<Revision>) -> Result<Self, StorageError> {
         let path = state_home.to_path_buf();
         let (sender, receiver) = mpsc::sync_channel(MAX_OUTSTANDING);
         let (ready, initialized) = mpsc::sync_channel(1);
@@ -45,7 +72,11 @@ impl DatabaseWorker {
         let thread = thread::Builder::new()
             .name("harbormaster-db".into())
             .spawn(move || {
-                let mut engine = match Engine::open(&path) {
+                let opened = match recovery_floor {
+                    Some(floor) => Engine::recover_backup(&path, floor),
+                    None => Engine::open(&path),
+                };
+                let mut engine = match opened {
                     Ok(engine) => engine,
                     Err(error) => {
                         let _ = ready.send(Err(error));

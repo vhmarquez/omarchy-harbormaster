@@ -1,0 +1,71 @@
+{
+  "source_faults": [
+    {
+      "input": "sqlite-amalgamation-3530400.zip",
+      "mutation": "missing",
+      "rejected": "ValueError"
+    },
+    {
+      "input": "sqlite-amalgamation-3530400.zip",
+      "mutation": "corrupt",
+      "rejected": "ValueError"
+    },
+    {
+      "input": "sqlite-amalgamation-3530400.zip",
+      "mutation": "symlink",
+      "rejected": "ValueError"
+    },
+    {
+      "input": "sqlite3.c",
+      "mutation": "missing",
+      "rejected": "ValueError"
+    },
+    {
+      "input": "sqlite3.c",
+      "mutation": "corrupt",
+      "rejected": "ValueError"
+    },
+    {
+      "input": "sqlite3.c",
+      "mutation": "symlink",
+      "rejected": "ValueError"
+    },
+    {
+      "input": "sqlite3.h",
+      "mutation": "missing",
+      "rejected": "ValueError"
+    },
+    {
+      "input": "sqlite3.h",
+      "mutation": "corrupt",
+      "rejected": "ValueError"
+    },
+    {
+      "input": "sqlite3.h",
+      "mutation": "symlink",
+      "rejected": "ValueError"
+    },
+    {
+      "input": "extra-file",
+      "rejected": "unexpected SQLite prepared input"
+    },
+    {
+      "input": "extra-directory",
+      "rejected": "unexpected SQLite prepared input"
+    }
+  ],
+  "actual_configuration_faults": [
+    {
+      "mutation": "uri-enabled",
+      "rejected_by_executed_probe_exit": 4
+    },
+    {
+      "mutation": "trusted-schema-enabled",
+      "rejected_by_executed_probe_exit": 5
+    }
+  ],
+  "causal_dynamic_guard": {
+    "actual_validator_rejects_host_dynamic": true,
+    "removing_only_dynamic_guard_accepts_same_host_ELF": true
+  }
+}

@@ -1,10 +1,14 @@
 # Current continuation
 
-The owner merged #49 on 2026-09-06 and #7 is closed. Its fresh main qualification
-and the pre-implementation #8 boundaries are recorded in [M1-8-DEVELOPMENT.md](M1-8-DEVELOPMENT.md).
-The following #7 responsibility and review records are historical. Subsequent
-PRs still require explicit owner approval of each revision before merge or
-dependent implementation.
+The owner merged PR #50 on 2026-09-06 and #8 is closed. Actual current main
+`47d726972991c88da897fe20ef4ce413142227d5` passed post-merge qualification.
+[#9 responsibilities and approved retention](M1-9-DEVELOPMENT.md) were recorded
+before storage implementation; [the storage contract](M1-9-STORAGE-ENGINE.md)
+and [SQLite build review](M1-9-SQLITE-BUILD.md) define its scope.
+Each subsequent PR/revision still needs explicit owner approval before merge or
+dependent implementation. #10 and M2 have not begun. The following #7 records
+are historical; their former merge and retention blockers are superseded by the
+verified owner merges and the explicit #9 retention decision above.
 
 # Development contract — M1 #7
 

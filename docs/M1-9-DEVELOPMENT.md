@@ -120,3 +120,12 @@ Publish an evidence-backed #9 PR only after local combined, dedicated native,
 hosted portable Docker and actual paired qualification at the exact candidate,
 plus independent review. Stop for explicit owner approval of that PR/revision
 before merge or dependent #10 implementation. #50's approval is not #9 approval.
+
+## Review refinement: shared generation issuance
+
+Before removing duplicated OS entropy code, the narrow existing generation
+primitive moves from ingestion into a crate-private `generation` module. Both
+volatile admission and durable storage call it and map its value-free entropy
+error into their own error types. Protocol remains pure, storage never imports
+admission, and no new public API, dependency or generic utility module is added.
+Existing ingestion and storage reconciliation tests must remain required.

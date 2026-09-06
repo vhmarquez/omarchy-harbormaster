@@ -1,0 +1,28 @@
+   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)
+warning: unused variable: `live_revision`
+  --> crates/harbormaster/src/storage/backup.rs:67:5
+   |
+67 |     live_revision: crate::protocol::Revision,
+   |     ^^^^^^^^^^^^^ help: if this is intentional, prefix it with an underscore: `_live_revision`
+   |
+   = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: `harbormaster` (lib test) generated 1 warning (run `cargo fix --lib -p harbormaster --tests` to apply 1 suggestion)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.30s
+     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)
+
+running 1 test
+
+thread 'storage::independent_review::independent_restore_never_reuses_a_pre_restore_snapshot_revision' (289) panicked at crates/harbormaster/src/storage/independent_review.rs:50:5:
+restore reused an already issued revision: 3
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test storage::independent_review::independent_restore_never_reuses_a_pre_restore_snapshot_revision ... FAILED
+
+failures:
+
+failures:
+    storage::independent_review::independent_restore_never_reuses_a_pre_restore_snapshot_revision
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 34 filtered out; finished in 0.09s
+
+error: test failed, to rerun pass `--lib`

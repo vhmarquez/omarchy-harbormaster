@@ -1,0 +1,58 @@
+{
+  "observed_at": "2026-09-06T17:44:56.499743+00:00",
+  "results": [
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.023,
+      "name": "faults-preflight",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verification/preflight.py",
+        "--stage-cargo"
+      ],
+      "log": "faults-preflight.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 16.171,
+      "name": "faults-sqlite-build",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verification/sqlite.py"
+      ],
+      "log": "faults-sqlite-build.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 3.201,
+      "name": "faults-rust-static",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "tests/tooling/probe_sqlite.py"
+      ],
+      "log": "faults-rust-static.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 32.502,
+      "name": "independent-faults",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "tests/review_sqlite_probe.py"
+      ],
+      "log": "independent-faults.txt"
+    }
+  ]
+}

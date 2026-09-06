@@ -121,3 +121,34 @@ primitive does not invent a revision or expose an automatic salvage UI.
 
 Deleting rows or fixed owned staging files makes no secure-erasure promise for
 SQLite pages, WAL, backups, snapshots or underlying media.
+
+## Worker receipts and process interruption
+
+A single database thread accepts fixed typed requests. Its 64 outstanding
+permits cover queued work, executing work and retained completed tickets together.
+A dropped ticket does not release its queued/executing operation's permit;
+completed tickets retain capacity until dropped. Submission never blocks and
+returns the original request on invalid input, full capacity or shutdown.
+The ticket exposes its original request by borrow for reconciliation.
+Each response channel has one slot; timeout keeps the ticket available, and a
+closed channel reports an unknown outcome rather than claiming rollback.
+Worker drop requests stop without waiting for OS I/O. Already executing work may
+commit; shutdown is not transaction cancellation.
+
+Startup has a five-second response timeout. A late open finishes its OS I/O and
+closes without accepting work. A recovery startup timeout has an unknown recovery
+outcome: replacement may already be committed or may finish after timeout.
+Reconcile before another operation; timeout never promises unchanged storage.
+
+The required `storage` integration target checks the actual public worker,
+static SQLite identity, bounded pagination, stale snapshots, supported retention,
+reopen, backup and explicit corrupt-page recovery. `storage_crash` uses real
+SIGKILL in two private subprocess fixtures: an observed extended write-lock
+window held with a finite test-only SQL trigger, and committed rows visible to
+a separate connection before the child consumes its ticket response. The first
+window depends on scheduling and is not an exact SQL instruction crash hook.
+It asserts no partial records after rollback; the second asserts all records,
+checkpoint and scoped exact retry survive. Causal mutations must detect
+projection writes outside the transaction and full autocommit. These tests are
+storage process-interruption evidence, not power-loss attestation, native-harness
+qualification or the future #10 reducer/replay/spool controller.
