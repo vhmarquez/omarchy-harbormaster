@@ -1,0 +1,21 @@
+{
+  "scope": "Storage component execution in source snapshots under the unchanged isolated verifier helper; not final PR qualification",
+  "initial_red": {
+    "tests": 2,
+    "failed": 2,
+    "reason": "New Apply/Policy operation stubs return PersistenceUnavailable"
+  },
+  "initial_green": {
+    "tests": 2,
+    "failed": 0
+  },
+  "full_green": {
+    "unit": 50,
+    "legacy_storage_integration": 15,
+    "regular_filesystem_enospc_integration": 1,
+    "failed": 0
+  },
+  "clippy": "All targets, all features, -D warnings PASS",
+  "isolation": "Pinned offline static SQLite/Rust tool tree; read-only source/tools, existing private development compilation state; canonical sandbox now includes the parent-approved fixed private1MiB /fault-fs tmpfs",
+  "source_binding": "Each receipt retains actual output and SHA256 of its exact source snapshot. Parent performs fresh final canonical Docker/native qualification."
+}

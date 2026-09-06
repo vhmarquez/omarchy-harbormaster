@@ -115,13 +115,18 @@ pub struct DeliveryUpdate {
 pub enum Request {
     Context(Box<EventEnvelope>),
     Apply(Box<super::ReducerWrite>),
-    Reconcile(super::Reconciliation),
+    Reconcile(Box<super::Reconciliation>),
     ReviewOutcome(super::OutcomeReview),
     Policy,
     Status,
-    UpdatePolicy { expected_revision: Revision, history: HistoryRetention },
-    CleanupPreview { now: i64 },
-    ApplyCleanup(super::CleanupPreview),
+    UpdatePolicy {
+        expected_revision: Revision,
+        history: HistoryRetention,
+    },
+    CleanupPreview {
+        now: i64,
+    },
+    ApplyCleanup(Box<super::CleanupPreview>),
     Register(Registration),
     Commit(Box<WriteSet>),
     Snapshot(SnapshotQuery),
@@ -146,6 +151,7 @@ pub struct ProducerRecord {
     pub run_id: RunId,
     pub next_sequence: Option<Seq>,
     pub active: bool,
+    pub reconciled: bool,
 }
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SnapshotPage {
@@ -172,7 +178,7 @@ pub struct MaintenanceResult {
 }
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Response {
-    Context(super::ReducerContext),
+    Context(Box<super::ReducerContext>),
     Policy(super::StoragePolicy),
     Status(super::StorageStatus),
     CleanupPreview(super::CleanupPreview),

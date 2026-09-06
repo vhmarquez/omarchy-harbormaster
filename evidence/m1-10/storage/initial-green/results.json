@@ -1,0 +1,17 @@
+{
+  "command": [
+    "cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--workspace",
+    "--lib",
+    "--all-features",
+    "storage::engine::tests::reducer"
+  ],
+  "exit_code": 0,
+  "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.96s\n     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)\n\nrunning 2 tests\ntest storage::engine::tests::reducer::policy_preview_is_read_only_and_unavailable_reconciliation_is_inactive ... ok\ntest storage::engine::tests::reducer::context_proves_exact_retained_payload_and_retains_terminal_after_history_cleanup ... ok\n\ntest result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 39 filtered out; finished in 0.07s\n\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 1.038
+}

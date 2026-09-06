@@ -1,18 +1,27 @@
 //! Manager-owned SQLite storage, reachable only through the bounded worker.
+mod attention_state;
 mod backup;
+mod context;
 mod engine;
 mod maintenance;
+mod migration;
+mod outcomes;
 mod paths;
+mod policy;
 mod queries;
+mod reconciliation;
+mod reducer_transaction;
 mod reducer_types;
+mod reducer_validation;
 mod schema;
+mod schema_layout;
 mod transaction;
 mod types;
 mod validation;
 mod worker;
 pub(crate) use engine::Engine;
-pub use types::*;
 pub use reducer_types::*;
+pub use types::*;
 pub use worker::{
     DatabaseWorker, MAX_OUTSTANDING, ReceiptError, SubmitError, SubmitFailure, Ticket,
 };

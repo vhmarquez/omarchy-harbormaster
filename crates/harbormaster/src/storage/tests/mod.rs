@@ -9,6 +9,9 @@ use std::{
 mod bounds;
 mod recovery;
 mod reducer;
+mod reducer_attention;
+mod reducer_migration;
+mod reducer_reconciliation;
 mod writes;
 
 static NEXT: AtomicUsize = AtomicUsize::new(0);
