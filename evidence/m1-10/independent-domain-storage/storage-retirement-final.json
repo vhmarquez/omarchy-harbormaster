@@ -1,0 +1,213 @@
+{
+  "storage_commit": "87bf2d327853af22de63b5f123982f0f2d393868",
+  "domain_overlay": "domain-fixed-green.json",
+  "reviewed_source_sha256": {
+    "crates/harbormaster/src/storage/attention_state.rs": "b7e752198be51bae52982a9b7519f1e393f39810bc48a5492584cde1be416402",
+    "crates/harbormaster/src/storage/backup.rs": "303d58dc8363e67c4f34634395d5dd4e52cf8dd791a32ead7512a33af1b8df19",
+    "crates/harbormaster/src/storage/context.rs": "183999b465b7b97772fbd9a093e4bc1ddd3f0333233c05cc4384c8b587dd3b98",
+    "crates/harbormaster/src/storage/engine.rs": "c6190e985e1df12d6a5884aa7d873c4d0c9e86add64f24c37d2bc15dfe70e225",
+    "crates/harbormaster/src/storage/maintenance.rs": "4d0919ff324a23fb9d06c41fd162496628e54ae200df9c01e765b80d602b65cb",
+    "crates/harbormaster/src/storage/migration.rs": "03e4983e8767312d94d39f94f69610ff510de9bc4a2494e929efd8b42a565ce3",
+    "crates/harbormaster/src/storage/mod.rs": "2fb06a0f68ccde0ca9baf1389d608a7c56ac01f9b1d7de098d11aa74f5c2f223",
+    "crates/harbormaster/src/storage/outcomes.rs": "a7d66abc89af785daefa3ca80dcce77d16bae74f303b08d82447e20cd452cf89",
+    "crates/harbormaster/src/storage/paths.rs": "6183c564bcfa68b2be49edf61a7a821f11b339680d475782b933a9f1aa3164a8",
+    "crates/harbormaster/src/storage/policy.rs": "58b39048388b040b92914eaac8624bc7c0e39d6b217ae05f14cf3ae0db335e14",
+    "crates/harbormaster/src/storage/queries.rs": "2fa8d0658668ff361e0ca889cf87180959f1a6d9dd882c959722c4d9ec57f6a4",
+    "crates/harbormaster/src/storage/reconciliation.rs": "9bbe5d96286b83dad844d05d82797349668ea54178f1cba7cb024b17ba6004e6",
+    "crates/harbormaster/src/storage/reducer_transaction.rs": "b41c744f27f1d5c579c7a15290c92eb8b80b9d16d5aa1678ea6db77d0d0de3c5",
+    "crates/harbormaster/src/storage/reducer_types.rs": "0cd08d7a46dd1e3402ce897490fa045999030e2bb05e6e1d70ed5b08768fb10b",
+    "crates/harbormaster/src/storage/reducer_validation.rs": "afa99d06b351a2eef082617568a3e65d767aefe0108afcdc9072b03a0977eee6",
+    "crates/harbormaster/src/storage/retirement.rs": "f10094ea506f1c3372bd2738927724cee184972b3322944e9d6d65a11291f4b0",
+    "crates/harbormaster/src/storage/schema.rs": "82aad2d927a19562584700e632433713b469f0957169be9064267e82a8a093e0",
+    "crates/harbormaster/src/storage/schema_layout.rs": "90ae1d3a055881cbdcda8af51c9fb7a79783e6a6cea81ae88b76666863c5e498",
+    "crates/harbormaster/src/storage/tests/bounds.rs": "e131c8dda2c5bcb76d7f51307f87540daaa14ca5c63bfc917d2584809c59a95e",
+    "crates/harbormaster/src/storage/tests/mod.rs": "391b254ffb186f658984d67549ac0c0eb2498f5e154c1dfe89e31853f3e40431",
+    "crates/harbormaster/src/storage/tests/recovery.rs": "d6157ce2ab3bc232bc0cfea8ab60d3f26330c226b6ad75b0265975d428115680",
+    "crates/harbormaster/src/storage/tests/reducer.rs": "3d577d72d473e47d91b96dbf22956ab4f1c3a3b2703d6f88fb531a23fbbec62c",
+    "crates/harbormaster/src/storage/tests/reducer_attention.rs": "a936fa3464c5afa2abf07b3c09eb915229f7b892808e06fee21c2ca78a628ccf",
+    "crates/harbormaster/src/storage/tests/reducer_continuity.rs": "5738cbd6a837989882f8b086c1e5cd00b80a4ca0c43b34dc84411f6ce15b51d0",
+    "crates/harbormaster/src/storage/tests/reducer_continuity_guards.rs": "ed8460af9210ef393c5d2b59eaafda940dbcca3dbe5b70560e6da35cde025d5a",
+    "crates/harbormaster/src/storage/tests/reducer_migration.rs": "9fdbc151e2626a7a27dc36498463295fc2d7cbd6992cd3515465522680c6d43d",
+    "crates/harbormaster/src/storage/tests/reducer_progress.rs": "2ab5f8ee3c6c87adef62fb21851f8c20516f99afa36c73652824de7a837e2ea0",
+    "crates/harbormaster/src/storage/tests/reducer_reconciliation.rs": "b2744109dabb0c3092c0e1567938c0f0a365b8409a5b774e4508c5ee3d315f60",
+    "crates/harbormaster/src/storage/tests/reducer_retirement.rs": "6d30f2b6c0a785f3eddcb84d0f272053d649417db53e165d3cce90ee2225bcd0",
+    "crates/harbormaster/src/storage/tests/retirement_projection.rs": "4c1ed6bf702fbeeece9c2fa8a5dd08bdd286fe8856fb11f4608462323c076e39",
+    "crates/harbormaster/src/storage/tests/writes.rs": "db89a38bad4398b039d51e5c25b3705ab2c6f70a7361d6eb448694d8f8350714",
+    "crates/harbormaster/src/storage/transaction.rs": "ccfd40315551c4c35a4413dfb42ba1bc03ea3914f0371b96b4a8da502ff1b7b4",
+    "crates/harbormaster/src/storage/types.rs": "ba51ee82b4c25a46fcc5778371a77055b56492e51568c17a89ccc047b244a44d",
+    "crates/harbormaster/src/storage/validation.rs": "0df140bbea3b99f6bf0a9641bf59f6455cea7888f0202ecd64eaeab7a88a8ccb",
+    "crates/harbormaster/src/storage/worker/pending.rs": "39363474df2d24fa347e0dea263cabd65ccb85710ef9975a8972c475f42c56cb",
+    "crates/harbormaster/src/storage/worker/tests.rs": "8bd3336983eb958b37aebd5bcb5bbb7a922dd447a4ed1d8d9db8709e697b3ecb",
+    "crates/harbormaster/src/storage/worker.rs": "aab9d166596b3a13a9cd222e41e37c83321493ffab965d3bbde97092b9f0b4d1"
+  },
+  "method": "Exact committed storage archive in disposable source, independent rollback fixture added only in test copy; fresh mtimes and isolated package clean before baseline. No root/author edits.",
+  "results": [
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.058,
+      "name": "retirement-clean",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "clean",
+        "--package",
+        "harbormaster"
+      ],
+      "expected_exit": 0,
+      "log": "retirement-clean.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 2.919,
+      "name": "retirement-unit-green",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib",
+        "storage::engine::tests",
+        "--",
+        "--nocapture"
+      ],
+      "expected_exit": 0,
+      "log": "retirement-unit-green.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 2.559,
+      "name": "retirement-public-green",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--test",
+        "storage",
+        "--test",
+        "storage_crash",
+        "--test",
+        "storage_reducer",
+        "--",
+        "--nocapture"
+      ],
+      "expected_exit": 0,
+      "log": "retirement-public-green.txt"
+    },
+    {
+      "exit_code": 101,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.487,
+      "name": "projection-degradation-negative",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib",
+        "storage::engine::tests::retirement_projection::tombstone_cleanup_retires_current_projection_with_generation",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "expected_exit": 101,
+      "log": "projection-degradation-negative.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.489,
+      "name": "projection-degradation-restored",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib",
+        "storage::engine::tests::retirement_projection::tombstone_cleanup_retires_current_projection_with_generation",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "expected_exit": 0,
+      "log": "projection-degradation-restored.txt"
+    },
+    {
+      "exit_code": 101,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.472,
+      "name": "retirement-generation-scope-negative",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib",
+        "storage::engine::tests::retirement_projection::pruning_prior_generation_protection_preserves_fresh_current_projection",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "expected_exit": 101,
+      "log": "retirement-generation-scope-negative.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.484,
+      "name": "retirement-generation-scope-restored",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib",
+        "storage::engine::tests::retirement_projection::pruning_prior_generation_protection_preserves_fresh_current_projection",
+        "--",
+        "--exact",
+        "--nocapture"
+      ],
+      "expected_exit": 0,
+      "log": "retirement-generation-scope-restored.txt"
+    }
+  ],
+  "mutations": [
+    {
+      "name": "projection-degradation",
+      "file": "crates/harbormaster/src/storage/retirement.rs",
+      "before": "SET observation=1,turn=CASE WHEN turn IN(4,5,6) THEN turn ELSE 0 END",
+      "after": "SET observation=observation,turn=turn",
+      "mutated_sha256": "6f21d9a6f412cff056c68bb996736db6c2f3d239d01aad2ea57746c69530f8ea"
+    },
+    {
+      "name": "retirement-generation-scope",
+      "file": "crates/harbormaster/src/storage/retirement.rs",
+      "before": "(p.producer=?1 AND p.generation=?2)",
+      "after": "(p.producer=?1)",
+      "mutated_sha256": "afa0b12f40d9c95d1b35e4c21cf8de1eaaa12a0a7da201cc21d2712e3fffb87f"
+    }
+  ],
+  "production_restored": true,
+  "verdict": "PASS: retirement and scope corrections; both deliberate projection/generation regressions failed at runtime, restored source passed."
+}

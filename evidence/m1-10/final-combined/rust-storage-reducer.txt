@@ -1,0 +1,10 @@
+   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.15s
+     Running tests/storage_reducer.rs (/state/target/debug/deps/storage_reducer-6e84e5f9279b4c2b)
+
+running 2 tests
+test regular_filesystem_enospc_never_acknowledges_or_partially_commits_then_same_request_retries ... ok
+test cleanup_preview_from_another_worker_cannot_authorize_cleanup ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+

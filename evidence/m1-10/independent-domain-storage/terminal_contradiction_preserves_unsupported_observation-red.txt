@@ -1,0 +1,35 @@
+warning: methods `install_committed` and `invalidate` are never used
+   --> crates/harbormaster/src/ingestion/registry.rs:141:19
+    |
+111 | impl Registry {
+    | ------------- methods in this implementation
+...
+141 |     pub(crate) fn install_committed(
+    |                   ^^^^^^^^^^^^^^^^^
+...
+179 |     pub(crate) fn invalidate(&mut self, producer: &ProducerId) -> Result<usize, AdmissionError> {
+    |                   ^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `harbormaster` (lib) generated 1 warning
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.01s
+     Running tests/domain.rs (/state/target/debug/deps/domain-533ac3f7ae4cb2e7)
+
+running 1 test
+
+thread 'review_regressions::terminal_contradiction_preserves_unsupported_observation' (6) panicked at crates/harbormaster/tests/domain/review_regressions.rs:65:5:
+assertion `left == right` failed: a contradictory historical terminal cannot replace explicit observation policy
+  left: Stale
+ right: Unsupported
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test review_regressions::terminal_contradiction_preserves_unsupported_observation ... FAILED
+
+failures:
+
+failures:
+    review_regressions::terminal_contradiction_preserves_unsupported_observation
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 27 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `--test domain`

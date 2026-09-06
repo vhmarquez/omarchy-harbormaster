@@ -1,7 +1,6 @@
 use super::{
-    AttentionMutation, AttentionReason, DeliveryState, ObservationState, OutcomeKey, OutcomeRecord,
-    ProcessState, ProducerRecord, RunProjection, SnapshotPage, SnapshotQuery, StorageError,
-    TurnState, validation::decode_number,
+    AttentionReason, DeliveryState, ObservationState, ProcessState, ProducerRecord, RunProjection,
+    SnapshotPage, SnapshotQuery, StorageError, TurnState, validation::decode_number,
 };
 use crate::protocol::Revision;
 use rusqlite::{Connection, OptionalExtension};
@@ -37,7 +36,7 @@ pub(super) fn producer(
 ) -> Result<Option<ProducerRecord>, StorageError> {
     Ok(conn
         .query_row(
-            "SELECT generation,run,next_seq,active,harness FROM producers WHERE producer=?1",
+            "SELECT generation,run,next_seq,active,harness,reconciled FROM producers WHERE producer=?1",
             [id.as_str()],
             |row| {
                 let next: Option<Vec<u8>> = row.get(2)?;
@@ -56,6 +55,7 @@ pub(super) fn producer(
                         .transpose()?
                         .map(crate::protocol::Seq::new),
                     active: row.get(3)?,
+                    reconciled: row.get(5)?,
                 })
             },
         )
@@ -109,48 +109,12 @@ pub(super) fn snapshot(
         next_after,
     })
 }
-pub(super) fn outcome(
-    conn: &Connection,
-    key: &OutcomeKey,
-) -> Result<Option<OutcomeRecord>, StorageError> {
-    let args = rusqlite::params![
-        key.producer_id.as_str(),
-        key.generation.as_str(),
-        key.event_id.as_str()
-    ];
-    let run: Option<String> = conn.query_row("SELECT run FROM attention WHERE producer=?1 AND generation=?2 AND event=?3 UNION SELECT run FROM outbox WHERE producer=?1 AND generation=?2 AND event=?3 LIMIT 1", args, |row| row.get(0)).optional()?;
-    let Some(run) = run else {
-        return Ok(None);
-    };
-    let mut stmt = conn.prepare("SELECT reason,reviewed FROM attention WHERE producer=?1 AND generation=?2 AND event=?3 ORDER BY reason LIMIT 8")?;
-    let attention = stmt
-        .query_map(args, |row| {
-            Ok(AttentionMutation {
-                outcome_id: key.event_id.clone(),
-                reason: reason(row.get(0)?)?,
-                reviewed: row.get(1)?,
-            })
-        })?
-        .collect::<Result<Vec<_>, _>>()?;
-    let delivery = conn
-        .query_row(
-            "SELECT state FROM outbox WHERE producer=?1 AND generation=?2 AND event=?3",
-            args,
-            |row| delivery(row.get(0)?),
-        )
-        .optional()?;
-    Ok(Some(OutcomeRecord {
-        outcome: key.clone(),
-        run_id: parse(&run)?,
-        attention,
-        delivery,
-    }))
-}
+pub(super) use super::outcomes::outcome;
 
 pub(super) fn parse<T: std::str::FromStr>(value: &str) -> Result<T, rusqlite::Error> {
     value.parse().map_err(|_| rusqlite::Error::InvalidQuery)
 }
-fn process(value: u8) -> Result<ProcessState, rusqlite::Error> {
+pub(super) fn process(value: u8) -> Result<ProcessState, rusqlite::Error> {
     match value {
         0 => Ok(ProcessState::Unknown),
         1 => Ok(ProcessState::Alive),
@@ -159,7 +123,7 @@ fn process(value: u8) -> Result<ProcessState, rusqlite::Error> {
         _ => Err(rusqlite::Error::InvalidQuery),
     }
 }
-fn observation(value: u8) -> Result<ObservationState, rusqlite::Error> {
+pub(super) fn observation(value: u8) -> Result<ObservationState, rusqlite::Error> {
     match value {
         0 => Ok(ObservationState::Fresh),
         1 => Ok(ObservationState::Stale),
@@ -168,7 +132,7 @@ fn observation(value: u8) -> Result<ObservationState, rusqlite::Error> {
         _ => Err(rusqlite::Error::InvalidQuery),
     }
 }
-fn turn(value: u8) -> Result<TurnState, rusqlite::Error> {
+pub(super) fn turn(value: u8) -> Result<TurnState, rusqlite::Error> {
     match value {
         0 => Ok(TurnState::Unknown),
         1 => Ok(TurnState::Working),
@@ -180,7 +144,7 @@ fn turn(value: u8) -> Result<TurnState, rusqlite::Error> {
         _ => Err(rusqlite::Error::InvalidQuery),
     }
 }
-fn reason(value: u8) -> Result<AttentionReason, rusqlite::Error> {
+pub(super) fn reason(value: u8) -> Result<AttentionReason, rusqlite::Error> {
     match value {
         0 => Ok(AttentionReason::Input),
         1 => Ok(AttentionReason::NativeApproval),

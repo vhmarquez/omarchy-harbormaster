@@ -1,0 +1,400 @@
+{
+  "method": "Only four private recovery test files changed. Production code and lock behavior untouched. Direct AlreadyOwned while a token is held remains unchanged.",
+  "results": [
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.101,
+      "name": "fixture-format",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "log": "fixture-format.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 2.251,
+      "name": "fixture-clippy",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "clippy",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--all-targets",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "log": "fixture-clippy.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.823,
+      "name": "fixed-full-unit-01",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib"
+      ],
+      "log": "fixed-full-unit-01.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.114,
+      "name": "fixed-full-unit-02",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib"
+      ],
+      "log": "fixed-full-unit-02.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.107,
+      "name": "fixed-full-unit-03",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib"
+      ],
+      "log": "fixed-full-unit-03.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.103,
+      "name": "fixed-full-unit-04",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib"
+      ],
+      "log": "fixed-full-unit-04.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.108,
+      "name": "fixed-full-unit-05",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib"
+      ],
+      "log": "fixed-full-unit-05.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.123,
+      "name": "fixed-full-unit-06",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib"
+      ],
+      "log": "fixed-full-unit-06.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.114,
+      "name": "fixed-full-unit-07",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib"
+      ],
+      "log": "fixed-full-unit-07.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.145,
+      "name": "fixed-full-unit-08",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib"
+      ],
+      "log": "fixed-full-unit-08.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.121,
+      "name": "fixed-full-unit-09",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib"
+      ],
+      "log": "fixed-full-unit-09.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.118,
+      "name": "fixed-full-unit-10",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib"
+      ],
+      "log": "fixed-full-unit-10.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.118,
+      "name": "fixed-full-unit-11",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib"
+      ],
+      "log": "fixed-full-unit-11.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.12,
+      "name": "fixed-full-unit-12",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib"
+      ],
+      "log": "fixed-full-unit-12.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.112,
+      "name": "fixed-full-unit-13",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib"
+      ],
+      "log": "fixed-full-unit-13.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.136,
+      "name": "fixed-full-unit-14",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib"
+      ],
+      "log": "fixed-full-unit-14.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.128,
+      "name": "fixed-full-unit-15",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib"
+      ],
+      "log": "fixed-full-unit-15.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.238,
+      "name": "fixed-full-unit-16",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib"
+      ],
+      "log": "fixed-full-unit-16.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.112,
+      "name": "fixed-full-unit-17",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib"
+      ],
+      "log": "fixed-full-unit-17.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.117,
+      "name": "fixed-full-unit-18",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib"
+      ],
+      "log": "fixed-full-unit-18.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.118,
+      "name": "fixed-full-unit-19",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib"
+      ],
+      "log": "fixed-full-unit-19.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.1,
+      "name": "fixed-full-unit-20",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--lib"
+      ],
+      "log": "fixed-full-unit-20.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 0.227,
+      "name": "fixed-public-recovery",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--all-features",
+        "--test",
+        "recovery",
+        "--",
+        "--nocapture"
+      ],
+      "log": "fixed-public-recovery.txt"
+    }
+  ]
+}

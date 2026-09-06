@@ -1,0 +1,17 @@
+{
+  "command": [
+    "cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--workspace",
+    "--lib",
+    "--all-features",
+    "storage::engine::tests::retirement_projection"
+  ],
+  "exit_code": 101,
+  "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.56s\n     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)\n\nrunning 5 tests\ntest storage::engine::tests::retirement_projection::tombstone_cleanup_retires_current_projection_with_generation ... FAILED\ntest storage::engine::tests::retirement_projection::failed_cleanup_preserves_projection_retirement_and_every_table ... ok\ntest storage::engine::tests::retirement_projection::startup_retires_active_work_in_the_same_revision ... FAILED\ntest storage::engine::tests::retirement_projection::startup_and_restore_cannot_keep_retired_current_work_fresh ... FAILED\ntest storage::engine::tests::retirement_projection::inactive_legacy_projection_is_unknown_after_migration ... FAILED\n\nfailures:\n\n---- storage::engine::tests::retirement_projection::tombstone_cleanup_retires_current_projection_with_generation stdout ----\n\nthread 'storage::engine::tests::retirement_projection::tombstone_cleanup_retires_current_projection_with_generation' (301) panicked at crates/harbormaster/src/storage/tests/retirement_projection.rs:22:5:\nassertion `left == right` failed\n  left: Fresh\n right: Stale\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n\n---- storage::engine::tests::retirement_projection::startup_retires_active_work_in_the_same_revision stdout ----\n\nthread 'storage::engine::tests::retirement_projection::startup_retires_active_work_in_the_same_revision' (300) panicked at crates/harbormaster/src/storage/tests/retirement_projection.rs:22:5:\nassertion `left == right` failed\n  left: Fresh\n right: Stale\n\n---- storage::engine::tests::retirement_projection::startup_and_restore_cannot_keep_retired_current_work_fresh stdout ----\n\nthread 'storage::engine::tests::retirement_projection::startup_and_restore_cannot_keep_retired_current_work_fresh' (299) panicked at crates/harbormaster/src/storage/tests/retirement_projection.rs:22:5:\nassertion `left == right` failed\n  left: Fresh\n right: Stale\n\n---- storage::engine::tests::retirement_projection::inactive_legacy_projection_is_unknown_after_migration stdout ----\n\nthread 'storage::engine::tests::retirement_projection::inactive_legacy_projection_is_unknown_after_migration' (298) panicked at crates/harbormaster/src/storage/tests/retirement_projection.rs:100:5:\nassertion `left == right` failed\n  left: Fresh\n right: Stale\n\n\nfailures:\n    storage::engine::tests::retirement_projection::inactive_legacy_projection_is_unknown_after_migration\n    storage::engine::tests::retirement_projection::startup_and_restore_cannot_keep_retired_current_work_fresh\n    storage::engine::tests::retirement_projection::startup_retires_active_work_in_the_same_revision\n    storage::engine::tests::retirement_projection::tombstone_cleanup_retires_current_projection_with_generation\n\ntest result: FAILED. 1 passed; 4 failed; 0 ignored; 0 measured; 64 filtered out; finished in 0.22s\n\nerror: test failed, to rerun pass `--lib`\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 0.801
+}

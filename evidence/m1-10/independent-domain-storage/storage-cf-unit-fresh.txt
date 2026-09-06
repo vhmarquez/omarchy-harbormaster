@@ -1,0 +1,56 @@
+   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.82s
+     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)
+
+running 48 tests
+test storage::engine::tests::recovery::ownership_is_exclusive_and_completed_inode_replacement_is_detected ... ok
+test storage::engine::tests::recovery::unsafe_symlink_and_foreign_wal_header_have_no_database_side_effects ... ok
+test storage::engine::tests::bounds::producer_registry_cap_rejects_registration_without_new_revision ... ok
+test storage::engine::tests::reducer_continuity::contradictory_progress_and_continuity_are_rejected_atomically ... ok
+test storage::engine::tests::reducer_attention::late_terminal_records_its_own_key_without_replacing_current_turn ... ok
+test storage::engine::tests::bounds::full_pending_outbox_rolls_back_other_effects ... ok
+test storage::engine::tests::reducer_continuity_guards::late_reconciliation_failure_rolls_back_generation_and_obligation_link ... ok
+test storage::engine::tests::reducer::context_proves_exact_retained_payload_and_retains_terminal_after_history_cleanup ... ok
+test storage::engine::tests::reducer::policy_preview_is_read_only_and_unavailable_reconciliation_is_inactive ... ok
+test storage::engine::tests::reducer_attention::uncertainty_and_terminal_commit_together_then_reject_queued_admission ... ok
+test storage::engine::tests::reducer_continuity_guards::a_verified_wait_without_an_event_is_a_current_projection_not_a_fabricated_outcome ... ok
+test storage::engine::tests::bounds::database_page_exhaustion_is_a_real_rollback ... ok
+test storage::engine::tests::reducer_continuity_guards::a_terminal_old_current_cannot_be_continued_as_a_native_wait ... ok
+test storage::engine::tests::reducer_attention::late_failure_rolls_back_resolution_projection_reasons_and_checkpoint ... ok
+test storage::engine::tests::reducer_continuity::apply_discard_overflow_never_partially_commits_and_success_counts_once ... ok
+test storage::engine::tests::bounds::history_and_outbox_expiry_preserve_unreviewed_obligations ... ok
+test storage::engine::tests::reducer_attention::repeated_wait_coalesces_and_resolution_does_not_review_or_revise_the_outcome ... ok
+test storage::engine::tests::recovery::reopening_retires_saved_generations_without_clearing_outcomes ... ok
+test storage::engine::tests::bounds::fact_capacity_can_be_released_by_bounded_maintenance_only ... ok
+test storage::engine::tests::reducer_continuity_guards::wrong_continuity_scope_or_working_baseline_cannot_rotate_a_generation ... ok
+test storage::engine::tests::reducer_continuity_guards::missing_continuity_keeps_prior_wait_protected_and_old_callbacks_retired ... ok
+test storage::engine::tests::bounds::tombstone_cap_requires_atomic_retirement_and_failed_retirement_preserves_rows ... ok
+test storage::engine::tests::reducer_progress::discard_overflow_refuses_retirement_without_changing_any_admission_state ... ok
+test storage::engine::tests::reducer_progress::only_explicit_verified_old_current_progress_resolves_waits_across_reconciliation ... ok
+test storage::engine::tests::reducer_reconciliation::reconciliation_requires_fresh_concrete_evidence_and_one_active_producer ... ok
+test storage::engine::tests::reducer_reconciliation::legacy_registration_is_not_a_reconciled_baseline ... ok
+test storage::engine::tests::reducer_reconciliation::cleanup_preview_rejects_revision_change_and_policy_reads_do_not_mutate ... ok
+test storage::engine::tests::reducer_retirement::inconsistent_apply_projection_is_rejected_before_any_effect ... ok
+test storage::engine::tests::reducer_progress::retirement_makes_nonterminal_unknown_without_resolving_native_wait ... ok
+test storage::engine::tests::reducer_retirement::explicit_retirement_preserves_terminal_process_checkpoint_and_outcome ... ok
+test storage::engine::tests::reducer_reconciliation::cleanup_preview_cannot_cross_an_engine_instance ... ok
+test storage::engine::tests::writes::duplicates_require_identical_complete_write_set ... ok
+test storage::engine::tests::writes::all_effects_roll_back_after_late_sql_failure ... ok
+test storage::engine::tests::review_atomic::late_sql_failure_preserves_entire_context_and_original_outcome ... ok
+test storage::engine::tests::writes::reconciliation_preserves_registered_harness_scope ... ok
+test storage::engine::tests::writes::full_u64_sequence_and_revision_are_lossless_and_checked ... ok
+test storage::engine::tests::reducer_continuity::same_wait_survives_repeated_restart_without_retagging_or_duplicate_attention ... ok
+test storage::engine::tests::writes::event_identity_is_scoped_to_producer_generation ... ok
+test storage::engine::tests::writes::scope_gap_and_stale_revision_never_change_checkpoint ... ok
+test storage::engine::tests::recovery::restore_never_reuses_a_pre_restore_revision ... ok
+test storage::engine::tests::recovery::explicit_corrupt_page_recovery_uses_verified_backup_and_revision_floor ... ok
+test storage::engine::tests::recovery::live_backup_and_restore_preserve_outcome_and_require_reconciliation ... ok
+test storage::engine::tests::bounds::protected_attention_audit_and_projection_caps_do_not_silently_evict ... ok
+test storage::engine::tests::recovery::migration_uses_verified_backup_and_future_schema_is_untouched ... ok
+test storage::engine::tests::reducer_migration::legacy_fact_for_another_turn_does_not_invent_terminal_kind ... ok
+test storage::engine::tests::reducer_migration::both_legacy_versions_preserve_receipt_bytes_and_known_or_unprovable_outcomes ... ok
+test storage::engine::tests::recovery::all_backup_stage_and_rollback_sidecars_reject_external_hardlinks ... ok
+test storage::engine::tests::bounds::blocked_real_wal_reader_backpressures_next_write ... ok
+
+test result: ok. 48 passed; 0 failed; 0 ignored; 0 measured; 41 filtered out; finished in 1.06s
+

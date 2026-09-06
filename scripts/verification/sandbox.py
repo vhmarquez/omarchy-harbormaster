@@ -66,7 +66,8 @@ def _bubblewrap(source, tools, state):
             command += ["--ro-bind", name, name]
     command += ["--ro-bind", str(source), "/work", "--ro-bind", str(tools), "/tools",
                 "--bind", str(state), "/state", "--proc", "/proc", "--dev", "/dev",
-                "--tmpfs", "/tmp", "--remount-ro", "/", "--chdir", "/work", "--clearenv"]
+                "--tmpfs", "/tmp", "--perms", "0700", "--size", "1048576", "--tmpfs", "/fault-fs",
+                "--remount-ro", "/", "--chdir", "/work", "--clearenv"]
     for key, value in environment().items():
         command += ["--setenv", key, value]
     return command + ["--"]

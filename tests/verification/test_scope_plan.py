@@ -15,7 +15,8 @@ from verification.sandbox import _execute
 PORTABLE_NAMES = [
     "isolation-probe", "tool-pins", "sqlite-build", "native-tool-pins", "rust-format",
     "rust-clippy", "rust-unit", "rust-integration", "rust-protocol", "rust-protocol-fuzz",
-    "rust-ipc", "rust-ingestion", "rust-storage", "rust-storage-crash", "qml-lint", "qml-format",
+    "rust-ipc", "rust-ingestion", "rust-storage", "rust-storage-crash", "rust-domain", "rust-storage-reducer",
+    "rust-recovery", "rust-coordination", "qml-lint", "qml-format",
     "qml-native", "python-verification", "python-tooling", "m0-contract-tests",
     "m0-fixture-contract", "m0-runtime-identity", "m0-runtime-cleanup",
     "m0-harness-helpers", "m0-design-model", "frozen-design-integrity",
@@ -42,7 +43,7 @@ class ScopePlanTests(unittest.TestCase):
         portable = plan(scope="portable")
         names = [name for name, _, _ in portable]
         self.assertEqual(names, PORTABLE_NAMES)
-        self.assertEqual(len(names), 28)
+        self.assertEqual(len(names), 32)
         self.assertEqual(len(names), len(set(names)))
         self.assertEqual(next(item for item in portable if item[0] == "m0-harness-helpers"),
                          ("m0-harness-helpers", ["/usr/bin/python3", "-B", "-m", "unittest",
@@ -67,7 +68,7 @@ class ScopePlanTests(unittest.TestCase):
         self.assertEqual(plan(), all_checks)
         self.assertEqual(all_checks, portable + [NATIVE_PEER_TARGET, NATIVE_TARGET])
         names = [name for name, _, _ in all_checks]
-        self.assertEqual(len(names), 30)
+        self.assertEqual(len(names), 34)
         self.assertEqual(len(names), len(set(names)))
         self.assertEqual(set(names), {item[0] for item in portable + native})
         self.assertEqual({item[0] for item in portable} & {item[0] for item in native},

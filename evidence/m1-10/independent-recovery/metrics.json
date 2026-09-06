@@ -1,0 +1,1128 @@
+{
+  "commit": "0e7589c318d914a1724251fb449d420273e8d977",
+  "scope": {
+    "production": [
+      {
+        "path": "crates/harbormaster/src/recovery/cleanup.rs",
+        "language": "rust",
+        "nonblank_lines": 128,
+        "functions": [
+          {
+            "name": "eligible_files",
+            "line": 28,
+            "end_line": 30,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "eligible_bytes",
+            "line": 32,
+            "end_line": 34,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "protected_files",
+            "line": 36,
+            "end_line": 38,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "deferred_files",
+            "line": 40,
+            "end_line": 42,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "preview_cleanup",
+            "line": 58,
+            "end_line": 92,
+            "nonblank_lines": 35,
+            "nesting": 4,
+            "branches": 11
+          },
+          {
+            "name": "apply_cleanup",
+            "line": 97,
+            "end_line": 132,
+            "nonblank_lines": 36,
+            "nesting": 2,
+            "branches": 10
+          }
+        ],
+        "analysis_error": null,
+        "metric_kind": "lexical-approximate"
+      },
+      {
+        "path": "crates/harbormaster/src/recovery/files.rs",
+        "language": "rust",
+        "nonblank_lines": 195,
+        "functions": [
+          {
+            "name": "from_stat",
+            "line": 20,
+            "end_line": 28,
+            "nonblank_lines": 9,
+            "nesting": 1,
+            "branches": 1
+          },
+          {
+            "name": "bytes",
+            "line": 36,
+            "end_line": 38,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "drop",
+            "line": 48,
+            "end_line": 52,
+            "nonblank_lines": 5,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "write_once",
+            "line": 55,
+            "end_line": 61,
+            "nonblank_lines": 7,
+            "nesting": 1,
+            "branches": 2
+          },
+          {
+            "name": "scan_entries",
+            "line": 63,
+            "end_line": 98,
+            "nonblank_lines": 36,
+            "nesting": 2,
+            "branches": 14
+          },
+          {
+            "name": "file_identity",
+            "line": 101,
+            "end_line": 117,
+            "nonblank_lines": 17,
+            "nesting": 1,
+            "branches": 8
+          },
+          {
+            "name": "scan",
+            "line": 119,
+            "end_line": 122,
+            "nonblank_lines": 4,
+            "nesting": 0,
+            "branches": 1
+          },
+          {
+            "name": "hold",
+            "line": 124,
+            "end_line": 141,
+            "nonblank_lines": 18,
+            "nesting": 1,
+            "branches": 3
+          },
+          {
+            "name": "validate",
+            "line": 143,
+            "end_line": 159,
+            "nonblank_lines": 17,
+            "nesting": 1,
+            "branches": 6
+          },
+          {
+            "name": "open_handle",
+            "line": 161,
+            "end_line": 174,
+            "nonblank_lines": 14,
+            "nesting": 1,
+            "branches": 4
+          },
+          {
+            "name": "read",
+            "line": 176,
+            "end_line": 192,
+            "nonblank_lines": 17,
+            "nesting": 1,
+            "branches": 8
+          },
+          {
+            "name": "unlink",
+            "line": 194,
+            "end_line": 201,
+            "nonblank_lines": 8,
+            "nesting": 0,
+            "branches": 3
+          },
+          {
+            "name": "remove",
+            "line": 203,
+            "end_line": 207,
+            "nonblank_lines": 5,
+            "nesting": 0,
+            "branches": 2
+          }
+        ],
+        "analysis_error": null,
+        "metric_kind": "lexical-approximate"
+      },
+      {
+        "path": "crates/harbormaster/src/recovery/logs.rs",
+        "language": "rust",
+        "nonblank_lines": 119,
+        "functions": [
+          {
+            "name": "is_log",
+            "line": 15,
+            "end_line": 17,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "append_log",
+            "line": 44,
+            "end_line": 46,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "write_log",
+            "line": 48,
+            "end_line": 94,
+            "nonblank_lines": 47,
+            "nesting": 1,
+            "branches": 19
+          },
+          {
+            "name": "rotate_logs",
+            "line": 96,
+            "end_line": 124,
+            "nonblank_lines": 29,
+            "nesting": 2,
+            "branches": 11
+          }
+        ],
+        "analysis_error": null,
+        "metric_kind": "lexical-approximate"
+      },
+      {
+        "path": "crates/harbormaster/src/recovery/mod.rs",
+        "language": "rust",
+        "nonblank_lines": 136,
+        "functions": [
+          {
+            "name": "fmt",
+            "line": 46,
+            "end_line": 57,
+            "nonblank_lines": 12,
+            "nesting": 1,
+            "branches": 1
+          },
+          {
+            "name": "from",
+            "line": 61,
+            "end_line": 63,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "from",
+            "line": 66,
+            "end_line": 68,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "open",
+            "line": 95,
+            "end_line": 105,
+            "nonblank_lines": 11,
+            "nesting": 1,
+            "branches": 2
+          },
+          {
+            "name": "snapshot",
+            "line": 110,
+            "end_line": 128,
+            "nonblank_lines": 19,
+            "nesting": 2,
+            "branches": 4
+          },
+          {
+            "name": "failure",
+            "line": 130,
+            "end_line": 134,
+            "nonblank_lines": 5,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "changing",
+            "line": 136,
+            "end_line": 142,
+            "nonblank_lines": 7,
+            "nesting": 0,
+            "branches": 1
+          }
+        ],
+        "analysis_error": null,
+        "metric_kind": "lexical-approximate"
+      },
+      {
+        "path": "crates/harbormaster/src/recovery/names.rs",
+        "language": "rust",
+        "nonblank_lines": 71,
+        "functions": [
+          {
+            "name": "new",
+            "line": 14,
+            "end_line": 23,
+            "nonblank_lines": 10,
+            "nesting": 1,
+            "branches": 0
+          },
+          {
+            "name": "parse",
+            "line": 24,
+            "end_line": 47,
+            "nonblank_lines": 24,
+            "nesting": 1,
+            "branches": 11
+          },
+          {
+            "name": "filename",
+            "line": 48,
+            "end_line": 58,
+            "nonblank_lines": 11,
+            "nesting": 1,
+            "branches": 1
+          },
+          {
+            "name": "matches",
+            "line": 59,
+            "end_line": 61,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 1
+          },
+          {
+            "name": "same_event_identity",
+            "line": 62,
+            "end_line": 66,
+            "nonblank_lines": 5,
+            "nesting": 0,
+            "branches": 2
+          },
+          {
+            "name": "expired",
+            "line": 67,
+            "end_line": 71,
+            "nonblank_lines": 5,
+            "nesting": 0,
+            "branches": 0
+          }
+        ],
+        "analysis_error": null,
+        "metric_kind": "lexical-approximate"
+      },
+      {
+        "path": "crates/harbormaster/src/recovery/paths.rs",
+        "language": "rust",
+        "nonblank_lines": 139,
+        "functions": [
+          {
+            "name": "open",
+            "line": 30,
+            "end_line": 67,
+            "nonblank_lines": 38,
+            "nesting": 2,
+            "branches": 16
+          },
+          {
+            "name": "check",
+            "line": 69,
+            "end_line": 90,
+            "nonblank_lines": 22,
+            "nesting": 2,
+            "branches": 12
+          },
+          {
+            "name": "child",
+            "line": 93,
+            "end_line": 102,
+            "nonblank_lines": 10,
+            "nesting": 1,
+            "branches": 5
+          },
+          {
+            "name": "open_root",
+            "line": 103,
+            "end_line": 121,
+            "nonblank_lines": 19,
+            "nesting": 3,
+            "branches": 10
+          },
+          {
+            "name": "directory_safe",
+            "line": 122,
+            "end_line": 134,
+            "nonblank_lines": 13,
+            "nesting": 1,
+            "branches": 6
+          },
+          {
+            "name": "private_file",
+            "line": 135,
+            "end_line": 144,
+            "nonblank_lines": 10,
+            "nesting": 1,
+            "branches": 4
+          }
+        ],
+        "analysis_error": null,
+        "metric_kind": "lexical-approximate"
+      },
+      {
+        "path": "crates/harbormaster/src/recovery/provenance.rs",
+        "language": "rust",
+        "nonblank_lines": 131,
+        "functions": [
+          {
+            "name": "into_parts",
+            "line": 43,
+            "end_line": 45,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "mapping",
+            "line": 48,
+            "end_line": 57,
+            "nonblank_lines": 10,
+            "nesting": 0,
+            "branches": 1
+          },
+          {
+            "name": "eligible",
+            "line": 59,
+            "end_line": 84,
+            "nonblank_lines": 26,
+            "nesting": 1,
+            "branches": 10
+          },
+          {
+            "name": "payload",
+            "line": 86,
+            "end_line": 116,
+            "nonblank_lines": 31,
+            "nesting": 4,
+            "branches": 6
+          },
+          {
+            "name": "validate_replay",
+            "line": 118,
+            "end_line": 140,
+            "nonblank_lines": 23,
+            "nesting": 3,
+            "branches": 6
+          }
+        ],
+        "analysis_error": null,
+        "metric_kind": "lexical-approximate"
+      },
+      {
+        "path": "crates/harbormaster/src/recovery/spool.rs",
+        "language": "rust",
+        "nonblank_lines": 273,
+        "functions": [
+          {
+            "name": "event",
+            "line": 21,
+            "end_line": 23,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "event",
+            "line": 34,
+            "end_line": 36,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "harness",
+            "line": 38,
+            "end_line": 40,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "stage",
+            "line": 58,
+            "end_line": 64,
+            "nonblank_lines": 7,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "stage_reviewed",
+            "line": 66,
+            "end_line": 75,
+            "nonblank_lines": 10,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "stage_metadata",
+            "line": 77,
+            "end_line": 112,
+            "nonblank_lines": 36,
+            "nesting": 2,
+            "branches": 9
+          },
+          {
+            "name": "write_stage",
+            "line": 114,
+            "end_line": 165,
+            "nonblank_lines": 52,
+            "nesting": 1,
+            "branches": 14
+          },
+          {
+            "name": "read_batch",
+            "line": 171,
+            "end_line": 173,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "read_reviewed",
+            "line": 175,
+            "end_line": 195,
+            "nonblank_lines": 21,
+            "nesting": 1,
+            "branches": 4
+          },
+          {
+            "name": "decode_entry",
+            "line": 197,
+            "end_line": 228,
+            "nonblank_lines": 32,
+            "nesting": 1,
+            "branches": 11
+          },
+          {
+            "name": "confirm_committed",
+            "line": 233,
+            "end_line": 247,
+            "nonblank_lines": 15,
+            "nesting": 1,
+            "branches": 3
+          },
+          {
+            "name": "budget",
+            "line": 250,
+            "end_line": 285,
+            "nonblank_lines": 36,
+            "nesting": 2,
+            "branches": 8
+          }
+        ],
+        "analysis_error": null,
+        "metric_kind": "lexical-approximate"
+      }
+    ],
+    "tests": [
+      {
+        "path": "crates/harbormaster/src/recovery/tests/bounds.rs",
+        "language": "rust",
+        "nonblank_lines": 146,
+        "functions": [
+          {
+            "name": "exact_producer_byte_limit_counts_partial_old_generation",
+            "line": 8,
+            "end_line": 31,
+            "nonblank_lines": 24,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "global_limit_includes_unrecognized_orphan_without_deleting_it",
+            "line": 34,
+            "end_line": 57,
+            "nonblank_lines": 24,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "producer_file_count_and_replay_batch_are_bounded",
+            "line": 60,
+            "end_line": 75,
+            "nonblank_lines": 16,
+            "nesting": 1,
+            "branches": 1
+          },
+          {
+            "name": "global_file_count_scan_and_cleanup_batch_are_bounded",
+            "line": 78,
+            "end_line": 121,
+            "nonblank_lines": 44,
+            "nesting": 1,
+            "branches": 1
+          },
+          {
+            "name": "oversized_record_is_rejected_before_read_allocation",
+            "line": 124,
+            "end_line": 135,
+            "nonblank_lines": 12,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "retained_replay_handles_are_bounded_and_released_on_drop",
+            "line": 138,
+            "end_line": 152,
+            "nonblank_lines": 15,
+            "nesting": 1,
+            "branches": 1
+          }
+        ],
+        "analysis_error": null,
+        "metric_kind": "lexical-approximate"
+      },
+      {
+        "path": "crates/harbormaster/src/recovery/tests/crash.rs",
+        "language": "rust",
+        "nonblank_lines": 140,
+        "functions": [
+          {
+            "name": "drop",
+            "line": 9,
+            "end_line": 12,
+            "nonblank_lines": 4,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "crash_child",
+            "line": 16,
+            "end_line": 23,
+            "nonblank_lines": 8,
+            "nesting": 1,
+            "branches": 0
+          },
+          {
+            "name": "actual_sigkill_at_create_stage_and_rename_preserves_bounded_metadata",
+            "line": 26,
+            "end_line": 70,
+            "nonblank_lines": 45,
+            "nesting": 2,
+            "branches": 2
+          },
+          {
+            "name": "actual_full_private_filesystem_preserves_partial_and_reports_unknown_gap",
+            "line": 73,
+            "end_line": 119,
+            "nonblank_lines": 47,
+            "nesting": 3,
+            "branches": 2
+          },
+          {
+            "name": "verified_fault_root",
+            "line": 122,
+            "end_line": 145,
+            "nonblank_lines": 24,
+            "nesting": 1,
+            "branches": 1
+          }
+        ],
+        "analysis_error": null,
+        "metric_kind": "lexical-approximate"
+      },
+      {
+        "path": "crates/harbormaster/src/recovery/tests/mod.rs",
+        "language": "rust",
+        "nonblank_lines": 123,
+        "functions": [
+          {
+            "name": "new",
+            "line": 35,
+            "end_line": 43,
+            "nonblank_lines": 9,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "artifacts",
+            "line": 44,
+            "end_line": 46,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "open",
+            "line": 47,
+            "end_line": 49,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "private_file",
+            "line": 50,
+            "end_line": 59,
+            "nonblank_lines": 10,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "scan_canaries",
+            "line": 60,
+            "end_line": 62,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "drop",
+            "line": 65,
+            "end_line": 67,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "scan_canaries",
+            "line": 70,
+            "end_line": 82,
+            "nonblank_lines": 13,
+            "nesting": 2,
+            "branches": 2
+          },
+          {
+            "name": "source",
+            "line": 84,
+            "end_line": 93,
+            "nonblank_lines": 10,
+            "nesting": 3,
+            "branches": 0
+          },
+          {
+            "name": "input",
+            "line": 95,
+            "end_line": 101,
+            "nonblank_lines": 7,
+            "nesting": 1,
+            "branches": 0
+          },
+          {
+            "name": "stage_synthetic",
+            "line": 103,
+            "end_line": 111,
+            "nonblank_lines": 9,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "read_synthetic",
+            "line": 113,
+            "end_line": 115,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "checkpoint",
+            "line": 117,
+            "end_line": 132,
+            "nonblank_lines": 16,
+            "nesting": 2,
+            "branches": 2
+          }
+        ],
+        "analysis_error": null,
+        "metric_kind": "lexical-approximate"
+      },
+      {
+        "path": "crates/harbormaster/src/recovery/tests/privacy.rs",
+        "language": "rust",
+        "nonblank_lines": 106,
+        "functions": [
+          {
+            "name": "excluded_content_never_reaches_spool_temp_logs_or_cleanup",
+            "line": 5,
+            "end_line": 41,
+            "nonblank_lines": 37,
+            "nesting": 1,
+            "branches": 1
+          },
+          {
+            "name": "mis_mapped_allowed_turn_and_version_strings_reject_before_temp",
+            "line": 44,
+            "end_line": 73,
+            "nonblank_lines": 30,
+            "nesting": 2,
+            "branches": 1
+          },
+          {
+            "name": "unproven_optional_session_is_omitted_and_wrong_version_rejected",
+            "line": 76,
+            "end_line": 109,
+            "nonblank_lines": 34,
+            "nesting": 1,
+            "branches": 1
+          }
+        ],
+        "analysis_error": null,
+        "metric_kind": "lexical-approximate"
+      },
+      {
+        "path": "crates/harbormaster/src/recovery/tests/replay.rs",
+        "language": "rust",
+        "nonblank_lines": 156,
+        "functions": [
+          {
+            "name": "replay_keeps_identity_is_repeatable_and_commit_requires_exact_event",
+            "line": 5,
+            "end_line": 35,
+            "nonblank_lines": 31,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "retirement_and_ttl_are_explicit_and_never_retag_generations",
+            "line": 38,
+            "end_line": 79,
+            "nonblank_lines": 42,
+            "nesting": 1,
+            "branches": 1
+          },
+          {
+            "name": "modified_record_and_renamed_event_identity_fail_closed",
+            "line": 82,
+            "end_line": 109,
+            "nonblank_lines": 28,
+            "nesting": 3,
+            "branches": 2
+          },
+          {
+            "name": "bounded_replay_selects_predecessor_before_adversarial_uuid_order",
+            "line": 112,
+            "end_line": 127,
+            "nonblank_lines": 16,
+            "nesting": 1,
+            "branches": 1
+          },
+          {
+            "name": "held_receipts_do_not_pin_deleted_spool_or_allow_new_owner",
+            "line": 130,
+            "end_line": 161,
+            "nonblank_lines": 32,
+            "nesting": 2,
+            "branches": 2
+          }
+        ],
+        "analysis_error": null,
+        "metric_kind": "lexical-approximate"
+      },
+      {
+        "path": "crates/harbormaster/src/storage/tests/recovery.rs",
+        "language": "rust",
+        "nonblank_lines": 270,
+        "functions": [
+          {
+            "name": "all_backup_stage_and_rollback_sidecars_reject_external_hardlinks",
+            "line": 4,
+            "end_line": 33,
+            "nonblank_lines": 30,
+            "nesting": 2,
+            "branches": 2
+          },
+          {
+            "name": "explicit_corrupt_page_recovery_uses_verified_backup_and_revision_floor",
+            "line": 36,
+            "end_line": 80,
+            "nonblank_lines": 45,
+            "nesting": 1,
+            "branches": 0
+          },
+          {
+            "name": "restore_never_reuses_a_pre_restore_revision",
+            "line": 83,
+            "end_line": 110,
+            "nonblank_lines": 28,
+            "nesting": 1,
+            "branches": 0
+          },
+          {
+            "name": "live_backup_and_restore_preserve_outcome_and_require_reconciliation",
+            "line": 113,
+            "end_line": 146,
+            "nonblank_lines": 34,
+            "nesting": 1,
+            "branches": 0
+          },
+          {
+            "name": "reopening_retires_saved_generations_without_clearing_outcomes",
+            "line": 149,
+            "end_line": 186,
+            "nonblank_lines": 38,
+            "nesting": 1,
+            "branches": 0
+          },
+          {
+            "name": "migration_uses_verified_backup_and_future_schema_is_untouched",
+            "line": 189,
+            "end_line": 231,
+            "nonblank_lines": 43,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "unsafe_symlink_and_foreign_wal_header_have_no_database_side_effects",
+            "line": 234,
+            "end_line": 257,
+            "nonblank_lines": 24,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "ownership_is_exclusive_and_completed_inode_replacement_is_detected",
+            "line": 260,
+            "end_line": 278,
+            "nonblank_lines": 19,
+            "nesting": 0,
+            "branches": 0
+          }
+        ],
+        "analysis_error": null,
+        "metric_kind": "lexical-approximate"
+      },
+      {
+        "path": "crates/harbormaster/tests/recovery.rs",
+        "language": "rust",
+        "nonblank_lines": 259,
+        "functions": [
+          {
+            "name": "log",
+            "line": 15,
+            "end_line": 22,
+            "nonblank_lines": 8,
+            "nesting": 1,
+            "branches": 0
+          },
+          {
+            "name": "source_mapping_must_precede_serialization",
+            "line": 25,
+            "end_line": 67,
+            "nonblank_lines": 43,
+            "nesting": 3,
+            "branches": 2
+          },
+          {
+            "name": "logs_rotate_within_four_mebibytes_and_have_no_age_ttl",
+            "line": 70,
+            "end_line": 93,
+            "nonblank_lines": 24,
+            "nesting": 1,
+            "branches": 1
+          },
+          {
+            "name": "cleanup_preview_is_read_only_and_rejects_replaced_inode",
+            "line": 96,
+            "end_line": 131,
+            "nonblank_lines": 36,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "changed_revision_and_cross_instance_plans_are_rejected",
+            "line": 134,
+            "end_line": 162,
+            "nonblank_lines": 29,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "cleanup_preflight_preserves_every_entry_when_one_inode_changes_in_place",
+            "line": 165,
+            "end_line": 184,
+            "nonblank_lines": 20,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "hardlink_symlink_and_nonprivate_files_are_refused_before_writes",
+            "line": 187,
+            "end_line": 221,
+            "nonblank_lines": 35,
+            "nesting": 3,
+            "branches": 2
+          },
+          {
+            "name": "concurrent_owner_directory_replacement_and_readonly_mount_refuse",
+            "line": 224,
+            "end_line": 246,
+            "nonblank_lines": 23,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "retained_cleanup_preview_cannot_pin_unlinked_log_bytes_past_budget",
+            "line": 249,
+            "end_line": 268,
+            "nonblank_lines": 20,
+            "nesting": 1,
+            "branches": 1
+          }
+        ],
+        "analysis_error": null,
+        "metric_kind": "lexical-approximate"
+      },
+      {
+        "path": "crates/harbormaster/tests/recovery/fixture.rs",
+        "language": "rust",
+        "nonblank_lines": 61,
+        "functions": [
+          {
+            "name": "new",
+            "line": 12,
+            "end_line": 20,
+            "nonblank_lines": 9,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "path",
+            "line": 21,
+            "end_line": 23,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "write",
+            "line": 24,
+            "end_line": 33,
+            "nonblank_lines": 10,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "open",
+            "line": 34,
+            "end_line": 36,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "drop",
+            "line": 39,
+            "end_line": 41,
+            "nonblank_lines": 3,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "deleted_bytes",
+            "line": 43,
+            "end_line": 62,
+            "nonblank_lines": 20,
+            "nesting": 3,
+            "branches": 4
+          }
+        ],
+        "analysis_error": null,
+        "metric_kind": "lexical-approximate"
+      },
+      {
+        "path": "crates/harbormaster/tests/storage/recovery.rs",
+        "language": "rust",
+        "nonblank_lines": 186,
+        "functions": [
+          {
+            "name": "corrupt_fact_page",
+            "line": 9,
+            "end_line": 25,
+            "nonblank_lines": 17,
+            "nesting": 1,
+            "branches": 0
+          },
+          {
+            "name": "explicit_worker_recovery_requires_a_nonoverflowing_trusted_revision_upper_bound",
+            "line": 28,
+            "end_line": 62,
+            "nonblank_lines": 35,
+            "nesting": 1,
+            "branches": 0
+          },
+          {
+            "name": "reopen_preserves_committed_outcome_and_refuses_old_generation_new_work",
+            "line": 65,
+            "end_line": 109,
+            "nonblank_lines": 45,
+            "nesting": 1,
+            "branches": 0
+          },
+          {
+            "name": "live_backup_and_restore_reject_every_pre_restore_revision",
+            "line": 112,
+            "end_line": 143,
+            "nonblank_lines": 32,
+            "nesting": 1,
+            "branches": 0
+          },
+          {
+            "name": "private_fixed_state_is_exclusive_and_rejects_foreign_db_without_writing_it",
+            "line": 146,
+            "end_line": 176,
+            "nonblank_lines": 31,
+            "nesting": 0,
+            "branches": 0
+          },
+          {
+            "name": "symlinked_database_is_rejected_and_unrelated_target_remains_exact",
+            "line": 179,
+            "end_line": 192,
+            "nonblank_lines": 14,
+            "nesting": 0,
+            "branches": 0
+          }
+        ],
+        "analysis_error": null,
+        "metric_kind": "lexical-approximate"
+      }
+    ]
+  },
+  "hotspots": [
+    {
+      "path": "crates/harbormaster/src/recovery/spool.rs",
+      "kind": "function",
+      "name": "write_stage",
+      "line": 114,
+      "end_line": 165,
+      "nonblank_lines": 52,
+      "nesting": 1,
+      "branches": 14,
+      "disposition": "review required"
+    }
+  ],
+  "coverage_complete": true
+}

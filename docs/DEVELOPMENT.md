@@ -1,14 +1,15 @@
 # Current continuation
 
-The owner merged PR #50 on 2026-09-06 and #8 is closed. Actual current main
-`47d726972991c88da897fe20ef4ce413142227d5` passed post-merge qualification.
-[#9 responsibilities and approved retention](M1-9-DEVELOPMENT.md) were recorded
-before storage implementation; [the storage contract](M1-9-STORAGE-ENGINE.md)
-and [SQLite build review](M1-9-SQLITE-BUILD.md) define its scope.
-Each subsequent PR/revision still needs explicit owner approval before merge or
-dependent implementation. #10 and M2 have not begun. The following #7 records
-are historical; their former merge and retention blockers are superseded by the
-verified owner merges and the explicit #9 retention decision above.
+The owner approved and merged PR #51 on 2026-09-06; #7–#9 are closed.
+Actual main `23be30f0d8fa4fb9767241d08faa0a543a3c950b` passed fresh post-merge
+hosted Docker, local combined, dedicated native and paired qualification.
+[Actual main evidence](../evidence/m1-10/post-merge-main/summary.json) and
+[#10 responsibilities](M1-10-DEVELOPMENT.md) establish the current baseline
+and boundaries recorded before production implementation. Work proceeds on
+`codex/m1-10-reducers-recovery`; every subsequent PR/revision still needs
+explicit owner approval before merge or dependent implementation. M2 has not
+begun. The #7 records below are historical; their former merge and retention
+blockers are superseded by verified owner merges and the approved #9 policy.
 
 # Development contract — M1 #7
 

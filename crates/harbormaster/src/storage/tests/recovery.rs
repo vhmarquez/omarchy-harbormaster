@@ -189,17 +189,12 @@ fn reopening_retires_saved_generations_without_clearing_outcomes() {
 fn migration_uses_verified_backup_and_future_schema_is_untouched() {
     let fixture = Fixture::new();
     let engine = fixture.open();
-    engine
-        .connection
-        .as_ref()
-        .unwrap()
-        .execute_batch("DROP TABLE maintenance; PRAGMA user_version=1")
-        .unwrap();
+    legacy_schema(&engine, 1);
     drop(engine);
     let engine = fixture.open();
     assert_eq!(
         schema::inspect(engine.connection.as_ref().unwrap()).unwrap(),
-        2
+        schema::VERSION
     );
     assert_eq!(
         schema::header(&fixture.root.join("harbormaster/state.backup.db")).unwrap(),
@@ -209,7 +204,7 @@ fn migration_uses_verified_backup_and_future_schema_is_untouched() {
     engine.execute(&Request::RestoreBackup).unwrap();
     assert_eq!(
         schema::inspect(engine.connection.as_ref().unwrap()).unwrap(),
-        2
+        schema::VERSION
     );
     assert_eq!(
         schema::header(&fixture.root.join("harbormaster/state.backup.db")).unwrap(),
@@ -219,7 +214,7 @@ fn migration_uses_verified_backup_and_future_schema_is_untouched() {
         .connection
         .as_ref()
         .unwrap()
-        .execute_batch("PRAGMA user_version=3")
+        .execute_batch("PRAGMA user_version=4")
         .unwrap();
     drop(engine);
     let before = std::fs::read(fixture.database()).unwrap();
@@ -275,4 +270,27 @@ fn ownership_is_exclusive_and_completed_inode_replacement_is_detected() {
         std::fs::read(fixture.database()).unwrap(),
         b"unrelated fixture"
     );
+}
+
+pub(super) fn legacy_schema(engine: &Engine, version: i64) {
+    let conn = engine.connection.as_ref().unwrap();
+    for (name, _) in super::super::super::schema_layout::LEGACY {
+        conn.execute_batch(&format!("DROP TABLE {name}")).unwrap();
+    }
+    for (name, sql) in super::super::super::schema_layout::LEGACY {
+        if version == 1 && name == "maintenance" {
+            continue;
+        }
+        conn.execute_batch(sql).unwrap();
+    }
+    conn.execute(
+        "INSERT INTO metadata VALUES(1,?1,30)",
+        [0_u64.to_be_bytes().as_slice()],
+    )
+    .unwrap();
+    if version == 2 {
+        conn.execute_batch("INSERT INTO maintenance VALUES(1,0,0,0,0)")
+            .unwrap();
+    }
+    conn.pragma_update(None, "user_version", version).unwrap();
 }

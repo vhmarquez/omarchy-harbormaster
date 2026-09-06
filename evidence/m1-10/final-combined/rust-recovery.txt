@@ -1,0 +1,16 @@
+   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.17s
+     Running tests/recovery.rs (/state/target/debug/deps/recovery-2f6bc4f93681b726)
+
+running 8 tests
+test cleanup_preview_is_read_only_and_rejects_replaced_inode ... ok
+test concurrent_owner_directory_replacement_and_readonly_mount_refuse ... ok
+test cleanup_preflight_preserves_every_entry_when_one_inode_changes_in_place ... ok
+test changed_revision_and_cross_instance_plans_are_rejected ... ok
+test source_mapping_must_precede_serialization ... ok
+test hardlink_symlink_and_nonprivate_files_are_refused_before_writes ... ok
+test logs_rotate_within_four_mebibytes_and_have_no_age_ttl ... ok
+test retained_cleanup_preview_cannot_pin_unlinked_log_bytes_past_budget ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

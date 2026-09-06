@@ -1,0 +1,25 @@
+{
+  "exit_code": 101,
+  "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.44s\n     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)\n\nrunning 1 test\n\nthread 'coordinator::tests::review::independent_same_identity_changed_payload_gets_no_receipt' (289) panicked at crates/harbormaster/src/coordinator/tests/review.rs:88:5:\nassertion `left == right` failed\n  left: Committed { revision: Revision(2) }\n right: Rejected(Conflict)\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\ntest coordinator::tests::review::independent_same_identity_changed_payload_gets_no_receipt ... FAILED\n\nfailures:\n\nfailures:\n    coordinator::tests::review::independent_same_identity_changed_payload_gets_no_receipt\n\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 110 filtered out; finished in 0.03s\n\nerror: test failed, to rerun pass `--lib`\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 0.484,
+  "command": [
+    "/tools/rust/bin/cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--workspace",
+    "--lib",
+    "independent_same_identity_changed_payload_gets_no_receipt",
+    "--",
+    "--nocapture"
+  ],
+  "source_head": "364f7c8d467594b3a7d5d79ea816d7e81b5903ef",
+  "mutation": {
+    "path": "crates/harbormaster/src/coordinator/decision.rs",
+    "before": "        if let EventReceipt::Exact { revision } = context.receipt {",
+    "after": "        if matches!(context.receipt, EventReceipt::Conflict) { return self.accept(context.revision); }\n        if let EventReceipt::Exact { revision } = context.receipt {",
+    "sha256": "7de7cd869802bfe3496bc89764387a1a41d8b7a35213f2672c451ac28acc5416"
+  }
+}

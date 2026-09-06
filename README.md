@@ -2,7 +2,7 @@
 
 An Omarchy-native, local-first agent manager for concurrent Hermes, Claude Code and Codex work.
 
-**Stage: M0 feasibility/design accepted; M1 #7/#8 are owner-merged and post-merge qualified; #9 is a SQLite storage library candidate requiring its own owner approval before merge. This repository does not yet contain an installable manager.** See [M1 status](docs/M1-STATUS.md), [development boundaries](docs/DEVELOPMENT.md) and [verification](docs/M1-VERIFICATION.md). The approved composition is option 02, Project manager: project navigation, session list and inspector, plus an attention-first bar popup, with the supplemental review/settings/recovery study approved. A finished agent turn is not proof the work is correct.
+**Stage: M0 feasibility/design accepted; M1 #7–#9 are owner-merged and post-merge qualified; #10 adds reducers, recovery and diagnostics as a library candidate requiring its own owner approval before merge. This repository does not yet contain an installable manager.** See [M1 status](docs/M1-STATUS.md), [development boundaries](docs/DEVELOPMENT.md) and [verification](docs/M1-VERIFICATION.md). The approved composition is option 02, Project manager: project navigation, session list and inspector, plus an attention-first bar popup, with the supplemental review/settings/recovery study approved. A finished agent turn is not proof the work is correct.
 
 ## Project tracking
 

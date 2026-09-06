@@ -1,0 +1,20 @@
+{
+  "exit_code": 0,
+  "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.43s\n     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)\n\nrunning 1 test\ntest coordinator::tests::review::independent_receipt_exists_only_after_observed_atomic_commit ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 110 filtered out; finished in 0.03s\n\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 0.476,
+  "command": [
+    "/tools/rust/bin/cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--workspace",
+    "--lib",
+    "independent_receipt_exists_only_after_observed_atomic_commit",
+    "--",
+    "--nocapture"
+  ],
+  "source_head": "364f7c8d467594b3a7d5d79ea816d7e81b5903ef",
+  "restored_sha256": "e81b507af01c7cd6ae6a6acc8752c8c8a4e231888295cf823903e0eb781ccc8a"
+}

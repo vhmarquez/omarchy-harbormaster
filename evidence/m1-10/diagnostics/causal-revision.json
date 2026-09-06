@@ -1,0 +1,13 @@
+{
+  "source_commit": "703dd46",
+  "mutation": "Remove only preprojection storage revision equality guard.",
+  "original_sha256": "5460652dda37840da5c160b5fb1f427dae1ef9f644924ad968a553a0177ce3c9",
+  "mutated_sha256": "685f5a7525a02f2aee2bf714ed390639ac07d9177a62b49f2a6cb8ca5e064150",
+  "result": {
+    "exit_code": 101,
+    "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.52s\n     Running tests/coordination.rs (/state/target/debug/deps/coordination-a6313296cfcea5b3)\n\nrunning 1 test\n\nthread 'mismatched_status_and_policy_revisions_reject_before_projection' (445) panicked at crates/harbormaster/tests/coordination.rs:45:5:\nassertion `left == right` failed\n  left: Ok(DiagnosticSnapshot { scope: ManagerMetadata, revision: Revision(4), history_days: 30, storage: StorageCounts { facts: 1, tombstones: 2, attention: 3, pending_deliveries: 4, discarded_events: 5 }, cleanup: CleanupCounts { facts_removed: 1, tombstones_removed: 2, generations_retired: 3, deliveries_expired: 4, more: true }, recovery: RecoveryStatus { spool_bytes: 0, spool_files: 0, protected_files: 0, log_bytes: 0, rejected_attempts: 7, discarded_artifacts: 8, unknown_gap: true } })\n right: Err(MismatchedRevision)\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\ntest mismatched_status_and_policy_revisions_reject_before_projection ... FAILED\n\nfailures:\n\nfailures:\n    mismatched_status_and_policy_revisions_reject_before_projection\n\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.00s\n\nerror: test failed, to rerun pass `--test coordination`\n",
+    "timed_out": false,
+    "output_limited": false,
+    "elapsed_seconds": 0.538
+  }
+}

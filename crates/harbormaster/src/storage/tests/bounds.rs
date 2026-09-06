@@ -5,17 +5,17 @@ fn protected_attention_audit_and_projection_caps_do_not_silently_evict() {
     let cases = [
         (
             "attention",
-            "WITH RECURSIVE n(x) AS(VALUES(1) UNION ALL SELECT x+1 FROM n WHERE x<20000) INSERT INTO attention SELECT 'fixture','fixture',printf('%d',x),'fixture',0,0 FROM n",
+            "WITH RECURSIVE n(x) AS(VALUES(1) UNION ALL SELECT x+1 FROM n WHERE x<20000) INSERT INTO attention(producer,generation,event,run,reason,reviewed) SELECT 'fixture','fixture',printf('%d',x),'fixture',0,0 FROM n",
             20_000,
         ),
         (
             "outbox",
-            "WITH RECURSIVE n(x) AS(VALUES(1) UNION ALL SELECT x+1 FROM n WHERE x<20000) INSERT INTO outbox SELECT 'fixture','fixture',printf('%d',x),'fixture',2,100,100 FROM n",
+            "WITH RECURSIVE n(x) AS(VALUES(1) UNION ALL SELECT x+1 FROM n WHERE x<20000) INSERT INTO outbox(producer,generation,event,run,state,created,changed) SELECT 'fixture','fixture',printf('%d',x),'fixture',2,100,100 FROM n",
             20_000,
         ),
         (
             "projections",
-            "WITH RECURSIVE n(x) AS(VALUES(1) UNION ALL SELECT x+1 FROM n WHERE x<10000) INSERT INTO projections SELECT printf('%d',x),0,0,0,NULL FROM n",
+            "WITH RECURSIVE n(x) AS(VALUES(1) UNION ALL SELECT x+1 FROM n WHERE x<10000) INSERT INTO projections(run,process,observation,turn,turn_id) SELECT printf('%d',x),0,0,0,NULL FROM n",
             10_000,
         ),
     ];
@@ -47,7 +47,7 @@ fn protected_attention_audit_and_projection_caps_do_not_silently_evict() {
 fn producer_registry_cap_rejects_registration_without_new_revision() {
     let fixture = Fixture::new();
     let mut engine = fixture.open();
-    engine.connection.as_ref().unwrap().execute_batch("WITH RECURSIVE n(x) AS(VALUES(1) UNION ALL SELECT x+1 FROM n WHERE x<10000) INSERT INTO producers SELECT printf('%d',x),'fixture','fixture',0,X'0000000000000000',0 FROM n").unwrap();
+    engine.connection.as_ref().unwrap().execute_batch("WITH RECURSIVE n(x) AS(VALUES(1) UNION ALL SELECT x+1 FROM n WHERE x<10000) INSERT INTO producers(producer,generation,run,harness,next_seq,active) SELECT printf('%d',x),'fixture','fixture',0,X'0000000000000000',0 FROM n").unwrap();
     assert_eq!(
         engine.execute(&Request::Register(Registration {
             expected_revision: Revision::new(0),
@@ -100,7 +100,7 @@ fn tombstone_cap_requires_atomic_retirement_and_failed_retirement_preserves_rows
     let fixture = Fixture::new();
     let mut engine = fixture.open();
     let (generation, revision) = register(&mut engine, 1);
-    engine.connection.as_ref().unwrap().execute("WITH RECURSIVE n(x) AS(VALUES(1) UNION ALL SELECT x+1 FROM n WHERE x<20000) INSERT INTO tombstones SELECT ?1,?2,?3,printf('fixture-%d',x),'fixture',100 FROM n", rusqlite::params![id::<ProducerId>(1).as_str(), generation.as_str(), id::<RunId>(2).as_str()]).unwrap();
+    engine.connection.as_ref().unwrap().execute("WITH RECURSIVE n(x) AS(VALUES(1) UNION ALL SELECT x+1 FROM n WHERE x<20000) INSERT INTO tombstones(producer,generation,run,turn_id,event,created) SELECT ?1,?2,?3,printf('fixture-%d',x),'fixture',100 FROM n", rusqlite::params![id::<ProducerId>(1).as_str(), generation.as_str(), id::<RunId>(2).as_str()]).unwrap();
     let set = write(generation, revision, 1, 3);
     assert_eq!(
         engine.execute(&Request::Commit(Box::new(set.clone()))),
@@ -231,7 +231,7 @@ fn full_pending_outbox_rolls_back_other_effects() {
     let fixture = Fixture::new();
     let mut engine = fixture.open();
     let (generation, revision) = register(&mut engine, 1);
-    engine.connection.as_ref().unwrap().execute_batch("WITH RECURSIVE n(x) AS(VALUES(1) UNION ALL SELECT x+1 FROM n WHERE x<1000) INSERT INTO outbox SELECT 'fixture','fixture',printf('%d',x),'fixture',0,100,100 FROM n").unwrap();
+    engine.connection.as_ref().unwrap().execute_batch("WITH RECURSIVE n(x) AS(VALUES(1) UNION ALL SELECT x+1 FROM n WHERE x<1000) INSERT INTO outbox(producer,generation,event,run,state,created,changed) SELECT 'fixture','fixture',printf('%d',x),'fixture',0,100,100 FROM n").unwrap();
     let set = write(generation, revision, 1, 3);
     assert_eq!(
         engine.execute(&Request::Commit(Box::new(set))),

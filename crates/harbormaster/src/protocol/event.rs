@@ -129,6 +129,20 @@ pub enum EventPayload {
 }
 
 impl EventPayload {
+    /// The scoped turn identity when this is a turn observation.
+    #[must_use]
+    pub const fn turn_id(&self) -> Option<&TurnId> {
+        match self {
+            Self::TurnStarted(value)
+            | Self::TurnAwaitingInput(value)
+            | Self::TurnAwaitingApproval(value)
+            | Self::TurnCompleted(value)
+            | Self::TurnInterrupted(value) => Some(&value.turn_id),
+            Self::TurnFailed(value) => Some(&value.turn_id),
+            Self::RunStarted(_) | Self::RunExited(_) | Self::ProducerHealth(_) => None,
+        }
+    }
+
     #[must_use]
     pub const fn kind(&self) -> EventKind {
         match self {

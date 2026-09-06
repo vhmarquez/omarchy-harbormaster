@@ -1,0 +1,20 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.01s
+     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)
+
+running 1 test
+
+thread 'storage::engine::tests::review_atomic::late_sql_failure_preserves_entire_context_and_original_outcome' (6) panicked at crates/harbormaster/src/storage/tests/review_atomic.rs:18:5:
+assertion `left == right` failed: all projection, current scope, producer checkpoint, revision and receipt fields must roll back
+  left: ReducerContext { revision: Revision(2), producer: Some(ProducerRecord { producer_id: ProducerId("00000001-0000-4000-8000-000000000000"), harness: Hermes, generation: ProducerGeneration("68becad9-f2f0-4355-9e5d-3ff17e9a3a49"), run_id: RunId("00000002-0000-4000-8000-000000000000"), next_sequence: Some(Seq(2)), active: true, reconciled: true }), state: ReductionState { projection: RunProjection { run_id: RunId("00000002-0000-4000-8000-000000000000"), process: Alive, observation: Fresh, turn: Completed, turn_id: Some(TurnId("fixture-turn")) }, current_turn: Some(TurnKey { producer_id: ProducerId("00000001-0000-4000-8000-000000000000"), generation: ProducerGeneration("68becad9-f2f0-4355-9e5d-3ff17e9a3a49"), run_id: RunId("00000002-0000-4000-8000-000000000000"), turn_id: TurnId("fixture-turn") }), tombstone: None }, receipt: Conflict }
+ right: ReducerContext { revision: Revision(2), producer: Some(ProducerRecord { producer_id: ProducerId("00000001-0000-4000-8000-000000000000"), harness: Hermes, generation: ProducerGeneration("68becad9-f2f0-4355-9e5d-3ff17e9a3a49"), run_id: RunId("00000002-0000-4000-8000-000000000000"), next_sequence: Some(Seq(2)), active: true, reconciled: true }), state: ReductionState { projection: RunProjection { run_id: RunId("00000002-0000-4000-8000-000000000000"), process: Alive, observation: Fresh, turn: AwaitingInput, turn_id: Some(TurnId("fixture-turn")) }, current_turn: Some(TurnKey { producer_id: ProducerId("00000001-0000-4000-8000-000000000000"), generation: ProducerGeneration("68becad9-f2f0-4355-9e5d-3ff17e9a3a49"), run_id: RunId("00000002-0000-4000-8000-000000000000"), turn_id: TurnId("fixture-turn") }), tombstone: None }, receipt: Conflict }
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test storage::engine::tests::review_atomic::late_sql_failure_preserves_entire_context_and_original_outcome ... FAILED
+
+failures:
+
+failures:
+    storage::engine::tests::review_atomic::late_sql_failure_preserves_entire_context_and_original_outcome
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 80 filtered out; finished in 0.05s
+
+error: test failed, to rerun pass `--lib`

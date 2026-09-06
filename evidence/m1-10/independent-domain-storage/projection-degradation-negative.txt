@@ -1,0 +1,21 @@
+   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.42s
+     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)
+
+running 1 test
+
+thread 'storage::engine::tests::retirement_projection::tombstone_cleanup_retires_current_projection_with_generation' (289) panicked at crates/harbormaster/src/storage/tests/retirement_projection.rs:29:5:
+assertion `left == right` failed
+  left: Fresh
+ right: Stale
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test storage::engine::tests::retirement_projection::tombstone_cleanup_retires_current_projection_with_generation ... FAILED
+
+failures:
+
+failures:
+    storage::engine::tests::retirement_projection::tombstone_cleanup_retires_current_projection_with_generation
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 94 filtered out; finished in 0.05s
+
+error: test failed, to rerun pass `--lib`

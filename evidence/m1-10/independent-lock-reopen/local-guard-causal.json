@@ -1,0 +1,44 @@
+[
+  {
+    "exit_code": 101,
+    "timed_out": false,
+    "output_limited": false,
+    "elapsed_seconds": 2.59,
+    "name": "no-local-guard-negative",
+    "command": [
+      "/tools/rust/bin/cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "--workspace",
+      "--all-features",
+      "--lib",
+      "recovery::tests::reopen::bounded_reopen_cannot_mask_a_retained_local_token",
+      "--",
+      "--exact"
+    ],
+    "source_sha256": "7550aa76a3d5ed6085afc2ee7553bbf4bd0b8d3f70a507167ec0bbe6fea9fb21",
+    "log": "no-local-guard-negative.txt"
+  },
+  {
+    "exit_code": 0,
+    "timed_out": false,
+    "output_limited": false,
+    "elapsed_seconds": 0.56,
+    "name": "local-guard-restored",
+    "command": [
+      "/tools/rust/bin/cargo",
+      "test",
+      "--locked",
+      "--offline",
+      "--workspace",
+      "--all-features",
+      "--lib",
+      "recovery::tests::reopen::bounded_reopen_cannot_mask_a_retained_local_token",
+      "--",
+      "--exact"
+    ],
+    "source_sha256": "6812f0cb551326e2957cdd70bde9cd2da685107d5faeb258277c52fa77aee46c",
+    "log": "local-guard-restored.txt"
+  }
+]

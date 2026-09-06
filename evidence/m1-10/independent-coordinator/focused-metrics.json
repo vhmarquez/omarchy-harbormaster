@@ -1,0 +1,57 @@
+{
+  "production": [
+    {
+      "disposition": "review required",
+      "kind": "file",
+      "nonblank_lines": 355,
+      "path": "crates/harbormaster/src/ingestion/registry.rs"
+    },
+    {
+      "disposition": "review required",
+      "kind": "file",
+      "nonblank_lines": 306,
+      "path": "crates/harbormaster/src/protocol/event.rs"
+    },
+    {
+      "branches": 3,
+      "disposition": "review required",
+      "end_line": 70,
+      "kind": "function",
+      "line": 13,
+      "name": "plan",
+      "nesting": 1,
+      "nonblank_lines": 58,
+      "path": "scripts/verification/checks.py"
+    }
+  ],
+  "tests": [
+    {
+      "branches": 1,
+      "disposition": "review required",
+      "end_line": 93,
+      "kind": "function",
+      "line": 42,
+      "name": "actual_sigkill_after_sqlite_commit_before_unlink_replays_one_original_outcome",
+      "nesting": 1,
+      "nonblank_lines": 52,
+      "path": "crates/harbormaster/src/coordinator/tests/crash.rs"
+    },
+    {
+      "branches": 1,
+      "disposition": "review required",
+      "end_line": 152,
+      "kind": "function",
+      "line": 102,
+      "name": "missing_hook_retires_and_blocks_real_peer_while_preserving_native_wait",
+      "nesting": 1,
+      "nonblank_lines": 51,
+      "path": "crates/harbormaster/src/coordinator/tests/peers.rs"
+    }
+  ],
+  "coverage_complete": true,
+  "thresholds": {
+    "file_nonblank": 300,
+    "function_nonblank": 50,
+    "policy": "review only; strictly greater than threshold"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "exit_code": 101,
+  "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.44s\n     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)\n\nrunning 1 test\n\nthread 'coordinator::tests::independent_review::independent_receipt_exists_only_after_observed_atomic_commit' (289) panicked at crates/harbormaster/src/coordinator/tests/independent_review.rs:6:9:\nassertion `left == right` failed\n  left: Committed { revision: Revision(1) }\n right: Pending\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\ntest coordinator::tests::independent_review::independent_receipt_exists_only_after_observed_atomic_commit ... FAILED\n\nfailures:\n\nfailures:\n    coordinator::tests::independent_review::independent_receipt_exists_only_after_observed_atomic_commit\n\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 102 filtered out; finished in 0.03s\n\nerror: test failed, to rerun pass `--lib`\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 0.479,
+  "command": [
+    "/tools/rust/bin/cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--workspace",
+    "--lib",
+    "independent_receipt_exists_only_after_observed_atomic_commit",
+    "--",
+    "--nocapture"
+  ],
+  "mutation": {
+    "path": "crates/harbormaster/src/coordinator/decision.rs",
+    "before": "        self.purpose = Purpose::Apply;\n        CommitProgress::Pending",
+    "after": "        self.purpose = Purpose::Apply;\n        self.accept(context.revision)",
+    "sha256": "e4650496987af5625d01c51c5e4a315fa41ac4d77de38e9d094370355a46101f"
+  }
+}

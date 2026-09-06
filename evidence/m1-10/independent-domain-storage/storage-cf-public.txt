@@ -1,0 +1,44 @@
+warning: methods `install_committed` and `invalidate` are never used
+   --> crates/harbormaster/src/ingestion/registry.rs:141:19
+    |
+111 | impl Registry {
+    | ------------- methods in this implementation
+...
+141 |     pub(crate) fn install_committed(
+    |                   ^^^^^^^^^^^^^^^^^
+...
+179 |     pub(crate) fn invalidate(&mut self, producer: &ProducerId) -> Result<usize, AdmissionError> {
+    |                   ^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `harbormaster` (lib) generated 1 warning
+   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)
+error[E0560]: struct `Reconciliation` has no field named `continued_turn`
+  --> crates/harbormaster/tests/storage_reducer.rs:76:17
+   |
+76 |                 continued_turn: None,
+   |                 ^^^^^^^^^^^^^^ `Reconciliation` does not have this field
+   |
+   = note: all struct fields are already assigned
+
+error[E0560]: struct `ReducerWrite` has no field named `discarded_events`
+   --> crates/harbormaster/tests/storage_reducer.rs:163:9
+    |
+163 |         discarded_events: 0,
+    |         ^^^^^^^^^^^^^^^^ `ReducerWrite` does not have this field
+    |
+    = note: all struct fields are already assigned
+
+error[E0609]: no field `discarded_events` on type `ReducerWrite`
+   --> crates/harbormaster/tests/storage_reducer.rs:170:9
+    |
+170 |     set.discarded_events = 7;
+    |         ^^^^^^^^^^^^^^^^ unknown field
+    |
+    = note: available fields are: `expected_revision`, `fact`, `effects`, `accepted_at`, `notify`
+
+Some errors have detailed explanations: E0560, E0609.
+For more information about an error, try `rustc --explain E0560`.
+error: could not compile `harbormaster` (test "storage_reducer") due to 3 previous errors
+warning: build failed, waiting for other jobs to finish...

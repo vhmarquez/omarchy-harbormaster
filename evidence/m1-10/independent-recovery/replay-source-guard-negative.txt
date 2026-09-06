@@ -1,0 +1,29 @@
+   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)
+warning: function `validate_replay` is never used
+   --> crates/harbormaster/src/recovery/provenance.rs:118:15
+    |
+118 | pub(super) fn validate_replay(
+    |               ^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `harbormaster` (lib test) generated 1 warning
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.38s
+     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)
+
+running 1 test
+
+thread 'recovery::tests::independent_review::replay_revalidates_required_source_provenance' (289) panicked at crates/harbormaster/src/recovery/tests/independent_review.rs:17:5:
+assertion failed: matches!(store.read_reviewed(10, &mapping),
+    Err(RecoveryError::UnprovenSource))
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test recovery::tests::independent_review::replay_revalidates_required_source_provenance ... FAILED
+
+failures:
+
+failures:
+    recovery::tests::independent_review::replay_revalidates_required_source_provenance
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 58 filtered out; finished in 0.02s
+
+error: test failed, to rerun pass `--lib`

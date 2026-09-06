@@ -1,0 +1,24 @@
+{
+  "exit_code": 101,
+  "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.42s\n     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)\n\nrunning 1 test\n\nthread 'coordinator::tests::peers::independent_old_scope_invalidation_preserves_new_peer_and_queued_event' (289) panicked at crates/harbormaster/src/coordinator/tests/peers.rs:167:5:\nassertion `left == right` failed\n  left: Ok(1)\n right: Err(StaleGeneration)\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\ntest coordinator::tests::peers::independent_old_scope_invalidation_preserves_new_peer_and_queued_event ... FAILED\n\nfailures:\n\nfailures:\n    coordinator::tests::peers::independent_old_scope_invalidation_preserves_new_peer_and_queued_event\n\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 104 filtered out; finished in 0.03s\n\nerror: test failed, to rerun pass `--lib`\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 0.464,
+  "command": [
+    "/tools/rust/bin/cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--workspace",
+    "--lib",
+    "independent_old_scope_invalidation_preserves_new_peer_and_queued_event",
+    "--",
+    "--nocapture"
+  ],
+  "mutation": {
+    "path": "crates/harbormaster/src/ingestion/registry.rs",
+    "before": "        if generation != Some(&record.registration.generation) {",
+    "after": "        if false && generation != Some(&record.registration.generation) {",
+    "sha256": "ef445d9190ba1470e61f1885c4524a90662c58c0c1817f309aee7f547706dbf8"
+  }
+}

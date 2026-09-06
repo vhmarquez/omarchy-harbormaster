@@ -1,0 +1,19 @@
+{
+  "exit_code": 0,
+  "output": "    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.01s\n     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)\n\nrunning 7 tests\ntest ingestion::registry::tests::invalid_initial_signal_grant_does_not_create_registration ... ok\ntest ingestion::registry::tests::trusted_replacement_narrows_the_negotiated_signal_grant ... ok\ntest ingestion::registry::tests::invalidation_drop_and_rejection_counters_saturate ... ok\ntest ingestion::registry::tests::committed_generation_and_checkpoint_replace_only_the_named_producer ... ok\ntest ingestion::registry::tests::invalidation_blocks_old_and_new_sessions_without_erasing_replay_receipts ... ok\ntest ingestion::registry::tests::failed_installation_preserves_authority_receipts_and_backlog ... ok\ntest ingestion::registry::tests::initial_installation_and_existing_replacement_respect_the_registry_cap ... ok\n\ntest result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 104 filtered out; finished in 0.03s\n\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 0.051,
+  "command": [
+    "/tools/rust/bin/cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--workspace",
+    "--lib",
+    "ingestion::",
+    "--",
+    "--nocapture"
+  ],
+  "source_head": "364f7c8d467594b3a7d5d79ea816d7e81b5903ef"
+}

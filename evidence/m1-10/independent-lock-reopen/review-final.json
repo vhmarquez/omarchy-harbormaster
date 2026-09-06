@@ -1,0 +1,43 @@
+{
+  "verdict": "PASS: narrow private test fixture correction with demonstrated fork inheritance mechanism; production lock behavior remains unchanged.",
+  "scope": "Independent diagnosis of transient AlreadyOwned following explicit local ownership release. This is not a final whole-PR coordinator review or mandatory final Docker/native qualification.",
+  "base_head": "2acf5ed6d04ba713fbeb7fd844294e5fbd04fa30",
+  "source_binding": "initial-runs.json records the full selected source snapshot including root uncommitted changes; fixture-source-scope.json records all four fixture changes and confirms all other original selected files are byte-identical.",
+  "observed_owner_failure": "/home/vhm/Work/harbormaster-m1-evidence/m1-10-coordinator-confirmation-green/results.json: supplied root run failed two immediate reopen assertions after local drops.",
+  "independent_baseline": {
+    "full_default_parallel_runs": 20,
+    "tests_per_run": 111,
+    "result": "PASS; the particular random full-suite failure did not recur during these runs."
+  },
+  "mechanism": {
+    "kernel_probe": "CLOEXEC verified. Parent closes original fd and has zero matching inode descriptors. Synchronized fork child retains fd3 before exec; reopen flock fails. Exec closes descriptor, reopen passes. Actual deterministic isolated execution.",
+    "production_probe": "Real public ArtifactStore lock verifies O_CLOEXEC. Four bounded concurrent Command::spawn threads yield 21 actual temporary AlreadyOwned responses after local drop. Parent descriptor scan is empty and another PID648 has exact lock inode on fd7. Reopen after spawned children passes. This stress probe is evidence-only, not proposed as a permanent probabilistic test."
+  },
+  "correction": {
+    "changed_files": [
+      "crates/harbormaster/src/recovery/tests/mod.rs",
+      "crates/harbormaster/src/recovery/tests/replay.rs",
+      "crates/harbormaster/src/recovery/tests/crash.rs",
+      "crates/harbormaster/src/recovery/tests/reopen.rs"
+    ],
+    "bounds": "Only after explicit drops: assert zero current-process descriptors for exact dev/inode, then retry AlreadyOwned for at most 2 seconds with 1ms intervals and repeat local-descriptor assertion. Other errors fail immediately. Persistent ownership still fails. Direct AlreadyOwned assertions with held tokens are unchanged.",
+    "production_changes": false,
+    "git_apply_check_against_root": "PASS"
+  },
+  "validation": {
+    "format": "PASS",
+    "strict_all_target_clippy": "PASS",
+    "full_default_parallel_runs": 20,
+    "tests_per_run": 112,
+    "public_recovery_tests": 8,
+    "guard_causal": "New retained-local-token regression PASS. Removing both guard calls causes actual runtime FAIL (wrong panic AlreadyOwned after2s); restoring source forces recompilation and PASS. Mutation logs preserved.",
+    "count_correction": "Earlier informal progress counts of 110/111 were incorrect; raw logs show111 baseline and112 corrected."
+  },
+  "maintainability": "New private helper file 50 total lines, no new production code. Identity scan has one purpose: ensure bounded fixture waiting cannot conceal a local ownership/token leak. Linux /proc is already available in the unchanged verification backend.",
+  "references": [
+    "https://man7.org/linux/man-pages/man2/flock.2.html",
+    "https://man7.org/linux/man-pages/man2/fork.2.html",
+    "https://man7.org/linux/man-pages/man2/F_GETFD.2const.html"
+  ],
+  "method": "Unchanged scripts/verification/sandbox.py; private source/state; prepared .tools-m1-9 read-only; offline bubblewrap, default test parallelism, no privilege/global install/live config or DB. Only read-only git apply --check against root."
+}

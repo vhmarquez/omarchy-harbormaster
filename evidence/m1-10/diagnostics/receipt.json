@@ -1,0 +1,29 @@
+{
+  "source_commit": "703dd46fd4a681133b471c30daf9ab97da7f34f6",
+  "responsibility_commit": "49d5d1f",
+  "source_sha256": {
+    "crates/harbormaster/src/diagnostics.rs": "5460652dda37840da5c160b5fb1f427dae1ef9f644924ad968a553a0177ce3c9",
+    "crates/harbormaster/tests/coordination.rs": "c0b2184cf21d30feb394ee623b5190e6aaa18e42d437016a3753fd3ae92edb67",
+    "crates/harbormaster/tests/coordination/fixture.rs": "0d259a9283051ce61d685dc5dcea0ab5268033953c734e154d38b04b7cdf55d5",
+    "crates/harbormaster/src/lib.rs": "8e3e63bed7b04f5ed891089dbf120d576babd6d70d66444c51078ad89489da56"
+  },
+  "scope": "Pure caller-owned diagnostics projection only. Root owns coordinator pipeline and canonical hosted/native qualification.",
+  "api": "diagnostics::project(&StorageStatus,&StoragePolicy,&RecoveryStatus) -> Result<DiagnosticSnapshot,DiagnosticError>",
+  "results": {
+    "public_coordination": "4 PASS, including100repeatedformat operations and actual fixture bytes/modes/mtimes/policy/status unchanged",
+    "max_json_bytes": "below2048 at maximum numeric field widths",
+    "clippy": "all-targets/all-features -Dwarnings PASS",
+    "fmt": "PASS",
+    "independent_review": "Source-only independent review found no actionable issue; no claim of independently executed diagnostics tests."
+  },
+  "verification_environment": "Existing canonical bwrap; source/tools read-only; explicit private .tools-m1-9; network disabled; Cargo locked/offline; private prepared static SQLite and target state reused for focused iterations.",
+  "behavioral_evidence": [
+    "Initial projection without revision guard combined status4/policy5 and failed the mismatch assertion; unchanged mismatch test passes with guard.",
+    "Causal removal of only revision equality guard fails at runtime.",
+    "Artificial bad implementation reads actual disposable private canary fixture into extra output field; actual source/privacy test rejects it.",
+    "Restoring an older snapshot with reused Cargo target initially reused the mutant artifact (no Compiling line); this failed restoration is preserved, not claimed as GREEN.",
+    "Created new restoration snapshot and ran cargo clean --package harbormaster inside private verifier target; subsequent actual compilation and all4tests PASS."
+  ],
+  "cache_rule": "At mutation/restore boundaries use a fresh source snapshot and/or clean private package/target; never infer source-accurate restoration solely from swapping an older /work snapshot while reusing Cargo artifacts. Canonical fresh-state qualification remains separate.",
+  "privacy_scope": "No IDs, paths, source strings, environment or arbitrary errors in output; fixed scope and numeric/boolean fields only. Diagnostic implementation has no file/worker/policy/cleanup/log handle. Private fixture canaries are synthetic; no live/harness data used."
+}

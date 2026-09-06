@@ -1,0 +1,19 @@
+{
+  "exit_code": 0,
+  "output": "   Compiling proc-macro2 v1.0.107\n   Compiling unicode-ident v1.0.24\n   Compiling quote v1.0.47\n   Compiling pkg-config v0.3.34\n   Compiling autocfg v1.5.1\n   Compiling vcpkg v0.2.15\n   Compiling serde_core v1.0.229\n   Compiling cfg_aliases v0.2.2\n   Compiling bitflags v2.13.1\n   Compiling zmij v1.0.23\n   Compiling libc v0.2.189\n   Compiling rustix v1.1.4\n   Compiling serde_json v1.0.151\n   Compiling serde v1.0.229\n   Compiling linux-raw-sys v0.12.1\n   Compiling fallible-iterator v0.3.0\n   Compiling fallible-streaming-iterator v0.1.9\n   Compiling cfg-if v1.0.4\n   Compiling smallvec v1.16.0\n   Compiling itoa v1.0.18\n   Compiling memchr v2.8.3\n   Compiling nix v0.31.3\n   Compiling memoffset v0.9.1\n   Compiling libsqlite3-sys v0.38.2\n   Compiling rusqlite v0.40.2\n   Compiling syn v3.0.5\n   Compiling serde_derive v1.0.229\n   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.92s\n     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)\n\nrunning 12 tests\ntest coordinator::tests::crash::committed_before_spool_unlink_child ... ok\ntest coordinator::tests::pipeline::missing_identity_proof_is_durable_unknown_and_never_active ... ok\ntest coordinator::tests::crash::actual_sigkill_after_sqlite_commit_before_unlink_replays_one_original_outcome ... ok\ntest coordinator::tests::peers::real_peer_uses_committed_generation_and_reconnect_discards_old_backlog_once ... ok\ntest coordinator::tests::pipeline::sequence_gap_retires_scope_without_fact_ack_or_spool_removal ... ok\ntest coordinator::tests::pending::full_worker_retains_the_unsubmitted_intent_and_never_acknowledges ... ok\ntest coordinator::tests::pipeline::one_durable_generation_and_exact_duplicate_receipt_survive_unlink_delay ... ok\ntest coordinator::tests::pipeline::original_apply_intent_can_be_retained_and_replayed_after_receipt_is_discarded ... ok\ntest coordinator::tests::pending::discarded_actual_worker_reply_is_unknown_until_the_same_intent_proves_commit ... ok\ntest coordinator::tests::peers::missing_hook_retires_and_blocks_real_peer_while_preserving_native_wait ... ok\ntest coordinator::tests::pipeline::explicit_verified_wait_continuity_resolves_original_obligation_after_new_generation_terminal ... ok\ntest coordinator::tests::pending::only_an_explicit_revision_conflict_refreshes_context_before_reducing_again ... ok\n\ntest result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 88 filtered out; finished in 0.07s\n\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 4.008,
+  "command": [
+    "/tools/rust/bin/cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--workspace",
+    "--lib",
+    "coordinator::tests::",
+    "--",
+    "--nocapture"
+  ],
+  "source_head": "3e68e80506e76dfff7b061ab64bde265b84b319c"
+}

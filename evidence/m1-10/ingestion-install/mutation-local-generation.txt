@@ -1,0 +1,21 @@
+   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.36s
+     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)
+
+running 1 test
+
+thread 'ingestion::registry::tests::committed_generation_and_checkpoint_replace_only_the_named_producer' (297) panicked at crates/harbormaster/src/ingestion/registry/tests.rs:26:5:
+assertion `left == right` failed
+  left: ProducerGeneration("e086948e-d983-4dd8-a766-0e264934ee90")
+ right: ProducerGeneration("00000008-0000-4000-8000-000000000000")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test ingestion::registry::tests::committed_generation_and_checkpoint_replace_only_the_named_producer ... FAILED
+
+failures:
+
+failures:
+    ingestion::registry::tests::committed_generation_and_checkpoint_replace_only_the_named_producer
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 45 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `--lib`

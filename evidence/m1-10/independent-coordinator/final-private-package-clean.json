@@ -1,0 +1,14 @@
+{
+  "exit_code": 0,
+  "output": "     Removed 641 files, 307.0MiB total\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 0.027,
+  "command": [
+    "/tools/rust/bin/cargo",
+    "clean",
+    "--package",
+    "harbormaster"
+  ],
+  "source_head": "364f7c8d467594b3a7d5d79ea816d7e81b5903ef"
+}

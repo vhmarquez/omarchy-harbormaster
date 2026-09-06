@@ -1,0 +1,17 @@
+{
+  "command": [
+    "cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--workspace",
+    "--lib",
+    "--all-features",
+    "storage::engine::tests::reducer_continuity"
+  ],
+  "exit_code": 101,
+  "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.73s\n     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)\n\nrunning 3 tests\ntest storage::engine::tests::reducer_continuity::contradictory_progress_and_continuity_are_rejected_atomically ... FAILED\ntest storage::engine::tests::reducer_continuity::apply_discard_overflow_never_partially_commits_and_success_counts_once ... FAILED\ntest storage::engine::tests::reducer_continuity::same_wait_survives_repeated_restart_without_retagging_or_duplicate_attention ... FAILED\n\nfailures:\n\n---- storage::engine::tests::reducer_continuity::contradictory_progress_and_continuity_are_rejected_atomically stdout ----\n\nthread 'storage::engine::tests::reducer_continuity::contradictory_progress_and_continuity_are_rejected_atomically' (290) panicked at crates/harbormaster/src/storage/tests/reducer_continuity.rs:56:5:\nassertion `left == right` failed\n  left: Ok(Registered { generation: ProducerGeneration(\"abfa96be-2253-4b2c-8702-ab19733c6803\"), revision: Revision(3) })\n right: Err(InvalidRequest)\n\n---- storage::engine::tests::reducer_continuity::apply_discard_overflow_never_partially_commits_and_success_counts_once stdout ----\n\nthread 'storage::engine::tests::reducer_continuity::apply_discard_overflow_never_partially_commits_and_success_counts_once' (289) panicked at crates/harbormaster/src/storage/tests/reducer_continuity.rs:67:5:\nassertion `left == right` failed\n  left: Ok(Committed { revision: Revision(2), duplicate: false })\n right: Err(ResourceExhausted)\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n\n---- storage::engine::tests::reducer_continuity::same_wait_survives_repeated_restart_without_retagging_or_duplicate_attention stdout ----\n\nthread 'storage::engine::tests::reducer_continuity::same_wait_survives_repeated_restart_without_retagging_or_duplicate_attention' (291) panicked at crates/harbormaster/src/storage/tests/reducer_continuity.rs:35:9:\nassertion `left == right` failed\n  left: 2\n right: 1\n\n\nfailures:\n    storage::engine::tests::reducer_continuity::apply_discard_overflow_never_partially_commits_and_success_counts_once\n    storage::engine::tests::reducer_continuity::contradictory_progress_and_continuity_are_rejected_atomically\n    storage::engine::tests::reducer_continuity::same_wait_survives_repeated_restart_without_retagging_or_duplicate_attention\n\ntest result: FAILED. 0 passed; 3 failed; 0 ignored; 0 measured; 56 filtered out; finished in 0.09s\n\nerror: test failed, to rerun pass `--lib`\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 0.833
+}

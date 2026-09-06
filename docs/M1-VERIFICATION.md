@@ -1,6 +1,31 @@
-# M1 #9 candidate verification
+# Current M1 #10 candidate
 
-The storage addition introduces required `sqlite-build`, `rust-storage` and
+Main after the approved #9 merge is qualified at
+`23be30f0d8fa4fb9767241d08faa0a543a3c950b`; its actual hosted/native paired
+receipts are in [the post-merge summary](../evidence/m1-10/post-merge-main/summary.json).
+The #10 branch extends the required inventory to 32 portable and 34 combined
+checks. The dedicated native inventory remains 5 required checks, including the
+preserved original two sandbox methods and the unmapped-peer-PID method.
+There are still only three declared optional live/future probes. A single run
+never establishes complete qualification; the actual hosted Docker and native
+records must pair against identical selected bytes of the exact final commit.
+
+Use the same canonical commands below with the prepared private tools root
+(e.g. `--tools /home/vhm/Work/omarchy-harbormaster/.tools-m1-9` on this machine).
+The four required new Rust targets are `domain`, `storage_reducer`, `recovery`
+and `coordination`; positive sealed-source pipeline tests also run in the
+required library suite. Real filesystem-full tests require the verifier's fresh
+owned 1 MiB `/fault-fs` tmpfs, validate its capacity before filling, and have no
+fallback to a host filesystem. Docker retains its locked-down policy; native
+execution remains separately mandatory. See [#10 evidence](../evidence/m1-10/README.md)
+for actual test/review receipts, failures, corrections and current qualification.
+
+The records below are historical #7/#8/#9 evidence with their original counts
+and revision-specific gates; they do not claim qualification of the #10 source.
+
+# M1 #10 verification continuation
+
+The merged storage dependency introduced required `sqlite-build`, `rust-storage` and
 `rust-storage-crash` checks. Portable has 28 required entries, local combined
 has 30, and separately executed native has five: three shared preflights plus
 the #8 unmapped-peer-PID target and preserved M0 sandbox check (both exact methods).
@@ -30,6 +55,15 @@ Failure of SQLite source preflight or offline compilation blocks later code
 execution while enumerating every remaining required check as NOT_RUN.
 
 ## Current main post-merge qualification
+
+Owner-approved PR #51 / closed #9 main
+`23be30f0d8fa4fb9767241d08faa0a543a3c950b` passed fresh qualification on
+2026-09-06: hosted locked-down Docker portable 28 required PASS, local combined
+30 PASS, dedicated native 5 PASS, actual paired PASS for 215 selected files.
+[Actual reports and logs](../evidence/m1-10/post-merge-main/summary.json) include
+run 34052470724 / artifact 9995027347 and fresh local receipts. This completes
+the #9 dependency gate. #10 requires its own newly registered test families,
+independent review, exact-current-head qualification and owner PR approval.
 
 Owner-merged PR #50 / closed #8 main
 `47d726972991c88da897fe20ef4ce413142227d5` passed fresh qualification on

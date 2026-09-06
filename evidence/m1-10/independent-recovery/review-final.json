@@ -1,0 +1,83 @@
+{
+  "verdict": "PASS within the reviewed recovery-artifact component scope; no unresolved blocking findings.",
+  "reviewed_commit": "0e7589c318d914a1724251fb449d420273e8d977",
+  "observed_at": "2026-09-06T19:39:17.976051+00:00",
+  "independence": "Reviewer authored only external receipts and ephemeral-copy regression fixtures. No production recovery component was authored or edited by this reviewer. Root independently reviews the separate reviewer-authored ingestion seam.",
+  "scope_sha256": {
+    "crates/harbormaster/src/recovery/cleanup.rs": "5210f5cd6a24eb4fbd12e4cca3edf5731c44daaf9b5794311d780267348ef761",
+    "crates/harbormaster/src/recovery/files.rs": "6cba5262f426f96bca08847064fc07b8fa30a6ea88e90ceab5cbf5c5f0d2fc75",
+    "crates/harbormaster/src/recovery/logs.rs": "95f00c6eb80dcd168bb2d39a0ed8e73bc821e5a406d591bd2fe66617e195787a",
+    "crates/harbormaster/src/recovery/mod.rs": "aac76c3973eccfc472eac53ce2ff660a57e5a684829500d698e49bef92bb1481",
+    "crates/harbormaster/src/recovery/names.rs": "f8b93afb209cdfd10e8b84612730da49c2c0d122c9ee2721f87f305910f2d9b8",
+    "crates/harbormaster/src/recovery/paths.rs": "274814bc719b546cfd0ebf3cefb2d9a586acbc0b1ded01bf16e0376263a1daaa",
+    "crates/harbormaster/src/recovery/provenance.rs": "837843acff19e447577265003974b44f34dd981b95443ce6c00e28aa4697a8a0",
+    "crates/harbormaster/src/recovery/spool.rs": "981f20d757ada5fc3d12e6692cc3cd1f5be584f50bc5e73285a55115b78fd129",
+    "crates/harbormaster/src/recovery/tests/bounds.rs": "46723b07412a32a1ad91df4298893990846db687748fb68c1499633103ca524d",
+    "crates/harbormaster/src/recovery/tests/crash.rs": "4a18c8f5e5e98f8713578baf192da1c5f18cef8b0ee95e476c8d65a47e5896c0",
+    "crates/harbormaster/src/recovery/tests/mod.rs": "0b18e489684c79e2e2aa42033a69bdf589e22eef9248b9b1ac269fb375434bb5",
+    "crates/harbormaster/src/recovery/tests/privacy.rs": "6c115e4c2a0bba13b37c9a36e755572c085d3ce11dbd0a7a8321e78d2d67a763",
+    "crates/harbormaster/src/recovery/tests/replay.rs": "29c6ecdd4802f952cd15bed6304aeea1fc8249a017b74037831bdfe2655caab1",
+    "crates/harbormaster/src/storage/tests/recovery.rs": "f01c704604d2ab311bc50b5c5e032c46c4f94ec0ec3454ace1f72ea87455c80d",
+    "crates/harbormaster/tests/recovery/fixture.rs": "29dd3fe67e8bc40a0a46ccbe1479af74c1165f1877fbe30a31fd5a6f3bd29bbe",
+    "crates/harbormaster/tests/recovery.rs": "7b72c55cb6bcd7a865eb3a1e45f5d8fc3588ba60ade5b398c5696005c15be6c8",
+    "crates/harbormaster/tests/storage/recovery.rs": "367e0d5e3520656fedd895d41371a5a6dde24aeca5931869bcbeaf8f91566ba9"
+  },
+  "execution": "independent-execution.json",
+  "checks": [
+    "Unchanged isolated helper, static SQLite preparation, format and strict all-target Clippy passed on the unmodified checkpoint.",
+    "19 focused recovery unit cases passed, including two independent cases, actual SIGKILL at created/staged/renamed private checkpoints, and real 1 MiB private filesystem ENOSPC. One explicit source-fault-only case was ignored in normal execution and run separately with its fault.",
+    "Eight authored public recovery tests and the unchanged independent retained-log regression passed; repeated restored source unit and eight public cases passed.",
+    "All four deliberate guard/progress regressions compiled and failed at runtime with the expected assertions; none was classified solely from compilation failure."
+  ],
+  "resolved_findings": [
+    {
+      "finding": "Long-lived regular descriptors retained deleted log/spool bytes outside directory budgets and could outlive owner locking.",
+      "evidence": "retained-log-initial.json: actual RED 4,194,376 bytes against 4,194,304 cap. Unchanged fixture on corrected source reports 3,145,800 named, zero detached, PASS.",
+      "resolution": "Opaque stat-identity tokens retain shared ownership authority, not regular file descriptors. Per-operation reads close before unlink/rotation; held tokens retain the lock and cannot authorize another instance."
+    },
+    {
+      "finding": "Bounded replay selected random EventId order before predecessor sequence.",
+      "resolution": "Generated names sort fixed-width scoped sequence before EventId; decoded record must match named sequence. Actual 64-record adversarial UUID-order test returns 1..32. Independent sequence-tamper test passes; deleting comparison causes runtime RED."
+    },
+    {
+      "finding": "Successful unlink followed by directory fsync failure lost actual partial progress.",
+      "resolution": "Increment removed files/bytes and discarded artifacts immediately after successful unlink, before fsync; preserve failure and unknown gap. Explicit source-level post-unlink fsync fault passes actual progress; moving counts after the same fault fails 0 vs 1. This fault is injected in a private source copy, not a real kernel fsync failure."
+    },
+    {
+      "finding": "A single dropped count could falsely mix rejected attempts, artifacts and unique lost events.",
+      "resolution": "rejected_attempts and discarded_artifacts are separate saturating volatile quantities; unknown_gap remains explicit. Neither is a durable unique-event-loss total."
+    }
+  ],
+  "security_disposition": [
+    "Public production reviewed mapping registry remains empty. Real and handcrafted synthetic public inputs fail closed. Source-specific strings cannot qualify themselves; private cfg(test) synthetic mappings exercise the same prewrite and replay gates.",
+    "Removing the required-turn source guard persists one artifact before replay rejects; the before-temp canary test detects this at runtime (1 vs 0). Removing the replay eligibility guard independently admits a previously staged event under an unproven mapping and is detected.",
+    "Fixed descriptor-relative private directory and filenames, local-filesystem allowlist, lock authority, nofollow/type/mode/UID/link checks and full stat identities guard reads and bounded cleanup. Unknown names remain protected while consuming global inventory budget.",
+    "Temporary, partial, ready, old-generation and orphan file bytes consume bounded accounting. Expiry stops replay at the approved artifact TTL; removal still requires explicit bounded preview/apply. Original event identity/generation remain intact.",
+    "Only fixed codes and numeric manager data enter logs/status; no caller-provided source text, path or OS error string is formatted there."
+  ],
+  "maintainability": {
+    "metrics": "metrics.json",
+    "files_reviewed": 17,
+    "hotspots": [
+      {
+        "path": "crates/harbormaster/src/recovery/spool.rs",
+        "kind": "function",
+        "name": "write_stage",
+        "line": 114,
+        "end_line": 165,
+        "nonblank_lines": 52,
+        "nesting": 1,
+        "branches": 14,
+        "disposition": "review required"
+      }
+    ],
+    "disposition": "Accept write_stage 52 lexical nonblank lines: one contiguous create, bounded write, file/directory sync, identity validation, no-replace publish and receipt lifecycle, including private crash checkpoints. Keeping descriptor/token lifetimes and durability ordering together is clearer than a metric-only split. No recovery file exceeds 300 nonblank lines."
+  },
+  "limits": [
+    "This component review does not independently qualify the complete integrated reducer/coordinator/storage branch, hosted Docker checks or mandatory native qualification.",
+    "All production adapters remain unsupported in M1 until independently reviewed version-specific source mappings exist; private synthetic success is not live harness evidence.",
+    "Bounds cover file-content byte lengths and finite file/handle inventories; they do not assert exact filesystem allocation including block/metadata overhead or isolate hostile same-UID code.",
+    "Cleanup is nonrecursive and partial-progress-aware, not transactionally atomic across files. Loss accounting is volatile and deliberately retains unknown gap.",
+    "The first reviewer execution repeated a fixed-name independent fixture in the same private state and received AlreadyExists. That fixture reuse error is preserved under attempt-1 and is not a product failure; a fresh run completed all expected checks."
+  ]
+}

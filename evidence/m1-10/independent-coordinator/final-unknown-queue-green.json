@@ -1,0 +1,20 @@
+{
+  "exit_code": 0,
+  "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.62s\n     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)\n\nrunning 1 test\ntest coordinator::tests::peers::independent_unknown_apply_keeps_new_queue_loss_separate_from_original_intent ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 111 filtered out; finished in 0.03s\n\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 0.671,
+  "command": [
+    "/tools/rust/bin/cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--workspace",
+    "--lib",
+    "independent_unknown_apply_keeps_new_queue_loss_separate_from_original_intent",
+    "--",
+    "--nocapture"
+  ],
+  "source_head": "364f7c8d467594b3a7d5d79ea816d7e81b5903ef",
+  "fixture_sha256": "4d8db80097b6e36c1c77fded2d20ca36cd461a4193676c6bea9d6a8b6266679a"
+}

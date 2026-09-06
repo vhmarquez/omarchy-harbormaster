@@ -1,0 +1,219 @@
+{
+  "verdict": "PASS within the stated independent scope; no remaining actionable coordinator finding",
+  "source_commit": "364f7c8d467594b3a7d5d79ea816d7e81b5903ef",
+  "scope": [
+    "src/coordinator production modules",
+    "src/domain/reconciliation.rs",
+    "src/ingestion/registry.rs committed-install and generation-invalidation seams",
+    "protocol/event.rs pure turn_id helper",
+    "scripts/verification/checks.py mandatory target inventory"
+  ],
+  "excluded_self_authored": [
+    "recovery production and diagnostics independent verdict; private recovery fixture setup is used to exercise the coordinator"
+  ],
+  "source_binding": "final-state.json contains full source file SHA-256 hashes. Every recorded hash was checked after restoring all mutations.",
+  "execution_boundary": "Unchanged canonical native bwrap with private .tools-m1-9, read-only source/tools, fresh private state, actual official SQLite static C build; no host/harness database, network, global config, unsafe code, new dependency, deployment or M2.",
+  "resolved_findings": [
+    {
+      "finding": "Exact durable event lookup bypassed immutable source harness scope",
+      "initial_receipt": "harness-scope-red.json",
+      "fixed": "Check durable producer run and harness before Exact; retain generation/activity checks after Exact for already committed retired-generation replay",
+      "final_fixture": "independent_exact_receipt_does_not_bypass_source_harness_scope"
+    },
+    {
+      "finding": "A genuine receipt could confirm a different source harness artifact with identical EventEnvelope",
+      "initial_receipt": "confirmation-harness-red.json",
+      "fixed": "DurableReceipt privately binds accepted harness; confirm_spool checks it before full event and owned file identity removal",
+      "final_fixture": "independent_confirmation_receipt_cannot_authorize_a_different_source_harness"
+    }
+  ],
+  "accounting": "A separately executed real worker-reply-loss fixture observes newly invalidated queue loss1 and unknown_gap while the immutable original Apply carries discarded_events0 and the committed durable counter remains0. CommitStatus reports separate volatile units; overlapping counters must not be summed as unique event loss. The initial diagnostics source was authored by this reviewer and is excluded from an independent diagnostics verdict.",
+  "passing_groups": {
+    "coordinator": 17,
+    "domain_reconciliation": 5,
+    "ingestion_unit": 7,
+    "ingestion_public": 23,
+    "m1_10_inventory": 1,
+    "scope_inventory": 9,
+    "additional_unknown_queue_fixture": 1,
+    "strict_all_target_clippy": true,
+    "format": true
+  },
+  "causal_mutations": [
+    "premature receipt after context",
+    "Conflict accepted as exact identity",
+    "omit context harness comparison",
+    "omit confirmation harness comparison",
+    "omit installed-generation guard",
+    "omit observed runtime identity comparison",
+    "remove mandatory coordination target"
+  ],
+  "maintainability": [
+    {
+      "item": "ingestion/registry.rs355",
+      "disposition": "Accept: one state owner for authority, queue and replay receipts; new seams share these invariants directly."
+    },
+    {
+      "item": "protocol/event.rs306",
+      "disposition": "Accept: added small closed pure turn projection beside its enum; protocol layout otherwise unchanged."
+    },
+    {
+      "item": "checks.py::plan58",
+      "disposition": "Accept: four explicit mandatory target rows preserve ordered preflights and native/portable auditability, no additional branch."
+    },
+    {
+      "item": "coordinator crash52 and missing-hook51 tests",
+      "disposition": "Accept cohesive real integration lifecycles with setup, external action and durable/native obligation assertions."
+    },
+    {
+      "item": "coordinator review.rs receipt51 test",
+      "disposition": "Reviewer-authored regression; root reviewer asked to record independent disposition. It intentionally keeps pre-Apply/no-receipt/atomic-row/one-shot receipt assertions together."
+    },
+    {
+      "item": "protocol/control.rs303",
+      "disposition": "Unchanged prior-approved source; no new disposition required."
+    },
+    {
+      "item": "recovery/write_stage52",
+      "disposition": "Self-authored and excluded; separate storage_review reviewer accepted its ordered file lifecycle."
+    }
+  ],
+  "limits": [
+    "Focused execution is not full Docker/native paired qualification or adapter qualification.",
+    "Two intermittent recovery reopen failures from the root full suite are under separate review; this coordinator PASS does not dismiss those failures.",
+    "No public production adapter mapping was added.",
+    "No production edits were made by this reviewer in the root checkout."
+  ],
+  "receipts": {
+    "final-commit-before-receipt-causal-red.json": {
+      "exit_code": 101,
+      "sha256": "f0bf6338073aca5b5e7237243278e2b8f313328d1c6c8aa9771c4f5e439700bf",
+      "actual_recompile": true
+    },
+    "final-commit-before-receipt-restored-green.json": {
+      "exit_code": 0,
+      "sha256": "0361226234d6a381da40b8587a719e498f4fad788c94527018827f2a2021f3ee",
+      "actual_recompile": true
+    },
+    "final-coordinator-green.json": {
+      "exit_code": 0,
+      "sha256": "9b7156e9805bfb9845da83132105a9004d5004f3ba7182f3b08e3bbcf5ee0b94",
+      "actual_recompile": true
+    },
+    "final-exact-identity-causal-red.json": {
+      "exit_code": 101,
+      "sha256": "429c4d1547bad864fcf8367aa36dc8465a4658800cc69af182ebb4b1236b7112",
+      "actual_recompile": true
+    },
+    "final-exact-identity-restored-green.json": {
+      "exit_code": 0,
+      "sha256": "06381a827498c661bc81b61299d9f3cdcffa6cdbd3fb8b0428908b8136d1223f",
+      "actual_recompile": true
+    },
+    "final-format-green.json": {
+      "exit_code": 0,
+      "sha256": "191b45a4875b8c47d83c312fee9091c793a9f5befc931074d4a71b9cc949fa43",
+      "actual_recompile": false
+    },
+    "final-harness-confirmation-causal-red.json": {
+      "exit_code": 101,
+      "sha256": "324ff6d96e10a582b668feac715a5d0d50349b4c4b1b15e0caf3e2cb660bcd41",
+      "actual_recompile": true
+    },
+    "final-harness-confirmation-restored-green.json": {
+      "exit_code": 0,
+      "sha256": "a9159f9dbb6e69d0859bbd0a238c8ab781cc175c89a60ee8f64d59913094ea76",
+      "actual_recompile": true
+    },
+    "final-harness-context-causal-red.json": {
+      "exit_code": 101,
+      "sha256": "c1410ed9395f7d73667492953e7f8bf186b7c45a365e0bbfd50dc62d84f735a5",
+      "actual_recompile": true
+    },
+    "final-harness-context-restored-green.json": {
+      "exit_code": 0,
+      "sha256": "4abafdbbf78641b185de6d335a3ec73952646a4ca41dc10f3c45ef6bf464f3a1",
+      "actual_recompile": true
+    },
+    "final-ingestion-public-green.json": {
+      "exit_code": 0,
+      "sha256": "912e1c1b4b0d19c2552f253116ab27eae5b977a35a56fe5bf097b2bcbc925fc5",
+      "actual_recompile": true
+    },
+    "final-ingestion-unit-green.json": {
+      "exit_code": 0,
+      "sha256": "8ffa9abfd66ee460931dd05961693fe533ce97f8a7591ba9ab0359fc6dbebcbf",
+      "actual_recompile": false
+    },
+    "final-inventory-green.json": {
+      "exit_code": 0,
+      "sha256": "fbdc5fcaf596b26975ba15534f321be3edc884b7340f935262b76b9d4ee49e4a",
+      "actual_recompile": false
+    },
+    "final-metrics.json": {
+      "exit_code": 0,
+      "sha256": "4ceac1394cefbe863c7e6280cda466f9b0c7d9b31942fd52f4907bc770f80f53",
+      "actual_recompile": false
+    },
+    "final-old-generation-causal-red.json": {
+      "exit_code": 101,
+      "sha256": "bbc7cf8ec2ad6e469cd857877b73035a79fc598a6aeed7bc70ae2be8b592f7be",
+      "actual_recompile": true
+    },
+    "final-old-generation-restored-green.json": {
+      "exit_code": 0,
+      "sha256": "f7fd5f68e9d0773d749d91b77a4e59ef149da44aad44ee93a81fb7634d07c728",
+      "actual_recompile": true
+    },
+    "final-private-package-clean.json": {
+      "exit_code": 0,
+      "sha256": "98177e3e1ecbde006f122e008285b057df6469d0bbb36ac423e1a9fc17ead3a8",
+      "actual_recompile": false
+    },
+    "final-reconciliation-green.json": {
+      "exit_code": 0,
+      "sha256": "94186e41f73367f55107b7ab98290d8080672372a69cedb54eb0a3e6d8709367",
+      "actual_recompile": true
+    },
+    "final-required-inventory-causal-red.json": {
+      "exit_code": 1,
+      "sha256": "88f8d180d24bbd184a47d2212ce91e314bd36b283c5c6d52392284982df999cd",
+      "actual_recompile": false
+    },
+    "final-required-inventory-restored-green.json": {
+      "exit_code": 0,
+      "sha256": "e6b2e871aa8bbc89f24fb0dffe07ada0540f9d34c3348c8cd185260d49500b50",
+      "actual_recompile": false
+    },
+    "final-restored-coordinator-green.json": {
+      "exit_code": 0,
+      "sha256": "587d51bbd5fe5c53fdac5da5bda58973430230fc080e29f5a107e35520f844d7",
+      "actual_recompile": true
+    },
+    "final-runtime-identity-causal-red.json": {
+      "exit_code": 101,
+      "sha256": "a6950e98b8a005be8ba3853eaced81d37388f4685847b6836a8b80b3abf47d43",
+      "actual_recompile": true
+    },
+    "final-runtime-identity-restored-green.json": {
+      "exit_code": 0,
+      "sha256": "15b12d2b419057fc5bcb98f7c8be954f29ced82cc4693cdcc1b5135a57ed33f8",
+      "actual_recompile": true
+    },
+    "final-scope-inventory-green.json": {
+      "exit_code": 0,
+      "sha256": "f5aa845bf27f901cce8a8d4643a378a3beea537d329863951cc5d35ce52e2521",
+      "actual_recompile": false
+    },
+    "final-strict-clippy-green.json": {
+      "exit_code": 0,
+      "sha256": "263758209c41c72cc8ac24cf48256a48f8fae47fa68631abda51178e36993c56",
+      "actual_recompile": false
+    },
+    "final-unknown-queue-green.json": {
+      "exit_code": 0,
+      "sha256": "26564688daab3fd6608ba2de448b1dd0e978e75ddb0595abc7cccb1cf479ea1f",
+      "actual_recompile": true
+    }
+  }
+}

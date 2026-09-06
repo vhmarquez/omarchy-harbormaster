@@ -1,0 +1,35 @@
+warning: methods `install_committed` and `invalidate` are never used
+   --> crates/harbormaster/src/ingestion/registry.rs:141:19
+    |
+111 | impl Registry {
+    | ------------- methods in this implementation
+...
+141 |     pub(crate) fn install_committed(
+    |                   ^^^^^^^^^^^^^^^^^
+...
+179 |     pub(crate) fn invalidate(&mut self, producer: &ProducerId) -> Result<usize, AdmissionError> {
+    |                   ^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `harbormaster` (lib) generated 1 warning
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.01s
+     Running tests/domain.rs (/state/target/debug/deps/domain-533ac3f7ae4cb2e7)
+
+running 1 test
+
+thread 'review_regressions::unknown_terminal_kind_cannot_preserve_live_current_work' (6) panicked at crates/harbormaster/tests/domain/review_regressions.rs:41:13:
+assertion `left == right` failed: an unknown terminal kind still excludes current live work
+  left: Working
+ right: Unknown
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test review_regressions::unknown_terminal_kind_cannot_preserve_live_current_work ... FAILED
+
+failures:
+
+failures:
+    review_regressions::unknown_terminal_kind_cannot_preserve_live_current_work
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 27 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `--test domain`

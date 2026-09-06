@@ -1,0 +1,47 @@
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.24
+   Compiling quote v1.0.47
+   Compiling serde_core v1.0.229
+   Compiling vcpkg v0.2.15
+   Compiling autocfg v1.5.1
+   Compiling pkg-config v0.3.34
+   Compiling cfg_aliases v0.2.2
+   Compiling bitflags v2.13.1
+   Compiling zmij v1.0.23
+   Compiling libc v0.2.189
+   Compiling serde v1.0.229
+   Compiling rustix v1.1.4
+   Compiling serde_json v1.0.151
+   Compiling fallible-iterator v0.3.0
+   Compiling memchr v2.8.3
+   Compiling linux-raw-sys v0.12.1
+   Compiling itoa v1.0.18
+   Compiling cfg-if v1.0.4
+   Compiling smallvec v1.16.0
+   Compiling fallible-streaming-iterator v0.1.9
+   Compiling nix v0.31.3
+   Compiling memoffset v0.9.1
+   Compiling libsqlite3-sys v0.38.2
+   Compiling syn v3.0.5
+   Compiling rusqlite v0.40.2
+   Compiling serde_derive v1.0.229
+   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.54s
+     Running tests/review_recovery.rs (/state/target/debug/deps/review_recovery-3edd6b76484161aa)
+
+running 1 test
+append=Ok(()); named=3145800; retained_unlinked=1048576; physical_log_bytes=4194376
+
+thread 'held_cleanup_preview_does_not_hide_unlinked_log_bytes' (1081) panicked at crates/harbormaster/tests/review_recovery.rs:29:5:
+retained preview hides unlinked bytes beyond log cap
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test held_cleanup_preview_does_not_hide_unlinked_log_bytes ... FAILED
+
+failures:
+
+failures:
+    held_cleanup_preview_does_not_hide_unlinked_log_bytes
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `--test review_recovery`

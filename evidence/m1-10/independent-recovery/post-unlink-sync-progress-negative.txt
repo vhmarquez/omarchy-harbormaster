@@ -1,0 +1,21 @@
+   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.34s
+     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)
+
+running 1 test
+
+thread 'recovery::tests::independent_review::successful_unlink_is_counted_when_directory_sync_fails' (289) panicked at crates/harbormaster/src/recovery/tests/independent_review.rs:56:5:
+assertion `left == right` failed
+  left: 0
+ right: 1
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test recovery::tests::independent_review::successful_unlink_is_counted_when_directory_sync_fails ... FAILED
+
+failures:
+
+failures:
+    recovery::tests::independent_review::successful_unlink_is_counted_when_directory_sync_fails
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 58 filtered out; finished in 0.02s
+
+error: test failed, to rerun pass `--lib`

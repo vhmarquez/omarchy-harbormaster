@@ -10,6 +10,12 @@ impl Request {
     pub fn validate(&self) -> Result<(), StorageError> {
         match self {
             Self::Commit(set) => validate_set(set),
+            Self::Context(fact) => encode_frame(fact)
+                .map(|_| ())
+                .map_err(|_| StorageError::InvalidRequest),
+            Self::Apply(set) => super::reducer_validation::apply(set),
+            Self::Reconcile(request) => super::reducer_validation::reconciliation(request),
+            Self::CleanupPreview { now } if *now < 0 => Err(StorageError::InvalidRequest),
             Self::Snapshot(query)
                 if query.limit == 0
                     || query.limit > PAGE_LIMIT

@@ -1,0 +1,168 @@
+{
+  "source_commit": "703dd46fd4a681133b471c30daf9ab97da7f34f6",
+  "thresholds": {
+    "file_nonblank": 300,
+    "function_nonblank": 50,
+    "policy": "review only; strictly greater than threshold"
+  },
+  "limitations": [
+    "Path-level test partition: inline Rust test modules remain in production totals (conservative).",
+    "Rust/QML lexical approximations cover named fn/function bodies, not full grammar or validity.",
+    "No macro expansion, cfg evaluation, closures, arrow functions, QML handlers/bindings, or anonymous functions.",
+    "Lexical names start with ASCII letters/underscore; Rust raw identifiers are supported; module/impl names are not qualified.",
+    "Exotic const-generic signature braces and QML regex literals may distort lexical spans; template literals are opaque, including interpolation.",
+    "Python AST-exact spans/node counts use the executing Python grammar; lambdas are not listed separately.",
+    "Generated detection is directory-based plus recognized comment headers in the first five lines; unmarked generated files may be included.",
+    "UTF-8 source only; POSIX no-follow directory-descriptor traversal rejects root ancestor symlinks. No concurrent-tree snapshot guarantee.",
+    "Size/control counts are review signals, not cyclomatic complexity, coupling, duplication, API, or dead-code analysis."
+  ],
+  "production": {
+    "files": [
+      {
+        "analysis_error": null,
+        "functions": [
+          {
+            "branches": 0,
+            "end_line": 18,
+            "line": 16,
+            "name": "fmt",
+            "nesting": 0,
+            "nonblank_lines": 3
+          },
+          {
+            "branches": 0,
+            "end_line": 66,
+            "line": 58,
+            "name": "from",
+            "nesting": 1,
+            "nonblank_lines": 9
+          },
+          {
+            "branches": 1,
+            "end_line": 96,
+            "line": 74,
+            "name": "project",
+            "nesting": 2,
+            "nonblank_lines": 23
+          }
+        ],
+        "language": "rust",
+        "metric_kind": "lexical-approximate",
+        "nonblank_lines": 89,
+        "path": "crates/harbormaster/src/diagnostics.rs"
+      }
+    ],
+    "hotspots": []
+  },
+  "tests": {
+    "files": [
+      {
+        "analysis_error": null,
+        "functions": [
+          {
+            "branches": 0,
+            "end_line": 39,
+            "line": 11,
+            "name": "snapshots",
+            "nesting": 2,
+            "nonblank_lines": 29
+          },
+          {
+            "branches": 0,
+            "end_line": 49,
+            "line": 42,
+            "name": "mismatched_status_and_policy_revisions_reject_before_projection",
+            "nesting": 0,
+            "nonblank_lines": 8
+          },
+          {
+            "branches": 1,
+            "end_line": 87,
+            "line": 52,
+            "name": "projection_preserves_policy_counter_units_and_unknown_gap",
+            "nesting": 1,
+            "nonblank_lines": 36
+          },
+          {
+            "branches": 0,
+            "end_line": 125,
+            "line": 90,
+            "name": "maximum_numeric_projection_has_fixed_bounded_output",
+            "nesting": 1,
+            "nonblank_lines": 36
+          },
+          {
+            "branches": 2,
+            "end_line": 152,
+            "line": 128,
+            "name": "actual_snapshots_format_repeatedly_without_files_policy_or_canary_collection",
+            "nesting": 2,
+            "nonblank_lines": 25
+          }
+        ],
+        "language": "rust",
+        "metric_kind": "lexical-approximate",
+        "nonblank_lines": 147,
+        "path": "crates/harbormaster/tests/coordination.rs"
+      },
+      {
+        "analysis_error": null,
+        "functions": [
+          {
+            "branches": 0,
+            "end_line": 51,
+            "line": 25,
+            "name": "new",
+            "nesting": 1,
+            "nonblank_lines": 27
+          },
+          {
+            "branches": 0,
+            "end_line": 61,
+            "line": 53,
+            "name": "snapshots",
+            "nesting": 1,
+            "nonblank_lines": 9
+          },
+          {
+            "branches": 0,
+            "end_line": 67,
+            "line": 63,
+            "name": "file_state",
+            "nesting": 0,
+            "nonblank_lines": 5
+          },
+          {
+            "branches": 0,
+            "end_line": 75,
+            "line": 69,
+            "name": "call",
+            "nesting": 0,
+            "nonblank_lines": 7
+          },
+          {
+            "branches": 2,
+            "end_line": 86,
+            "line": 79,
+            "name": "drop",
+            "nesting": 1,
+            "nonblank_lines": 8
+          },
+          {
+            "branches": 2,
+            "end_line": 115,
+            "line": 89,
+            "name": "collect",
+            "nesting": 2,
+            "nonblank_lines": 27
+          }
+        ],
+        "language": "rust",
+        "metric_kind": "lexical-approximate",
+        "nonblank_lines": 109,
+        "path": "crates/harbormaster/tests/coordination/fixture.rs"
+      }
+    ],
+    "hotspots": []
+  }
+}

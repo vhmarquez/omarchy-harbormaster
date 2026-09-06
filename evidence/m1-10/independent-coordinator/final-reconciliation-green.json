@@ -1,0 +1,20 @@
+{
+  "exit_code": 0,
+  "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.96s\n     Running tests/domain.rs (/state/target/debug/deps/domain-533ac3f7ae4cb2e7)\n\nrunning 5 tests\ntest reconciliation::independently_matched_current_turn_produces_exact_baseline ... ok\ntest reconciliation::verified_no_current_turn_is_unknown_instead_of_invented_working_or_completion ... ok\ntest reconciliation::same_pid_wrong_boot_start_or_scope_never_activates ... ok\ntest reconciliation::missing_or_ambiguous_turn_and_liveness_cannot_activate ... ok\ntest reconciliation::zero_process_identity_components_are_not_evidence ... ok\n\ntest result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 28 filtered out; finished in 0.00s\n\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 1.973,
+  "command": [
+    "/tools/rust/bin/cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--workspace",
+    "--test",
+    "domain",
+    "reconciliation::",
+    "--",
+    "--nocapture"
+  ],
+  "source_head": "364f7c8d467594b3a7d5d79ea816d7e81b5903ef"
+}

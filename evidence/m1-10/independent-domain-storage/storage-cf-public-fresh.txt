@@ -1,0 +1,46 @@
+   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)
+warning: methods `install_committed` and `invalidate` are never used
+   --> crates/harbormaster/src/ingestion/registry.rs:141:19
+    |
+111 | impl Registry {
+    | ------------- methods in this implementation
+...
+141 |     pub(crate) fn install_committed(
+    |                   ^^^^^^^^^^^^^^^^^
+...
+179 |     pub(crate) fn invalidate(&mut self, producer: &ProducerId) -> Result<usize, AdmissionError> {
+    |                   ^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `harbormaster` (lib) generated 1 warning
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.96s
+     Running tests/storage.rs (/state/target/debug/deps/storage-453fea48faa3c592)
+
+running 15 tests
+test policy::approved_history_choices_do_not_silently_clamp_the_illustrated_ninety_days ... ok
+test linkage::actual_rust_consumer_uses_the_pinned_static_sqlite_with_hardened_defaults ... ok
+test queries::invalid_page_limits_are_rejected_before_queuing_and_return_the_request ... ok
+test recovery::symlinked_database_is_rejected_and_unrelated_target_remains_exact ... ok
+test transactions::full_u64_sequence_survives_sqlite_and_cannot_wrap ... ok
+test transactions::commit_atomically_exposes_projection_attention_outbox_and_durable_retry ... ok
+test transactions::stale_revision_and_sequence_gap_do_not_partially_mutate_any_rows ... ok
+test transactions::event_ids_are_scoped_to_their_producer_and_generation ... ok
+test policy::seven_day_delivery_expiry_keeps_history_and_human_review_separate ... ok
+test recovery::private_fixed_state_is_exclusive_and_rejects_foreign_db_without_writing_it ... ok
+test policy::history_removal_preserves_obligations_and_tombstones_until_their_own_policy ... ok
+test queries::bounded_snapshot_pages_have_no_omissions_and_reject_a_stale_cursor ... ok
+test recovery::reopen_preserves_committed_outcome_and_refuses_old_generation_new_work ... ok
+test recovery::live_backup_and_restore_reject_every_pre_restore_revision ... ok
+test recovery::explicit_worker_recovery_requires_a_nonoverflowing_trusted_revision_upper_bound ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.25s
+
+     Running tests/storage_reducer.rs (/state/target/debug/deps/storage_reducer-6e84e5f9279b4c2b)
+
+running 2 tests
+test regular_filesystem_enospc_never_acknowledges_or_partially_commits_then_same_request_retries ... ok
+test cleanup_preview_from_another_worker_cannot_authorize_cleanup ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.10s
+

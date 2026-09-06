@@ -1,0 +1,19 @@
+{
+  "exit_code": 1,
+  "output": "test_bubblewrap_policy_unshares_network_and_excludes_host_homes (test_sandbox.BoundaryTests.test_bubblewrap_policy_unshares_network_and_excludes_host_homes) ... ok\ntest_excessive_output_is_bounded_and_fails (test_sandbox.BoundaryTests.test_excessive_output_is_bounded_and_fails) ... ok\ntest_fault_filesystem_is_separately_private_and_physically_bounded (test_sandbox.BoundaryTests.test_fault_filesystem_is_separately_private_and_physically_bounded) ... ERROR\ntest_timeout_is_failure_not_an_exception_or_leaked_child (test_sandbox.BoundaryTests.test_timeout_is_failure_not_an_exception_or_leaked_child) ... ok\ntest_only_allowlisted_environment_reaches_children (test_sandbox.EnvironmentTests.test_only_allowlisted_environment_reaches_children) ... ok\ntest_snapshot_copies_only_allowed_sources_without_private_files (test_sandbox.SnapshotTests.test_snapshot_copies_only_allowed_sources_without_private_files) ... ok\ntest_snapshot_rejects_symlinks_in_allowed_sources (test_sandbox.SnapshotTests.test_snapshot_rejects_symlinks_in_allowed_sources) ... ok\n\n======================================================================\nERROR: test_fault_filesystem_is_separately_private_and_physically_bounded (test_sandbox.BoundaryTests.test_fault_filesystem_is_separately_private_and_physically_bounded)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/work/tests/verification/test_sandbox.py\", line 62, in test_fault_filesystem_is_separately_private_and_physically_bounded\n    position = argv.index(\"/fault-fs\")\nValueError: list.index(x): x not in list\n\n----------------------------------------------------------------------\nRan 7 tests in 0.051s\n\nFAILED (errors=1)\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 0.107,
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests/verification",
+    "-p",
+    "test_*box.py",
+    "-v"
+  ]
+}

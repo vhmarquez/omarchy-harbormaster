@@ -1,0 +1,20 @@
+{
+  "exit_code": 0,
+  "output": "test_harness_files_partition_four_portable_tests_and_two_native_tests (test_scope_plan.HarnessPartitionTests.test_harness_files_partition_four_portable_tests_and_two_native_tests) ... ok\ntest_either_skipped_native_method_cannot_become_optional_success (test_scope_plan.NativeTargetTests.test_either_skipped_native_method_cannot_become_optional_success) ... FAIL m0-harness-sandbox\nFAIL m0-harness-sandbox\nok\ntest_missing_empty_or_renamed_native_target_fails_required_check (test_scope_plan.NativeTargetTests.test_missing_empty_or_renamed_native_target_fails_required_check) ... FAIL m0-harness-sandbox\nFAIL m0-harness-sandbox\nFAIL m0-harness-sandbox\nok\ntest_missing_namespace_method_fails_when_original_target_exists (test_scope_plan.NativeTargetTests.test_missing_namespace_method_fails_when_original_target_exists) ... FAIL m0-harness-sandbox\nok\ntest_all_is_the_unique_union_with_shared_preflights_once (test_scope_plan.ScopePlanTests.test_all_is_the_unique_union_with_shared_preflights_once) ... ok\ntest_custom_canary_is_preserved_in_each_scope (test_scope_plan.ScopePlanTests.test_custom_canary_is_preserved_in_each_scope) ... ok\ntest_native_contains_only_shared_preflights_and_explicit_sandbox_target (test_scope_plan.ScopePlanTests.test_native_contains_only_shared_preflights_and_explicit_sandbox_target) ... ok\ntest_portable_preserves_unique_common_inventory_without_native_target (test_scope_plan.ScopePlanTests.test_portable_preserves_unique_common_inventory_without_native_target) ... ok\ntest_unknown_scope_is_rejected_instead_of_becoming_all (test_scope_plan.ScopePlanTests.test_unknown_scope_is_rejected_instead_of_becoming_all) ... ok\n\n----------------------------------------------------------------------\nRan 9 tests in 0.165s\n\nOK\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 0.211,
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests/verification",
+    "-p",
+    "test_scope_plan.py",
+    "-v"
+  ],
+  "source_head": "364f7c8d467594b3a7d5d79ea816d7e81b5903ef"
+}

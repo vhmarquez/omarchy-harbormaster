@@ -1,0 +1,18 @@
+{
+  "exit_code": 101,
+  "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.61s\n     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)\n\nrunning 3 tests\n\nthread 'coordinator::tests::independent_review::independent_same_identity_changed_payload_gets_no_receipt' (291) panicked at crates/harbormaster/src/recovery/tests/mod.rs:110:10:\ncalled `Result::unwrap()` on an `Err` value: InvalidRecord\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n\nthread 'coordinator::tests::independent_review::independent_exact_receipt_does_not_bypass_source_harness_scope' (289) panicked at crates/harbormaster/src/coordinator/tests/independent_review.rs:74:5:\nassertion `left == right` failed\n  left: Committed { revision: Revision(2) }\n right: Rejected(Unreconciled)\ntest coordinator::tests::independent_review::independent_receipt_exists_only_after_observed_atomic_commit ... ok\ntest coordinator::tests::independent_review::independent_same_identity_changed_payload_gets_no_receipt ... FAILED\ntest coordinator::tests::independent_review::independent_exact_receipt_does_not_bypass_source_harness_scope ... FAILED\n\nfailures:\n\nfailures:\n    coordinator::tests::independent_review::independent_exact_receipt_does_not_bypass_source_harness_scope\n    coordinator::tests::independent_review::independent_same_identity_changed_payload_gets_no_receipt\n\ntest result: FAILED. 1 passed; 2 failed; 0 ignored; 0 measured; 100 filtered out; finished in 0.03s\n\nerror: test failed, to rerun pass `--lib`\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 0.656,
+  "command": [
+    "/tools/rust/bin/cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--workspace",
+    "--lib",
+    "coordinator::tests::independent_review::",
+    "--",
+    "--nocapture"
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "observed_at": "2026-09-06T19:25:27.482243+00:00",
+  "author_base_commit": "2919ecc078f44dac8b834a3acca3c326d5681ae6",
+  "snapshot_note": "Copied current uncommitted recovery source; exact source hashes recorded. Only private isolated snapshot receives independent public-API fixture.",
+  "source_sha256": {
+    "crates/harbormaster/src/recovery/cleanup.rs": "c3e8ad9acdf30fd6b9618683f566cb33c9ff7b91a52f1622cdbbf1567376a5ef",
+    "crates/harbormaster/src/recovery/files.rs": "6038459434d35cf48bd03ed6c6d14bc05ae46a6a4805048584c4fa3c9da77a0f",
+    "crates/harbormaster/src/recovery/logs.rs": "9521f47373391911dde4f91f768fbb1773e794e3173e213e49c98c8d01f762c2",
+    "crates/harbormaster/src/recovery/mod.rs": "f831b70e486ced0e0dc1d4607a264f3c5f7b8f15f4c0825838c8b519368b802b",
+    "crates/harbormaster/src/recovery/names.rs": "cad76ee19b3ef9d660bfd9577c6fd957feebf0383f8455c8ad144201652917bc",
+    "crates/harbormaster/src/recovery/paths.rs": "9c4e9e92ec8c9f8fa38feb1bdd1b2f5b7606ea6e2ad56ff2b0eb918fe3863809",
+    "crates/harbormaster/src/recovery/provenance.rs": "837843acff19e447577265003974b44f34dd981b95443ce6c00e28aa4697a8a0",
+    "crates/harbormaster/src/recovery/spool.rs": "fd25f44bd1d48354970e3a7b00a3d3e43cf2d3d0449ff95063e6b49758340934",
+    "crates/harbormaster/src/recovery/tests/bounds.rs": "f07841fc3aeea032cdc6f2a4fc385ef964662f625a3fe46f0705816e7f8d9311",
+    "crates/harbormaster/src/recovery/tests/crash.rs": "24f2bece9015a708655ef7718addc8679345b30c8303a6636ca794711e9f7e67",
+    "crates/harbormaster/src/recovery/tests/mod.rs": "0b18e489684c79e2e2aa42033a69bdf589e22eef9248b9b1ac269fb375434bb5",
+    "crates/harbormaster/src/recovery/tests/privacy.rs": "6c115e4c2a0bba13b37c9a36e755572c085d3ce11dbd0a7a8321e78d2d67a763",
+    "crates/harbormaster/src/recovery/tests/replay.rs": "4571a7d92698e8686982d2ad06999f0229c7acedd8c2bdb9da986c01eb2aeb61"
+  },
+  "fixture_sha256": "be91be7cc40919c355bd62945895177ed4019f223b52bff3bbbdeafac19b351c",
+  "results": [
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 1.009,
+      "name": "preflight",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verification/preflight.py",
+        "--stage-cargo"
+      ],
+      "log": "preflight-initial.txt"
+    },
+    {
+      "exit_code": 0,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 15.942,
+      "name": "sqlite",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/verification/sqlite.py"
+      ],
+      "log": "sqlite-initial.txt"
+    },
+    {
+      "exit_code": 101,
+      "timed_out": false,
+      "output_limited": false,
+      "elapsed_seconds": 3.559,
+      "name": "retained-log-regression",
+      "command": [
+        "/tools/rust/bin/cargo",
+        "test",
+        "--locked",
+        "--offline",
+        "--workspace",
+        "--test",
+        "review_recovery",
+        "--all-features",
+        "--",
+        "--nocapture"
+      ],
+      "log": "retained-log-regression-initial.txt"
+    }
+  ],
+  "observed_regression_failure": true
+}

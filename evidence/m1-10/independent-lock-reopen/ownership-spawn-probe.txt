@@ -1,0 +1,10 @@
+   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.90s
+     Running tests/ownership_spawn_probe.rs (/state/target/debug/deps/ownership_spawn_probe-19079de25858ab32)
+
+running 1 test
+verified_cloexec=true; transient_refusals=21; observed_inherited_child_descriptors=[("648", ["7"])]; reopen_after_children=true
+test real_artifact_lock_can_temporarily_outlive_local_owner_during_spawn ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+

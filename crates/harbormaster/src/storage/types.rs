@@ -51,55 +51,10 @@ pub struct Registration {
     pub previous_generation: Option<ProducerGeneration>,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
-pub enum ProcessState {
-    Unknown,
-    Alive,
-    Exited,
-    Zombie,
-}
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
-pub enum ObservationState {
-    Fresh,
-    Stale,
-    Disconnected,
-    Unsupported,
-}
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
-pub enum TurnState {
-    Unknown,
-    Working,
-    AwaitingInput,
-    AwaitingApproval,
-    Completed,
-    Failed,
-    Interrupted,
-}
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
-pub enum AttentionReason {
-    Input,
-    NativeApproval,
-    Failure,
-    ConnectionUncertainty,
-    Completion,
-}
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
-pub enum DeliveryState {
-    Pending,
-    AttemptedUncertain,
-    Acknowledged,
-    Expired,
-    Overflowed,
-}
+pub use crate::domain::{
+    AttentionReason, DeliveryState, ObservationState, ProcessState, RunProjection, TurnState,
+};
 
-#[derive(Debug, Clone, PartialEq, Eq, Serialize)]
-pub struct RunProjection {
-    pub run_id: RunId,
-    pub process: ProcessState,
-    pub observation: ObservationState,
-    pub turn: TurnState,
-    pub turn_id: Option<TurnId>,
-}
 #[derive(Debug, Clone, PartialEq, Eq, Serialize)]
 pub struct AttentionMutation {
     pub outcome_id: EventId,
@@ -158,6 +113,21 @@ pub struct DeliveryUpdate {
 }
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Request {
+    Context(Box<EventEnvelope>),
+    Apply(Box<super::ReducerWrite>),
+    Reconcile(Box<super::Reconciliation>),
+    RetireProducer(super::ProducerRetirement),
+    ReviewOutcome(super::OutcomeReview),
+    Policy,
+    Status,
+    UpdatePolicy {
+        expected_revision: Revision,
+        history: HistoryRetention,
+    },
+    CleanupPreview {
+        now: i64,
+    },
+    ApplyCleanup(Box<super::CleanupPreview>),
     Register(Registration),
     Commit(Box<WriteSet>),
     Snapshot(SnapshotQuery),
@@ -182,6 +152,7 @@ pub struct ProducerRecord {
     pub run_id: RunId,
     pub next_sequence: Option<Seq>,
     pub active: bool,
+    pub reconciled: bool,
 }
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct SnapshotPage {
@@ -195,6 +166,8 @@ pub struct OutcomeRecord {
     pub run_id: RunId,
     pub attention: Vec<AttentionMutation>,
     pub delivery: Option<DeliveryState>,
+    pub outcome_revision: Option<Revision>,
+    pub resolved_reasons: Vec<AttentionReason>,
 }
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub struct MaintenanceResult {
@@ -206,6 +179,13 @@ pub struct MaintenanceResult {
 }
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Response {
+    Retired {
+        revision: Revision,
+    },
+    Context(Box<super::ReducerContext>),
+    Policy(super::StoragePolicy),
+    Status(super::StorageStatus),
+    CleanupPreview(super::CleanupPreview),
     Registered {
         generation: ProducerGeneration,
         revision: Revision,

@@ -1,0 +1,12 @@
+{
+  "exit_code": 0,
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 0.02,
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "tests/tooling/review_fork_cloexec_probe.py"
+  ],
+  "log": "fork-cloexec-probe.txt"
+}

@@ -1,0 +1,25 @@
+{
+  "exit_code": 101,
+  "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.48s\n     Running tests/domain.rs (/state/target/debug/deps/domain-533ac3f7ae4cb2e7)\n\nrunning 1 test\n\nthread 'reconciliation::same_pid_wrong_boot_start_or_scope_never_activates' (408) panicked at crates/harbormaster/tests/domain/reconciliation.rs:81:9:\nassertion failed: reconcile_projection(&evidence).is_err()\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\ntest reconciliation::same_pid_wrong_boot_start_or_scope_never_activates ... FAILED\n\nfailures:\n\nfailures:\n    reconciliation::same_pid_wrong_boot_start_or_scope_never_activates\n\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 32 filtered out; finished in 0.00s\n\nerror: test failed, to rerun pass `--test domain`\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 0.499,
+  "command": [
+    "/tools/rust/bin/cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--workspace",
+    "--test",
+    "domain",
+    "same_pid_wrong_boot_start_or_scope_never_activates",
+    "--",
+    "--nocapture"
+  ],
+  "mutation": {
+    "path": "crates/harbormaster/src/domain/reconciliation.rs",
+    "before": "        || evidence.expected_runtime != evidence.observed_runtime\n",
+    "after": "",
+    "sha256": "a34f6cd7be808429e6cea7e9c1e6504d84302bac6951498ee93d4f225016c328"
+  }
+}

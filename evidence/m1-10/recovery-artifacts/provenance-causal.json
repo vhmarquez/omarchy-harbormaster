@@ -1,0 +1,12 @@
+{
+  "mutation": "Only remove the required turn-source guard from payload construction; replay guard remains active.",
+  "original_sha256": "837843acff19e447577265003974b44f34dd981b95443ce6c00e28aa4697a8a0",
+  "mutated_sha256": "b124c8b99e1771627f32132492ce7d122f9cc4ecbf11d0c9da370064396b7bcf",
+  "result": {
+    "exit_code": 101,
+    "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.33s\n     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)\n\nrunning 1 test\n\nthread 'recovery::tests::privacy::mis_mapped_allowed_turn_and_version_strings_reject_before_temp' (289) panicked at crates/harbormaster/src/recovery/tests/privacy.rs:70:9:\nassertion `left == right` failed\n  left: 1\n right: 0\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\ntest recovery::tests::privacy::mis_mapped_allowed_turn_and_version_strings_reject_before_temp ... FAILED\n\nfailures:\n\nfailures:\n    recovery::tests::privacy::mis_mapped_allowed_turn_and_version_strings_reject_before_temp\n\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 55 filtered out; finished in 0.00s\n\nerror: test failed, to rerun pass `--lib`\n",
+    "timed_out": false,
+    "output_limited": false,
+    "elapsed_seconds": 0.349
+  }
+}

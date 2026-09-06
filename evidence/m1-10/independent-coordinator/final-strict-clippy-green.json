@@ -1,0 +1,20 @@
+{
+  "exit_code": 0,
+  "output": "    Checking bitflags v2.13.1\n    Checking memchr v2.8.3\n    Checking smallvec v1.16.0\n    Checking fallible-streaming-iterator v0.1.9\n    Checking itoa v1.0.18\n    Checking linux-raw-sys v0.12.1\n    Checking fallible-iterator v0.3.0\n    Checking cfg-if v1.0.4\n    Checking serde_core v1.0.229\n    Checking zmij v1.0.23\n    Checking libc v0.2.189\n    Checking libsqlite3-sys v0.38.2\n    Checking memoffset v0.9.1\n    Checking rusqlite v0.40.2\n    Checking rustix v1.1.4\n    Checking nix v0.31.3\n    Checking serde_json v1.0.151\n    Checking serde v1.0.229\n    Checking harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.09s\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 2.113,
+  "command": [
+    "/tools/rust/bin/cargo",
+    "clippy",
+    "--locked",
+    "--offline",
+    "--workspace",
+    "--all-targets",
+    "--all-features",
+    "--",
+    "-D",
+    "warnings"
+  ],
+  "source_head": "364f7c8d467594b3a7d5d79ea816d7e81b5903ef"
+}
