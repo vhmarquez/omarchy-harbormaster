@@ -46,7 +46,7 @@ impl Fixture {
             .unwrap()
             .unwrap();
         Self {
-            client: client,
+            client,
             peer,
             _sockets: sockets,
             path,
