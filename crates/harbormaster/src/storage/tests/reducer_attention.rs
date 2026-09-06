@@ -1,7 +1,7 @@
 use super::reducer::{apply_set, reconcile};
 use super::*;
 
-fn waiting(set: WriteSet) -> ReducerWrite {
+pub(super) fn waiting(set: WriteSet) -> ReducerWrite {
     let mut set = apply_set(set);
     set.fact.event = EventPayload::TurnAwaitingInput(TurnPayload {
         turn_id: "fixture-turn".parse().unwrap(),

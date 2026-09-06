@@ -2,6 +2,36 @@ use super::*;
 use rusqlite::params;
 
 #[test]
+fn legacy_fact_for_another_turn_does_not_invent_terminal_kind() {
+    let fixture = Fixture::new();
+    let engine = fixture.open();
+    recovery::legacy_schema(&engine, 2);
+    let mut set = write(id(9), Revision::new(1), 1, 5);
+    seed(engine.connection.as_ref().unwrap(), &set);
+    engine
+        .connection
+        .as_ref()
+        .unwrap()
+        .execute(
+            "UPDATE tombstones SET turn_id='different-turn' WHERE event=?1",
+            [set.fact.event_id.as_str()],
+        )
+        .unwrap();
+    drop(engine);
+    let mut engine = fixture.open();
+    set.fact.event = EventPayload::TurnCompleted(TurnPayload {
+        turn_id: "different-turn".parse().unwrap(),
+    });
+    let Response::Context(context) = engine
+        .execute(&Request::Context(Box::new(set.fact)))
+        .unwrap()
+    else {
+        panic!("context")
+    };
+    assert_eq!(context.state.tombstone.unwrap().terminal, None);
+}
+
+#[test]
 fn both_legacy_versions_preserve_receipt_bytes_and_known_or_unprovable_outcomes() {
     for version in [1, 2] {
         let fixture = Fixture::new();

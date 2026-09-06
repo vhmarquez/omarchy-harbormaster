@@ -80,7 +80,16 @@ pub(super) fn record_legacy(
     conn.execute(
         "UPDATE tombstones SET terminal=?1 WHERE producer=?2 AND generation=?3 AND event=?4",
         params![
-            super::reducer_validation::terminal(&set.fact).map(|state| state as u8),
+            set.tombstone
+                .as_ref()
+                .and_then(
+                    |item| super::reducer_validation::terminal(&set.fact).filter(|_| set
+                        .fact
+                        .event
+                        .turn_id()
+                        == Some(&item.turn_id))
+                )
+                .map(|state| state as u8),
             set.fact.producer_id.as_str(),
             set.fact.generation.as_str(),
             set.fact.event_id.as_str()

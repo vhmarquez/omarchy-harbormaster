@@ -1,0 +1,17 @@
+{
+  "command": [
+    "cargo",
+    "test",
+    "--locked",
+    "--offline",
+    "--workspace",
+    "--lib",
+    "--all-features",
+    "legacy_fact_for_another_turn"
+  ],
+  "exit_code": 101,
+  "output": "   Compiling harbormaster v0.1.0 (/work/crates/harbormaster)\n    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.46s\n     Running unittests src/lib.rs (/state/target/debug/deps/harbormaster-67520ea138a846ae)\n\nrunning 1 test\ntest storage::engine::tests::reducer_migration::legacy_fact_for_another_turn_does_not_invent_terminal_kind ... FAILED\n\nfailures:\n\n---- storage::engine::tests::reducer_migration::legacy_fact_for_another_turn_does_not_invent_terminal_kind stdout ----\n\nthread 'storage::engine::tests::reducer_migration::legacy_fact_for_another_turn_does_not_invent_terminal_kind' (297) panicked at crates/harbormaster/src/storage/tests/reducer_migration.rs:16:5:\nassertion `left == right` failed\n  left: Some(Completed)\n right: None\nnote: run with `RUST_BACKTRACE=1` environment variable to display a backtrace\n\n\nfailures:\n    storage::engine::tests::reducer_migration::legacy_fact_for_another_turn_does_not_invent_terminal_kind\n\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 55 filtered out; finished in 0.16s\n\nerror: test failed, to rerun pass `--lib`\n",
+  "timed_out": false,
+  "output_limited": false,
+  "elapsed_seconds": 0.632
+}

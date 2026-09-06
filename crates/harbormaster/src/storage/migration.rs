@@ -47,12 +47,14 @@ fn backfill(conn: &Connection) -> Result<(), StorageError> {
         }
         let identity: Vec<u8> = row.get(4)?;
         let fact = super::context::decode_fact(&identity)?;
-        let terminal = match fact.event.kind() {
-            crate::protocol::EventKind::TurnCompleted => Some(4),
-            crate::protocol::EventKind::TurnFailed => Some(5),
-            crate::protocol::EventKind::TurnInterrupted => Some(6),
-            _ => None,
-        };
+        let run: String = row.get(2)?;
+        let turn: String = row.get(3)?;
+        let terminal = super::reducer_validation::terminal(&fact)
+            .filter(|_| {
+                fact.run_id.as_str() == run
+                    && fact.event.turn_id().is_some_and(|id| id.as_str() == turn)
+            })
+            .map(|state| state as u8);
         conn.execute("UPDATE tombstones SET terminal=?1 WHERE producer=?2 AND generation=?3 AND run=?4 AND turn_id=?5", params![terminal,row.get::<_,String>(0)?,row.get::<_,String>(1)?,row.get::<_,String>(2)?,row.get::<_,String>(3)?])?;
     }
     Ok(())

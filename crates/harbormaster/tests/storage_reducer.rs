@@ -37,6 +37,9 @@ impl Fixture {
             "refuse an unbounded or host filesystem"
         );
         let root = PathBuf::from(format!("/fault-fs/storage-full-{}", std::process::id()));
+        Self::at(root)
+    }
+    fn at(root: PathBuf) -> Self {
         fs::DirBuilder::new().mode(0o700).create(&root).unwrap();
         let worker = DatabaseWorker::open(&root).unwrap();
         Self { root, worker }
@@ -77,6 +80,25 @@ impl Fixture {
         };
         generation
     }
+}
+#[test]
+fn cleanup_preview_from_another_worker_cannot_authorize_cleanup() {
+    let a =
+        Fixture::at(std::env::temp_dir().join(format!("storage-preview-{}-a", std::process::id())));
+    let b =
+        Fixture::at(std::env::temp_dir().join(format!("storage-preview-{}-b", std::process::id())));
+    let Response::CleanupPreview(preview) = a.call(Request::CleanupPreview { now: 100 }).unwrap()
+    else {
+        panic!("preview")
+    };
+    assert_eq!(
+        b.call(Request::ApplyCleanup(Box::new(preview))),
+        Err(ReceiptError::Storage(StorageError::Conflict))
+    );
+    let Response::Status(status) = b.call(Request::Status).unwrap() else {
+        panic!("status")
+    };
+    assert_eq!(status.revision, Revision::new(0));
 }
 impl Drop for Fixture {
     fn drop(&mut self) {
