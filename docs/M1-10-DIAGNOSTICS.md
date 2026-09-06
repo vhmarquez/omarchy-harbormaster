@@ -22,3 +22,18 @@ mtimes and policy/status before and afterward, and check that private fixture
 content/path canaries never enter output. Root owns coordinator pipeline tests
 and canonical inventory registration. Tests run in the existing isolated
 verifier using prepared private dependencies; no raw host product tests.
+
+Implemented API: `project(&StorageStatus, &StoragePolicy, &RecoveryStatus)` returns
+an immutable `DiagnosticSnapshot` or the fixed `MismatchedRevision` error. The
+projection copies existing counter units and emits a fixed `manager_metadata`
+scope; it adds no aggregate healthy/idle inference. Recovery remains an
+independent volatile observation, not an asserted cross-filesystem transaction.
+
+An actual preliminary revision-mismatch test failed because the initial
+projection combined revisions 4 and 5; adding the pre-projection equality guard
+made the unchanged assertion pass. All four public diagnostic tests now pass,
+including 100 repeated serializations of actual worker/recovery snapshots with
+unchanged private file/directory bytes, modes, mtimes and persisted policy/status.
+Private content and path canaries remain absent. Every numeric field at its
+maximum still serializes below the fixed 2,048-byte bound. Strict all-target
+Clippy and formatting checks pass in the isolated verifier.
