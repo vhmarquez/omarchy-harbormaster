@@ -69,12 +69,18 @@ pub(super) fn version_three() -> Vec<(&'static str, String)> {
     tables
 }
 
-pub(super) fn current() -> Vec<(&'static str, String)> {
+pub(super) fn version_four() -> Vec<(&'static str, String)> {
     let mut tables = version_three();
     tables.extend(
         super::catalog::TABLES
             .iter()
             .map(|(name, sql)| (*name, (*sql).to_owned())),
     );
+    tables
+}
+
+pub(super) fn current() -> Vec<(&'static str, String)> {
+    let mut tables = version_four();
+    tables.push((super::runners::TABLE.0, super::runners::TABLE.1.to_owned()));
     tables
 }

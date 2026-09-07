@@ -9,7 +9,25 @@ fn main() -> ExitCode {
         .first()
         .and_then(|arg| arg.to_str())
         .is_some_and(|arg| matches!(arg, "project" | "preset" | "task"));
-    let output = if operational {
+    let runtime = args
+        .first()
+        .and_then(|arg| arg.to_str())
+        .is_some_and(|arg| matches!(arg, "manager" | "run" | "runtime-worker"));
+    let output = if runtime {
+        match cli::execute_runtime(&args) {
+            Ok(output) => output,
+            Err(error) => {
+                return failure(
+                    &error,
+                    if error == harbormaster::manager::ManagerError::InvalidRequest {
+                        2
+                    } else {
+                        1
+                    },
+                );
+            }
+        }
+    } else if operational {
         let request = match cli::parse(&args) {
             Ok(request) => request,
             Err(error) => return failure(&error, 2),

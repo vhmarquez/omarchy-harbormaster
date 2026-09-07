@@ -2,7 +2,7 @@
 
 M1 is complete. Owner-approved PRs #49–#52 are merged; issues #7–#10 and
 milestone 2 are closed and read back. The overall roadmap #1 remains open.
-Actual main `9e8b2d2d45b2f6ff7d574c339c90616ef4cfc16a` passed fresh post-merge
+Final M1 main `9e8b2d2d45b2f6ff7d574c339c90616ef4cfc16a` passed fresh post-merge
 Docker portable 32, local combined 34 and separate native 5 required checks.
 Actual paired qualification passed for 289 selected files. No required skips;
 only the three declared optional live/future probes skipped.
@@ -17,10 +17,11 @@ performance budgets. Historical receipts remain in `evidence/m1-7` through
 `evidence/m1-10`; they are not overwritten by later summaries.
 
 The owner has authorized continued development toward a working Hermes plugin
-under the revised roadmap and a proportionate testing policy. Current #11 adds
-project/preset/task CLI registration and launch previews. See
-[M2 #11](M2-11-PROJECTS.md) and [CLI usage](../crates/harbormaster/README.md).
-Its PR/revision needs explicit owner approval before merge or dependent #12
+under the revised roadmap and a proportionate testing policy. PR #53 is approved
+and merged; #11 is complete at qualified main `59880ff`. The #12 candidate adds
+the runnable manager and independent terminal runtime. See
+[M2 #12](M2-12-RUNTIME.md) and [CLI usage](../crates/harbormaster/README.md).
+Its PR/revision needs explicit owner approval before merge or dependent #13
 implementation. M2/M3 delivery remains open; no desktop deployment, live profile
 activation or credentialed/model-driven test is implied.
 

@@ -35,11 +35,14 @@ pub(super) fn migrate(conn: &mut Connection) -> Result<(), StorageError> {
         super::retirement::all(&tx)?;
         super::retirement::legacy(&tx)?;
     }
-    for (_, sql) in super::catalog::TABLES {
-        tx.execute_batch(sql)?;
+    if version < 4 {
+        for (_, sql) in super::catalog::TABLES {
+            tx.execute_batch(sql)?;
+        }
     }
+    tx.execute_batch(super::runners::TABLE.1)?;
     super::queries::advance(&tx, next)?;
-    tx.execute_batch("PRAGMA user_version=4")?;
+    tx.execute_batch("PRAGMA user_version=5")?;
     tx.commit()?;
     Ok(())
 }

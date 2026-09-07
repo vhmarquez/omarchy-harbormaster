@@ -13,7 +13,7 @@ fn version_three_migration_preserves_state_and_creates_a_verified_backup() {
         .as_ref()
         .unwrap()
         .execute_batch(
-            "DROP TABLE tasks; DROP TABLE presets; DROP TABLE projects; PRAGMA user_version=3",
+            "DROP TABLE managed_runs; DROP TABLE tasks; DROP TABLE presets; DROP TABLE projects; PRAGMA user_version=3",
         )
         .unwrap();
     drop(engine);

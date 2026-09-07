@@ -10,7 +10,7 @@ pub struct PeerCredentials {
 }
 
 impl PeerCredentials {
-    pub(super) fn read(stream: &UnixStream) -> Result<Self, IpcError> {
+    pub(crate) fn read(stream: &UnixStream) -> Result<Self, IpcError> {
         // Linux can return pid=0 for a peer outside this PID namespace. Read
         // raw integer credentials; do not construct a nonzero PID prematurely.
         let credentials =

@@ -90,7 +90,7 @@ fn launch_records(
     })
 }
 
-fn get<T: DeserializeOwned>(
+pub(super) fn get<T: DeserializeOwned>(
     conn: &Connection,
     sql: &str,
     values: impl Params,
@@ -99,11 +99,11 @@ fn get<T: DeserializeOwned>(
     data.map(|bytes| decode(&bytes)).transpose()
 }
 
-fn decode<T: DeserializeOwned>(data: &[u8]) -> Result<T, StorageError> {
+pub(super) fn decode<T: DeserializeOwned>(data: &[u8]) -> Result<T, StorageError> {
     serde_json::from_slice(data).map_err(|_| StorageError::CorruptDatabase)
 }
 
-fn encode<T: Serialize>(record: &T) -> Result<Vec<u8>, StorageError> {
+pub(super) fn encode<T: Serialize>(record: &T) -> Result<Vec<u8>, StorageError> {
     serde_json::to_vec(record).map_err(|_| StorageError::InvalidRequest)
 }
 
@@ -135,7 +135,7 @@ fn page<T: DeserializeOwned>(
     })
 }
 
-fn fresh<T: std::str::FromStr>() -> Result<T, StorageError> {
+pub(super) fn fresh<T: std::str::FromStr>() -> Result<T, StorageError> {
     crate::generation::fresh()
         .map_err(|_| StorageError::PersistenceUnavailable)?
         .as_str()

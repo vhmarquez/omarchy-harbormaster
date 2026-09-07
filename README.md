@@ -2,10 +2,9 @@
 
 An Omarchy-native, local-first agent manager for concurrent Hermes, Claude Code and Codex work.
 
-**Stage: M1 is complete and merged. M2 #11 adds usable project/preset/task CLI
-commands and launch previews; its PR requires owner approval before merge.**
-The native manager, managed terminal runtime and live Hermes observer are the
-next implementation steps. [CLI usage and build](crates/harbormaster/README.md) ·
+**Stage: M1 and the M2 #11 registry are merged. The #12 candidate adds a runnable
+manager and independent terminal runtime; its PR requires owner approval.**
+The installed native interface and live Hermes observer follow in M3. [CLI usage and build](crates/harbormaster/README.md) ·
 [Current development](docs/DEVELOPMENT.md) · [M1 completion](docs/M1-STATUS.md).
 The approved native design remains option 02 with the supplemental study.
 

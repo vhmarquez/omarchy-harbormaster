@@ -71,7 +71,8 @@ pub struct Page<T> {
 }
 
 /// Fixed trusted-manager operations, never interpreted from a producer event.
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(tag = "operation", deny_unknown_fields, rename_all = "snake_case")]
 pub enum CatalogRequest {
     AddProject {
         root: LocalPath,

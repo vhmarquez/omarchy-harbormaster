@@ -52,6 +52,15 @@ pub(crate) fn identity(path: &Path, executable: bool) -> Result<FileIdentity, Pr
     {
         return Err(ProjectError::UnsafePath);
     }
+    let fd = open(path, executable)?;
+    let stat = fs::fstat(&fd).map_err(|_| ProjectError::UnsafePath)?;
+    Ok(FileIdentity {
+        device: stat.st_dev,
+        inode: stat.st_ino,
+    })
+}
+
+fn open(path: &Path, executable: bool) -> Result<OwnedFd, ProjectError> {
     let fd = if executable {
         if path.file_name().and_then(|name| name.to_str()) != Some("hermes") {
             return Err(ProjectError::InvalidInput);
@@ -76,8 +85,18 @@ pub(crate) fn identity(path: &Path, executable: bool) -> Result<FileIdentity, Pr
     {
         return Err(ProjectError::UnsafePath);
     }
-    Ok(FileIdentity {
-        device: stat.st_dev,
-        inode: stat.st_ino,
-    })
+    Ok(fd)
+}
+
+pub(crate) fn open_identity(
+    path: &Path,
+    executable: bool,
+    expected: FileIdentity,
+) -> Result<OwnedFd, ProjectError> {
+    let fd = open(path, executable)?;
+    let stat = fs::fstat(&fd).map_err(|_| ProjectError::UnsafePath)?;
+    if stat.st_dev != expected.device || stat.st_ino != expected.inode {
+        return Err(ProjectError::IdentityChanged);
+    }
+    Ok(fd)
 }

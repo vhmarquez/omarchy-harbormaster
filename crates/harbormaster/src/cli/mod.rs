@@ -1,7 +1,10 @@
 //! Operational CLI boundary; argument interpretation happens before state access.
 mod run;
 use crate::{CliError, projects::CatalogRequest};
+pub(crate) use run::state_home;
 pub use run::{OperationError, execute};
+mod runtime;
+pub use runtime::execute_runtime;
 use std::ffi::OsString;
 
 /// Parse only the bounded registry command grammar, without I/O.

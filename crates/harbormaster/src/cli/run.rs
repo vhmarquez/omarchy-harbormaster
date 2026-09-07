@@ -11,10 +11,12 @@ pub enum OperationError {
     Project(ProjectError),
     Unavailable,
     UnknownOutcome,
+    Manager(crate::manager::ManagerError),
 }
 impl std::fmt::Display for OperationError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
+            Self::Manager(error) => error.fmt(f),
             Self::StateHome => f.write_str(
                 "state location must be absolute, owned and not writable by other users",
             ),
@@ -33,6 +35,11 @@ impl std::error::Error for OperationError {}
 /// # Errors
 /// Sanitized filesystem/storage/validation failures or an unknown worker outcome.
 pub fn execute(request: CatalogRequest) -> Result<Vec<u8>, OperationError> {
+    if let Some(output) =
+        crate::manager::client::catalog(request.clone()).map_err(OperationError::Manager)?
+    {
+        return Ok(output);
+    }
     let root = state_home()?;
     paths::directory(&root, true).map_err(|_| OperationError::StateHome)?;
     let worker = DatabaseWorker::open(&root).map_err(OperationError::Storage)?;
@@ -65,7 +72,7 @@ pub fn execute(request: CatalogRequest) -> Result<Vec<u8>, OperationError> {
     Ok(output)
 }
 
-fn state_home() -> Result<PathBuf, OperationError> {
+pub(crate) fn state_home() -> Result<PathBuf, OperationError> {
     let path = if let Some(path) = std::env::var_os("XDG_STATE_HOME") {
         PathBuf::from(path)
     } else {

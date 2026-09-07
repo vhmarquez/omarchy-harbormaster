@@ -91,7 +91,8 @@ impl Engine {
         if matches!(request, Request::RestoreBackup) {
             return self.restore();
         }
-        let read_only = matches!(request, Request::Catalog(catalog) if catalog.is_read())
+        let read_only = matches!(request, Request::Runner(r) if matches!(**r, crate::runtime::RunnerRequest::List { .. }))
+            || matches!(request, Request::Catalog(catalog) if catalog.is_read())
             || matches!(
                 request,
                 Request::Snapshot(_)
@@ -220,6 +221,9 @@ fn dispatch(
     owner: &std::sync::Arc<()>,
 ) -> Result<Response, StorageError> {
     match request {
+        Request::Runner(request) => {
+            super::runners::execute(conn, request).map(|r| Response::Runner(Box::new(r)))
+        }
         Request::Catalog(request) => super::catalog::execute(conn, request)
             .map(|response| Response::Catalog(Box::new(response))),
         Request::Context(fact) => {
