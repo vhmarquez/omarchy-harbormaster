@@ -1,7 +1,7 @@
 # Harbormaster manager and terminal runtime
 
-The owner-approved #11 registry is complete. The #12 candidate adds a runnable
-manager and independently owned terminal jobs. Project, preset and task commands
+The owner-approved #11 registry and #12 manager/runtime are complete. The #13
+candidate adds retry reconciliation and verified owned terminal controls. Project, preset and task commands
 use SQLite; with the manager running, clients use its private Unix control socket.
 The installed native UI and Hermes observer follow in M3.
 
@@ -122,9 +122,11 @@ logout survival, or change session dependencies. Suspend pauses computation;
 reboot ends processes. These are separate from manager restart continuity.
 
 Each named task currently has one durable launch attempt, capped at 1,000 managed
-records. Repeating launch returns the existing attempt. A failed/ambiguous start
-remains visible, with no automatic duplicate spawn. Relaunch/retry handling and
-owned end/focus/attach controls are #13. Runtime pages have at most 10 records;
+records. Repeating launch returns the existing attempt. Retries reconcile a matching live service and its exact pane before continuing.
+New launch metadata has an atomic, non-replacing claim before executable entry,
+so a delayed/repeated request cannot execute it again. Missing or contradictory
+evidence stays uncertain. An already exited/lost attempt is not relaunched or
+resumed automatically; use a distinct named task for an explicitly new job. Runtime pages have at most 10 records;
 all IPC responses fit the existing frame limit and may use smaller pages.
 
 `running` describes an observed live terminal process, `exited` an exited pane,
@@ -132,7 +134,7 @@ all IPC responses fit the existing frame limit and may use smaller pages.
 Every run reports `limited_visibility: true`: these are not Hermes working,
 waiting, approval or task-completion claims. No terminal text is captured.
 
-Until #13 supplies verified terminal controls, a user can explicitly attach in
+A user can also explicitly attach in
 an existing terminal with `/usr/bin/tmux -S SOCKET_PATH attach-session -t =managed`,
 where `SOCKET_PATH` is the saved runtime root plus
 `/harbormaster/runners/RUN_UUID/tmux.sock`. Detaching closes only that client.
@@ -140,7 +142,7 @@ An explicit `systemctl --user stop UNIT_NAME` ends the named runtime and its
 associated pane scope. Use only the exact unit returned by the run listing;
 there is no wildcard cleanup or discovered-session control. Finished runtimes
 remain available for inspection until explicitly stopped. Private launch files
-are consumed once; retained attempts/directories are bounded and never removed
+are atomically renamed to retained `claimed.json` metadata before execution; retained attempts/directories are bounded and never removed
 by speculative startup cleanup. No default tmux server/config is used.
 
 ## Disposable service demonstration
@@ -159,3 +161,71 @@ The script checks default tmux/config stat metadata without reading transcripts
 or configuration content. Its manager service has a 180-second cap and the synthetic worker a 90-second
 cap; these are demonstration bounds, not a product job lifetime. Raw results remain outside source control.
 Canonical Docker CI and separately mandatory native qualification are unchanged.
+
+
+## Verified terminal actions (#13 candidate)
+
+```sh
+harbormaster run actions RUN_UUID
+harbormaster run attach RUN_UUID
+harbormaster run open RUN_UUID
+harbormaster run end RUN_UUID --confirm
+```
+
+`actions` reports current capabilities; `resume` is always unavailable until a
+native Hermes adapter provides a supported conversation-resume capability.
+Attach starts one independent standalone foot service attached to the existing
+private tmux session. Repeating Attach returns the existing verified association.
+Open only focuses an associated terminal; it does not attach or launch a harness.
+After the terminal closes, Attach can create a fresh terminal for the same job.
+Closing the terminal or manager does not end that job.
+
+The manager needs the selected session's `WAYLAND_DISPLAY` and
+`HYPRLAND_INSTANCE_SIGNATURE` for graphical controls. The supported command path
+is standalone `/usr/bin/foot` with `/dev/null` configuration and the Hyprland Lua
+focus dispatcher from [ADR 0002](../../docs/adr/0002-runtime.md). There is no
+fallback to footclient or other terminals. These two desktop variables are not
+passed to the harness. Missing prerequisites disable the action explicitly.
+
+Control rechecks the service invocation, private server, exact pane/session,
+process boot/start identity and held pidfds. Focus additionally checks foot PID,
+nonce app-id, compositor/address, tmux client parentage and terminal TTY, then
+reads back the focused window. Titles and terminal content are not retained.
+Same-UID arbitrary code remains outside the isolation guarantee; the compositor
+snapshot/dispatch race cannot be eliminated by its current API.
+
+End requires `--confirm`. It sends SIGTERM through the verified pane's held pidfd
+and waits up to three seconds. If the pane exits and its exact identity still
+matches, it sends SIGTERM through the held server pidfd and waits up to three
+seconds. The runtime's existing systemd scope/cleanup policy still applies.
+There is no numeric-PID or wildcard fallback and no direct SIGKILL escalation.
+A timeout is an unknown outcome; inspect the job before repeating End. End is
+unavailable when ownership is unproven. It never sends native approval keystrokes.
+
+Before another managed attempt uses the same registered project directory
+identity, launch returns a warning. After inspecting existing jobs, explicitly
+repeat with `--allow-shared-checkout` to accept concurrent writes. Unended or
+unreconciled attempts warn conservatively, even if their pane may have exited.
+This checks registered root identities; it does not scan Git, detect arbitrary
+external writers or equate distinct subdirectories with a shared Git root.
+No Git changes or automatic worktree creation occur.
+
+SQLite V6 adds bounded control intent alongside existing V5 runs. Existing
+records are preserved. A legacy run needs its saved live server identity to
+qualify for control; a legacy attempt with no saved server is not adopted by unit
+name. Historical runner records and private metadata remain capped at 1,000;
+finished runtime cleanup is explicit and not a new retention sweep.
+
+The #13 opt-in demonstration creates only synthetic workers, temporary services
+and disposable foot windows. It briefly changes focus and restores the original
+window. It includes a private database fixture representing a lost launch
+observation, a wrong-target refusal, repeated attach, manager restart and owned
+End. It does not run real Hermes, install anything or change desktop settings:
+
+```sh
+python3 -B scripts/demo-controls.py --binary /absolute/build/harbormaster \
+  --allow-desktop --output /absolute/new-demo-results
+```
+
+Keep the starting window open and avoid switching focus during the brief demo.
+The existing Docker and separate native qualification remain mandatory.

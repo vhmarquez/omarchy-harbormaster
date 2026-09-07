@@ -17,13 +17,11 @@ performance budgets. Historical receipts remain in `evidence/m1-7` through
 `evidence/m1-10`; they are not overwritten by later summaries.
 
 The owner has authorized continued development toward a working Hermes plugin
-under the revised roadmap and a proportionate testing policy. PR #53 is approved
-and merged; #11 is complete at qualified main `59880ff`. The #12 candidate adds
-the runnable manager and independent terminal runtime. See
-[M2 #12](M2-12-RUNTIME.md) and [CLI usage](../crates/harbormaster/README.md).
-Its PR/revision needs explicit owner approval before merge or dependent #13
-implementation. M2/M3 delivery remains open; no desktop deployment, live profile
-activation or credentialed/model-driven test is implied.
+under the revised roadmap and a proportionate testing policy. PRs #53 and #54 are approved
+and merged; #11–#12 are complete at qualified main `82096a3`. The #13 candidate
+adds verified owned controls, retry reconciliation and shared-project warnings.
+See [M2 #13](M2-13-CONTROLS.md) and [CLI usage](../crates/harbormaster/README.md).
+Its PR/revision requires owner approval before merge or dependent #15 work.
 
 ## Preserved boundaries
 

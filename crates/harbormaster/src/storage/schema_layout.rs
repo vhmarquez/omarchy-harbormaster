@@ -79,8 +79,17 @@ pub(super) fn version_four() -> Vec<(&'static str, String)> {
     tables
 }
 
-pub(super) fn current() -> Vec<(&'static str, String)> {
+pub(super) fn version_five() -> Vec<(&'static str, String)> {
     let mut tables = version_four();
     tables.push((super::runners::TABLE.0, super::runners::TABLE.1.to_owned()));
+    tables
+}
+
+pub(super) fn current() -> Vec<(&'static str, String)> {
+    let mut tables = version_five();
+    tables.push((
+        super::runtime_control::TABLE.0,
+        super::runtime_control::TABLE.1.to_owned(),
+    ));
     tables
 }

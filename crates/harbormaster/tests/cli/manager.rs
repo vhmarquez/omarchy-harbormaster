@@ -159,6 +159,19 @@ fn runtime_worker_executes_pinned_metadata_with_a_private_environment() {
         assert!(child["environment"].get(key).is_none());
     }
     assert!(!directory.join("launch.json").exists());
+    // Even a recreated launch file cannot bypass the durable, atomic claim.
+    fs::copy(
+        directory.join("claimed.json"),
+        directory.join("launch.json"),
+    )
+    .unwrap();
+    let repeated = f
+        .command()
+        .args(["runtime-worker", directory.to_str().unwrap()])
+        .output()
+        .unwrap();
+    assert!(!repeated.status.success());
+    assert!(repeated.stdout.is_empty());
 }
 
 fn assert_control_boundaries(f: &Fixture, manager: &Manager<'_>) {

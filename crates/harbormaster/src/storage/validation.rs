@@ -9,6 +9,12 @@ impl Request {
     /// Invalid timestamps, page cursors, oversized or inconsistent write sets.
     pub fn validate(&self) -> Result<(), StorageError> {
         match self {
+            Self::RuntimeControl(request) => match &**request {
+                crate::runtime::ControlRequest::Save(state) => {
+                    state.validate().map_err(|_| StorageError::InvalidRequest)
+                }
+                _ => Ok(()),
+            },
             Self::Runner(request) if matches!(&**request, crate::runtime::RunnerRequest::Identify { server, .. } if server.pid == 0 || server.start_ticks == 0 || server.boot_id.parse::<crate::protocol::RunId>().is_err()) => {
                 Err(StorageError::InvalidRequest)
             }

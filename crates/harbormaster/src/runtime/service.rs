@@ -15,8 +15,8 @@ use std::{
 
 pub(crate) struct Backend {
     root: LocalPath,
-    home: PathBuf,
-    session_runtime: Option<PathBuf>,
+    pub(super) home: PathBuf,
+    pub(super) session_runtime: Option<PathBuf>,
     executable: PathBuf,
 }
 impl Backend {
@@ -72,7 +72,7 @@ impl Backend {
         Ok(())
     }
 
-    fn command(&self, executable: &str) -> Command {
+    pub(super) fn command(&self, executable: &str) -> Command {
         let mut command = Command::new(executable);
         command
             .env_clear()
@@ -91,6 +91,7 @@ impl Backend {
         project: Project,
         preset: Preset,
         task: Task,
+        nonce: &crate::protocol::RunId,
     ) -> Result<ProcessIdentity, ManagerError> {
         handoff::create(
             run,
@@ -104,7 +105,9 @@ impl Backend {
                 .map_err(|_| ManagerError::UnsafePath)?,
         )?;
         let socket = run.directory().join("tmux.sock");
-        command::run(self.start_command(run)?)?;
+        // A retry can encounter the already accepted transient unit. Validate
+        // its observed identity below instead of treating exit status as proof.
+        let _ = command::run(self.start_command(run, nonce)?);
         let deadline = Instant::now() + Duration::from_secs(2);
         while !socket.exists() && Instant::now() < deadline {
             std::thread::sleep(Duration::from_millis(20));
@@ -112,7 +115,11 @@ impl Backend {
         self.server_identity(run)
     }
 
-    fn start_command(&self, run: &ManagedRun) -> Result<Command, ManagerError> {
+    fn start_command(
+        &self,
+        run: &ManagedRun,
+        nonce: &crate::protocol::RunId,
+    ) -> Result<Command, ManagerError> {
         let mut command = self.command("/usr/bin/systemd-run");
         command
             .args([
@@ -124,6 +131,10 @@ impl Backend {
                 "--expand-environment=no",
             ])
             .arg(format!("--unit={}", run.unit()))
+            .arg(format!(
+                "--description={}",
+                super::ownership::description(run, nonce)
+            ))
             .args([
                 "--property=KillMode=control-group",
                 "--property=Restart=no",
@@ -203,7 +214,25 @@ impl Backend {
         Ok(())
     }
 
-    fn tmux(&self, run: &ManagedRun) -> Result<Command, ManagerError> {
+    pub(crate) fn ensure_pane(
+        &self,
+        run: &ManagedRun,
+        state: &super::ControlState,
+    ) -> Result<(), ManagerError> {
+        let server = self.owned_server(run, state)?;
+        if self.pane(run, &server).is_ok() {
+            return Ok(());
+        }
+        if state.launch_nonce.is_none() || !handoff::pending(run)? {
+            return Err(ManagerError::UnknownOutcome);
+        }
+        // tmux's exact session name and the atomic handoff claim independently
+        // reject duplicate execution, including a delayed earlier request.
+        let _ = self.start_pane(run);
+        self.pane(run, &server).map(|_| ())
+    }
+
+    pub(super) fn tmux(&self, run: &ManagedRun) -> Result<Command, ManagerError> {
         private_directory(&run.directory(), false)?;
         let socket = run.directory().join("tmux.sock");
         let stat = socket.symlink_metadata()?;

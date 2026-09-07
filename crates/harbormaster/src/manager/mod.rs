@@ -1,5 +1,7 @@
 //! Runnable local control service; producer events cannot dispatch control work.
 pub(crate) mod client;
+mod controls;
+mod launch;
 mod operations;
 mod server;
 mod wire;
@@ -7,7 +9,7 @@ mod wire;
 use serde::{Deserialize, Serialize};
 pub use server::serve;
 use std::path::PathBuf;
-pub(crate) use wire::{Command, ControlCall as Request, LogoutPolicy, Reply};
+pub(crate) use wire::{Command, ControlCall as Request, LogoutPolicy, Reply, RunAction};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -20,11 +22,17 @@ pub enum ManagerError {
     PersistenceUnavailable,
     RuntimeUnavailable,
     UnknownOutcome,
+    OwnershipUnverified,
+    ActionUnavailable,
+    ConcurrentWriter,
 }
 
 impl std::fmt::Display for ManagerError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str(match self {
+            Self::OwnershipUnverified => "runtime ownership cannot be verified; no control performed",
+            Self::ActionUnavailable => "action unavailable for this runtime or supported desktop",
+            Self::ConcurrentWriter => "another managed attempt may write this project root; inspect it or repeat with --allow-shared-checkout",
             Self::InvalidRequest => "invalid manager command",
             Self::UnsafePath => "unsafe manager or runtime path",
             Self::Unavailable => "manager unavailable; start manager serve",

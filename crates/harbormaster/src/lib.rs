@@ -60,8 +60,10 @@ Usage: harbormaster [--help | --version]\n\
        harbormaster task list PROJECT_ID [AFTER_TASK_ID]\n\
        harbormaster task plan TASK_ID\n\
        harbormaster manager serve|status|stop\n\
-       harbormaster run launch TASK_ID --logout-policy existing\n\
-       harbormaster run list PROJECT_ID [AFTER_RUN_ID]\n\n\
+       harbormaster run launch TASK_ID --logout-policy existing [--allow-shared-checkout]\n\
+       harbormaster run list PROJECT_ID [AFTER_RUN_ID]\n\
+       harbormaster run actions|open|attach|resume RUN_ID\n\
+       harbormaster run end RUN_ID --confirm\n\n\
 Options:\n  -h, --help     Show this help\n  -V, --version  Show package version\n\n\
 Commands return JSON. List pages contain at most 100 items and next_after.\n\
 State: $XDG_STATE_HOME/harbormaster or $HOME/.local/state/harbormaster.\n\

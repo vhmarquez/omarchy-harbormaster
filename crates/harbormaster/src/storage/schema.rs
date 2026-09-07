@@ -8,7 +8,7 @@ use std::io::Read;
 use std::path::Path;
 
 pub(super) const APPLICATION_ID: i64 = 0x4842_4d31;
-pub(super) const VERSION: i64 = 5;
+pub(super) const VERSION: i64 = 6;
 pub(super) const PAGE_SIZE: u32 = 4096;
 pub(super) const MAX_PAGES: u32 = 16_384;
 pub(super) const WAL_TRIGGER: u32 = 4 * 1024 * 1024;
@@ -101,7 +101,7 @@ pub(super) fn initialize(conn: &mut Connection) -> Result<(), StorageError> {
         "INSERT INTO metadata(id,revision,history_days) VALUES(1,?1,30)",
         [0_u64.to_be_bytes().as_slice()],
     )?;
-    tx.execute_batch("INSERT INTO maintenance VALUES(1,0,0,0,0); PRAGMA application_id=1212304689; PRAGMA user_version=5;")?;
+    tx.execute_batch("INSERT INTO maintenance VALUES(1,0,0,0,0); PRAGMA application_id=1212304689; PRAGMA user_version=6;")?;
     tx.commit()?;
     Ok(())
 }
@@ -119,7 +119,7 @@ pub(super) fn inspect(conn: &Connection) -> Result<i64, StorageError> {
         return Err(StorageError::CorruptDatabase);
     }
     let mut query = conn.prepare(
-        "SELECT name,sql FROM sqlite_schema WHERE name NOT LIKE 'sqlite_%' ORDER BY name LIMIT 14",
+        "SELECT name,sql FROM sqlite_schema WHERE name NOT LIKE 'sqlite_%' ORDER BY name LIMIT 15",
     )?;
     let actual = query
         .query_map([], |row| {
@@ -180,6 +180,11 @@ fn expected_layout(version: i64) -> Vec<(String, String)> {
             .into_iter()
             .map(|(name, sql)| (name.to_owned(), sql))
             .collect::<Vec<_>>()
+    } else if version == 5 {
+        super::schema_layout::version_five()
+            .into_iter()
+            .map(|(name, sql)| (name.to_owned(), sql))
+            .collect()
     } else if version == 4 {
         super::schema_layout::version_four()
             .into_iter()
