@@ -100,3 +100,33 @@ fn focus_binding_and_persisted_metadata_reject_wrong_targets_and_expressions() {
     assert!(!control::component("../other-instance"));
     assert!(!control::target("$0\n", '$'));
 }
+
+#[test]
+fn finished_pane_requires_saved_exact_session_pane_and_pid() {
+    use super::ownership::{Pane, matching_dead_pane};
+    let saved = super::PaneIdentity {
+        process: ProcessIdentity::read(std::process::id()).unwrap(),
+        pane: "%0".into(),
+        session: "$0".into(),
+    };
+    let mut pane = Pane {
+        identity: saved.clone(),
+        dead: true,
+    };
+    // tmux retains the PID but cannot supply a dead worker's boot/start identity.
+    pane.identity.process.start_ticks = 0;
+    pane.identity.process.boot_id.clear();
+    assert!(matching_dead_pane(&pane, &saved).is_ok());
+    pane.dead = false;
+    assert!(matching_dead_pane(&pane, &saved).is_err());
+    pane.dead = true;
+    let mut wrong = saved.clone();
+    wrong.pane = "%1".into();
+    assert!(matching_dead_pane(&pane, &wrong).is_err());
+    wrong = saved.clone();
+    wrong.session = "$1".into();
+    assert!(matching_dead_pane(&pane, &wrong).is_err());
+    wrong = saved;
+    wrong.process.pid += 1;
+    assert!(matching_dead_pane(&pane, &wrong).is_err());
+}

@@ -48,9 +48,10 @@ impl Operations {
         let mut observed = state.clone();
         let owned = !state.stopped && self.runtime.reconcile(run, &mut observed).is_ok();
         let associated = owned && self.runtime.associate(run, state).is_ok();
+        let end = !state.stopped && self.runtime.can_end(run, &observed);
         serde_json::json!({"open":associated && !state.ending,
             "attach":owned && !state.ending && self.runtime.desktop_available(),
-            "end":owned, "resume":false, "limited_visibility":true,
+            "end":end, "resume":false, "limited_visibility":true,
             "terminal_unit":state.terminal.as_ref().map(TerminalIntent::unit)})
     }
 

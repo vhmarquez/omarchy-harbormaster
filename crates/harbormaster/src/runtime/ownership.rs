@@ -185,38 +185,56 @@ impl Backend {
         Ok(server.identity)
     }
 
-    pub(crate) fn end(&self, run: &ManagedRun, state: &ControlState) -> Result<(), ManagerError> {
-        if state.ending
+    pub(crate) fn can_end(&self, run: &ManagedRun, state: &ControlState) -> bool {
+        self.end_complete(run, state) || self.end_target(run, state).is_ok()
+    }
+
+    fn end_complete(&self, run: &ManagedRun, state: &ControlState) -> bool {
+        state.ending
             && run.server.as_ref().is_some_and(|p| !p.current())
             && state.pane.as_ref().is_some_and(|p| !p.process.current())
             && self.properties(&run.unit()).is_ok_and(|p| {
                 p.get("ActiveState")
                     .is_some_and(|s| s == "inactive" || s == "failed")
             })
-        {
-            return Ok(());
-        }
-        let server = self.owned_server(run, state)?;
+    }
+
+    fn end_target(
+        &self,
+        run: &ManagedRun,
+        state: &ControlState,
+    ) -> Result<(Server, Option<HeldProcess>), ManagerError> {
         let saved = state
             .pane
             .as_ref()
             .ok_or(ManagerError::OwnershipUnverified)?;
+        let server = self.owned_server(run, state)?;
         let current = self.pane(run, &server)?;
-        if !current.dead {
-            let (_, pane) = self.owned_pane(run, state, &server)?;
+        let pane = if current.dead {
+            matching_dead_pane(&current, saved)?;
+            None
+        } else {
+            Some(self.owned_pane(run, state, &server)?.1)
+        };
+        Ok((server, pane))
+    }
+
+    pub(crate) fn end(&self, run: &ManagedRun, state: &ControlState) -> Result<(), ManagerError> {
+        if self.end_complete(run, state) {
+            return Ok(());
+        }
+        let (server, pane) = self.end_target(run, state)?;
+        if let Some(pane) = pane {
             pane.terminate()?;
             if !pane.exited(3)? {
                 return Err(ManagerError::UnknownOutcome);
             }
         }
-        let after = self.pane(run, &server)?;
-        if !after.dead
-            || after.identity.pane != saved.pane
-            || after.identity.session != saved.session
-            || after.identity.process.pid != saved.process.pid
-        {
-            return Err(ManagerError::OwnershipUnverified);
-        }
+        let saved = state
+            .pane
+            .as_ref()
+            .ok_or(ManagerError::OwnershipUnverified)?;
+        matching_dead_pane(&self.pane(run, &server)?, saved)?;
         self.owned_server(run, state)?;
         server.held.terminate()?;
         if !server.held.exited(3)? {
@@ -224,6 +242,17 @@ impl Backend {
         }
         Ok(())
     }
+}
+
+pub(super) fn matching_dead_pane(pane: &Pane, saved: &PaneIdentity) -> Result<(), ManagerError> {
+    if !pane.dead
+        || pane.identity.pane != saved.pane
+        || pane.identity.session != saved.session
+        || pane.identity.process.pid != saved.process.pid
+    {
+        return Err(ManagerError::OwnershipUnverified);
+    }
+    Ok(())
 }
 
 pub(super) fn description(run: &ManagedRun, nonce: &crate::protocol::RunId) -> String {
