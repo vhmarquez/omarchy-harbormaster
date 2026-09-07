@@ -6,10 +6,11 @@ passed post-merge qualification. [Completion evidence](https://github.com/vhmarq
 
 The owner subsequently authorized continued implementation under the revised
 [first usable Hermes plugin plan](https://github.com/vhmarquez/omarchy-harbormaster/issues/1).
-Current branch `codex/m2-11-project-registry` implements #11's usable project,
-preset and task CLI. [Responsibilities and scope](M2-11-PROJECTS.md) were recorded
-before production work. Stop for explicit approval of this PR/revision before
-merge or dependent #12 work. No deployment or live profile activation is implied.
+PR #53 is approved and merged; #11 is complete at qualified main `59880ff`.
+The owner authorized #12 on `codex/m2-12-managed-runtime`.
+[Responsibilities and scope](M2-12-RUNTIME.md) are recorded before production
+work. Stop for explicit approval of this PR/revision before merge or dependent
+#13 work. No deployment or live profile activation is implied.
 
 The owner's revised workflow supersedes the historical exhaustive evidence
 instructions below: focused consequential tests while implementing, one practical
