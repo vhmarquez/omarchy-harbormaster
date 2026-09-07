@@ -40,9 +40,12 @@ pub(super) fn migrate(conn: &mut Connection) -> Result<(), StorageError> {
             tx.execute_batch(sql)?;
         }
     }
-    tx.execute_batch(super::runners::TABLE.1)?;
+    if version < 5 {
+        tx.execute_batch(super::runners::TABLE.1)?;
+    }
+    tx.execute_batch(super::runtime_control::TABLE.1)?;
     super::queries::advance(&tx, next)?;
-    tx.execute_batch("PRAGMA user_version=5")?;
+    tx.execute_batch("PRAGMA user_version=6")?;
     tx.commit()?;
     Ok(())
 }

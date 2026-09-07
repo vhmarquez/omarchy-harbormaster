@@ -16,6 +16,7 @@ mod reducer_types;
 mod reducer_validation;
 mod retirement;
 mod runners;
+mod runtime_control;
 mod schema;
 mod schema_layout;
 mod transaction;

@@ -16,6 +16,18 @@ pub(super) fn execute(
     request: &RunnerRequest,
 ) -> Result<RunnerResponse, StorageError> {
     match request {
+        RunnerRequest::Get { id } => catalog::get(
+            conn,
+            "SELECT record FROM managed_runs WHERE id=?1",
+            [id.as_str()],
+        )
+        .map(RunnerResponse::Found),
+        RunnerRequest::ByTask { task_id } => catalog::get(
+            conn,
+            "SELECT record FROM managed_runs WHERE task=?1",
+            [task_id.as_str()],
+        )
+        .map(RunnerResponse::Found),
         RunnerRequest::Reserve {
             task_id,
             runtime_root,
@@ -89,6 +101,11 @@ fn reserve(
             run.project_id.as_str(),
             catalog::encode(&run)?
         ],
+    )?;
+    let control = crate::runtime::ControlState::new(run.id.clone(), Some(catalog::fresh()?));
+    tx.execute(
+        "INSERT INTO runtime_controls VALUES(?1,?2)",
+        params![run.id.as_str(), catalog::encode(&control)?],
     )?;
     queries::advance(&tx, next)?;
     tx.commit()?;

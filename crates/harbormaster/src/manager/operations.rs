@@ -55,7 +55,12 @@ impl Operations {
             Command::Status => Ok(serde_json::json!({"manager":"running"})),
             Command::Stop => Ok(serde_json::json!({"manager":"stopping"})),
             Command::Catalog { request } => catalog(&self.database, request.clone()),
-            Command::Launch { task_id, .. } => self.launch(task_id),
+            Command::Launch {
+                task_id,
+                allow_shared_checkout,
+                ..
+            } => self.launch(task_id, *allow_shared_checkout),
+            Command::RunAction { run_id, action } => self.run_action(run_id, *action),
             Command::Runs { project_id, after } => {
                 let response = submit(
                     &self.database,
@@ -82,60 +87,11 @@ impl Operations {
         }
     }
 
-    fn runner(&self, request: RunnerRequest) -> Result<RunnerResponse, ManagerError> {
+    pub(super) fn runner(&self, request: RunnerRequest) -> Result<RunnerResponse, ManagerError> {
         match submit(&self.database, Store::Runner(Box::new(request)))? {
             Response::Runner(response) => Ok(*response),
             _ => Err(ManagerError::PersistenceUnavailable),
         }
-    }
-
-    fn launch(&self, task_id: &crate::protocol::TaskId) -> Result<serde_json::Value, ManagerError> {
-        let records = submit(
-            &self.database,
-            Store::Catalog(Box::new(CatalogRequest::Task {
-                id: task_id.clone(),
-            })),
-        )?;
-        let Response::Catalog(records) = records else {
-            return Err(ManagerError::PersistenceUnavailable);
-        };
-        let CatalogResponse::Launch {
-            project,
-            preset,
-            task,
-        } = *records
-        else {
-            return Err(ManagerError::PersistenceUnavailable);
-        };
-        PreparedLaunch::new(project.clone(), preset.clone(), task.clone())?;
-        self.runtime.preflight()?;
-        let response = self.runner(RunnerRequest::Reserve {
-            task_id: task_id.clone(),
-            runtime_root: self.runtime.root(),
-        })?;
-        let RunnerResponse::Reserved { mut run, created } = response else {
-            return Err(ManagerError::PersistenceUnavailable);
-        };
-        if created {
-            let server = self
-                .runtime
-                .start(&run, project, preset, task)
-                .map_err(|_| ManagerError::UnknownOutcome)?;
-            let response = self
-                .runner(RunnerRequest::Identify {
-                    id: run.id.clone(),
-                    server,
-                })
-                .map_err(|_| ManagerError::UnknownOutcome)?;
-            let RunnerResponse::Identified(identified) = response else {
-                return Err(ManagerError::PersistenceUnavailable);
-            };
-            run = identified;
-            self.runtime
-                .start_pane(&run)
-                .map_err(|_| ManagerError::UnknownOutcome)?;
-        }
-        serde_json::to_value(self.runtime.observe(run)).map_err(|_| ManagerError::InvalidRequest)
     }
 }
 

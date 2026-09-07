@@ -91,7 +91,8 @@ impl Engine {
         if matches!(request, Request::RestoreBackup) {
             return self.restore();
         }
-        let read_only = matches!(request, Request::Runner(r) if matches!(**r, crate::runtime::RunnerRequest::List { .. }))
+        let read_only = matches!(request, Request::Runner(r) if matches!(**r, crate::runtime::RunnerRequest::List { .. } | crate::runtime::RunnerRequest::Get { .. } | crate::runtime::RunnerRequest::ByTask { .. }))
+            || matches!(request, Request::RuntimeControl(r) if !matches!(**r, crate::runtime::ControlRequest::Save(_)))
             || matches!(request, Request::Catalog(catalog) if catalog.is_read())
             || matches!(
                 request,
@@ -224,6 +225,8 @@ fn dispatch(
         Request::Runner(request) => {
             super::runners::execute(conn, request).map(|r| Response::Runner(Box::new(r)))
         }
+        Request::RuntimeControl(request) => super::runtime_control::execute(conn, request)
+            .map(|r| Response::RuntimeControl(Box::new(r))),
         Request::Catalog(request) => super::catalog::execute(conn, request)
             .map(|response| Response::Catalog(Box::new(response))),
         Request::Context(fact) => {

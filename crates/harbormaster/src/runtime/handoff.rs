@@ -32,7 +32,9 @@ pub(super) fn create(
 ) -> Result<(), ManagerError> {
     let directory = run.directory();
     private_directory(directory.parent().ok_or(ManagerError::UnsafePath)?, true)?;
-    std::fs::DirBuilder::new().mode(0o700).create(&directory)?;
+    if !directory.try_exists()? {
+        std::fs::DirBuilder::new().mode(0o700).create(&directory)?;
+    }
     let fd = private_directory(&directory, false)?;
     let data = serde_json::to_vec(&Launch {
         project,
@@ -43,6 +45,18 @@ pub(super) fn create(
     .map_err(|_| ManagerError::InvalidRequest)?;
     if data.len() > 32768 {
         return Err(ManagerError::InvalidRequest);
+    }
+    if directory.join("claimed.json").try_exists()? {
+        return Err(ManagerError::UnknownOutcome);
+    }
+    if directory.join("launch.json").try_exists()? {
+        let existing = serde_json::to_vec(&load(&fd, "launch.json")?)
+            .map_err(|_| ManagerError::InvalidRequest)?;
+        return if existing == data {
+            Ok(())
+        } else {
+            Err(ManagerError::OwnershipUnverified)
+        };
     }
     let file = fs::openat(
         &fd,
@@ -60,7 +74,18 @@ pub(super) fn create(
 /// Entered only as the fixed tmux pane command; all metadata is revalidated.
 pub(crate) fn worker(directory: &Path) -> Result<(), ManagerError> {
     let fd = private_directory(directory, false)?;
-    let launch = load(&fd)?;
+    // Atomic, non-replacing claim survives crashes and prevents a delayed or
+    // repeated pane activation from executing the handoff twice.
+    fs::renameat_with(
+        &fd,
+        "launch.json",
+        &fd,
+        "claimed.json",
+        fs::RenameFlags::NOREPLACE,
+    )
+    .map_err(|_| ManagerError::UnknownOutcome)?;
+    fs::fsync(&fd).map_err(|_| ManagerError::UnknownOutcome)?;
+    let launch = load(&fd, "claimed.json")?;
     let cwd = crate::projects::paths::open_identity(
         Path::new(launch.project.root.as_str()),
         false,
@@ -91,16 +116,15 @@ pub(crate) fn worker(directory: &Path) -> Result<(), ManagerError> {
     // Scripts need the pinned descriptor across the interpreter exec. No raw FFI.
     rustix::io::fcntl_setfd(&executable, rustix::io::FdFlags::empty())
         .map_err(|_| ManagerError::UnsafePath)?;
-    fs::unlinkat(&fd, "launch.json", fs::AtFlags::empty()).map_err(|_| ManagerError::UnsafePath)?;
     Err(command.exec().into())
 }
 
 use std::os::unix::fs::DirBuilderExt;
 
-fn load(fd: &std::os::fd::OwnedFd) -> Result<Launch, ManagerError> {
+fn load(fd: &std::os::fd::OwnedFd, name: &str) -> Result<Launch, ManagerError> {
     let file = fs::openat(
         fd,
-        "launch.json",
+        name,
         OFlags::RDONLY | OFlags::NOFOLLOW | OFlags::NONBLOCK | OFlags::CLOEXEC,
         Mode::empty(),
     )
@@ -121,4 +145,16 @@ fn load(fd: &std::os::fd::OwnedFd) -> Result<Launch, ManagerError> {
         return Err(ManagerError::InvalidRequest);
     }
     serde_json::from_slice(&data).map_err(|_| ManagerError::InvalidRequest)
+}
+
+pub(super) fn pending(run: &ManagedRun) -> Result<bool, ManagerError> {
+    let directory = run.directory();
+    let fd = private_directory(&directory, false)?;
+    if directory.join("claimed.json").try_exists()?
+        || !directory.join("launch.json").try_exists()?
+    {
+        return Ok(false);
+    }
+    load(&fd, "launch.json")?;
+    Ok(true)
 }

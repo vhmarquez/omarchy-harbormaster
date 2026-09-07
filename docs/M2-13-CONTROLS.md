@@ -33,8 +33,8 @@ effect boundaries. No new external package or speculative adapter framework.
 ## Implementation limits and verification
 
 Use the accepted standalone foot/Hyprland path from ADR 0002. A separately owned
-terminal service survives manager lifetime. Open focuses a verified association
-or attaches to the existing runtime; Attach never creates another harness job.
+terminal service survives manager lifetime. Open focuses a verified association; Attach connects a terminal to the existing
+runtime and never creates another harness job.
 Unknown launch/activation outcomes are reconciled conservatively, not retried
 blindly. End requests graceful termination through held identities only, with
 a deadline and no numeric-PID or wildcard fallback. Unsupported actions return

@@ -22,16 +22,33 @@ pub(crate) enum Command {
     Launch {
         task_id: TaskId,
         logout_policy: LogoutPolicy,
+        #[serde(default)]
+        allow_shared_checkout: bool,
+    },
+    RunAction {
+        run_id: RunId,
+        action: RunAction,
     },
     Runs {
         project_id: ProjectId,
         after: Option<RunId>,
     },
 }
+
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub(crate) enum RunAction {
+    Actions,
+    Open,
+    Attach,
+    Resume,
+    End,
+}
 impl Command {
     pub(crate) fn stateful(&self) -> bool {
         match self {
             Self::Status | Self::Runs { .. } => false,
+            Self::RunAction { action, .. } => !matches!(action, RunAction::Actions),
             Self::Catalog { request } => !request.is_read(),
             Self::Stop | Self::Launch { .. } => true,
         }

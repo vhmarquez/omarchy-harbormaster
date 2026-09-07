@@ -7,12 +7,20 @@ use std::{
 };
 
 pub(super) fn run(mut command: Command) -> Result<String, ManagerError> {
+    bounded(&mut command, 8192)
+}
+
+pub(super) fn compositor(mut command: Command) -> Result<String, ManagerError> {
+    bounded(&mut command, 262_144)
+}
+
+fn bounded(command: &mut Command, limit: usize) -> Result<String, ManagerError> {
     command
         .stdin(Stdio::null())
         .stdout(Stdio::piped())
         .stderr(Stdio::null());
     let mut child = command.spawn()?;
-    let result = collect(&mut child);
+    let result = collect(&mut child, limit);
     if result.is_err() {
         let _ = child.kill();
         let _ = child.wait();
@@ -20,7 +28,7 @@ pub(super) fn run(mut command: Command) -> Result<String, ManagerError> {
     result
 }
 
-fn collect(child: &mut std::process::Child) -> Result<String, ManagerError> {
+fn collect(child: &mut std::process::Child, limit: usize) -> Result<String, ManagerError> {
     let mut stdout = child
         .stdout
         .take()
@@ -45,7 +53,7 @@ fn collect(child: &mut std::process::Child) -> Result<String, ManagerError> {
             }
             Err(_) => return Err(ManagerError::RuntimeUnavailable),
         };
-        if bytes.len() > 8192 || Instant::now() >= deadline {
+        if bytes.len() > limit || Instant::now() >= deadline {
             return Err(ManagerError::UnknownOutcome);
         }
         if let Some(status) = child.try_wait()? {

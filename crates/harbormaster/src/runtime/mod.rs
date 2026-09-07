@@ -1,10 +1,20 @@
 //! Independent, explicitly owned terminal runtimes. No harness content capture.
+mod association;
 mod command;
+pub(crate) mod control;
+mod desktop;
 mod handoff;
+mod ownership;
 mod process;
 mod service;
+mod terminal;
+#[cfg(test)]
+mod tests;
 
 use crate::protocol::{LocalPath, ProjectId, RunId, TaskId};
+pub use control::{
+    ControlRequest, ControlResponse, ControlState, PaneIdentity, TerminalIntent, WindowIdentity,
+};
 pub(crate) use handoff::worker;
 pub use process::ProcessIdentity;
 use serde::{Deserialize, Serialize};
@@ -58,6 +68,12 @@ pub struct RunView {
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum RunnerRequest {
+    Get {
+        id: RunId,
+    },
+    ByTask {
+        task_id: TaskId,
+    },
     Reserve {
         task_id: TaskId,
         runtime_root: LocalPath,
@@ -74,6 +90,7 @@ pub enum RunnerRequest {
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum RunnerResponse {
+    Found(Option<ManagedRun>),
     Reserved { run: ManagedRun, created: bool },
     Identified(ManagedRun),
     Listed(crate::projects::Page<ManagedRun>),
