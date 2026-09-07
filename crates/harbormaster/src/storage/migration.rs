@@ -8,33 +8,38 @@ pub(super) fn migrate(conn: &mut Connection) -> Result<(), StorageError> {
     let next = super::queries::revision(&tx)?
         .checked_next()
         .ok_or(StorageError::ResourceExhausted)?;
-    for (name, sql) in schema_layout::current() {
-        if name == "attention_active_scope" {
-            tx.execute_batch(&sql)?;
-            continue;
+    if version < 3 {
+        for (name, sql) in schema_layout::version_three() {
+            if name == "attention_active_scope" {
+                tx.execute_batch(&sql)?;
+                continue;
+            }
+            if name == "maintenance" && version == 1 {
+                tx.execute_batch(&sql)?;
+                tx.execute_batch("INSERT INTO maintenance VALUES(1,0,0,0,0)")?;
+                continue;
+            }
+            let columns = match name {
+                "producers" => "producer,generation,run,harness,next_seq,active",
+                "metadata" => "id,revision,history_days",
+                "projections" => "run,process,observation,turn,turn_id",
+                "attention" => "producer,generation,event,run,reason,reviewed",
+                "outbox" => "producer,generation,event,run,state,created,changed",
+                "tombstones" => "producer,generation,run,turn_id,event,created",
+                _ => continue,
+            };
+            // Names/columns come only from these fixed manager-owned literals.
+            tx.execute_batch(&format!("ALTER TABLE {name} RENAME TO legacy_{name};{sql};INSERT INTO {name}({columns}) SELECT {columns} FROM legacy_{name};DROP TABLE legacy_{name}"))?;
         }
-        if name == "maintenance" && version == 1 {
-            tx.execute_batch(&sql)?;
-            tx.execute_batch("INSERT INTO maintenance VALUES(1,0,0,0,0)")?;
-            continue;
-        }
-        let columns = match name {
-            "producers" => "producer,generation,run,harness,next_seq,active",
-            "metadata" => "id,revision,history_days",
-            "projections" => "run,process,observation,turn,turn_id",
-            "attention" => "producer,generation,event,run,reason,reviewed",
-            "outbox" => "producer,generation,event,run,state,created,changed",
-            "tombstones" => "producer,generation,run,turn_id,event,created",
-            _ => continue,
-        };
-        // Names/columns come only from these fixed manager-owned literals.
-        tx.execute_batch(&format!("ALTER TABLE {name} RENAME TO legacy_{name};{sql};INSERT INTO {name}({columns}) SELECT {columns} FROM legacy_{name};DROP TABLE legacy_{name}"))?;
+        backfill(&tx)?;
+        super::retirement::all(&tx)?;
+        super::retirement::legacy(&tx)?;
     }
-    backfill(&tx)?;
-    super::retirement::all(&tx)?;
-    super::retirement::legacy(&tx)?;
+    for (_, sql) in super::catalog::TABLES {
+        tx.execute_batch(sql)?;
+    }
     super::queries::advance(&tx, next)?;
-    tx.execute_batch("PRAGMA user_version=3")?;
+    tx.execute_batch("PRAGMA user_version=4")?;
     tx.commit()?;
     Ok(())
 }

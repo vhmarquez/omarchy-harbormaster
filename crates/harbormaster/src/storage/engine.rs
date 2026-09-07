@@ -91,16 +91,17 @@ impl Engine {
         if matches!(request, Request::RestoreBackup) {
             return self.restore();
         }
-        let read_only = matches!(
-            request,
-            Request::Snapshot(_)
-                | Request::Producer(_)
-                | Request::Outcome(_)
-                | Request::Context(_)
-                | Request::Policy
-                | Request::Status
-                | Request::CleanupPreview { .. }
-        );
+        let read_only = matches!(request, Request::Catalog(catalog) if catalog.is_read())
+            || matches!(
+                request,
+                Request::Snapshot(_)
+                    | Request::Producer(_)
+                    | Request::Outcome(_)
+                    | Request::Context(_)
+                    | Request::Policy
+                    | Request::Status
+                    | Request::CleanupPreview { .. }
+            );
         let conn = self
             .connection
             .as_mut()
@@ -219,6 +220,8 @@ fn dispatch(
     owner: &std::sync::Arc<()>,
 ) -> Result<Response, StorageError> {
     match request {
+        Request::Catalog(request) => super::catalog::execute(conn, request)
+            .map(|response| Response::Catalog(Box::new(response))),
         Request::Context(fact) => {
             super::context::context(conn, fact).map(|context| Response::Context(Box::new(context)))
         }

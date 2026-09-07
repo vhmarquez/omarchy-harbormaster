@@ -1,15 +1,28 @@
 # Current continuation
 
-The owner approved and merged PR #51 on 2026-09-06; #7–#9 are closed.
-Actual main `23be30f0d8fa4fb9767241d08faa0a543a3c950b` passed fresh post-merge
-hosted Docker, local combined, dedicated native and paired qualification.
-[Actual main evidence](../evidence/m1-10/post-merge-main/summary.json) and
-[#10 responsibilities](M1-10-DEVELOPMENT.md) establish the current baseline
-and boundaries recorded before production implementation. Work proceeds on
-`codex/m1-10-reducers-recovery`; every subsequent PR/revision still needs
-explicit owner approval before merge or dependent implementation. M2 has not
-begun. The #7 records below are historical; their former merge and retention
-blockers are superseded by verified owner merges and the approved #9 policy.
+M1 is complete: owner-approved PRs #49–#52 are merged, issues #7–#10 and
+milestone 2 are closed, and actual main `9e8b2d2d45b2f6ff7d574c339c90616ef4cfc16a`
+passed post-merge qualification. [Completion evidence](https://github.com/vhmarquez/omarchy-harbormaster/issues/10#issuecomment-5562630253).
+
+The owner subsequently authorized continued implementation under the revised
+[first usable Hermes plugin plan](https://github.com/vhmarquez/omarchy-harbormaster/issues/1).
+Current branch `codex/m2-11-project-registry` implements #11's usable project,
+preset and task CLI. [Responsibilities and scope](M2-11-PROJECTS.md) were recorded
+before production work. Stop for explicit approval of this PR/revision before
+merge or dependent #12 work. No deployment or live profile activation is implied.
+
+The owner's revised workflow supersedes the historical exhaustive evidence
+instructions below: focused consequential tests while implementing, one practical
+integration demonstration and one focused independent review, concise summaries
+and raw logs kept separately. Use existing Docker CI and separately mandatory
+native qualification. Repeat only for relevant changes, actual failures or
+unresolved concerns; identical selected bytes can reuse actual execution records
+when canonical pairing binds them to the exact candidate/merge SHA. No routine
+mutation campaigns, overlapping reviews or evidence-only PR loops. Keep the
+existing isolation, ownership, privacy, retention and native approval protections.
+
+The following #7 contract is historical context, not a current merge blocker or
+permission to ignore the updated owner direction.
 
 # Development contract — M1 #7
 

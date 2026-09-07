@@ -214,7 +214,7 @@ fn migration_uses_verified_backup_and_future_schema_is_untouched() {
         .connection
         .as_ref()
         .unwrap()
-        .execute_batch("PRAGMA user_version=4")
+        .execute_batch("PRAGMA user_version=5")
         .unwrap();
     drop(engine);
     let before = std::fs::read(fixture.database()).unwrap();
@@ -274,6 +274,8 @@ fn ownership_is_exclusive_and_completed_inode_replacement_is_detected() {
 
 pub(super) fn legacy_schema(engine: &Engine, version: i64) {
     let conn = engine.connection.as_ref().unwrap();
+    conn.execute_batch("DROP TABLE tasks; DROP TABLE presets; DROP TABLE projects")
+        .unwrap();
     for (name, _) in super::super::super::schema_layout::LEGACY {
         conn.execute_batch(&format!("DROP TABLE {name}")).unwrap();
     }

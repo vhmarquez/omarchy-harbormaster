@@ -113,6 +113,7 @@ pub struct DeliveryUpdate {
 }
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Request {
+    Catalog(Box<crate::projects::CatalogRequest>),
     Context(Box<EventEnvelope>),
     Apply(Box<super::ReducerWrite>),
     Reconcile(Box<super::Reconciliation>),
@@ -179,6 +180,7 @@ pub struct MaintenanceResult {
 }
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Response {
+    Catalog(Box<crate::projects::CatalogResponse>),
     Retired {
         revision: Revision,
     },

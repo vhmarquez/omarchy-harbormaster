@@ -228,7 +228,13 @@ fn open_root(path: &Path, uid: u32) -> Result<OwnedFd, StorageError> {
         }
         directory_safe(&fs::fstat(&fd)?, uid, false)?;
     }
-    directory_safe(&fs::fstat(&fd)?, uid, true)?;
+    // XDG_STATE_HOME is a shared namespace parent, conventionally 0755.
+    // The manager's child directory and files retain their private modes.
+    let stat = fs::fstat(&fd)?;
+    directory_safe(&stat, uid, false)?;
+    if stat.st_uid != uid {
+        return Err(StorageError::UnsafePath);
+    }
     Ok(fd)
 }
 fn directory_safe(stat: &Stat, uid: u32, private: bool) -> Result<(), StorageError> {

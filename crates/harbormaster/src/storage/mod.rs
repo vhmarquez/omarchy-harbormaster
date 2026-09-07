@@ -1,6 +1,7 @@
 //! Manager-owned SQLite storage, reachable only through the bounded worker.
 mod attention_state;
 mod backup;
+mod catalog;
 mod context;
 mod engine;
 mod maintenance;

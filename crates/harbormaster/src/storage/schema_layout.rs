@@ -34,7 +34,7 @@ pub(super) const LEGACY: [(&str, &str); 8] = [
     ),
 ];
 
-pub(super) fn current() -> Vec<(&'static str, String)> {
+pub(super) fn version_three() -> Vec<(&'static str, String)> {
     let mut tables = LEGACY
         .iter()
         .map(|(name, sql)| (*name, (*sql).to_owned()))
@@ -66,5 +66,15 @@ pub(super) fn current() -> Vec<(&'static str, String)> {
         sql.insert_str(position, extra);
     }
     tables.push(("attention_active_scope", "CREATE UNIQUE INDEX attention_active_scope ON attention(producer,resolution_generation,run,coalesce(turn_id,''),reason) WHERE scoped=1 AND resolved=0 AND reason IN(0,1,3)".to_owned()));
+    tables
+}
+
+pub(super) fn current() -> Vec<(&'static str, String)> {
+    let mut tables = version_three();
+    tables.extend(
+        super::catalog::TABLES
+            .iter()
+            .map(|(name, sql)| (*name, (*sql).to_owned())),
+    );
     tables
 }

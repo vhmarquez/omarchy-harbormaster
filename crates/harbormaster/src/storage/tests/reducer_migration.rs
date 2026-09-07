@@ -43,7 +43,7 @@ fn both_legacy_versions_preserve_receipt_bytes_and_known_or_unprovable_outcomes(
         let mut engine = fixture.open();
         assert_eq!(
             schema::inspect(engine.connection.as_ref().unwrap()).unwrap(),
-            3
+            schema::VERSION
         );
         assert_eq!(
             schema::header(&fixture.root.join("harbormaster/state.backup.db")).unwrap(),
