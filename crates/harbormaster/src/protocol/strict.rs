@@ -87,7 +87,7 @@ impl<'de> Visitor<'de> for StrictValue {
     }
 }
 
-pub(super) fn decode(frame: &[u8]) -> Result<Value, ProtocolError> {
+pub(crate) fn decode(frame: &[u8]) -> Result<Value, ProtocolError> {
     if frame.len() > MAX_FRAME_BYTES || frame.last() != Some(&b'\n') {
         return Err(ProtocolError::InvalidFrame);
     }
@@ -112,7 +112,7 @@ pub(super) fn decode(frame: &[u8]) -> Result<Value, ProtocolError> {
     }
 }
 
-pub(super) fn typed<T: for<'de> Deserialize<'de>>(value: Value) -> Result<T, ProtocolError> {
+pub(crate) fn typed<T: for<'de> Deserialize<'de>>(value: Value) -> Result<T, ProtocolError> {
     serde_json::from_value(value).map_err(|_| ProtocolError::InvalidFrame)
 }
 

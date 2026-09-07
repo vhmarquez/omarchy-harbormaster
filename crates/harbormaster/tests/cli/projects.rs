@@ -11,11 +11,11 @@ use std::{
 
 static NEXT: AtomicUsize = AtomicUsize::new(0);
 
-struct Fixture {
-    root: PathBuf,
+pub(super) struct Fixture {
+    pub(super) root: PathBuf,
 }
 impl Fixture {
-    fn new() -> Self {
+    pub(super) fn new() -> Self {
         let root = PathBuf::from(std::env::var_os("TMPDIR").unwrap()).join(format!(
             "catalog-{}-{}",
             std::process::id(),
@@ -37,20 +37,22 @@ impl Fixture {
         Self { root }
     }
 
-    fn path(&self, name: &str) -> String {
+    pub(super) fn path(&self, name: &str) -> String {
         self.root.join(name).to_str().unwrap().to_owned()
     }
-    fn run(&self, args: &[&str]) -> Output {
-        Command::new(env!("CARGO_BIN_EXE_harbormaster"))
-            .args(args)
+    pub(super) fn command(&self) -> Command {
+        let mut command = Command::new(env!("CARGO_BIN_EXE_harbormaster"));
+        command
             .env_clear()
             .env("HOME", self.root.join("home"))
             .env("XDG_STATE_HOME", self.root.join("state"))
             .env("HERMES_HOME", "synthetic-untrusted-home")
             .env("OPENAI_API_KEY", "synthetic-secret-canary")
-            .current_dir(self.root.join("project with spaces"))
-            .output()
-            .unwrap()
+            .current_dir(self.root.join("project with spaces"));
+        command
+    }
+    fn run(&self, args: &[&str]) -> Output {
+        self.command().args(args).output().unwrap()
     }
     fn json(&self, args: &[&str]) -> Value {
         let output = self.run(args);
@@ -63,7 +65,7 @@ impl Fixture {
         assert!(!String::from_utf8_lossy(&output.stdout).contains("synthetic-secret-canary"));
         serde_json::from_slice(&output.stdout).unwrap()
     }
-    fn records(&self) -> (Project, Preset, Task) {
+    pub(super) fn records(&self) -> (Project, Preset, Task) {
         let project = self.json(&[
             "project",
             "add",

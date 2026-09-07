@@ -8,7 +8,7 @@ use std::io::Read;
 use std::path::Path;
 
 pub(super) const APPLICATION_ID: i64 = 0x4842_4d31;
-pub(super) const VERSION: i64 = 4;
+pub(super) const VERSION: i64 = 5;
 pub(super) const PAGE_SIZE: u32 = 4096;
 pub(super) const MAX_PAGES: u32 = 16_384;
 pub(super) const WAL_TRIGGER: u32 = 4 * 1024 * 1024;
@@ -101,7 +101,7 @@ pub(super) fn initialize(conn: &mut Connection) -> Result<(), StorageError> {
         "INSERT INTO metadata(id,revision,history_days) VALUES(1,?1,30)",
         [0_u64.to_be_bytes().as_slice()],
     )?;
-    tx.execute_batch("INSERT INTO maintenance VALUES(1,0,0,0,0); PRAGMA application_id=1212304689; PRAGMA user_version=4;")?;
+    tx.execute_batch("INSERT INTO maintenance VALUES(1,0,0,0,0); PRAGMA application_id=1212304689; PRAGMA user_version=5;")?;
     tx.commit()?;
     Ok(())
 }
@@ -119,30 +119,14 @@ pub(super) fn inspect(conn: &Connection) -> Result<i64, StorageError> {
         return Err(StorageError::CorruptDatabase);
     }
     let mut query = conn.prepare(
-        "SELECT name,sql FROM sqlite_schema WHERE name NOT LIKE 'sqlite_%' ORDER BY name LIMIT 13",
+        "SELECT name,sql FROM sqlite_schema WHERE name NOT LIKE 'sqlite_%' ORDER BY name LIMIT 14",
     )?;
     let actual = query
         .query_map([], |row| {
             Ok((row.get::<_, String>(0)?, row.get::<_, String>(1)?))
         })?
         .collect::<Result<Vec<_>, _>>()?;
-    let mut expected = if version == VERSION {
-        super::schema_layout::current()
-            .into_iter()
-            .map(|(name, sql)| (name.to_owned(), sql))
-            .collect::<Vec<_>>()
-    } else if version == 3 {
-        super::schema_layout::version_three()
-            .into_iter()
-            .map(|(name, sql)| (name.to_owned(), sql))
-            .collect::<Vec<_>>()
-    } else {
-        super::schema_layout::LEGACY
-            .iter()
-            .filter(|(name, _)| version == 2 || *name != "maintenance")
-            .map(|(name, sql)| ((*name).to_owned(), (*sql).to_owned()))
-            .collect::<Vec<_>>()
-    };
+    let mut expected = expected_layout(version);
     expected.sort();
     if actual != expected {
         return Err(StorageError::ForeignDatabase);
@@ -188,4 +172,29 @@ pub(super) fn configure(conn: &Connection) -> Result<(), StorageError> {
 
 pub(super) fn migrate(conn: &mut Connection) -> Result<(), StorageError> {
     super::migration::migrate(conn)
+}
+
+fn expected_layout(version: i64) -> Vec<(String, String)> {
+    if version == VERSION {
+        super::schema_layout::current()
+            .into_iter()
+            .map(|(name, sql)| (name.to_owned(), sql))
+            .collect::<Vec<_>>()
+    } else if version == 4 {
+        super::schema_layout::version_four()
+            .into_iter()
+            .map(|(name, sql)| (name.to_owned(), sql))
+            .collect::<Vec<_>>()
+    } else if version == 3 {
+        super::schema_layout::version_three()
+            .into_iter()
+            .map(|(name, sql)| (name.to_owned(), sql))
+            .collect::<Vec<_>>()
+    } else {
+        super::schema_layout::LEGACY
+            .iter()
+            .filter(|(name, _)| version == 2 || *name != "maintenance")
+            .map(|(name, sql)| ((*name).to_owned(), (*sql).to_owned()))
+            .collect::<Vec<_>>()
+    }
 }

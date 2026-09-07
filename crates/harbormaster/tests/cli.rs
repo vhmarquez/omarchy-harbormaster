@@ -1,3 +1,5 @@
+#[path = "cli/manager.rs"]
+mod manager;
 #[path = "cli/projects.rs"]
 mod projects;
 mod support;

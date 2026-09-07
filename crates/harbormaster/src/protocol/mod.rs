@@ -5,7 +5,7 @@ mod control;
 mod event;
 mod identity;
 mod response;
-mod strict;
+pub(crate) mod strict;
 
 pub use capability::*;
 pub use control::*;
